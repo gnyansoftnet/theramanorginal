@@ -21,6 +21,8 @@ dependencies:
   talker_dio_logger: ^2.3.0
   dio_smart_retry: ^5.0.0
   multiple_result: ^5.1.0
+  pin_code_text_field: ^1.8.0
+  alt_sms_autofill: ^1.0.0
   
 
 dev_dependencies:

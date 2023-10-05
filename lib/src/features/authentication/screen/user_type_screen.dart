@@ -14,37 +14,51 @@ class UserTypeScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-          child: ListView(
-            shrinkWrap: true,
-            children: [
-              const CircleAvatar(
-                  radius: 85,
-                  backgroundImage:
-                      AssetImage("assets/images/harmoney_logo.jpg")),
-              gapH16,
-              ElevatedButtonWidget(
-                text: "I am Executive",
-                onPressed: () {},
-                borderRadus: 0.0,
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 25),
+          child: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: [
+                  const Image(
+                      fit: BoxFit.cover,
+                      height: 200,
+                      image: AssetImage("assets/images/harmoney_logo.png")),
+                  gapH20,
+                  userTypeCard(
+                      title: "I am  Executive",
+                      onPressed: () {},
+                      userType: "E"),
+                  gapH16,
+                  userTypeCard(
+                      title: "I am  Therapist",
+                      onPressed: () {
+                        context.navigateTo(LoginRoute(userType: "T"));
+                      },
+                      userType: "T"),
+                  gapH16,
+                  userTypeCard(
+                      title: "I am  Patient", onPressed: () {}, userType: "P")
+                ],
               ),
-              gapH16,
-              ElevatedButtonWidget(
-                  text: "I am Doctor",
-                  borderRadus: 0.0,
-                  onPressed: () {
-                    context.navigateTo(LoginRoute());
-                  }),
-              gapH16,
-              ElevatedButtonWidget(
-                text: "I am Patient",
-                onPressed: () {},
-                borderRadus: 0.0,
-              ),
-            ],
+            ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget userTypeCard({
+    required String title,
+    required VoidCallback onPressed,
+    required String userType,
+  }) {
+    return SizedBox(
+      width: 300,
+      height: 50,
+      child: ElevatedButton(
+          style: ElevatedButton.styleFrom(),
+          onPressed: onPressed,
+          child: AutoSizeText(title)),
     );
   }
 }

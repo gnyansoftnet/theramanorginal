@@ -12,12 +12,11 @@ class SendOtpNotifier extends AutoDisposeAsyncNotifier<SendOtpState> {
     return future;
   }
 
-  Future<void> sendOtp({
-    required mobileNo,
-  }) async {
+  Future<void> sendOtp({required mobileNo, required userType}) async {
     state = const AsyncLoading();
-    final result =
-        await ref.watch(loginRepoProvider).sendOtp(mobileNo: mobileNo);
+    final result = await ref
+        .watch(loginRepoProvider)
+        .sendOtp(mobileNo: mobileNo, userType: userType);
 
     result.when(
       (foodItem) {

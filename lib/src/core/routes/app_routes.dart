@@ -11,16 +11,19 @@ class AppRouter extends $AppRouter {
           path: '/',
           initial: true,
         ),
-
         AutoRoute(page: LoginRoute.page, path: "/LoginRoute"),
-        AutoRoute(page: VarifyOtpRoute.page, path: "/VerifyOtpRoute")
-        // AutoRoute(page: HomeRoute.page, initial: true, path: '/', children: [
-        //   AutoRoute(
-        //     page: DashboardRoute.page,
-        //   ),
-        //   AutoRoute(
-        //     page: UserProfileRoute.page,
-        //   )
-        // ])
+        AutoRoute(page: VarifyOtpRoute.page, path: "/VerifyOtpRoute"),
+        AutoRoute(
+            page: HomeRoute.page,
+            initial: false,
+            path: '/HomeRoute',
+            children: [
+              AutoRoute(
+                page: DashboardRoute.page,
+              ),
+              AutoRoute(
+                page: UserProfileRoute.page,
+              )
+            ])
       ];
 }

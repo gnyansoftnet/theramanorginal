@@ -46,13 +46,15 @@ abstract class $AppRouter extends _i7.RootStackRouter {
       );
     },
     LoginRoute.name: (routeData) {
-      final args = routeData.argsAs<LoginRouteArgs>(
-          orElse: () => const LoginRouteArgs());
+      final args = routeData.argsAs<LoginRouteArgs>();
       return _i7.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i7.DeferredWidget(
           _i3.loadLibrary,
-          () => _i3.LoginScreen(key: args.key),
+          () => _i3.LoginScreen(
+            key: args.key,
+            userType: args.userType,
+          ),
         ),
       );
     },
@@ -75,11 +77,16 @@ abstract class $AppRouter extends _i7.RootStackRouter {
       );
     },
     VarifyOtpRoute.name: (routeData) {
+      final args = routeData.argsAs<VarifyOtpRouteArgs>();
       return _i7.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i7.DeferredWidget(
           _i6.loadLibrary,
-          () => _i6.VerifyOtpScreen(),
+          () => _i6.VerifyOtpScreen(
+            key: args.key,
+            mobileNoController: args.mobileNoController,
+            userType: args.userType,
+          ),
         ),
       );
     },
@@ -119,10 +126,14 @@ class HomeRoute extends _i7.PageRouteInfo<void> {
 class LoginRoute extends _i7.PageRouteInfo<LoginRouteArgs> {
   LoginRoute({
     _i8.Key? key,
+    required String userType,
     List<_i7.PageRouteInfo>? children,
   }) : super(
           LoginRoute.name,
-          args: LoginRouteArgs(key: key),
+          args: LoginRouteArgs(
+            key: key,
+            userType: userType,
+          ),
           initialChildren: children,
         );
 
@@ -133,13 +144,18 @@ class LoginRoute extends _i7.PageRouteInfo<LoginRouteArgs> {
 }
 
 class LoginRouteArgs {
-  const LoginRouteArgs({this.key});
+  const LoginRouteArgs({
+    this.key,
+    required this.userType,
+  });
 
   final _i8.Key? key;
 
+  final String userType;
+
   @override
   String toString() {
-    return 'LoginRouteArgs{key: $key}';
+    return 'LoginRouteArgs{key: $key, userType: $userType}';
   }
 }
 
@@ -173,14 +189,43 @@ class UserTypeRoute extends _i7.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.VerifyOtpScreen]
-class VarifyOtpRoute extends _i7.PageRouteInfo<void> {
-  const VarifyOtpRoute({List<_i7.PageRouteInfo>? children})
-      : super(
+class VarifyOtpRoute extends _i7.PageRouteInfo<VarifyOtpRouteArgs> {
+  VarifyOtpRoute({
+    _i8.Key? key,
+    required _i8.TextEditingController mobileNoController,
+    required String userType,
+    List<_i7.PageRouteInfo>? children,
+  }) : super(
           VarifyOtpRoute.name,
+          args: VarifyOtpRouteArgs(
+            key: key,
+            mobileNoController: mobileNoController,
+            userType: userType,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'VarifyOtpRoute';
 
-  static const _i7.PageInfo<void> page = _i7.PageInfo<void>(name);
+  static const _i7.PageInfo<VarifyOtpRouteArgs> page =
+      _i7.PageInfo<VarifyOtpRouteArgs>(name);
+}
+
+class VarifyOtpRouteArgs {
+  const VarifyOtpRouteArgs({
+    this.key,
+    required this.mobileNoController,
+    required this.userType,
+  });
+
+  final _i8.Key? key;
+
+  final _i8.TextEditingController mobileNoController;
+
+  final String userType;
+
+  @override
+  String toString() {
+    return 'VarifyOtpRouteArgs{key: $key, mobileNoController: $mobileNoController, userType: $userType}';
+  }
 }

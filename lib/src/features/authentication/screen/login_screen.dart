@@ -5,12 +5,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:theraman/src/features/authentication/application/providers/login_provider.dart';
-import 'package:theraman/src/features/authentication/screen/login_button.dart';
+import 'package:theraman/src/features/authentication/screen/send_otp_button.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
 
 @RoutePage(deferredLoading: true, name: "LoginRoute")
 class LoginScreen extends ConsumerWidget {
-  LoginScreen({super.key});
+  final String userType;
+  LoginScreen({super.key, required this.userType});
   TextEditingController mobileNoController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -24,10 +25,10 @@ class LoginScreen extends ConsumerWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const CircleAvatar(
-                      radius: 85,
-                      backgroundImage:
-                          AssetImage("assets/images/harmoney_logo.jpg")),
+                  const Image(
+                      fit: BoxFit.cover,
+                      height: 200,
+                      image: AssetImage("assets/images/harmoney_logo.png")),
                   gapH16,
                   Card(
                     elevation: 0.5,
@@ -83,9 +84,12 @@ class LoginScreen extends ConsumerWidget {
                     ),
                   ),
                   gapH16,
-                  LoginButton(onSubmit: () {
-                    login(ref);
-                  })
+                  SendOtpButton(
+                      mobileNoController: mobileNoController,
+                      usertype: userType,
+                      onSubmit: () {
+                        login(ref);
+                      })
                 ],
               ),
             )),
@@ -101,8 +105,8 @@ class LoginScreen extends ConsumerWidget {
       );
     } else {
       ref
-          .read(loginProvider.notifier)
-          .sendOtp(mobileNo: mobileNoController.text);
+          .read(sendOtpProvider.notifier)
+          .sendOtp(mobileNo: mobileNoController.text, userType: userType);
     }
   }
 }
