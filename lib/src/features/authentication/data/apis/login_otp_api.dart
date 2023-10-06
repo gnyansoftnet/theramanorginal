@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:theraman/src/features/authentication/data/apis/i_login_api.dart';
+import 'package:theraman/src/utils/constants/app_urls.dart';
 
 class LoginApi extends ILoginApi {
   final Dio dio;
@@ -9,8 +10,8 @@ class LoginApi extends ILoginApi {
       {required String mobileNo,
       required String userType,
       CancelToken? cancelToken}) async {
-    return await dio.post(
-        'http://cms.softnetcms.com/Api/MApp_ServicesApi/RegisterUser/?Mobile_No=$mobileNo&Type=$userType');
+    return await dio
+        .post('${AppUrls.sendOtpUrl}/?Mobile_No=$mobileNo&Type=$userType');
   }
 
   @override
@@ -20,6 +21,6 @@ class LoginApi extends ILoginApi {
       required String userType,
       CancelToken? cancelToken}) async {
     return await dio.post(
-        "http://cms.softnetcms.com/Api/MApp_ServicesApi/VerifyOTP/?Mobile_No=$mobileNo&Type=$userType&Otp=$otp");
+        "${AppUrls.verifyOtpUrl}/?Mobile_No=$mobileNo&Type=$userType&Otp=$otp");
   }
 }

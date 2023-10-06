@@ -8,13 +8,14 @@ final userProvider = FutureProvider.autoDispose<UserModel>(
   (ref) async {
     // final token = ref.cancelToken();
     // final link = ref.cacheFor();
-    var staffCode = await Preferences.getPreference("staffCode", "");
+    String staffCode = await Preferences.getPreference("staffCode", "");
+    String userType = await Preferences.getPreference("userType", "");
     if (kDebugMode) {
       print("print staff code $staffCode");
     }
     final result = await ref
         .watch(userRepoProvider)
-        .getuserDetails(userType: "T", userId: staffCode);
+        .getuserDetails(userType: userType, userId: staffCode);
 
     return result.when(
       (sucess) {

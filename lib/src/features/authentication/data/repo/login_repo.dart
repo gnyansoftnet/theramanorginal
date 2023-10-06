@@ -50,6 +50,7 @@ class LoginRepo extends ILoginRepo {
         final user = UserModel.fromJson(response.data)..staffCode;
         Preferences.setPreference("staffCode", user.staffCode);
         Preferences.saveUser(usermodel);
+        Preferences.setPreference("userType", userType);
         return Success(UserModel.fromJson(response.data));
       } catch (e) {
         return Error(Exception());

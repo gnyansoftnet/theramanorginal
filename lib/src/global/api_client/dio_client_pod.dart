@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
+import 'package:theraman/src/utils/constants/app_urls.dart';
 import '../helper/app_talker.dart';
 import 'dio_interceptor.dart';
 
@@ -11,7 +12,7 @@ final dioProvider = Provider(
   (ref) {
     final Dio dio = Dio();
 
-    // dio.options.baseUrl = "jj";
+    dio.options.baseUrl = AppUrls.baseUrl;
     dio.options.connectTimeout = const Duration(seconds: 10);
     dio.options.receiveTimeout = const Duration(seconds: 10);
 
