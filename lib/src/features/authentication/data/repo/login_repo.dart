@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:theraman/src/features/authentication/data/apis/i_login_api.dart';
-
 import 'package:theraman/src/features/authentication/data/repo/i_login_repo.dart';
-
+import 'package:theraman/src/utils/local_store/preferences.dart';
 import '../../model/user_model.dart';
 
 class LoginRepo extends ILoginRepo {
@@ -16,7 +15,6 @@ class LoginRepo extends ILoginRepo {
     required String userType,
     CancelToken? cancelToken,
   }) async {
-    print("mobile number :$mobileNo");
     final response = await iLoginApi.sendOtp(
         mobileNo: mobileNo, cancelToken: cancelToken, userType: userType);
 
@@ -37,7 +35,6 @@ class LoginRepo extends ILoginRepo {
       required String otp,
       required String userType,
       CancelToken? cancelToken}) async {
-    print("mobile number :$mobileNo");
     final response = await iLoginApi.verifyOtp(
       mobileNo: mobileNo,
       otp: otp,
@@ -47,8 +44,13 @@ class LoginRepo extends ILoginRepo {
 
     if (response.statusCode == 200) {
       try {
+        UserModel usermodel = UserModel(
+          isLogin: true,
+        );
+        final user = UserModel.fromJson(response.data)..staffCode;
+        Preferences.setPreference("staffCode", user.staffCode);
+        Preferences.saveUser(usermodel);
         return Success(UserModel.fromJson(response.data));
-        print(UserModel.fromJson(response.data["id"]));
       } catch (e) {
         return Error(Exception());
       }

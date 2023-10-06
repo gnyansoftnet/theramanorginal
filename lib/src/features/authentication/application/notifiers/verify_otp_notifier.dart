@@ -22,7 +22,8 @@ class VerifyOtpNotifier extends AutoDisposeAsyncNotifier<VerifyOtpState> {
         .verifyOtp(mobileNo: mobileNo, otp: otp, userType: userType);
 
     result.when(
-      (foodItem) {
+      (userModel) {
+        // state = AsyncData(VerifyOtpLoaded(userModel: userModel));
         state = const AsyncData(VerifyOtpLoaded());
       },
       (error) {

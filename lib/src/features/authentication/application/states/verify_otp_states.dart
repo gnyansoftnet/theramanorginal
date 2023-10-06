@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:theraman/src/features/authentication/model/user_model.dart';
 
 @immutable
 sealed class VerifyOtpState {
@@ -14,5 +15,7 @@ class VerifyOtpLoading implements VerifyOtpState {
 }
 
 class VerifyOtpLoaded implements VerifyOtpState {
+  // final UserModel userModel;
+  // const VerifyOtpLoaded({required this.userModel}) : super();
   const VerifyOtpLoaded() : super();
 }

@@ -22,5 +22,4 @@ class LoginApi extends ILoginApi {
     return await dio.post(
         "http://cms.softnetcms.com/Api/MApp_ServicesApi/VerifyOTP/?Mobile_No=$mobileNo&Type=$userType&Otp=$otp");
   }
-  // 8249246758
 }

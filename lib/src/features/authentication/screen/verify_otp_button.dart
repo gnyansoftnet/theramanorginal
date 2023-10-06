@@ -31,7 +31,8 @@ class VerifyOtpButton extends ConsumerWidget {
           },
           error: (e, _) {
             /// show error snackbar
-            final snackBar = SnackBar(content: Text("Error: ${e.toString()}"));
+            const snackBar =
+                SnackBar(content: Text("Error: Your OTP is Wrong"));
             context.showSnackBar(snackBar);
           },
           loading: () {

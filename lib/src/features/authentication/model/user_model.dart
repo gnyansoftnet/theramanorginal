@@ -23,7 +23,7 @@ class UserModel {
 
   UserModel(
       {this.id,
-      this.isLogin = false,
+      this.isLogin,
       this.staffCode,
       this.orgCode,
       this.staffName,

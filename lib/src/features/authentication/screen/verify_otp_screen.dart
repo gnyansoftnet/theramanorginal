@@ -87,7 +87,6 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
                   onTextChanged: (text) {
                     if (text.length == 4) {
                       otpText = text;
-                      verifyOtp(ref);
                     }
                   },
                   onDone: (pin) {},
@@ -145,7 +144,9 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
   }
 
   void verifyOtp(WidgetRef ref) {
-    if (pinController.text.isEmpty || widget.mobileNoController.text.isEmpty) {
+    if (pinController.text.isEmpty ||
+        widget.mobileNoController.text.isEmpty ||
+        pinController.text.length < 4) {
       Fluttertoast.showToast(msg: "please enter otp");
     } else {
       ref.read(verifyOtpProvider.notifier).verifyOtp(
@@ -188,6 +189,7 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
   void dispose() {
     pinController.clear();
     AltSmsAutofill().unregisterListener();
+    _timer.cancel();
     super.dispose();
   }
 }
