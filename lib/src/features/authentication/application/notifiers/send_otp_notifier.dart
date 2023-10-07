@@ -19,7 +19,7 @@ class SendOtpNotifier extends AutoDisposeAsyncNotifier<SendOtpState> {
         .sendOtp(mobileNo: mobileNo, userType: userType);
 
     result.when(
-      (foodItem) {
+      (sucess) {
         state = const AsyncData(SendOtpLoaded());
       },
       (error) {

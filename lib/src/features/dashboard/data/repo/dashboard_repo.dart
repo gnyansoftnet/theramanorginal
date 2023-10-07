@@ -26,4 +26,42 @@ class DashboardRepo extends IDashboardRepo {
       return Error(Exception());
     }
   }
+
+  @override
+  Future<Result<String, Exception>> startSession(
+      {required String userId,
+      required String userType,
+      CancelToken? cancelToken}) async {
+    final response = await iDashboardApi.startSession(
+        userId: userId, userType: userType, cancelToken: cancelToken);
+
+    if (response.statusCode == 200) {
+      try {
+        return const Success("Session Started");
+      } catch (e) {
+        return Error(Exception());
+      }
+    } else {
+      return Error(Exception());
+    }
+  }
+
+  @override
+  Future<Result<String, Exception>> completeSession(
+      {required String userId,
+      required String userType,
+      CancelToken? cancelToken}) async {
+    final response = await iDashboardApi.completeSession(
+        userId: userId, userType: userType, cancelToken: cancelToken);
+
+    if (response.statusCode == 200) {
+      try {
+        return const Success("Session Completed");
+      } catch (e) {
+        return Error(Exception());
+      }
+    } else {
+      return Error(Exception());
+    }
+  }
 }

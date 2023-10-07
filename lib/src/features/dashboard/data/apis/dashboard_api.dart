@@ -8,6 +8,22 @@ class DashboardApi extends IDashboardApi {
   @override
   Future<Response> getAllotedSlotDetails(
       {required userId, CancelToken? cancelToken}) async {
-    return await dio.get("${AppUrls.getAllotedSlotDetails}/?User_Id=$userId");
+    return await dio
+        .get("${AppUrls.getAllotedSlotDetailsUrl}/?User_Id=$userId");
+  }
+
+  @override
+  Future<Response> startSession(
+      {required userId, required userType, CancelToken? cancelToken}) async {
+    return await dio
+        .post("${AppUrls.startSessionUrl}/?Id=$userId&Type=$userType");
+  }
+
+  @override
+  Future<Response> completeSession(
+      {required userId, required userType, CancelToken? cancelToken}) async {
+    return await dio
+        .post("${AppUrls.completeSessionUrl}/?Id=$userId&Type=$userType");
   }
 }
+// http://cms.softnetcms.com/Api/MApp_ServicesApi/SessionCompleted/?Id=1234&Type=T

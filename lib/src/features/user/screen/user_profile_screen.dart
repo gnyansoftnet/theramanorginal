@@ -7,6 +7,8 @@ import 'package:theraman/src/features/user/application/providers/user_provider.d
 import 'package:theraman/src/utils/constants/gaps.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
 import 'package:theraman/src/utils/local_store/preferences.dart';
+import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
+import 'package:url_launcher/url_launcher.dart';
 
 @RoutePage(deferredLoading: true, name: "UserProfileRoute")
 class UserProfileScreen extends ConsumerWidget {
@@ -67,10 +69,15 @@ class UserProfileScreen extends ConsumerWidget {
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               gapW4,
-                              AutoSizeText("${value.emailId}",
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.blue)),
+                              InkWell(
+                                onTap: () {
+                                  makeMail(value.emailId.toString());
+                                },
+                                child: AutoSizeText("${value.emailId}",
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.blue)),
+                              ),
                             ],
                           ),
                           gapH4,
@@ -83,7 +90,9 @@ class UserProfileScreen extends ConsumerWidget {
                               ),
                               gapW4,
                               GestureDetector(
-                                onTap: () async {},
+                                onTap: () async {
+                                  makePhoneCall(value.mobNo.toString());
+                                },
                                 child: AutoSizeText(
                                   "+91${value.mobNo}",
                                   style: const TextStyle(
@@ -102,5 +111,21 @@ class UserProfileScreen extends ConsumerWidget {
         }),
       ),
     );
+  }
+
+  Future<void> makePhoneCall(String phoneNumber) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber,
+    );
+    await launchUrl(launchUri);
+  }
+
+  Future<void> makeMail(String mailId) async {
+    final Uri launchUri = Uri(
+      scheme: 'mailto',
+      path: mailId,
+    );
+    await launchUrl(launchUri);
   }
 }

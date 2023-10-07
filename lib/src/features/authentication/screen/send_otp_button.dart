@@ -60,9 +60,9 @@ class SendOtpButton extends ConsumerWidget {
               onPressed: null,
               child: Text("Submit"),
             ),
-          SendOtpLoaded() => const ElevatedButton(
-              onPressed: null,
-              child: Text("Submit"),
+          SendOtpLoaded() => ElevatedButton(
+              onPressed: onSubmit,
+              child: const Text("Submit"),
             ),
         };
       },

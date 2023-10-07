@@ -24,7 +24,7 @@ dependencies:
   pin_code_text_field: ^1.8.0
   alt_sms_autofill: ^1.0.0
   shared_preferences: ^2.2.1
-  url_launcher: ^6.1.14
+  url_launcher: ^6.0.0
   
 
 dev_dependencies:

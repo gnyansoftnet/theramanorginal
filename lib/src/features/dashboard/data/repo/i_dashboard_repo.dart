@@ -7,4 +7,15 @@ abstract class IDashboardRepo {
     required String userId,
     CancelToken? cancelToken,
   });
+
+  Future<Result<String, Exception>> startSession({
+    required String userId,
+    required String userType,
+    CancelToken? cancelToken,
+  });
+  Future<Result<String, Exception>> completeSession({
+    required String userId,
+    required String userType,
+    CancelToken? cancelToken,
+  });
 }
