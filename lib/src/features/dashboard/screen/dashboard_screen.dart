@@ -39,56 +39,76 @@ class DashboardScreen extends ConsumerWidget {
                         color: data.rSSlotStatus == "Started"
                             ? Colors.blue.withOpacity(0.6)
                             : data.rSSlotStatus == "Completed"
-                                ? Colors.green.withOpacity(0.6)
+                                ? Colors.green
                                 : Theme.of(context).cardColor,
                         child: Column(
                           children: [
-                            ListTile(
-                              visualDensity: const VisualDensity(vertical: -4),
-                              leading: Row(
-                                mainAxisSize: MainAxisSize.min,
+                            Padding(
+                              padding: const EdgeInsets.only(left: 12, top: 10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  const AutoSizeText(
-                                    "Patient:",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  gapW4,
-                                  AutoSizeText("${data.rSPName}"),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      AutoSizeText(
+                                        "${data.rSPName}",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: data.rSSlotStatus ==
+                                                    "Yet To Start"
+                                                ? Colors.black
+                                                : Colors.white,
+                                            fontSize: 17),
+                                      ),
+                                      const SizedBox(
+                                        height: 9,
+                                      ),
+                                      AutoSizeText(
+                                        "${data.rSSlotType}",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: data.rSSlotStatus ==
+                                                    "Yet To Start"
+                                                ? Colors.black
+                                                : Colors.white,
+                                            fontSize: 13),
+                                      ),
+                                    ],
+                                  )
                                 ],
                               ),
                             ),
                             ListTile(
-                              visualDensity: const VisualDensity(vertical: -4),
-                              leading: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const AutoSizeText(
-                                    "Type :",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  gapW4,
-                                  AutoSizeText("${data.rSSlotType}"),
-                                ],
-                              ),
-                            ),
-                            ListTile(
+                              visualDensity: const VisualDensity(vertical: -1),
                               leading: AutoSizeText(
                                 "${data.rSStartTime}",
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: data.rSSlotStatus == "Yet To Start"
+                                        ? Colors.black
+                                        : Colors.white,
+                                    fontSize: 15),
                               ),
                               trailing: data.rSSlotStatus == "Completed"
                                   ? const AutoSizeText(
                                       "Completed",
                                       style: TextStyle(
-                                          fontWeight: FontWeight.bold),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 13,
+                                          color: Colors.white),
                                     )
                                   : ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        elevation: 3.0,
-                                      ),
+                                          elevation: 5.0,
+                                          backgroundColor: data.rSSlotStatus ==
+                                                  "Yet To Start"
+                                              ? Theme.of(context)
+                                                  .primaryColor
+                                                  .withOpacity(0.9)
+                                              : Theme.of(context).cardColor,
+                                          minimumSize: const Size(120, 42)),
                                       onPressed: () async {
                                         await session(
                                             context: context,
@@ -98,11 +118,18 @@ class DashboardScreen extends ConsumerWidget {
                                             rsSlotId: data.rSSlotId.toString());
                                       },
                                       child: AutoSizeText(
-                                          data.rSSlotStatus == "Yet To Start"
-                                              ? "Start"
-                                              : data.rSSlotStatus == "Started"
-                                                  ? "Complete"
-                                                  : "Completed")),
+                                        data.rSSlotStatus == "Yet To Start"
+                                            ? "Start"
+                                            : data.rSSlotStatus == "Started"
+                                                ? "Complete"
+                                                : "Completed",
+                                        style: TextStyle(
+                                            color: data.rSSlotStatus ==
+                                                    "Yet To Start"
+                                                ? Colors.white
+                                                : Colors.blue),
+                                      ),
+                                    ),
                             )
                           ],
                         ),
