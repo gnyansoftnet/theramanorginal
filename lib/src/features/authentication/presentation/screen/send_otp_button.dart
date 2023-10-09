@@ -2,37 +2,44 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theraman/src/features/authentication/application/providers/login_provider.dart';
-import 'package:theraman/src/features/authentication/application/states/verify_otp_states.dart';
+
+import 'package:theraman/src/features/authentication/application/states/send_otp_states.dart';
 import 'package:theraman/src/utils/extensions/common_ext/snackbar_ext.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
+import '../../../../core/routes/app_routes.gr.dart';
 
-import '../../../core/routes/app_routes.gr.dart';
-
-class VerifyOtpButton extends ConsumerWidget {
-  const VerifyOtpButton({
-    super.key,
-    required this.onSubmit,
-  });
+class SendOtpButton extends ConsumerWidget {
+  final TextEditingController mobileNoController;
+  final String usertype;
+  const SendOtpButton(
+      {super.key,
+      required this.onSubmit,
+      required this.mobileNoController,
+      required this.usertype});
 
   final VoidCallback onSubmit;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final verifyOtpButtonState = ref.watch(verifyOtpProvider);
+    final submitloginButtonState = ref.watch(sendOtpProvider);
 
     ref.listen(
-      verifyOtpProvider,
+      sendOtpProvider,
       (previous, next) {
         next.when(
           data: (data) => switch (data) {
-            VerifyOtpInitial() => null,
-            VerifyOtpLoading() => null,
-            VerifyOtpLoaded() => context.router.replaceAll([const HomeRoute()]),
+            SendOtpInitial() => null,
+            SendOtpLoading() => null,
+            SendOtpLoaded() => {
+                context.navigateTo(VarifyOtpRoute(
+                    mobileNoController: mobileNoController,
+                    userType: usertype)),
+              }
           },
           error: (e, _) {
             /// show error snackbar
             const snackBar =
-                SnackBar(content: Text("Error: Your OTP is Wrong"));
+                SnackBar(content: Text("Error: Your Account Is Not Exist"));
             context.showSnackBar(snackBar);
           },
           loading: () {
@@ -42,27 +49,26 @@ class VerifyOtpButton extends ConsumerWidget {
       },
     );
 
-    return verifyOtpButtonState.easyWhen(
+    return submitloginButtonState.easyWhen(
       data: (data) {
         return switch (data) {
-          VerifyOtpInitial() => ElevatedButton(
+          SendOtpInitial() => ElevatedButton(
               onPressed: onSubmit,
-              child: const Text("Verify"),
+              child: const Text("Submit"),
             ),
-          VerifyOtpLoading() => const ElevatedButton(
+          SendOtpLoading() => const ElevatedButton(
               onPressed: null,
-              child: Text("Verify"),
+              child: Text("Submit"),
             ),
-          VerifyOtpLoaded() => const ElevatedButton(
-              onPressed: null,
-              child: Text("Verify"),
+          SendOtpLoaded() => ElevatedButton(
+              onPressed: onSubmit,
+              child: const Text("Submit"),
             ),
         };
       },
       errorWidget: (error, stackTrace) => ElevatedButton(
         onPressed: onSubmit,
-        // onPressed: () {},
-        child: const Text("Verify"),
+        child: const Text("Submit"),
       ),
       loadingWidget: () => const ElevatedButton(
         onPressed: null,

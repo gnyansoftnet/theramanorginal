@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:alt_sms_autofill/alt_sms_autofill.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -9,9 +8,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
+import 'package:theraman/src/features/authentication/presentation/controller/login_controller.dart';
 
-import '../../../utils/constants/gaps.dart';
-import '../application/providers/login_provider.dart';
+import '../../../../utils/constants/gaps.dart';
+import '../../application/providers/login_provider.dart';
 import 'verify_otp_button.dart';
 
 @RoutePage(deferredLoading: true, name: "VarifyOtpRoute")
@@ -28,6 +28,7 @@ class VerifyOtpScreen extends ConsumerStatefulWidget {
 
 class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
   TextEditingController pinController = TextEditingController();
+  final loginController = LoginController();
 
   int _secondsRemaining = 30;
   late Timer _timer;
@@ -96,7 +97,13 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
                     "OTP sent to this No. +91${widget.mobileNoController.text}"),
                 gapH20,
                 VerifyOtpButton(onSubmit: () {
-                  verifyOtp(ref);
+                  if (isValidated()) {
+                    loginController.verifyOtp(
+                        ref: ref,
+                        mobileNumber: widget.mobileNoController.text,
+                        otp: pinController.text,
+                        userType: widget.userType);
+                  }
                 }),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -143,17 +150,19 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
         ));
   }
 
-  void verifyOtp(WidgetRef ref) {
-    if (pinController.text.isEmpty ||
-        widget.mobileNoController.text.isEmpty ||
-        pinController.text.length < 4) {
-      Fluttertoast.showToast(msg: "please enter otp");
-    } else {
-      ref.read(verifyOtpProvider.notifier).verifyOtp(
-          mobileNo: widget.mobileNoController.text,
-          otp: pinController.text,
-          userType: widget.userType);
+  bool isValidated() {
+    if (pinController.text.isEmpty) {
+      Fluttertoast.showToast(
+        msg: 'Please enter  OTP',
+      );
+      return false;
+    } else if (pinController.text.length < 4) {
+      Fluttertoast.showToast(
+        msg: 'OTP Must be 4 digit',
+      );
+      return false;
     }
+    return true;
   }
 
   void _startTimer() {

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theraman/src/features/authentication/application/states/verify_otp_states.dart';
+import 'package:theraman/src/utils/extensions/riverpod_ext/cancel_ext.dart';
 
 import '../../data/repo/login_repo_pod.dart';
 
@@ -17,9 +18,11 @@ class VerifyOtpNotifier extends AutoDisposeAsyncNotifier<VerifyOtpState> {
     required userType,
   }) async {
     state = const AsyncLoading();
-    final result = await ref
-        .watch(loginRepoProvider)
-        .verifyOtp(mobileNo: mobileNo, otp: otp, userType: userType);
+    final result = await ref.watch(loginRepoProvider).verifyOtp(
+        mobileNo: mobileNo,
+        otp: otp,
+        userType: userType,
+        cancelToken: ref.cancelToken());
 
     result.when(
       (userModel) {

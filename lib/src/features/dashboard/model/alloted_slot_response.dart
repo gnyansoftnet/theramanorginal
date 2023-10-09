@@ -33,6 +33,9 @@ class AllotSlots {
   String? rSSlotType;
   String? rSSlotStatus;
   String? rSReason;
+  String? rSTherapistStartTime;
+  String? rSTherapistEndTime;
+  String? rSDuration;
 
   AllotSlots(
       {this.rSSlotId,
@@ -45,7 +48,10 @@ class AllotSlots {
       this.rSEndTime,
       this.rSSlotType,
       this.rSSlotStatus,
-      this.rSReason});
+      this.rSReason,
+      this.rSTherapistStartTime,
+      this.rSTherapistEndTime,
+      this.rSDuration});
 
   AllotSlots.fromJson(Map<String, dynamic> json) {
     rSSlotId = json['RS_Slot_Id'];
@@ -59,6 +65,9 @@ class AllotSlots {
     rSSlotType = json['RS_Slot_Type'];
     rSSlotStatus = json['RS_Slot_Status'];
     rSReason = json['RS_Reason'];
+    rSTherapistStartTime = json['RS_Therapist_Start_Time'];
+    rSTherapistEndTime = json['RS_Therapist_End_Time'];
+    rSDuration = json['RS_Duration'];
   }
 
   Map<String, dynamic> toJson() {
@@ -74,6 +83,9 @@ class AllotSlots {
     data['RS_Slot_Type'] = rSSlotType;
     data['RS_Slot_Status'] = rSSlotStatus;
     data['RS_Reason'] = rSReason;
+    data['RS_Therapist_Start_Time'] = rSTherapistStartTime;
+    data['RS_Therapist_End_Time'] = rSTherapistEndTime;
+    data['RS_Duration'] = rSDuration;
     return data;
   }
 }

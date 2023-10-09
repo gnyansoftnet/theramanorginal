@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:theraman/src/features/authentication/application/providers/login_provider.dart';
-import 'package:theraman/src/features/authentication/screen/send_otp_button.dart';
+import 'package:theraman/src/features/authentication/presentation/controller/login_controller.dart';
+import 'package:theraman/src/features/authentication/presentation/screen/send_otp_button.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
 
 @RoutePage(deferredLoading: true, name: "LoginRoute")
@@ -14,6 +14,7 @@ class LoginScreen extends ConsumerWidget {
   LoginScreen({super.key, required this.userType});
   TextEditingController mobileNoController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final loginController = LoginController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -88,7 +89,12 @@ class LoginScreen extends ConsumerWidget {
                       mobileNoController: mobileNoController,
                       usertype: userType,
                       onSubmit: () {
-                        login(ref);
+                        if (isValidated()) {
+                          loginController.login(
+                              ref: ref,
+                              mobileNumber: mobileNoController.text,
+                              userType: userType);
+                        }
                       })
                 ],
               ),
@@ -97,16 +103,18 @@ class LoginScreen extends ConsumerWidget {
     );
   }
 
-  void login(WidgetRef ref) {
-    if (mobileNoController.text.isEmpty ||
-        mobileNoController.text.length < 10) {
+  bool isValidated() {
+    if (mobileNoController.text.isEmpty) {
       Fluttertoast.showToast(
         msg: 'Please enter your mobile number',
       );
-    } else {
-      ref
-          .read(sendOtpProvider.notifier)
-          .sendOtp(mobileNo: mobileNoController.text, userType: userType);
+      return false;
+    } else if (mobileNoController.text.length < 10) {
+      Fluttertoast.showToast(
+        msg: 'Mobile number must be 10 digit',
+      );
+      return false;
     }
+    return true;
   }
 }

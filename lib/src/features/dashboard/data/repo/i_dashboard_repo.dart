@@ -5,6 +5,7 @@ import 'package:theraman/src/features/dashboard/model/alloted_slot_response.dart
 abstract class IDashboardRepo {
   Future<Result<AllotedSlotResponse, Exception>> getAllotedSlotDetails({
     required String userId,
+    required String date,
     CancelToken? cancelToken,
   });
 

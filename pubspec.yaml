@@ -25,6 +25,8 @@ dependencies:
   alt_sms_autofill: ^1.0.0
   shared_preferences: ^2.2.1
   url_launcher: ^6.0.0
+  flutter_native_splash: ^2.3.3
+  intl: ^0.18.1
   
 
 dev_dependencies:

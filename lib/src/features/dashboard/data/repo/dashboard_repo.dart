@@ -11,10 +11,11 @@ class DashboardRepo extends IDashboardRepo {
   @override
   Future<Result<AllotedSlotResponse, Exception>> getAllotedSlotDetails({
     required String userId,
+    required String date,
     CancelToken? cancelToken,
   }) async {
     final response = await iDashboardApi.getAllotedSlotDetails(
-        userId: userId, cancelToken: cancelToken);
+        userId: userId, date: date, cancelToken: cancelToken);
 
     if (response.statusCode == 200) {
       try {

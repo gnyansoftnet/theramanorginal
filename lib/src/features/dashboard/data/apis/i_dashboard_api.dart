@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 abstract class IDashboardApi {
   Future<Response> getAllotedSlotDetails({
     required userId,
+    required date,
     CancelToken? cancelToken,
   });
   Future<Response> startSession({

@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:theraman/src/features/authentication/model/user_model.dart';
-import 'package:theraman/src/features/dashboard/data/apis/i_dashboard_api.dart';
-import 'package:theraman/src/features/dashboard/model/alloted_slot_response.dart';
 import 'package:theraman/src/features/user/data/apis/i_user_api.dart';
 import 'package:theraman/src/features/user/data/repo/i_user_repo.dart';
 

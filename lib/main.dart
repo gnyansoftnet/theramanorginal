@@ -15,13 +15,16 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final approuter = ref.watch(autorouterProvider);
-    return MaterialApp.router(
-      theme: AppThemes.lightTheme,
-      debugShowCheckedModeBanner: false,
-      routerConfig: approuter.config(
-        navigatorObservers: () => [
-          RouterObserver(),
-        ],
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
+      child: MaterialApp.router(
+        theme: AppThemes.lightTheme,
+        debugShowCheckedModeBanner: false,
+        routerConfig: approuter.config(
+          navigatorObservers: () => [
+            RouterObserver(),
+          ],
+        ),
       ),
     );
   }

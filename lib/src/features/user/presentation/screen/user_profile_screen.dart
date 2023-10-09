@@ -4,11 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/user/application/providers/user_provider.dart';
+import 'package:theraman/src/features/user/presentation/controller/user_controller.dart';
+import 'package:theraman/src/global/widgets/drawer_widget.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
 import 'package:theraman/src/utils/local_store/preferences.dart';
-import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
-import 'package:url_launcher/url_launcher.dart';
 
 @RoutePage(deferredLoading: true, name: "UserProfileRoute")
 class UserProfileScreen extends ConsumerWidget {
@@ -16,16 +16,38 @@ class UserProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final userController = UserController();
     final userState = ref.watch(userProvider);
     return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
               onPressed: () async {
-                await Preferences.removeUser();
-                if (context.mounted) {
-                  context.router.replaceAll([const SplashRoute()]);
-                }
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const AutoSizeText("Logout"),
+                        content:
+                            const AutoSizeText("Are you sure want to logout "),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const AutoSizeText("No")),
+                          TextButton(
+                              onPressed: () async {
+                                await Preferences.removeUser();
+                                if (context.mounted) {
+                                  context.router
+                                      .replaceAll([const SplashRoute()]);
+                                }
+                              },
+                              child: const AutoSizeText("Yes"))
+                        ],
+                      );
+                    });
               },
               icon: const Icon(
                 Icons.logout,
@@ -33,6 +55,7 @@ class UserProfileScreen extends ConsumerWidget {
               ))
         ],
       ),
+      drawer: const DrawerWidget(currentPage: "userProfilePage"),
       body: RefreshIndicator(
         onRefresh: () async {
           ref.invalidate(userProvider);
@@ -71,7 +94,9 @@ class UserProfileScreen extends ConsumerWidget {
                               gapW4,
                               InkWell(
                                 onTap: () {
-                                  makeMail(value.emailId.toString());
+                                  userController.redirectLink(
+                                      value: value.emailId.toString(),
+                                      action: 'mailto');
                                 },
                                 child: AutoSizeText("${value.emailId}",
                                     style: const TextStyle(
@@ -91,7 +116,9 @@ class UserProfileScreen extends ConsumerWidget {
                               gapW4,
                               GestureDetector(
                                 onTap: () async {
-                                  makePhoneCall(value.mobNo.toString());
+                                  userController.redirectLink(
+                                      value: value.mobNo.toString(),
+                                      action: 'tel');
                                 },
                                 child: AutoSizeText(
                                   "+91${value.mobNo}",
@@ -111,21 +138,5 @@ class UserProfileScreen extends ConsumerWidget {
         }),
       ),
     );
-  }
-
-  Future<void> makePhoneCall(String phoneNumber) async {
-    final Uri launchUri = Uri(
-      scheme: 'tel',
-      path: phoneNumber,
-    );
-    await launchUrl(launchUri);
-  }
-
-  Future<void> makeMail(String mailId) async {
-    final Uri launchUri = Uri(
-      scheme: 'mailto',
-      path: mailId,
-    );
-    await launchUrl(launchUri);
   }
 }
