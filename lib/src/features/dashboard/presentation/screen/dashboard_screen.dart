@@ -32,7 +32,7 @@ class DashboardScreen extends ConsumerWidget {
               )
             ]),
           ),
-          drawer: const DrawerWidget(currentPage: "dashboardPage"),
+          drawer: const DrawerWidget(currentPage: "DashboardRoute"),
           body: TabBarView(
             children: [
               const OnGoingSessionScreen(),

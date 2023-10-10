@@ -55,7 +55,7 @@ class UserProfileScreen extends ConsumerWidget {
               ))
         ],
       ),
-      drawer: const DrawerWidget(currentPage: "userProfilePage"),
+      drawer: const DrawerWidget(currentPage: "UserProfileRoute"),
       body: RefreshIndicator(
         onRefresh: () async {
           ref.invalidate(userProvider);

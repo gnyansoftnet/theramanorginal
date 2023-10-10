@@ -26,4 +26,32 @@ class UserRepo extends IUserRepo {
       return Error(Exception());
     }
   }
+
+  @override
+  Future<Result<String, Exception>> userApplyLeave(
+      {required String userId,
+      required double noOfDays,
+      required String fromDate,
+      required String toDate,
+      required String leaveType,
+      required String reason,
+      CancelToken? cancelToken}) async {
+    final response = await iUserApi.userApplyLeave(
+        userId: userId,
+        noOfDays: noOfDays,
+        fromDate: fromDate,
+        toDate: toDate,
+        leaveType: leaveType,
+        reason: reason);
+
+    if (response.statusCode == 200) {
+      try {
+        return const Success("Apply Sucessfully");
+      } catch (e) {
+        return Error(Exception());
+      }
+    } else {
+      return Error(Exception());
+    }
+  }
 }

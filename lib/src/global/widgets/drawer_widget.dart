@@ -42,32 +42,43 @@ class DrawerWidget extends StatelessWidget {
           DrawerTile(
               icon: Icons.dashboard,
               onTap: () {
-                if (currentPage != "dashboardPage") {
+                if (currentPage != "DashboardRoute") {
                   context.navigateTo(const DashboardRoute());
                   Navigator.pop(context);
                 }
               },
               title: "Dashboard",
-              isSelected: currentPage == "dashboardPage" ? true : false),
+              isSelected: currentPage == "DashboardRoute" ? true : false),
           DrawerTile(
               icon: Icons.person,
               onTap: () {
-                if (currentPage != "userProfilePage") {
+                if (currentPage != "UserProfileRoute") {
                   context.navigateTo(const UserProfileRoute());
                   Navigator.pop(context);
                 }
               },
               title: "Profile",
-              isSelected: currentPage == "userProfilePage" ? true : false),
+              isSelected: currentPage == "UserProfileRoute" ? true : false),
           DrawerTile(
               icon: Icons.calendar_month,
               onTap: () {
-                if (currentPage != "nextSession") {
+                if (currentPage != "TomorrowSessionRoute") {
+                  context.navigateTo(const TomorrowSessionRoute());
                   Navigator.pop(context);
                 }
               },
               title: "Tomorrow Session",
-              isSelected: currentPage == "nextSession" ? true : false),
+              isSelected: currentPage == "TomorrowSessionRoute" ? true : false),
+          DrawerTile(
+              icon: Icons.holiday_village,
+              onTap: () {
+                if (currentPage != "ApplyLeaveRoute") {
+                  context.navigateTo(const ApplyLeaveRoute());
+                  Navigator.pop(context);
+                }
+              },
+              title: "Apply Leave",
+              isSelected: currentPage == "ApplyLeaveRoute" ? true : false),
         ],
       ),
     );

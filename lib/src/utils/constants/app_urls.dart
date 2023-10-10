@@ -9,6 +9,7 @@ class AppUrls {
   static const String startSessionUrl = "/SessionStart";
   static const String completeSessionUrl = "/SessionCompleted";
   static const String getUserDetails = "/GetUserProfileDetails";
+  static const String applyLeave = "/ApplyLeave";
 }
 
 

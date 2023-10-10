@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../application/providers/dashboard_provider.dart';
@@ -102,6 +103,7 @@ class OnGoingSessionScreen extends ConsumerWidget {
     print(today); //2023-01-16 09:51:27.494057
 
     DateTime yesterday = today.add(const Duration(days: 1));
-    print(yesterday); //2023-01-15 09:51:27.494057
+    final date = DateFormat('MM/dd/yyyy').format(yesterday);
+    print(date);
   }
 }

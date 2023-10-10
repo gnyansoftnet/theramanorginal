@@ -8,4 +8,13 @@ abstract class IUserRepo {
     required String userType,
     CancelToken? cancelToken,
   });
+  Future<Result<String, Exception>> userApplyLeave({
+    required String userId,
+    required double noOfDays,
+    required String fromDate,
+    required String toDate,
+    required String leaveType,
+    required String reason,
+    CancelToken? cancelToken,
+  });
 }

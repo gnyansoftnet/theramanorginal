@@ -8,67 +8,80 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i10;
-import 'package:flutter/material.dart' as _i11;
+import 'package:auto_route/auto_route.dart' as _i12;
+import 'package:flutter/material.dart' as _i13;
 import 'package:theraman/src/features/authentication/presentation/screen/login_screen.dart'
-    deferred as _i4;
-import 'package:theraman/src/features/authentication/presentation/screen/user_type_screen.dart'
-    deferred as _i8;
-import 'package:theraman/src/features/authentication/presentation/screen/verify_otp_screen.dart'
-    deferred as _i9;
-import 'package:theraman/src/features/dashboard/presentation/screen/completed_session_screen.dart'
-    deferred as _i1;
-import 'package:theraman/src/features/dashboard/presentation/screen/dashboard_screen.dart'
-    deferred as _i2;
-import 'package:theraman/src/features/dashboard/presentation/screen/ongoing_session_screen.dart'
     deferred as _i5;
-import 'package:theraman/src/features/home/home_screen.dart' deferred as _i3;
-import 'package:theraman/src/features/splash/screen/splash_screen.dart'
+import 'package:theraman/src/features/authentication/presentation/screen/user_type_screen.dart'
+    deferred as _i10;
+import 'package:theraman/src/features/authentication/presentation/screen/verify_otp_screen.dart'
+    deferred as _i11;
+import 'package:theraman/src/features/dashboard/presentation/screen/completed_session_screen.dart'
+    deferred as _i2;
+import 'package:theraman/src/features/dashboard/presentation/screen/dashboard_screen.dart'
+    deferred as _i3;
+import 'package:theraman/src/features/dashboard/presentation/screen/ongoing_session_screen.dart'
     deferred as _i6;
-import 'package:theraman/src/features/user/presentation/screen/user_profile_screen.dart'
+import 'package:theraman/src/features/home/home_screen.dart' deferred as _i4;
+import 'package:theraman/src/features/splash/screen/splash_screen.dart'
     deferred as _i7;
+import 'package:theraman/src/features/user/presentation/screen/apply_leave_screen.dart'
+    deferred as _i1;
+import 'package:theraman/src/features/user/presentation/screen/tomorrow_session_screen.dart'
+    deferred as _i8;
+import 'package:theraman/src/features/user/presentation/screen/user_profile_screen.dart'
+    deferred as _i9;
 
-abstract class $AppRouter extends _i10.RootStackRouter {
+abstract class $AppRouter extends _i12.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i10.PageFactory> pagesMap = {
+  final Map<String, _i12.PageFactory> pagesMap = {
+    ApplyLeaveRoute.name: (routeData) {
+      return _i12.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i12.DeferredWidget(
+          _i1.loadLibrary,
+          () => _i1.ApplyLeaveScreen(),
+        ),
+      );
+    },
     CompletedSessionRoute.name: (routeData) {
       final args = routeData.argsAs<CompletedSessionRouteArgs>(
           orElse: () => const CompletedSessionRouteArgs());
-      return _i10.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i10.DeferredWidget(
-          _i1.loadLibrary,
-          () => _i1.CompletedSessionScreen(key: args.key),
+        child: _i12.DeferredWidget(
+          _i2.loadLibrary,
+          () => _i2.CompletedSessionScreen(key: args.key),
         ),
       );
     },
     DashboardRoute.name: (routeData) {
-      return _i10.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i10.DeferredWidget(
-          _i2.loadLibrary,
-          () => _i2.DashboardScreen(),
+        child: _i12.DeferredWidget(
+          _i3.loadLibrary,
+          () => _i3.DashboardScreen(),
         ),
       );
     },
     HomeRoute.name: (routeData) {
-      return _i10.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i10.DeferredWidget(
-          _i3.loadLibrary,
-          () => _i3.HomeScreen(),
+        child: _i12.DeferredWidget(
+          _i4.loadLibrary,
+          () => _i4.HomeScreen(),
         ),
       );
     },
     LoginRoute.name: (routeData) {
       final args = routeData.argsAs<LoginRouteArgs>();
-      return _i10.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i10.DeferredWidget(
-          _i4.loadLibrary,
-          () => _i4.LoginScreen(
+        child: _i12.DeferredWidget(
+          _i5.loadLibrary,
+          () => _i5.LoginScreen(
             key: args.key,
             userType: args.userType,
           ),
@@ -76,48 +89,57 @@ abstract class $AppRouter extends _i10.RootStackRouter {
       );
     },
     OnGoingSessionRoute.name: (routeData) {
-      return _i10.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i10.DeferredWidget(
-          _i5.loadLibrary,
-          () => _i5.OnGoingSessionScreen(),
+        child: _i12.DeferredWidget(
+          _i6.loadLibrary,
+          () => _i6.OnGoingSessionScreen(),
         ),
       );
     },
     SplashRoute.name: (routeData) {
-      return _i10.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i10.DeferredWidget(
-          _i6.loadLibrary,
-          () => _i6.SplashScreen(),
+        child: _i12.DeferredWidget(
+          _i7.loadLibrary,
+          () => _i7.SplashScreen(),
+        ),
+      );
+    },
+    TomorrowSessionRoute.name: (routeData) {
+      return _i12.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i12.DeferredWidget(
+          _i8.loadLibrary,
+          () => _i8.TomorrowSessionScreen(),
         ),
       );
     },
     UserProfileRoute.name: (routeData) {
-      return _i10.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i10.DeferredWidget(
-          _i7.loadLibrary,
-          () => _i7.UserProfileScreen(),
+        child: _i12.DeferredWidget(
+          _i9.loadLibrary,
+          () => _i9.UserProfileScreen(),
         ),
       );
     },
     UserTypeRoute.name: (routeData) {
-      return _i10.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i10.DeferredWidget(
-          _i8.loadLibrary,
-          () => _i8.UserTypeScreen(),
+        child: _i12.DeferredWidget(
+          _i10.loadLibrary,
+          () => _i10.UserTypeScreen(),
         ),
       );
     },
     VarifyOtpRoute.name: (routeData) {
       final args = routeData.argsAs<VarifyOtpRouteArgs>();
-      return _i10.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i10.DeferredWidget(
-          _i9.loadLibrary,
-          () => _i9.VerifyOtpScreen(
+        child: _i12.DeferredWidget(
+          _i11.loadLibrary,
+          () => _i11.VerifyOtpScreen(
             key: args.key,
             mobileNoController: args.mobileNoController,
             userType: args.userType,
@@ -129,12 +151,26 @@ abstract class $AppRouter extends _i10.RootStackRouter {
 }
 
 /// generated route for
-/// [_i1.CompletedSessionScreen]
+/// [_i1.ApplyLeaveScreen]
+class ApplyLeaveRoute extends _i12.PageRouteInfo<void> {
+  const ApplyLeaveRoute({List<_i12.PageRouteInfo>? children})
+      : super(
+          ApplyLeaveRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ApplyLeaveRoute';
+
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i2.CompletedSessionScreen]
 class CompletedSessionRoute
-    extends _i10.PageRouteInfo<CompletedSessionRouteArgs> {
+    extends _i12.PageRouteInfo<CompletedSessionRouteArgs> {
   CompletedSessionRoute({
-    _i11.Key? key,
-    List<_i10.PageRouteInfo>? children,
+    _i13.Key? key,
+    List<_i12.PageRouteInfo>? children,
   }) : super(
           CompletedSessionRoute.name,
           args: CompletedSessionRouteArgs(key: key),
@@ -143,14 +179,14 @@ class CompletedSessionRoute
 
   static const String name = 'CompletedSessionRoute';
 
-  static const _i10.PageInfo<CompletedSessionRouteArgs> page =
-      _i10.PageInfo<CompletedSessionRouteArgs>(name);
+  static const _i12.PageInfo<CompletedSessionRouteArgs> page =
+      _i12.PageInfo<CompletedSessionRouteArgs>(name);
 }
 
 class CompletedSessionRouteArgs {
   const CompletedSessionRouteArgs({this.key});
 
-  final _i11.Key? key;
+  final _i13.Key? key;
 
   @override
   String toString() {
@@ -159,9 +195,9 @@ class CompletedSessionRouteArgs {
 }
 
 /// generated route for
-/// [_i2.DashboardScreen]
-class DashboardRoute extends _i10.PageRouteInfo<void> {
-  const DashboardRoute({List<_i10.PageRouteInfo>? children})
+/// [_i3.DashboardScreen]
+class DashboardRoute extends _i12.PageRouteInfo<void> {
+  const DashboardRoute({List<_i12.PageRouteInfo>? children})
       : super(
           DashboardRoute.name,
           initialChildren: children,
@@ -169,13 +205,13 @@ class DashboardRoute extends _i10.PageRouteInfo<void> {
 
   static const String name = 'DashboardRoute';
 
-  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i3.HomeScreen]
-class HomeRoute extends _i10.PageRouteInfo<void> {
-  const HomeRoute({List<_i10.PageRouteInfo>? children})
+/// [_i4.HomeScreen]
+class HomeRoute extends _i12.PageRouteInfo<void> {
+  const HomeRoute({List<_i12.PageRouteInfo>? children})
       : super(
           HomeRoute.name,
           initialChildren: children,
@@ -183,16 +219,16 @@ class HomeRoute extends _i10.PageRouteInfo<void> {
 
   static const String name = 'HomeRoute';
 
-  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i4.LoginScreen]
-class LoginRoute extends _i10.PageRouteInfo<LoginRouteArgs> {
+/// [_i5.LoginScreen]
+class LoginRoute extends _i12.PageRouteInfo<LoginRouteArgs> {
   LoginRoute({
-    _i11.Key? key,
+    _i13.Key? key,
     required String userType,
-    List<_i10.PageRouteInfo>? children,
+    List<_i12.PageRouteInfo>? children,
   }) : super(
           LoginRoute.name,
           args: LoginRouteArgs(
@@ -204,8 +240,8 @@ class LoginRoute extends _i10.PageRouteInfo<LoginRouteArgs> {
 
   static const String name = 'LoginRoute';
 
-  static const _i10.PageInfo<LoginRouteArgs> page =
-      _i10.PageInfo<LoginRouteArgs>(name);
+  static const _i12.PageInfo<LoginRouteArgs> page =
+      _i12.PageInfo<LoginRouteArgs>(name);
 }
 
 class LoginRouteArgs {
@@ -214,7 +250,7 @@ class LoginRouteArgs {
     required this.userType,
   });
 
-  final _i11.Key? key;
+  final _i13.Key? key;
 
   final String userType;
 
@@ -225,9 +261,9 @@ class LoginRouteArgs {
 }
 
 /// generated route for
-/// [_i5.OnGoingSessionScreen]
-class OnGoingSessionRoute extends _i10.PageRouteInfo<void> {
-  const OnGoingSessionRoute({List<_i10.PageRouteInfo>? children})
+/// [_i6.OnGoingSessionScreen]
+class OnGoingSessionRoute extends _i12.PageRouteInfo<void> {
+  const OnGoingSessionRoute({List<_i12.PageRouteInfo>? children})
       : super(
           OnGoingSessionRoute.name,
           initialChildren: children,
@@ -235,13 +271,13 @@ class OnGoingSessionRoute extends _i10.PageRouteInfo<void> {
 
   static const String name = 'OnGoingSessionRoute';
 
-  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i6.SplashScreen]
-class SplashRoute extends _i10.PageRouteInfo<void> {
-  const SplashRoute({List<_i10.PageRouteInfo>? children})
+/// [_i7.SplashScreen]
+class SplashRoute extends _i12.PageRouteInfo<void> {
+  const SplashRoute({List<_i12.PageRouteInfo>? children})
       : super(
           SplashRoute.name,
           initialChildren: children,
@@ -249,13 +285,27 @@ class SplashRoute extends _i10.PageRouteInfo<void> {
 
   static const String name = 'SplashRoute';
 
-  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i7.UserProfileScreen]
-class UserProfileRoute extends _i10.PageRouteInfo<void> {
-  const UserProfileRoute({List<_i10.PageRouteInfo>? children})
+/// [_i8.TomorrowSessionScreen]
+class TomorrowSessionRoute extends _i12.PageRouteInfo<void> {
+  const TomorrowSessionRoute({List<_i12.PageRouteInfo>? children})
+      : super(
+          TomorrowSessionRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'TomorrowSessionRoute';
+
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i9.UserProfileScreen]
+class UserProfileRoute extends _i12.PageRouteInfo<void> {
+  const UserProfileRoute({List<_i12.PageRouteInfo>? children})
       : super(
           UserProfileRoute.name,
           initialChildren: children,
@@ -263,13 +313,13 @@ class UserProfileRoute extends _i10.PageRouteInfo<void> {
 
   static const String name = 'UserProfileRoute';
 
-  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i8.UserTypeScreen]
-class UserTypeRoute extends _i10.PageRouteInfo<void> {
-  const UserTypeRoute({List<_i10.PageRouteInfo>? children})
+/// [_i10.UserTypeScreen]
+class UserTypeRoute extends _i12.PageRouteInfo<void> {
+  const UserTypeRoute({List<_i12.PageRouteInfo>? children})
       : super(
           UserTypeRoute.name,
           initialChildren: children,
@@ -277,17 +327,17 @@ class UserTypeRoute extends _i10.PageRouteInfo<void> {
 
   static const String name = 'UserTypeRoute';
 
-  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i9.VerifyOtpScreen]
-class VarifyOtpRoute extends _i10.PageRouteInfo<VarifyOtpRouteArgs> {
+/// [_i11.VerifyOtpScreen]
+class VarifyOtpRoute extends _i12.PageRouteInfo<VarifyOtpRouteArgs> {
   VarifyOtpRoute({
-    _i11.Key? key,
-    required _i11.TextEditingController mobileNoController,
+    _i13.Key? key,
+    required _i13.TextEditingController mobileNoController,
     required String userType,
-    List<_i10.PageRouteInfo>? children,
+    List<_i12.PageRouteInfo>? children,
   }) : super(
           VarifyOtpRoute.name,
           args: VarifyOtpRouteArgs(
@@ -300,8 +350,8 @@ class VarifyOtpRoute extends _i10.PageRouteInfo<VarifyOtpRouteArgs> {
 
   static const String name = 'VarifyOtpRoute';
 
-  static const _i10.PageInfo<VarifyOtpRouteArgs> page =
-      _i10.PageInfo<VarifyOtpRouteArgs>(name);
+  static const _i12.PageInfo<VarifyOtpRouteArgs> page =
+      _i12.PageInfo<VarifyOtpRouteArgs>(name);
 }
 
 class VarifyOtpRouteArgs {
@@ -311,9 +361,9 @@ class VarifyOtpRouteArgs {
     required this.userType,
   });
 
-  final _i11.Key? key;
+  final _i13.Key? key;
 
-  final _i11.TextEditingController mobileNoController;
+  final _i13.TextEditingController mobileNoController;
 
   final String userType;
 

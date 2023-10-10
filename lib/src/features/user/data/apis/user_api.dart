@@ -13,4 +13,24 @@ class UserApi extends IUserApi {
     return await dio
         .get("${AppUrls.getUserDetails}/?User_Id=$userId&Type=$userType");
   }
+
+  @override
+  Future<Response> userApplyLeave(
+      {required userId,
+      required noOfDays,
+      required fromDate,
+      required toDate,
+      required leaveType,
+      required reason,
+      CancelToken? cancelToken}) async {
+    var formData = {
+      "Staff_Code": userId,
+      "No_Of_Days": noOfDays,
+      "Leave_from": fromDate,
+      "Leave_To": toDate,
+      "Leave_Type": leaveType,
+      "Reason": reason
+    };
+    return await dio.post(AppUrls.applyLeave, data: formData);
+  }
 }
