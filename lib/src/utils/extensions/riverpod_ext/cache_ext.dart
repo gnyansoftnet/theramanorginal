@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 ///This
 extension CacheExtension<T> on AutoDisposeRef<T> {
-  KeepAliveLink cacheFor([Duration duration = const Duration(seconds: 3)]) {
+  KeepAliveLink cacheFor([Duration duration = const Duration(seconds: 5)]) {
     Timer? timer;
     // prevents being disposed
     final link = keepAlive();

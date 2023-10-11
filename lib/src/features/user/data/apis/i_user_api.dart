@@ -16,4 +16,10 @@ abstract class IUserApi {
     required reason,
     CancelToken? cancelToken,
   });
+  Future<Response> getleaveStatus({
+    required userId,
+    required fromDate,
+    required toDate,
+    CancelToken? cancelToken,
+  });
 }

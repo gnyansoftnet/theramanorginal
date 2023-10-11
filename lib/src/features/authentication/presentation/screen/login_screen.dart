@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:theraman/src/features/authentication/presentation/controller/login_controller.dart';
-import 'package:theraman/src/features/authentication/presentation/screen/send_otp_button.dart';
+import 'package:theraman/src/features/authentication/presentation/widget/send_otp_button.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
 
 @RoutePage(deferredLoading: true, name: "LoginRoute")

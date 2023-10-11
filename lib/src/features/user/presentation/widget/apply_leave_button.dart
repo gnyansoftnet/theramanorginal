@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:theraman/src/features/user/application/providers/user_provider.dart';
 import 'package:theraman/src/utils/extensions/common_ext/snackbar_ext.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
@@ -24,7 +26,11 @@ class ApplyLeaveButton extends ConsumerWidget {
           data: (data) => switch (data) {
             ApplyLeaveInitial() => null,
             ApplyLeaveLoading() => null,
-            ApplyLeaveLoaded() => null,
+            ApplyLeaveLoaded() => {
+                Fluttertoast.showToast(
+                    msg: "Your application submitted sucessfully"),
+                context.back(),
+              },
           },
           error: (e, _) {
             /// show error snackbar

@@ -3,6 +3,7 @@ import 'package:multiple_result/multiple_result.dart';
 import 'package:theraman/src/features/authentication/model/user_model.dart';
 import 'package:theraman/src/features/user/data/apis/i_user_api.dart';
 import 'package:theraman/src/features/user/data/repo/i_user_repo.dart';
+import 'package:theraman/src/features/user/model/leave_details_model.dart';
 
 class UserRepo extends IUserRepo {
   final IUserApi iUserApi;
@@ -42,11 +43,35 @@ class UserRepo extends IUserRepo {
         fromDate: fromDate,
         toDate: toDate,
         leaveType: leaveType,
-        reason: reason);
+        reason: reason,
+        cancelToken: cancelToken);
 
     if (response.statusCode == 200) {
       try {
         return const Success("Apply Sucessfully");
+      } catch (e) {
+        return Error(Exception());
+      }
+    } else {
+      return Error(Exception());
+    }
+  }
+
+  @override
+  Future<Result<LeaveDetailsModel, Exception>> getleaveStatus(
+      {required String userId,
+      required String? fromDate,
+      required String? toDate,
+      CancelToken? cancelToken}) async {
+    final response = await iUserApi.getleaveStatus(
+        userId: userId,
+        fromDate: fromDate,
+        toDate: toDate,
+        cancelToken: cancelToken);
+
+    if (response.statusCode == 200) {
+      try {
+        return Success(LeaveDetailsModel.fromJson(response.data));
       } catch (e) {
         return Error(Exception());
       }

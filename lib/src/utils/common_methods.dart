@@ -10,5 +10,5 @@ Future<DateTime> showDateTimeRangePicker(
       initialDate: DateTime.now(),
       firstDate: firstDate,
       lastDate: lastDate);
-  return picked!;
+  return picked ?? DateTime.now();
 }

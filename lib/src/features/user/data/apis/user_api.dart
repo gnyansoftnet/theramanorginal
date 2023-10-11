@@ -33,4 +33,15 @@ class UserApi extends IUserApi {
     };
     return await dio.post(AppUrls.applyLeave, data: formData);
   }
+
+  @override
+  Future<Response> getleaveStatus(
+      {required userId,
+      required fromDate,
+      required toDate,
+      CancelToken? cancelToken}) async {
+    return await dio.get(
+        "${AppUrls.leaveStatus}/?User_Id=$userId&From_Date=$fromDate&To_Date=$toDate");
+  }
+  // http://cms.softnetcms.com/Api/MApp_ServicesApi/GetAppliedLeaveDetails/?User_Id=THST5&From_Date=10/10/2023&To_Date=10/10/2023
 }

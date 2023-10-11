@@ -5,6 +5,7 @@ import 'package:theraman/src/features/authentication/model/user_model.dart';
 import 'package:theraman/src/features/user/application/notifiers/apply_leave_notifier.dart';
 import 'package:theraman/src/features/user/application/states/apply_leave_state.dart';
 import 'package:theraman/src/features/user/data/repo/user_repo_pod.dart';
+import 'package:theraman/src/features/user/model/leave_details_model.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/cache_ext.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/cancel_ext.dart';
 import '../../../../utils/local_store/preferences.dart';
@@ -14,7 +15,7 @@ import '../../../dashboard/model/alloted_slot_response.dart';
 final userProvider = FutureProvider.autoDispose<UserModel>(
   (ref) async {
     final token = ref.cancelToken();
-    final link = ref.cacheFor();
+    final link = ref.cacheFor(const Duration(days: 1));
     String staffCode = await Preferences.getPreference("staffCode", "");
     String userType = await Preferences.getPreference("userType", "");
     if (kDebugMode) {
@@ -67,4 +68,29 @@ final applyLeaveProvider =
     AutoDisposeAsyncNotifierProvider<ApplyleaveNotifier, ApplyLeaveState>(
   () => ApplyleaveNotifier(),
   name: "applyLeaveProvider",
+);
+
+final leaveStatusProvider = FutureProvider.autoDispose<LeaveDetailsModel>(
+  (ref) async {
+    final token = ref.cancelToken();
+    final link = ref.cacheFor();
+    String staffCode = await Preferences.getPreference("staffCode", "");
+
+    if (kDebugMode) {
+      print("print staff code $staffCode");
+    }
+    final result = await ref.watch(userRepoProvider).getleaveStatus(
+        userId: staffCode, fromDate: "", toDate: "", cancelToken: token);
+
+    return result.when(
+      (sucess) {
+        return sucess;
+      },
+      (error) {
+        link.close();
+        throw error;
+      },
+    );
+  },
+  name: "leaveStatusProvider",
 );

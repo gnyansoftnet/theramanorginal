@@ -25,6 +25,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(
             page: TomorrowSessionRoute.page, path: "/TomorrowSessionRoute"),
         AutoRoute(page: ApplyLeaveRoute.page, path: "/ApplyLeaveRoute"),
+        AutoRoute(page: LeaveStatusRoute.page, path: "/LeaveStatusRoute"),
 
         // AutoRoute(
         //     page: HomeRoute.page,

@@ -10,6 +10,7 @@ class AppUrls {
   static const String completeSessionUrl = "/SessionCompleted";
   static const String getUserDetails = "/GetUserProfileDetails";
   static const String applyLeave = "/ApplyLeave";
+  static const String leaveStatus = "/GetAppliedLeaveDetails";
 }
 
 

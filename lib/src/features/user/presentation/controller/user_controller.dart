@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theraman/src/features/user/application/providers/user_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -19,13 +20,15 @@ class UserController {
     required String toDate,
     required String leaveType,
     required String reason,
+    required String noOfDays,
   }) {
     print(fromDate);
     print(toDate);
     print(leaveType);
     print(reason);
+
     ref.read(applyLeaveProvider.notifier).userApplyLeave(
-          noofdays: 1.5,
+          noOfdays: double.parse(noOfDays),
           fromDate: fromDate,
           toDate: toDate,
           leaveType: leaveType,

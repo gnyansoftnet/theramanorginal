@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:theraman/src/utils/constants/app_colors.dart';
 
 class TextFieldWidget extends StatelessWidget {
   final String? label;
@@ -55,24 +56,12 @@ class TextFieldWidget extends StatelessWidget {
         labelText: label,
         labelStyle: const TextStyle(fontSize: 12),
         fillColor: Theme.of(context).cardColor,
-        disabledBorder: const OutlineInputBorder(
-            // borderRadius: BorderRadius.circular(1),
-            // borderSide: BorderSide(
-            //   color: Theme.of(context).dividerColor,
-            // ),
-            ),
+        contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+        disabledBorder: const OutlineInputBorder(),
         errorBorder:
-            OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-        focusedBorder: const OutlineInputBorder(
-            // borderRadius: BorderRadius.circular(12),
-            // borderSide: BorderSide(color: Theme.of(context).dividerColor),
-            ),
-        enabledBorder: const OutlineInputBorder(
-            // borderSide: BorderSide(
-            //   color: Theme.of(context).dividerColor,
-            // ),
-            // borderRadius: BorderRadius.circular(12)
-            ),
+            OutlineInputBorder(borderSide: BorderSide(color: AppColors.red)),
+        focusedBorder: const OutlineInputBorder(),
+        enabledBorder: const OutlineInputBorder(),
       ),
       validator: validator,
       inputFormatters: inputFormatters,

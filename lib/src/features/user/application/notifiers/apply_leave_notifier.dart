@@ -14,7 +14,7 @@ class ApplyleaveNotifier extends AutoDisposeAsyncNotifier<ApplyLeaveState> {
 
   Future<void> userApplyLeave({
     required fromDate,
-    required noofdays,
+    required noOfdays,
     required toDate,
     required leaveType,
     required reason,
@@ -23,7 +23,7 @@ class ApplyleaveNotifier extends AutoDisposeAsyncNotifier<ApplyLeaveState> {
     state = const AsyncLoading();
     final result = await ref.watch(userRepoProvider).userApplyLeave(
         userId: userId,
-        noOfDays: noofdays,
+        noOfDays: noOfdays,
         fromDate: fromDate,
         toDate: toDate,
         leaveType: leaveType,

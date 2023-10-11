@@ -2,10 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/user/application/providers/user_provider.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
-import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
 
 class DrawerWidget extends StatelessWidget {
   final String currentPage;
@@ -23,12 +23,11 @@ class DrawerWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const CircleAvatar(
+              CircleAvatar(
                 radius: 40,
-                child: Icon(
-                  Icons.person,
-                  size: 40,
-                ),
+                backgroundColor: Colors.transparent,
+                child: SvgPicture.asset("assets/images/svg/profile.svg",
+                    fit: BoxFit.cover),
               ),
               gapH12,
               Consumer(builder: (context, ref, _) {
@@ -73,12 +72,22 @@ class DrawerWidget extends StatelessWidget {
               icon: Icons.holiday_village,
               onTap: () {
                 if (currentPage != "ApplyLeaveRoute") {
-                  context.navigateTo(const ApplyLeaveRoute());
+                  context.navigateTo(ApplyLeaveRoute());
                   Navigator.pop(context);
                 }
               },
               title: "Apply Leave",
               isSelected: currentPage == "ApplyLeaveRoute" ? true : false),
+          DrawerTile(
+              icon: Icons.check_circle,
+              onTap: () {
+                if (currentPage != "LeaveStatusRoute") {
+                  context.navigateTo(const LeaveStatusRoute());
+                  Navigator.pop(context);
+                }
+              },
+              title: "Leave Status",
+              isSelected: currentPage == "LeaveStatusRoute" ? true : false),
         ],
       ),
     );
@@ -103,12 +112,16 @@ class DrawerTile extends StatelessWidget {
     return GestureDetector(
         onTap: onTap,
         child: Container(
+            margin: const EdgeInsets.only(left: 5, right: 10),
             decoration: BoxDecoration(
                 color: isSelected
                     ? Theme.of(context).focusColor
                     : Colors.transparent,
                 borderRadius: const BorderRadius.all(Radius.circular(50))),
             child: ListTile(
+              visualDensity: const VisualDensity(
+                vertical: -2,
+              ),
               leading: Icon(icon),
               title: AutoSizeText(title),
             )));

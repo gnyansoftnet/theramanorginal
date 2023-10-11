@@ -3,13 +3,16 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:theraman/src/features/dashboard/presentation/controller/dashboard_controller.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../application/providers/dashboard_provider.dart';
 
 @RoutePage(deferredLoading: true, name: "OnGoingSessionRoute")
 class OnGoingSessionScreen extends ConsumerWidget {
-  const OnGoingSessionScreen({super.key});
+  OnGoingSessionScreen({super.key});
+
+  final dashboardController = DashboardController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,7 +33,6 @@ class OnGoingSessionScreen extends ConsumerWidget {
                     physics: const AlwaysScrollableScrollPhysics(),
                     itemCount: value.allotSlots!.length,
                     itemBuilder: (context, index) {
-                      print("indesin====$index");
                       final data = value.allotSlots![index];
 
                       return data.rSSlotStatus != "Completed"
@@ -81,7 +83,13 @@ class OnGoingSessionScreen extends ConsumerWidget {
                                               elevation: 5.0,
                                               minimumSize: const Size(120, 40)),
                                           onPressed: () {
-                                            getdata();
+                                            dashboardController.session(
+                                                context: context,
+                                                ref: ref,
+                                                rsSlotId:
+                                                    data.rSSlotId.toString(),
+                                                status: data.rSSlotStatus
+                                                    .toString());
                                           },
                                           child: AutoSizeText(
                                               data.rSSlotStatus == "Started"
@@ -96,14 +104,5 @@ class OnGoingSessionScreen extends ConsumerWidget {
         );
       }),
     );
-  }
-
-  getdata() {
-    DateTime today = DateTime.now();
-    print(today); //2023-01-16 09:51:27.494057
-
-    DateTime yesterday = today.add(const Duration(days: 1));
-    final date = DateFormat('MM/dd/yyyy').format(yesterday);
-    print(date);
   }
 }

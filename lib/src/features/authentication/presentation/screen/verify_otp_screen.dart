@@ -12,7 +12,7 @@ import 'package:theraman/src/features/authentication/presentation/controller/log
 
 import '../../../../utils/constants/gaps.dart';
 import '../../application/providers/login_provider.dart';
-import 'verify_otp_button.dart';
+import '../widget/verify_otp_button.dart';
 
 @RoutePage(deferredLoading: true, name: "VarifyOtpRoute")
 class VerifyOtpScreen extends ConsumerStatefulWidget {
