@@ -70,24 +70,45 @@ final applyLeaveProvider =
   name: "applyLeaveProvider",
 );
 
-final leaveStatusProvider = FutureProvider.autoDispose<LeaveDetailsModel>(
-  (ref) async {
+class Date {
+  final String? from;
+  final String? to;
+  Date({this.from, this.to});
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is Date && other.from == from && other.to == to;
+  }
+
+  @override
+  int get hashCode => from.hashCode ^ to.hashCode;
+}
+
+// ({String from, String to})
+final leaveStatusProvider =
+    FutureProvider.autoDispose.family<LeaveDetailsModel, Date>(
+  (ref, date) async {
     final token = ref.cancelToken();
-    final link = ref.cacheFor();
     String staffCode = await Preferences.getPreference("staffCode", "");
 
     if (kDebugMode) {
       print("print staff code $staffCode");
+      print("from date ${date.from}");
+      print("to date ${date.to}");
     }
     final result = await ref.watch(userRepoProvider).getleaveStatus(
-        userId: staffCode, fromDate: "", toDate: "", cancelToken: token);
+        userId: staffCode,
+        fromDate: date.from == "From" ? '' : date.from,
+        toDate: date.to == "To" ? '' : date.to,
+        cancelToken: token);
 
     return result.when(
       (sucess) {
+        ref.cacheFor();
         return sucess;
       },
       (error) {
-        link.close();
+        // link.close();
         throw error;
       },
     );

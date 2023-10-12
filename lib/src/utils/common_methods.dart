@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
-Future<DateTime> showDateTimeRangePicker(
-    {required BuildContext context,
-    required DateTime firstDate,
-    required DateTime lastDate}) async {
+Future<DateTime> showDateTimeRangePicker({
+  required BuildContext context,
+}) async {
   DateTime? picked = await showDatePicker(
       useRootNavigator: false,
       context: context,
       initialDate: DateTime.now(),
-      firstDate: firstDate,
-      lastDate: lastDate);
+      firstDate: DateTime(1600),
+      lastDate: DateTime(5000));
   return picked ?? DateTime.now();
 }

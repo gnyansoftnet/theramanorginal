@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:theraman/src/features/dashboard/data/apis/i_dashboard_api.dart';
 import 'package:theraman/src/features/dashboard/model/alloted_slot_response.dart';
+import 'package:theraman/src/features/dashboard/model/completed_session_model.dart';
 import 'i_dashboard_repo.dart';
 
 class DashboardRepo extends IDashboardRepo {
@@ -20,6 +21,26 @@ class DashboardRepo extends IDashboardRepo {
     if (response.statusCode == 200) {
       try {
         return Success(AllotedSlotResponse.fromJson(response.data));
+      } catch (e) {
+        return Error(Exception());
+      }
+    } else {
+      return Error(Exception());
+    }
+  }
+
+  @override
+  Future<Result<CompletedSessionModel, Exception>> getCompletedSession({
+    required String userId,
+    required String date,
+    CancelToken? cancelToken,
+  }) async {
+    final response = await iDashboardApi.getCompletedSession(
+        userId: userId, date: date, cancelToken: cancelToken);
+
+    if (response.statusCode == 200) {
+      try {
+        return Success(CompletedSessionModel.fromJson(response.data));
       } catch (e) {
         return Error(Exception());
       }

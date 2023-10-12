@@ -9,9 +9,7 @@ import 'package:theraman/src/features/user/presentation/controller/user_controll
 import 'package:theraman/src/features/user/presentation/widget/apply_leave_button.dart';
 import 'package:theraman/src/global/widgets/drawer_widget.dart';
 import 'package:theraman/src/global/widgets/textfield_widget.dart';
-
 import 'package:theraman/src/utils/constants/gaps.dart';
-
 import '../../../../utils/common_methods.dart';
 
 @RoutePage(deferredLoading: true, name: "ApplyLeaveRoute")
@@ -128,10 +126,8 @@ class ApplyLeaveScreen extends StatelessWidget {
                                   InkWell(
                                     onTap: () {
                                       showDateTimeRangePicker(
-                                              context: context,
-                                              firstDate: DateTime.now(),
-                                              lastDate: DateTime(2101))
-                                          .then((value) {
+                                        context: context,
+                                      ).then((value) {
                                         fromDateValue.value =
                                             DateFormat('yyyy-MM-dd')
                                                 .format(value);
@@ -177,10 +173,8 @@ class ApplyLeaveScreen extends StatelessWidget {
                                         InkWell(
                                           onTap: () {
                                             showDateTimeRangePicker(
-                                                    context: context,
-                                                    firstDate: DateTime.now(),
-                                                    lastDate: DateTime(2101))
-                                                .then((value) {
+                                              context: context,
+                                            ).then((value) {
                                               fromDateValue.value =
                                                   DateFormat('yyyy-MM-dd')
                                                       .format(value);

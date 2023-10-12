@@ -15,7 +15,7 @@ class DrawerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       elevation: 5.0,
-      width: 300,
+      width: MediaQuery.sizeOf(context).width / 1.2,
       child: ListView(
         children: [
           DrawerHeader(

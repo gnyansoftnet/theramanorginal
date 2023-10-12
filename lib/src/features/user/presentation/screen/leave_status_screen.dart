@@ -15,14 +15,14 @@ class LeaveStatusScreen extends ConsumerWidget {
   LeaveStatusScreen({super.key});
 
   final ValueNotifier<String> fromDateValue = ValueNotifier<String>("From");
-  final ValueNotifier<String> toDateValue = ValueNotifier<String>("TO");
+  final ValueNotifier<String> toDateValue = ValueNotifier<String>("To");
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final leaveDetailsState = ref.watch(leaveStatusProvider);
+    final leaveDetailsState = ref.watch(leaveStatusProvider(
+        Date(from: fromDateValue.value, to: toDateValue.value)));
     return Scaffold(
       appBar: AppBar(
-        // backgroundColor: Colors.teal,
         title: const Text("Leave Status"),
       ),
       drawer: const DrawerWidget(currentPage: "LeaveStatusRoute"),
@@ -31,8 +31,103 @@ class LeaveStatusScreen extends ConsumerWidget {
         child: Column(
           children: [
             Expanded(
+              flex: 1,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        showDateTimeRangePicker(
+                          context: context,
+                        ).then((value) {
+                          fromDateValue.value =
+                              DateFormat('yyyy-MM-dd').format(value);
+                        }).onError((error, stackTrace) => null);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(border: Border.all()),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.calendar_month),
+                              ValueListenableBuilder(
+                                  valueListenable: fromDateValue,
+                                  builder: (context, value, child) {
+                                    return FittedBox(
+                                      fit: BoxFit.cover,
+                                      child: Text(
+                                        value,
+                                        style: const TextStyle(fontSize: 11),
+                                      ),
+                                    );
+                                  })
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  gapW4,
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        showDateTimeRangePicker(
+                          context: context,
+                        ).then((value) {
+                          toDateValue.value =
+                              DateFormat('yyyy-MM-dd').format(value);
+                        }).onError((error, stackTrace) => null);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(border: Border.all()),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.calendar_month),
+                              ValueListenableBuilder(
+                                  valueListenable: toDateValue,
+                                  builder: (context, value, child) {
+                                    return FittedBox(
+                                      fit: BoxFit.cover,
+                                      child: Text(
+                                        value,
+                                        style: const TextStyle(fontSize: 11),
+                                      ),
+                                    );
+                                  })
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  gapW8,
+                  ElevatedButton(
+                      onPressed: () async {
+                        if (fromDateValue.value != 'From' &&
+                            toDateValue.value != 'To') {
+                          ref.watch(leaveStatusProvider(Date(
+                              from: fromDateValue.value,
+                              to: toDateValue.value)));
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                          elevation: 4.0,
+                          shape: const RoundedRectangleBorder(
+                              side: BorderSide(),
+                              borderRadius: BorderRadius.all(Radius.zero))),
+                      child: const Text("Search"))
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 10,
               child: RefreshIndicator(
                 onRefresh: () async {
+                  fromDateValue.value = "From";
+                  toDateValue.value = "To";
                   ref.invalidate(leaveStatusProvider);
                 },
                 child: leaveDetailsState.easyWhen(data: (value) {
@@ -40,75 +135,79 @@ class LeaveStatusScreen extends ConsumerWidget {
                       itemCount: value.leaveDtls!.length,
                       itemBuilder: (context, index) {
                         final data = value.leaveDtls![index];
-                        return Card(
-                          elevation: 4.0,
-                          color: data.leaveStatus == "Approved"
-                              ? AppColors.green
-                              : data.leaveStatus == "Rejected"
-                                  ? AppColors.red
-                                  : AppColors.cyan,
-                          child: Column(
-                            children: [
-                              ListTile(
-                                visualDensity:
-                                    const VisualDensity(vertical: -4),
-                                leading: AutoSizeText(
-                                  "${data.leaveType}",
-                                  style: TextStyle(
-                                      color: AppColors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                                trailing: AutoSizeText(
-                                  "${data.noOfDays}",
-                                  style: TextStyle(
-                                      color: AppColors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ),
-                              ListTile(
-                                visualDensity:
-                                    const VisualDensity(vertical: -4),
-                                leading: Row(
-                                  mainAxisSize: MainAxisSize.min,
+                        return value.leaveDtls!.isEmpty
+                            ? const Center(
+                                child: Text("You did not apply any leave"),
+                              )
+                            : Card(
+                                elevation: 4.0,
+                                color: data.leaveStatus == "Approved"
+                                    ? AppColors.green
+                                    : data.leaveStatus == "Rejected"
+                                        ? AppColors.red
+                                        : AppColors.cyan,
+                                child: Column(
                                   children: [
-                                    AutoSizeText(
-                                      "${data.leaveFrom}",
-                                      style: TextStyle(
-                                          color: AppColors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15),
-                                    ),
-                                    gapW4,
-                                    AutoSizeText(
-                                      "to",
-                                      style: TextStyle(
-                                        color: AppColors.white,
-                                        fontWeight: FontWeight.bold,
+                                    ListTile(
+                                      visualDensity:
+                                          const VisualDensity(vertical: -4),
+                                      leading: AutoSizeText(
+                                        "${data.leaveType}",
+                                        style: TextStyle(
+                                            color: AppColors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15),
+                                      ),
+                                      trailing: AutoSizeText(
+                                        "${data.noOfDays}",
+                                        style: TextStyle(
+                                            color: AppColors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15),
                                       ),
                                     ),
-                                    gapW4,
-                                    AutoSizeText(
-                                      "${data.leaveTo}",
-                                      style: TextStyle(
-                                          color: AppColors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 10),
-                                    ),
+                                    ListTile(
+                                      visualDensity:
+                                          const VisualDensity(vertical: -4),
+                                      leading: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          AutoSizeText(
+                                            "${data.leaveFrom}",
+                                            style: TextStyle(
+                                                color: AppColors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15),
+                                          ),
+                                          gapW4,
+                                          AutoSizeText(
+                                            "to",
+                                            style: TextStyle(
+                                              color: AppColors.white,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          gapW4,
+                                          AutoSizeText(
+                                            "${data.leaveTo}",
+                                            style: TextStyle(
+                                                color: AppColors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 10),
+                                          ),
+                                        ],
+                                      ),
+                                      trailing: AutoSizeText(
+                                        "${data.leaveStatus}",
+                                        style: TextStyle(
+                                            color: AppColors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 10),
+                                      ),
+                                    )
                                   ],
                                 ),
-                                trailing: AutoSizeText(
-                                  "${data.leaveStatus}",
-                                  style: TextStyle(
-                                      color: AppColors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 10),
-                                ),
-                              )
-                            ],
-                          ),
-                        );
+                              );
                       });
                 }),
               ),

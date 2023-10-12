@@ -9,7 +9,14 @@ class DashboardApi extends IDashboardApi {
   Future<Response> getAllotedSlotDetails(
       {required userId, required date, CancelToken? cancelToken}) async {
     return await dio.get(
-        "${AppUrls.getAllotedSlotDetailsUrl}/?User_Id=$userId&Session_Date=$date");
+        "${AppUrls.getAllotedSlotDetailsUrl}/?User_Id=$userId&Session_Status=A&Session_Date=$date");
+  }
+
+  @override
+  Future<Response> getCompletedSession(
+      {required userId, required date, CancelToken? cancelToken}) async {
+    return await dio.get(
+        "${AppUrls.getAllotedSlotDetailsUrl}/?User_Id=$userId&Session_Status=C&Session_Date=$date");
   }
 
   @override

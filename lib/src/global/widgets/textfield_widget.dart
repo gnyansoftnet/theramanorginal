@@ -17,6 +17,7 @@ class TextFieldWidget extends StatelessWidget {
   final int? maxLines;
   final Widget? preFixIcon;
   final bool readOnly;
+  // final TextStyle? hintStyle;
 
   const TextFieldWidget(
       {Key? key,
@@ -33,6 +34,7 @@ class TextFieldWidget extends StatelessWidget {
       this.onTap,
       this.maxLines,
       this.preFixIcon,
+      // this.hintStyle,
       this.readOnly = false})
       : super(key: key);
 
@@ -52,7 +54,8 @@ class TextFieldWidget extends StatelessWidget {
       decoration: InputDecoration(
         prefixIcon: preFixIcon,
         hintText: hint,
-        hintStyle: const TextStyle(fontSize: 10),
+        // hintStyle: hintStyle,
+        hintStyle: const TextStyle(fontSize: 15),
         labelText: label,
         labelStyle: const TextStyle(fontSize: 12),
         fillColor: Theme.of(context).cardColor,
