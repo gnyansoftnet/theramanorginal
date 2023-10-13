@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:theraman/src/features/user/application/providers/user_provider.dart';
 import 'package:theraman/src/global/widgets/drawer_widget.dart';
@@ -54,11 +54,13 @@ class LeaveStatusScreen extends ConsumerWidget {
                               ValueListenableBuilder(
                                   valueListenable: fromDateValue,
                                   builder: (context, value, child) {
-                                    return FittedBox(
-                                      fit: BoxFit.cover,
-                                      child: Text(
-                                        value,
-                                        style: const TextStyle(fontSize: 11),
+                                    return Expanded(
+                                      child: FittedBox(
+                                        fit: BoxFit.scaleDown,
+                                        child: Text(
+                                          value,
+                                          style: const TextStyle(fontSize: 10),
+                                        ),
                                       ),
                                     );
                                   })
@@ -89,11 +91,13 @@ class LeaveStatusScreen extends ConsumerWidget {
                               ValueListenableBuilder(
                                   valueListenable: toDateValue,
                                   builder: (context, value, child) {
-                                    return FittedBox(
-                                      fit: BoxFit.cover,
-                                      child: Text(
-                                        value,
-                                        style: const TextStyle(fontSize: 11),
+                                    return Expanded(
+                                      child: FittedBox(
+                                        fit: BoxFit.scaleDown,
+                                        child: Text(
+                                          value,
+                                          style: const TextStyle(fontSize: 10),
+                                        ),
                                       ),
                                     );
                                   })
@@ -130,14 +134,29 @@ class LeaveStatusScreen extends ConsumerWidget {
                   toDateValue.value = "To";
                   ref.invalidate(leaveStatusProvider);
                 },
-                child: leaveDetailsState.easyWhen(data: (value) {
+                child: leaveDetailsState.easyWhen(onRetry: () {
+                  ref.invalidate(leaveStatusProvider);
+                }, data: (value) {
                   return ListView.builder(
                       itemCount: value.leaveDtls!.length,
                       itemBuilder: (context, index) {
                         final data = value.leaveDtls![index];
                         return value.leaveDtls!.isEmpty
-                            ? const Center(
-                                child: Text("You did not apply any leave"),
+                            ? Center(
+                                child: Column(
+                                  children: [
+                                    SvgPicture.asset(
+                                      "assets/images/svg/blank.svg",
+                                      fit: BoxFit.cover,
+                                      height: 200,
+                                    ),
+                                    const Text(
+                                      "You did not apply any leave",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
                               )
                             : Card(
                                 elevation: 4.0,
@@ -151,14 +170,14 @@ class LeaveStatusScreen extends ConsumerWidget {
                                     ListTile(
                                       visualDensity:
                                           const VisualDensity(vertical: -4),
-                                      leading: AutoSizeText(
+                                      leading: Text(
                                         "${data.leaveType}",
                                         style: TextStyle(
                                             color: AppColors.white,
                                             fontWeight: FontWeight.bold,
                                             fontSize: 15),
                                       ),
-                                      trailing: AutoSizeText(
+                                      trailing: Text(
                                         "${data.noOfDays}",
                                         style: TextStyle(
                                             color: AppColors.white,
@@ -172,15 +191,15 @@ class LeaveStatusScreen extends ConsumerWidget {
                                       leading: Row(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          AutoSizeText(
+                                          Text(
                                             "${data.leaveFrom}",
                                             style: TextStyle(
                                                 color: AppColors.white,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 15),
+                                                fontSize: 10),
                                           ),
                                           gapW4,
-                                          AutoSizeText(
+                                          Text(
                                             "to",
                                             style: TextStyle(
                                               color: AppColors.white,
@@ -188,7 +207,7 @@ class LeaveStatusScreen extends ConsumerWidget {
                                             ),
                                           ),
                                           gapW4,
-                                          AutoSizeText(
+                                          Text(
                                             "${data.leaveTo}",
                                             style: TextStyle(
                                                 color: AppColors.white,
@@ -197,7 +216,7 @@ class LeaveStatusScreen extends ConsumerWidget {
                                           ),
                                         ],
                                       ),
-                                      trailing: AutoSizeText(
+                                      trailing: Text(
                                         "${data.leaveStatus}",
                                         style: TextStyle(
                                             color: AppColors.white,

@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:theraman/src/features/dashboard/presentation/screen/completed_session_screen.dart';
@@ -16,10 +15,10 @@ class DashboardScreen extends ConsumerWidget {
       length: 2,
       child: Scaffold(
           appBar: AppBar(
-            title: const AutoSizeText("DashBoard"),
+            title: const Text("DashBoard"),
             bottom: const TabBar(tabs: [
               Tab(
-                child: AutoSizeText(
+                child: Text(
                   "ONGOING",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),

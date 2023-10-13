@@ -2,20 +2,20 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:theraman/src/features/authentication/model/user_model.dart';
+import 'package:theraman/src/features/dashboard/data/repo/dashboard_repo_pod.dart';
+import 'package:theraman/src/features/dashboard/model/alloted_slot_response.dart';
 import 'package:theraman/src/features/user/application/notifiers/apply_leave_notifier.dart';
 import 'package:theraman/src/features/user/application/states/apply_leave_state.dart';
 import 'package:theraman/src/features/user/data/repo/user_repo_pod.dart';
 import 'package:theraman/src/features/user/model/leave_details_model.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/cache_ext.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/cancel_ext.dart';
-import '../../../../utils/local_store/preferences.dart';
-import '../../../dashboard/data/repo/dashboard_repo_pod.dart';
-import '../../../dashboard/model/alloted_slot_response.dart';
+import 'package:theraman/src/utils/local_store/preferences.dart';
 
 final userProvider = FutureProvider.autoDispose<UserModel>(
   (ref) async {
     final token = ref.cancelToken();
-    final link = ref.cacheFor(const Duration(days: 1));
+    ref.cacheFor(const Duration(days: 1));
     String staffCode = await Preferences.getPreference("staffCode", "");
     String userType = await Preferences.getPreference("userType", "");
     if (kDebugMode) {
@@ -26,10 +26,10 @@ final userProvider = FutureProvider.autoDispose<UserModel>(
 
     return result.when(
       (sucess) {
+        ref.cacheFor(const Duration(days: 1));
         return sucess;
       },
       (error) {
-        link.close();
         throw error;
       },
     );
@@ -40,7 +40,6 @@ final userProvider = FutureProvider.autoDispose<UserModel>(
 final tomorrowSessionProvider = FutureProvider.autoDispose<AllotedSlotResponse>(
   (ref) async {
     final token = ref.cancelToken();
-    final link = ref.cacheFor();
     String staffCode = await Preferences.getPreference("staffCode", "");
     final currentDate = DateTime.now();
     DateTime yesterday = currentDate.add(const Duration(days: 1));
@@ -53,10 +52,10 @@ final tomorrowSessionProvider = FutureProvider.autoDispose<AllotedSlotResponse>(
 
     return result.when(
       (sucess) {
+        ref.cacheFor(const Duration());
         return sucess;
       },
       (error) {
-        link.close();
         throw error;
       },
     );
@@ -84,7 +83,6 @@ class Date {
   int get hashCode => from.hashCode ^ to.hashCode;
 }
 
-// ({String from, String to})
 final leaveStatusProvider =
     FutureProvider.autoDispose.family<LeaveDetailsModel, Date>(
   (ref, date) async {
@@ -108,7 +106,6 @@ final leaveStatusProvider =
         return sucess;
       },
       (error) {
-        // link.close();
         throw error;
       },
     );

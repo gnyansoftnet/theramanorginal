@@ -1,12 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:theraman/src/features/user/application/providers/user_provider.dart';
 import 'package:theraman/src/global/widgets/drawer_widget.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
-
-import '../../application/providers/user_provider.dart';
 
 @RoutePage(deferredLoading: true, name: "TomorrowSessionRoute")
 class TomorrowSessionScreen extends ConsumerWidget {
@@ -17,7 +15,7 @@ class TomorrowSessionScreen extends ConsumerWidget {
     final tomorrowSessionState = ref.watch(tomorrowSessionProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const AutoSizeText("Tomorrow Session"),
+        title: const Text("Tomorrow Session"),
       ),
       drawer: const DrawerWidget(currentPage: "TomorrowSessionRoute"),
       body: tomorrowSessionState.easyWhen(data: (value) {
@@ -28,8 +26,20 @@ class TomorrowSessionScreen extends ConsumerWidget {
               ref.invalidate(tomorrowSessionProvider);
             },
             child: value.allotSlots!.isEmpty
-                ? const Center(
-                    child: AutoSizeText("you dont have any slot for tomorrow"),
+                ? Column(
+                    children: [
+                      Expanded(
+                        child: SvgPicture.asset(
+                          "assets/images/svg/blank.svg",
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      const Expanded(
+                          child: Text(
+                        "You dont have any tomorrow session",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ))
+                    ],
                   )
                 : ListView.builder(
                     itemCount: value.allotSlots!.length,
@@ -42,7 +52,7 @@ class TomorrowSessionScreen extends ConsumerWidget {
                             ListTile(
                               dense: true,
                               visualDensity: const VisualDensity(vertical: -1),
-                              leading: AutoSizeText(
+                              leading: Text(
                                 "${data.rSPName}",
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 17),
@@ -51,12 +61,12 @@ class TomorrowSessionScreen extends ConsumerWidget {
                             ListTile(
                               dense: true,
                               visualDensity: const VisualDensity(vertical: -1),
-                              leading: AutoSizeText(
+                              leading: Text(
                                 "${data.rSSlotType}",
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 13),
                               ),
-                              trailing: AutoSizeText(
+                              trailing: Text(
                                 "${data.rSStartTime}",
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 13),

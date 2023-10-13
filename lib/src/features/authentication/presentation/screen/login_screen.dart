@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,7 +18,10 @@ class LoginScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      ),
       body: SafeArea(
         child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
@@ -43,7 +45,7 @@ class LoginScreen extends ConsumerWidget {
                         children: [
                           const Padding(
                             padding: EdgeInsets.all(5.0),
-                            child: AutoSizeText(
+                            child: Text(
                               "+91 |",
                               style: TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.w600),

@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
@@ -20,6 +19,7 @@ class UserProfileScreen extends ConsumerWidget {
     final userState = ref.watch(userProvider);
     return Scaffold(
       appBar: AppBar(
+        title: const Text("Profile"),
         actions: [
           IconButton(
               onPressed: () async {
@@ -27,15 +27,14 @@ class UserProfileScreen extends ConsumerWidget {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: const AutoSizeText("Logout"),
-                        content:
-                            const AutoSizeText("Are you sure want to logout "),
+                        title: const Text("Logout"),
+                        content: const Text("Are you sure want to logout "),
                         actions: [
                           TextButton(
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              child: const AutoSizeText("No")),
+                              child: const Text("No")),
                           TextButton(
                               onPressed: () async {
                                 await Preferences.removeUser();
@@ -44,7 +43,7 @@ class UserProfileScreen extends ConsumerWidget {
                                       .replaceAll([const SplashRoute()]);
                                 }
                               },
-                              child: const AutoSizeText("Yes"))
+                              child: const Text("Yes"))
                         ],
                       );
                     });
@@ -60,7 +59,9 @@ class UserProfileScreen extends ConsumerWidget {
         onRefresh: () async {
           ref.invalidate(userProvider);
         },
-        child: userState.easyWhen(data: (value) {
+        child: userState.easyWhen(onRetry: () {
+          ref.invalidate(userProvider);
+        }, data: (value) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Card(
@@ -78,16 +79,16 @@ class UserProfileScreen extends ConsumerWidget {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          AutoSizeText(
+                          Text(
                             "${value.staffName}",
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           gapH4,
-                          AutoSizeText("${value.designation}"),
+                          Text("${value.designation}"),
                           gapH4,
                           Row(
                             children: [
-                              const AutoSizeText(
+                              const Text(
                                 "Email:",
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
@@ -98,7 +99,7 @@ class UserProfileScreen extends ConsumerWidget {
                                       value: value.emailId.toString(),
                                       action: 'mailto');
                                 },
-                                child: AutoSizeText("${value.emailId}",
+                                child: Text("${value.emailId}",
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.blue)),
@@ -109,7 +110,7 @@ class UserProfileScreen extends ConsumerWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              const AutoSizeText(
+                              const Text(
                                 " Mobile:",
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
@@ -120,7 +121,7 @@ class UserProfileScreen extends ConsumerWidget {
                                       value: value.mobNo.toString(),
                                       action: 'tel');
                                 },
-                                child: AutoSizeText(
+                                child: Text(
                                   "+91${value.mobNo}",
                                   style: const TextStyle(
                                       color: Colors.blue,

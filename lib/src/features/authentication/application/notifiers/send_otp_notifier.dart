@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theraman/src/features/authentication/application/states/send_otp_states.dart';
+import 'package:theraman/src/features/authentication/data/repo/login_repo_pod.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/cancel_ext.dart';
-
-import '../../data/repo/login_repo_pod.dart';
 
 class SendOtpNotifier extends AutoDisposeAsyncNotifier<SendOtpState> {
   @override

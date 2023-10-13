@@ -1,36 +1,45 @@
 import 'package:dio/dio.dart';
 import 'package:multiple_result/multiple_result.dart';
+import 'package:theraman/src/core/exception/app_exception.dart';
 import 'package:theraman/src/features/authentication/data/apis/i_login_api.dart';
 import 'package:theraman/src/features/authentication/data/repo/i_login_repo.dart';
+import 'package:theraman/src/features/authentication/model/user_model.dart';
 import 'package:theraman/src/utils/local_store/preferences.dart';
-import '../../model/user_model.dart';
 
 class LoginRepo extends ILoginRepo {
   final ILoginApi iLoginApi;
   LoginRepo({required this.iLoginApi});
 
   @override
-  Future<Result<String, Exception>> sendOtp({
+  Future<Result<String, AppException>> sendOtp({
     required String mobileNo,
     required String userType,
     CancelToken? cancelToken,
   }) async {
     final response = await iLoginApi.sendOtp(
         mobileNo: mobileNo, cancelToken: cancelToken, userType: userType);
-
     if (response.statusCode == 200) {
       try {
-        return const Success("Otp send successfully");
+        return Success(response.data.toString());
       } catch (e) {
-        return Error(Exception());
+        return Error(AppException(response.data.toString()));
       }
+    } else if (response.statusCode == 405) {
+      return Error(MethodNotAllowedException(
+          "${response.statusCode} ${response.data["Message"]} !"));
+    } else if (response.statusCode == 404) {
+      return Error(NotFoundException(
+          "${response.statusCode} Your account does not exist !"));
+    } else if (response.statusCode == 500) {
+      return Error(
+          ServerException("${response.statusCode} internal server error !"));
     } else {
-      return Error(Exception());
+      return Error(NotFoundException("Your account does not exist !"));
     }
   }
 
   @override
-  Future<Result<UserModel, Exception>> verifyOtp(
+  Future<Result<UserModel, AppException>> verifyOtp(
       {required String mobileNo,
       required String otp,
       required String userType,
@@ -53,10 +62,18 @@ class LoginRepo extends ILoginRepo {
         Preferences.setPreference("userType", userType);
         return Success(UserModel.fromJson(response.data));
       } catch (e) {
-        return Error(Exception());
+        return Error(AppException(response.data.toString()));
       }
+    } else if (response.statusCode == 405) {
+      return Error(MethodNotAllowedException(
+          "${response.statusCode} ${response.data["Message"]} !"));
+    } else if (response.statusCode == 404) {
+      return Error(NotFoundException("${response.statusCode} OTP is wrong !"));
+    } else if (response.statusCode == 500) {
+      return Error(
+          ServerException("${response.statusCode} internal server error !"));
     } else {
-      return Error(Exception());
+      return Error(NotFoundException("OTP is wrong !"));
     }
   }
 }

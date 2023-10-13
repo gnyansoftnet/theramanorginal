@@ -4,10 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/user/application/providers/user_provider.dart';
+import 'package:theraman/src/features/user/application/states/apply_leave_state.dart';
 import 'package:theraman/src/utils/extensions/common_ext/snackbar_ext.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
-
-import '../../application/states/apply_leave_state.dart';
 
 class ApplyLeaveButton extends ConsumerWidget {
   final VoidCallback onSubmit;
@@ -35,8 +34,7 @@ class ApplyLeaveButton extends ConsumerWidget {
           },
           error: (e, _) {
             /// show error snackbar
-            const snackBar =
-                SnackBar(content: Text("Error: Some thing is wrong"));
+            final snackBar = SnackBar(content: Text("$e"));
             context.showSnackBar(snackBar);
           },
           loading: () {

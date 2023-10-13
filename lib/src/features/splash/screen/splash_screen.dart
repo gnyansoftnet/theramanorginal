@@ -1,8 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-
-import '../service/splash_service.dart';
+import 'package:theraman/src/features/splash/service/splash_service.dart';
 
 @RoutePage(deferredLoading: true, name: "SplashRoute")
 class SplashScreen extends ConsumerStatefulWidget {

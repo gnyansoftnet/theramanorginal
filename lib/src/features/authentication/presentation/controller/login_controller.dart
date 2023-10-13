@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../application/providers/login_provider.dart';
+import 'package:theraman/src/features/authentication/application/providers/login_provider.dart';
 
 class LoginController {
   void login(

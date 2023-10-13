@@ -2,17 +2,16 @@ import 'dart:async';
 import 'dart:io';
 import 'package:alt_sms_autofill/alt_sms_autofill.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
+import 'package:theraman/src/core/exception/app_exception.dart';
+import 'package:theraman/src/features/authentication/application/providers/login_provider.dart';
 import 'package:theraman/src/features/authentication/presentation/controller/login_controller.dart';
-
-import '../../../../utils/constants/gaps.dart';
-import '../../application/providers/login_provider.dart';
-import '../widget/verify_otp_button.dart';
+import 'package:theraman/src/features/authentication/presentation/widget/verify_otp_button.dart';
+import 'package:theraman/src/utils/constants/gaps.dart';
 
 @RoutePage(deferredLoading: true, name: "VarifyOtpRoute")
 class VerifyOtpScreen extends ConsumerStatefulWidget {
@@ -45,7 +44,10 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        ),
         body: SingleChildScrollView(
           child: Center(
             child: Column(
@@ -55,7 +57,7 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
                     height: 200,
                     image: AssetImage("assets/images/harmoney_logo.png")),
                 gapH20,
-                const AutoSizeText(
+                const Text(
                   "Verify your OTP",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
@@ -93,7 +95,7 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
                   onDone: (pin) {},
                 ),
                 gapH16,
-                AutoSizeText(
+                Text(
                     "OTP sent to this No. +91${widget.mobileNoController.text}"),
                 gapH20,
                 VerifyOtpButton(onSubmit: () {
@@ -127,7 +129,7 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
                             });
                           }
                         },
-                        child: AutoSizeText(
+                        child: Text(
                           "Resend OTP",
                           style: TextStyle(
                               color: isResend ? Colors.blue : Colors.black,
@@ -138,7 +140,7 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
                     gapW4,
                     isResend
                         ? Container()
-                        : AutoSizeText(
+                        : Text(
                             "$_secondsRemaining sec",
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           )
@@ -190,7 +192,9 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
         commingSms = await AltSmsAutofill().listenForSms ?? "";
         pinController.text = commingSms.toString().split(" ")[10];
         otpText = commingSms.toString().split(" ")[2];
-      } on PlatformException {}
+      } on PlatformException {
+        AppException("Can not fetch otp");
+      }
     }
   }
 

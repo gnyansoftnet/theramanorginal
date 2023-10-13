@@ -33,7 +33,7 @@ class DrawerWidget extends StatelessWidget {
               Consumer(builder: (context, ref, _) {
                 final userState = ref.watch(userProvider);
                 final userName = userState.whenData((value) => value.staffName);
-                return AutoSizeText(
+                return Text(
                     userName.value == null ? "Dr. Demo" : "${userName.value}");
               })
             ],
@@ -127,23 +127,3 @@ class DrawerTile extends StatelessWidget {
             )));
   }
 }
-
-
-//  Row(
-//               children: [
-//                 Padding(
-//                   padding: const EdgeInsets.only(right: 24.0),
-//                   child: Icon(icon,
-//                       size: 20, color: isSelected ? Colors.white : iconColor),
-//                 ),
-//                 SizedBox(
-//                   width: 200,
-//                   child: Text(
-//                     title,
-//                     style: TextStyle(
-//                         fontSize: 15,
-//                         color: isSelected ? Colors.white : Colors.black),
-//                   ),
-//                 ),
-//               ],
-//             )

@@ -1,6 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../features/authentication/model/user_model.dart';
+import 'package:theraman/src/features/authentication/model/user_model.dart';
 
 Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 

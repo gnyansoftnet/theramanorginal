@@ -1,12 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/authentication/application/providers/login_provider.dart';
 import 'package:theraman/src/features/authentication/application/states/verify_otp_states.dart';
 import 'package:theraman/src/utils/extensions/common_ext/snackbar_ext.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
-
-import '../../../../core/routes/app_routes.gr.dart';
 
 class VerifyOtpButton extends ConsumerWidget {
   const VerifyOtpButton({
@@ -32,8 +31,7 @@ class VerifyOtpButton extends ConsumerWidget {
           },
           error: (e, _) {
             /// show error snackbar
-            const snackBar =
-                SnackBar(content: Text("Error: Your OTP is Wrong"));
+            final snackBar = SnackBar(content: Text("$e"));
             context.showSnackBar(snackBar);
           },
           loading: () {

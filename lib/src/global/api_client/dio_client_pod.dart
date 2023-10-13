@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
+import 'package:theraman/src/global/helper/app_talker.dart';
 import 'package:theraman/src/utils/constants/app_urls.dart';
-import '../helper/app_talker.dart';
 import 'dio_interceptor.dart';
 
 final dioProvider = Provider(
@@ -39,7 +39,7 @@ final dioProvider = Provider(
           retryEvaluator: (error, i) {
             if (error.error is SocketException) {
               Fluttertoast.showToast(
-                msg: 'Please check your internet connection',
+                msg: 'Something is wrong',
               );
               return true;
             } else {

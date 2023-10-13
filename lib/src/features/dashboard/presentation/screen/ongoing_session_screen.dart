@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:theraman/src/features/dashboard/application/providers/dashboard_provider.dart';
 import 'package:theraman/src/features/dashboard/presentation/controller/dashboard_controller.dart';
+import 'package:theraman/src/utils/constants/app_colors.dart';
+import 'package:theraman/src/utils/constants/gaps.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
-import '../../../../utils/constants/app_colors.dart';
-import '../../application/providers/dashboard_provider.dart';
 
 @RoutePage(deferredLoading: true, name: "OnGoingSessionRoute")
 class OnGoingSessionScreen extends ConsumerWidget {
@@ -14,18 +14,33 @@ class OnGoingSessionScreen extends ConsumerWidget {
   final dashboardController = DashboardController();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final allotedSlotState = ref.watch(dashboardProvider);
+    final allotedSlotState = ref.watch(onGoingProvider);
     return Scaffold(
-      body: allotedSlotState.easyWhen(data: (value) {
+      body: allotedSlotState.easyWhen(onRetry: () {
+        ref.invalidate(onGoingProvider);
+      }, data: (value) {
         return Padding(
           padding: const EdgeInsets.all(12.0),
           child: RefreshIndicator(
             onRefresh: () async {
-              ref.invalidate(dashboardProvider);
+              ref.invalidate(onGoingProvider);
             },
             child: value.allotSlots!.isEmpty
-                ? const Center(
-                    child: AutoSizeText("you did not complete any session"),
+                ? Column(
+                    children: [
+                      Expanded(
+                        child: SvgPicture.asset(
+                          "assets/images/svg/blank.svg",
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      gapH8,
+                      const Expanded(
+                          child: Text(
+                        "You dont have any alloted slot",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ))
+                    ],
                   )
                 : ListView.builder(
                     physics: const AlwaysScrollableScrollPhysics(),
@@ -42,7 +57,7 @@ class OnGoingSessionScreen extends ConsumerWidget {
                             ListTile(
                               dense: true,
                               visualDensity: const VisualDensity(vertical: -3),
-                              leading: AutoSizeText(
+                              leading: Text(
                                 "${data.rSPName}",
                                 style: TextStyle(
                                     color: AppColors.white,
@@ -53,7 +68,7 @@ class OnGoingSessionScreen extends ConsumerWidget {
                             ListTile(
                               dense: true,
                               visualDensity: const VisualDensity(vertical: -3),
-                              leading: AutoSizeText(
+                              leading: Text(
                                 "${data.rSSlotType}",
                                 style: TextStyle(
                                     color: AppColors.white,
@@ -65,7 +80,7 @@ class OnGoingSessionScreen extends ConsumerWidget {
                                 dense: true,
                                 visualDensity:
                                     const VisualDensity(vertical: -1),
-                                leading: AutoSizeText(
+                                leading: Text(
                                   "${data.rSStartTime}",
                                   style: TextStyle(
                                       color: AppColors.white,
@@ -87,7 +102,7 @@ class OnGoingSessionScreen extends ConsumerWidget {
                                                 status: data.rSSlotStatus
                                                     .toString());
                                           },
-                                    child: AutoSizeText(
+                                    child: Text(
                                       data.rSSlotStatus == "Started"
                                           ? "Complete"
                                           : index == 0

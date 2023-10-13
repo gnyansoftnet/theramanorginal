@@ -1,8 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../application/providers/dashboard_provider.dart';
+import 'package:theraman/src/features/dashboard/application/providers/dashboard_provider.dart';
 
 class DashboardController {
   Future<void> session({
@@ -29,7 +28,7 @@ class DashboardController {
                       await ref
                           .read(completeSessionProvider.notifier)
                           .completeSession(rsSlotId);
-                      ref.invalidate(dashboardProvider);
+                      ref.invalidate(onGoingProvider);
                       if (context.mounted) Navigator.pop(ctx);
                     },
                     child: const AutoSizeText("Yes")),
@@ -54,7 +53,7 @@ class DashboardController {
                       await ref
                           .read(startSessionProvider.notifier)
                           .startSession(rsSlotId);
-                      ref.invalidate(dashboardProvider);
+                      ref.invalidate(onGoingProvider);
                       if (context.mounted) Navigator.pop(ctx);
                     },
                     child: const AutoSizeText("Yes")),

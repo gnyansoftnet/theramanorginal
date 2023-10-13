@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:multiple_result/multiple_result.dart';
+import 'package:theraman/src/core/exception/app_exception.dart';
 import 'package:theraman/src/features/dashboard/data/apis/i_dashboard_api.dart';
 import 'package:theraman/src/features/dashboard/model/alloted_slot_response.dart';
 import 'package:theraman/src/features/dashboard/model/completed_session_model.dart';
@@ -10,7 +11,7 @@ class DashboardRepo extends IDashboardRepo {
   DashboardRepo({required this.iDashboardApi});
 
   @override
-  Future<Result<AllotedSlotResponse, Exception>> getAllotedSlotDetails({
+  Future<Result<AllotedSlotResponse, AppException>> getAllotedSlotDetails({
     required String userId,
     required String date,
     CancelToken? cancelToken,
@@ -22,15 +23,23 @@ class DashboardRepo extends IDashboardRepo {
       try {
         return Success(AllotedSlotResponse.fromJson(response.data));
       } catch (e) {
-        return Error(Exception());
+        return Error(AppException(response.data.toString()));
       }
+    } else if (response.statusCode == 405) {
+      return Error(MethodNotAllowedException(
+          "${response.statusCode} ${response.data["Message"]} !"));
+    } else if (response.statusCode == 404) {
+      return Error(NotFoundException("${response.statusCode} Not Found !"));
+    } else if (response.statusCode == 500) {
+      return Error(
+          ServerException("${response.statusCode} internal server error !"));
     } else {
-      return Error(Exception());
+      return Error(NotFoundException("Not Found !"));
     }
   }
 
   @override
-  Future<Result<CompletedSessionModel, Exception>> getCompletedSession({
+  Future<Result<CompletedSessionModel, AppException>> getCompletedSession({
     required String userId,
     required String date,
     CancelToken? cancelToken,
@@ -42,15 +51,23 @@ class DashboardRepo extends IDashboardRepo {
       try {
         return Success(CompletedSessionModel.fromJson(response.data));
       } catch (e) {
-        return Error(Exception());
+        return Error(AppException(response.data.toString()));
       }
+    } else if (response.statusCode == 405) {
+      return Error(MethodNotAllowedException(
+          "${response.statusCode} ${response.data["Message"]} !"));
+    } else if (response.statusCode == 404) {
+      return Error(NotFoundException("${response.statusCode} Not Found !"));
+    } else if (response.statusCode == 500) {
+      return Error(
+          ServerException("${response.statusCode} internal server error !"));
     } else {
-      return Error(Exception());
+      return Error(NotFoundException("Not Found !"));
     }
   }
 
   @override
-  Future<Result<String, Exception>> startSession(
+  Future<Result<String, AppException>> startSession(
       {required String userId,
       required String userType,
       CancelToken? cancelToken}) async {
@@ -59,17 +76,25 @@ class DashboardRepo extends IDashboardRepo {
 
     if (response.statusCode == 200) {
       try {
-        return const Success("Session Started");
+        return Success(response.data.toString());
       } catch (e) {
-        return Error(Exception());
+        return Error(AppException(response.data.toString()));
       }
+    } else if (response.statusCode == 405) {
+      return Error(MethodNotAllowedException(
+          "${response.statusCode} ${response.data["Message"]} !"));
+    } else if (response.statusCode == 404) {
+      return Error(NotFoundException("${response.statusCode} Not Found !"));
+    } else if (response.statusCode == 500) {
+      return Error(
+          ServerException("${response.statusCode} internal server error !"));
     } else {
-      return Error(Exception());
+      return Error(NotFoundException("Not Found !"));
     }
   }
 
   @override
-  Future<Result<String, Exception>> completeSession(
+  Future<Result<String, AppException>> completeSession(
       {required String userId,
       required String userType,
       CancelToken? cancelToken}) async {
@@ -78,12 +103,20 @@ class DashboardRepo extends IDashboardRepo {
 
     if (response.statusCode == 200) {
       try {
-        return const Success("Session Completed");
+        return Success(response.data.toString());
       } catch (e) {
-        return Error(Exception());
+        return Error(AppException(response.data.toString()));
       }
+    } else if (response.statusCode == 405) {
+      return Error(MethodNotAllowedException(
+          "${response.statusCode} ${response.data["Message"]} !"));
+    } else if (response.statusCode == 404) {
+      return Error(NotFoundException("${response.statusCode} Not Found !"));
+    } else if (response.statusCode == 500) {
+      return Error(
+          ServerException("${response.statusCode} internal server error !"));
     } else {
-      return Error(Exception());
+      return Error(NotFoundException("Not Found !"));
     }
   }
 }

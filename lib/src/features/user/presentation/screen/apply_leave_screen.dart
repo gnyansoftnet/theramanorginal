@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -9,8 +8,8 @@ import 'package:theraman/src/features/user/presentation/controller/user_controll
 import 'package:theraman/src/features/user/presentation/widget/apply_leave_button.dart';
 import 'package:theraman/src/global/widgets/drawer_widget.dart';
 import 'package:theraman/src/global/widgets/textfield_widget.dart';
+import 'package:theraman/src/utils/common_methods.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
-import '../../../../utils/common_methods.dart';
 
 @RoutePage(deferredLoading: true, name: "ApplyLeaveRoute")
 class ApplyLeaveScreen extends StatelessWidget {
@@ -39,7 +38,7 @@ class ApplyLeaveScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const AutoSizeText("Apply Leave"),
+        title: const Text("Apply Leave"),
       ),
       drawer: const DrawerWidget(currentPage: "ApplyLeaveRoute"),
       body: Padding(
@@ -52,7 +51,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  AutoSizeText(
+                  Text(
                     "Apllicants Name :",
                     style: _textStyle,
                   ),
@@ -65,7 +64,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                             userState.whenData((value) => value.staffName);
                         return Padding(
                           padding: const EdgeInsets.all(13.0),
-                          child: AutoSizeText(userName.value == null
+                          child: Text(userName.value == null
                               ? "Dr. Demo"
                               : "${userName.value}"),
                         );
@@ -77,7 +76,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  AutoSizeText(
+                  Text(
                     "Number Of Days :",
                     style: _textStyle,
                   ),
@@ -85,6 +84,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                   TextFieldWidget(
                     controller: noOfDaysController,
                     hint: "Days",
+                    maxLines: 1,
                     onChanged: (value) {
                       if (value == "1" || value == "0.5" || value == ".5") {
                         isOneDay.value = true;
@@ -118,7 +118,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
-                                  AutoSizeText(
+                                  Text(
                                     "Date :",
                                     style: _textStyle,
                                   ),
@@ -148,8 +148,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                                                 valueListenable: fromDateValue,
                                                 builder:
                                                     (context, value, child) {
-                                                  return AutoSizeText(
-                                                      value.toString());
+                                                  return Text(value.toString());
                                                 })
                                           ],
                                         ),
@@ -165,7 +164,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        AutoSizeText(
+                                        Text(
                                           "From Date :",
                                           style: _textStyle,
                                         ),
@@ -196,7 +195,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                                                           fromDateValue,
                                                       builder: (context, value,
                                                           child) {
-                                                        return AutoSizeText(
+                                                        return Text(
                                                             value.toString());
                                                       })
                                                 ],
@@ -213,7 +212,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        AutoSizeText(
+                                        Text(
                                           "To Date :",
                                           style: _textStyle,
                                         ),
@@ -235,7 +234,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                                                           toDateValue,
                                                       builder: (context, value,
                                                           child) {
-                                                        return AutoSizeText(
+                                                        return Text(
                                                             value.toString());
                                                       })
                                                 ],
@@ -256,7 +255,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  AutoSizeText(
+                  Text(
                     "Leave type:",
                     style: _textStyle,
                   ),
@@ -292,7 +291,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  AutoSizeText(
+                  Text(
                     "Specify the reson for Leave :",
                     style: _textStyle,
                   ),
