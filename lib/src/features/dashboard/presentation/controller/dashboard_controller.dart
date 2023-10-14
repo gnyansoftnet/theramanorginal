@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theraman/src/features/dashboard/application/providers/dashboard_provider.dart';
+import 'package:theraman/src/features/dashboard/application/providers/ongoing_provider.dart';
 
 class DashboardController {
   Future<void> session({

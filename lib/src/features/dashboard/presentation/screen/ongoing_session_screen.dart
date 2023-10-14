@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:theraman/src/features/dashboard/application/providers/dashboard_provider.dart';
+import 'package:theraman/src/features/dashboard/application/providers/ongoing_provider.dart';
 import 'package:theraman/src/features/dashboard/presentation/controller/dashboard_controller.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
@@ -37,7 +37,7 @@ class OnGoingSessionScreen extends ConsumerWidget {
                       gapH8,
                       const Expanded(
                           child: Text(
-                        "You dont have any alloted slot",
+                        "You do not have any alloted slot",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ))
                     ],

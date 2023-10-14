@@ -11,30 +11,29 @@ class DashboardRepo extends IDashboardRepo {
   DashboardRepo({required this.iDashboardApi});
 
   @override
-  Future<Result<AllotedSlotResponse, AppException>> getAllotedSlotDetails({
+  Stream<Result<AllotedSlotResponse, AppException>> getAllotedSlotDetails({
     required String userId,
     required String date,
     CancelToken? cancelToken,
-  }) async {
+  }) async* {
     final response = await iDashboardApi.getAllotedSlotDetails(
         userId: userId, date: date, cancelToken: cancelToken);
 
     if (response.statusCode == 200) {
       try {
-        return Success(AllotedSlotResponse.fromJson(response.data));
+        yield Success(AllotedSlotResponse.fromJson(response.data));
       } catch (e) {
-        return Error(AppException(response.data.toString()));
+        yield Error(AppException(response.data.toString()));
       }
     } else if (response.statusCode == 405) {
-      return Error(MethodNotAllowedException(
+      yield Error(MethodNotAllowedException(
           "${response.statusCode} ${response.data["Message"]} !"));
     } else if (response.statusCode == 404) {
-      return Error(NotFoundException("${response.statusCode} Not Found !"));
+      yield Error(NotFoundException("${response.statusCode} Not Found !"));
     } else if (response.statusCode == 500) {
-      return Error(
-          ServerException("${response.statusCode} internal server error !"));
+      Error(ServerException("${response.statusCode} internal server error !"));
     } else {
-      return Error(NotFoundException("Not Found !"));
+      yield Error(NotFoundException("Not Found !"));
     }
   }
 

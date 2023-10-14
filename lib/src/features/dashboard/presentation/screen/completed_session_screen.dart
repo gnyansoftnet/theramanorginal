@@ -28,19 +28,21 @@ class CompletedSessionScreen extends ConsumerWidget {
             },
             child: value.allotSlots!.isEmpty
                 ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Expanded(
+                      Center(
                         child: SvgPicture.asset(
                           "assets/images/svg/blank.svg",
                           fit: BoxFit.cover,
+                          height: 100,
                         ),
                       ),
                       gapH8,
-                      const Expanded(
-                          child: Text(
+                      const Text(
                         "You did not complete any session",
                         style: TextStyle(fontWeight: FontWeight.bold),
-                      ))
+                      )
                     ],
                   )
                 : ListView.builder(
