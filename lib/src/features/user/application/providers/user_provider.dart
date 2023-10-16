@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:theraman/src/features/authentication/model/user_model.dart';
+import 'package:theraman/src/features/user/model/user_model.dart';
 
 import 'package:theraman/src/features/user/application/notifiers/apply_leave_notifier.dart';
 import 'package:theraman/src/features/user/application/states/apply_leave_state.dart';

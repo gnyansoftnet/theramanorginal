@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 import 'package:alt_sms_autofill/alt_sms_autofill.dart';
 import 'package:auto_route/auto_route.dart';
@@ -8,12 +7,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 import 'package:theraman/src/core/exception/app_exception.dart';
+import 'package:theraman/src/features/authentication/application/providers/clock_provider.dart';
 import 'package:theraman/src/features/authentication/application/providers/login_provider.dart';
 import 'package:theraman/src/features/authentication/presentation/controller/login_controller.dart';
 import 'package:theraman/src/features/authentication/presentation/widget/verify_otp_button.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
 
-@RoutePage(deferredLoading: true, name: "VarifyOtpRoute")
+@RoutePage(deferredLoading: true, name: "VerifyOtpRoute")
 class VerifyOtpScreen extends ConsumerStatefulWidget {
   final TextEditingController mobileNoController;
   final String userType;
@@ -29,20 +29,20 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
   TextEditingController pinController = TextEditingController();
   final loginController = LoginController();
 
-  int _secondsRemaining = 30;
-  late Timer _timer;
-  bool isResend = false;
+  final ValueNotifier<bool> isResend = ValueNotifier<bool>(false);
+
   String? otpText;
 
   @override
   void initState() {
     super.initState();
     fetchAutoOTPFromPhone();
-    _startTimer();
+    ref.read(timerProvider.notifier).startTimer();
   }
 
   @override
   Widget build(BuildContext context) {
+    final timeState = ref.watch(timerProvider);
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -64,8 +64,6 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
                 gapH16,
                 PinCodeTextField(
                   pinBoxRadius: 10,
-                  // hasTextBorderColor: Colors.white10,
-                  // highlightColor: Colors.white10,
                   defaultBorderColor: Colors.black.withOpacity(0.5),
                   controller: pinController,
                   maxLength: 4,
@@ -77,10 +75,8 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
                       ProvidedPinBoxDecoration.defaultPinBoxDecoration,
                   pinTextAnimatedSwitcherTransition:
                       ProvidedPinBoxTextAnimation.scalingTransition,
-                  //                    pinBoxColor: Colors.green[100],
                   pinTextAnimatedSwitcherDuration:
                       const Duration(milliseconds: 300),
-                  //                    highlightAnimation: true,
                   highlightAnimationBeginColor: Colors.black,
                   highlightAnimationEndColor: Colors.white12,
                   keyboardType: TextInputType.number,
@@ -107,45 +103,50 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
                         userType: widget.userType);
                   }
                 }),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                        onPressed: () {
-                          if (isResend) {
-                            setState(() {
-                              isResend = false;
-                              _secondsRemaining = 30;
-                            });
-                            ref.read(sendOtpProvider.notifier).sendOtp(
-                                mobileNo: widget.mobileNoController.text,
-                                userType: widget.userType);
-                            fetchAutoOTPFromPhone();
-                            _startTimer();
-                          } else {
-                            setState(() {
-                              isResend = false;
-                              _secondsRemaining = 30;
-                            });
-                          }
-                        },
-                        child: Text(
-                          "Resend OTP",
-                          style: TextStyle(
-                              color: isResend ? Colors.blue : Colors.black,
-                              fontWeight: isResend
-                                  ? FontWeight.bold
-                                  : FontWeight.normal),
-                        )),
-                    gapW4,
-                    isResend
-                        ? Container()
-                        : Text(
-                            "$_secondsRemaining sec",
+                ValueListenableBuilder(
+                    valueListenable: isResend,
+                    builder: (context, value, _) {
+                      if (timeState == 0) {
+                        isResend.value = true;
+                      }
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextButton(
+                              onPressed: isResend.value
+                                  ? () {
+                                      isResend.value = false;
+                                      ref
+                                          .read(sendOtpProvider.notifier)
+                                          .sendOtp(
+                                              mobileNo: widget
+                                                  .mobileNoController.text,
+                                              userType: widget.userType);
+
+                                      ref
+                                          .read(timerProvider.notifier)
+                                          .startTimer();
+                                      fetchAutoOTPFromPhone();
+                                    }
+                                  : null,
+                              child: Text(
+                                "Resend OTP",
+                                style: TextStyle(
+                                    color: isResend.value
+                                        ? Colors.blue
+                                        : Colors.black,
+                                    fontWeight: isResend.value
+                                        ? FontWeight.bold
+                                        : FontWeight.normal),
+                              )),
+                          gapW4,
+                          Text(
+                            isResend.value ? "" : "$timeState Sec",
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           )
-                  ],
-                )
+                        ],
+                      );
+                    })
               ],
             ),
           ),
@@ -167,24 +168,6 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
     return true;
   }
 
-  void _startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        if (_secondsRemaining > 0) {
-          _secondsRemaining--;
-          setState(() {
-            isResend = false;
-          });
-        } else {
-          setState(() {
-            isResend = true;
-          });
-          _timer.cancel();
-        }
-      });
-    });
-  }
-
   void fetchAutoOTPFromPhone() async {
     if (Platform.isAndroid) {
       String commingSms;
@@ -202,7 +185,6 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
   void dispose() {
     pinController.clear();
     AltSmsAutofill().unregisterListener();
-    _timer.cancel();
     super.dispose();
   }
 }

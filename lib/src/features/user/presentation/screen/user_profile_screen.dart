@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
-import 'package:theraman/src/features/authentication/model/user_model.dart';
+import 'package:theraman/src/features/user/model/user_model.dart';
 import 'package:theraman/src/features/user/application/providers/user_provider.dart';
 import 'package:theraman/src/features/user/presentation/controller/user_controller.dart';
 import 'package:theraman/src/global/widgets/drawer_widget.dart';

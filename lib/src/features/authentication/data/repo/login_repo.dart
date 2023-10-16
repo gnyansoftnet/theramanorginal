@@ -3,7 +3,7 @@ import 'package:multiple_result/multiple_result.dart';
 import 'package:theraman/src/core/exception/app_exception.dart';
 import 'package:theraman/src/features/authentication/data/apis/i_login_api.dart';
 import 'package:theraman/src/features/authentication/data/repo/i_login_repo.dart';
-import 'package:theraman/src/features/authentication/model/user_model.dart';
+import 'package:theraman/src/features/user/model/user_model.dart';
 import 'package:theraman/src/utils/local_store/preferences.dart';
 
 class LoginRepo extends ILoginRepo {
@@ -39,7 +39,7 @@ class LoginRepo extends ILoginRepo {
   }
 
   @override
-  Future<Result<UserModel, AppException>> verifyOtp(
+  Future<Result<String, AppException>> verifyOtp(
       {required String mobileNo,
       required String otp,
       required String userType,
@@ -60,7 +60,7 @@ class LoginRepo extends ILoginRepo {
         Preferences.setPreference("staffCode", user.staffCode);
         Preferences.saveUser(usermodel);
         Preferences.setPreference("userType", userType);
-        return Success(UserModel.fromJson(response.data));
+        return Success(response.data.toString());
       } catch (e) {
         return Error(AppException(response.data.toString()));
       }

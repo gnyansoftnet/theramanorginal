@@ -82,7 +82,7 @@ class DrawerWidget extends StatelessWidget {
               icon: Icons.check_circle,
               onTap: () {
                 if (currentPage != "LeaveStatusRoute") {
-                  context.navigateTo(const LeaveStatusRoute());
+                  context.navigateTo(LeaveStatusRoute());
                   Navigator.pop(context);
                 }
               },

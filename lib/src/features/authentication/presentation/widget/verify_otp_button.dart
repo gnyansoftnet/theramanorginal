@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/authentication/application/providers/login_provider.dart';
 import 'package:theraman/src/features/authentication/application/states/verify_otp_states.dart';
+import 'package:theraman/src/global/widgets/elevated_button_widget.dart';
 import 'package:theraman/src/utils/extensions/common_ext/snackbar_ext.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
 
@@ -44,28 +45,29 @@ class VerifyOtpButton extends ConsumerWidget {
     return verifyOtpButtonState.easyWhen(
       data: (data) {
         return switch (data) {
-          VerifyOtpInitial() => ElevatedButton(
+          VerifyOtpInitial() => ElevatedButtonWidget(
               onPressed: onSubmit,
               child: const Text("Verify"),
             ),
-          VerifyOtpLoading() => const ElevatedButton(
+          VerifyOtpLoading() => const ElevatedButtonWidget(
               onPressed: null,
               child: Text("Verify"),
             ),
-          VerifyOtpLoaded() => const ElevatedButton(
+          VerifyOtpLoaded() => const ElevatedButtonWidget(
               onPressed: null,
               child: Text("Verify"),
             ),
         };
       },
-      errorWidget: (error, stackTrace) => ElevatedButton(
+      errorWidget: (error, stackTrace) => ElevatedButtonWidget(
         onPressed: onSubmit,
-        // onPressed: () {},
         child: const Text("Verify"),
       ),
-      loadingWidget: () => const ElevatedButton(
+      loadingWidget: () => const ElevatedButtonWidget(
         onPressed: null,
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(
+          strokeWidth: 2.0,
+        ),
       ),
     );
   }

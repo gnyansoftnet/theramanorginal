@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/authentication/application/providers/login_provider.dart';
 import 'package:theraman/src/features/authentication/application/states/send_otp_states.dart';
+import 'package:theraman/src/global/widgets/elevated_button_widget.dart';
 import 'package:theraman/src/utils/extensions/common_ext/snackbar_ext.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
 
@@ -30,7 +31,7 @@ class SendOtpButton extends ConsumerWidget {
             SendOtpInitial() => null,
             SendOtpLoading() => null,
             SendOtpLoaded() => {
-                context.navigateTo(VarifyOtpRoute(
+                context.navigateTo(VerifyOtpRoute(
                     mobileNoController: mobileNoController,
                     userType: usertype)),
               }
@@ -50,27 +51,29 @@ class SendOtpButton extends ConsumerWidget {
     return submitloginButtonState.easyWhen(
       data: (data) {
         return switch (data) {
-          SendOtpInitial() => ElevatedButton(
+          SendOtpInitial() => ElevatedButtonWidget(
               onPressed: onSubmit,
               child: const Text("Submit"),
             ),
-          SendOtpLoading() => const ElevatedButton(
+          SendOtpLoading() => const ElevatedButtonWidget(
               onPressed: null,
               child: Text("Submit"),
             ),
-          SendOtpLoaded() => ElevatedButton(
+          SendOtpLoaded() => ElevatedButtonWidget(
               onPressed: onSubmit,
               child: const Text("Submit"),
             ),
         };
       },
-      errorWidget: (error, stackTrace) => ElevatedButton(
+      errorWidget: (error, stackTrace) => ElevatedButtonWidget(
         onPressed: onSubmit,
         child: const Text("Submit"),
       ),
-      loadingWidget: () => const ElevatedButton(
+      loadingWidget: () => const ElevatedButtonWidget(
         onPressed: null,
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(
+          strokeWidth: 2.0,
+        ),
       ),
     );
   }

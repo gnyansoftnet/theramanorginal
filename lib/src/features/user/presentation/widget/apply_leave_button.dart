@@ -29,7 +29,7 @@ class ApplyLeaveButton extends ConsumerWidget {
             ApplyLeaveLoaded() => {
                 Fluttertoast.showToast(
                     msg: "Your application submitted sucessfully"),
-                context.navigateTo(const LeaveStatusRoute()),
+                context.navigateTo(LeaveStatusRoute()),
               },
           },
           error: (e, _) {

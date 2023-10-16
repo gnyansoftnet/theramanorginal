@@ -15,8 +15,8 @@ class AppRouter extends $AppRouter {
           page: UserTypeRoute.page,
           path: '/UserTypeRoute',
         ),
-        AutoRoute(page: LoginRoute.page, path: "/LoginRoute"),
-        AutoRoute(page: VarifyOtpRoute.page, path: "/VerifyOtpRoute"),
+        AutoRoute(page: MobileNumberRoute.page, path: "/LoginRoute"),
+        AutoRoute(page: VerifyOtpRoute.page, path: "/VerifyOtpRoute"),
         AutoRoute(
           page: DashboardRoute.page,
           path: "/DashboardRoute",

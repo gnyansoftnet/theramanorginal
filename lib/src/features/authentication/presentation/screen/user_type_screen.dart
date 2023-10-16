@@ -24,13 +24,15 @@ class UserTypeScreen extends StatelessWidget {
                   gapH20,
                   userTypeCard(
                       title: "I am  Executive",
-                      onPressed: () {},
+                      onPressed: () {
+                        context.navigateTo(MobileNumberRoute(userType: "E"));
+                      },
                       userType: "E"),
                   gapH16,
                   userTypeCard(
                       title: "I am  Therapist",
                       onPressed: () {
-                        context.navigateTo(LoginRoute(userType: "T"));
+                        context.navigateTo(MobileNumberRoute(userType: "T"));
                       },
                       userType: "T"),
                   gapH16,

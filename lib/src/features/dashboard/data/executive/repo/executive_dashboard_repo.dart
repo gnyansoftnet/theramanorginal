@@ -1,0 +1,35 @@
+import 'package:dio/dio.dart';
+import 'package:multiple_result/multiple_result.dart';
+import 'package:theraman/src/core/exception/app_exception.dart';
+import 'package:theraman/src/features/dashboard/data/executive/apis/i_executive_dashboard_api.dart';
+import 'package:theraman/src/features/dashboard/data/executive/repo/i_executive_dashboard_repo.dart';
+import 'package:theraman/src/features/dashboard/model/executive/completed_slot_all_therapist.dart';
+
+class ExecutiveDashboardRepo extends IExecutiveDashboardRepo {
+  final IExecutiveDashboardApi iExecutiveDashboardApi;
+  ExecutiveDashboardRepo({required this.iExecutiveDashboardApi});
+  @override
+  Future<Result<CompletedSlotAllTherapistModel, AppException>>
+      getCompletedSlotAllTherapist(
+          {required String date, CancelToken? cancelToken}) async {
+    final response = await iExecutiveDashboardApi.getCompletedSlotAllTherapist(
+        date: date, cancelToken: cancelToken);
+    if (response.statusCode == 200) {
+      try {
+        return Success(CompletedSlotAllTherapistModel.fromJson(response.data));
+      } catch (e) {
+        return Error(AppException(response.data.toString()));
+      }
+    } else if (response.statusCode == 405) {
+      return Error(MethodNotAllowedException(
+          "${response.statusCode} ${response.data["Message"]} !"));
+    } else if (response.statusCode == 404) {
+      return Error(NotFoundException("${response.statusCode} Not Found !"));
+    } else if (response.statusCode == 500) {
+      return Error(
+          ServerException("${response.statusCode} internal server error !"));
+    } else {
+      return Error(NotFoundException("Not Found !"));
+    }
+  }
+}
