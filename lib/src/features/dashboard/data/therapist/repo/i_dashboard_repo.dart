@@ -1,16 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:theraman/src/core/exception/app_exception.dart';
-import 'package:theraman/src/features/dashboard/model/therapist/alloted_slot_response.dart';
-import 'package:theraman/src/features/dashboard/model/therapist/completed_session_model.dart';
+import 'package:theraman/src/global/model/alloted_slot_response_model.dart';
 
 abstract class IDashboardRepo {
-  Stream<Result<AllotedSlotResponse, AppException>> getAllotedSlotDetails({
+  Stream<Result<AllotedSlotResponseModel, AppException>> getAllotedSlotDetails({
     required String userId,
     required String date,
     CancelToken? cancelToken,
   });
-  Future<Result<CompletedSessionModel, AppException>> getCompletedSession({
+  Future<Result<AllotedSlotResponseModel, AppException>> getCompletedSession({
     required String userId,
     required String date,
     CancelToken? cancelToken,

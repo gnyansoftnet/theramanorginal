@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
-import 'package:theraman/src/features/user/model/user_model.dart';
 import 'package:theraman/src/features/user/application/providers/user_provider.dart';
 import 'package:theraman/src/features/user/presentation/controller/user_controller.dart';
 import 'package:theraman/src/global/widgets/drawer_widget.dart';
@@ -14,11 +14,10 @@ import 'package:theraman/src/utils/local_store/preferences.dart';
 
 @RoutePage(deferredLoading: true, name: "UserProfileRoute")
 class UserProfileScreen extends ConsumerWidget {
-  const UserProfileScreen({super.key});
-
+  UserProfileScreen({super.key});
+  final userController = UserController();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userController = UserController();
     final userState = ref.watch(userProvider);
     return Scaffold(
       appBar: AppBar(
@@ -97,10 +96,14 @@ class UserProfileScreen extends ConsumerWidget {
                                         child: const Text("No")),
                                     TextButton(
                                         onPressed: () async {
-                                          await Preferences.removeUser();
-                                          if (context.mounted) {
-                                            context.router.replaceAll(
-                                                [const SplashRoute()]);
+                                          print(await Preferences.removeUser());
+                                          if (await Preferences.removeUser()) {
+                                            if (context.mounted) {
+                                              // Phoenix.rebirth(context);
+
+                                              context.router.replaceAll(
+                                                  [const SplashRoute()]);
+                                            }
                                           }
                                         },
                                         child: const Text("Yes"))

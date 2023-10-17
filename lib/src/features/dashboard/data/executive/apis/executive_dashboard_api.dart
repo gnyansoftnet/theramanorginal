@@ -8,7 +8,14 @@ class ExecutiveDashboardApi extends IExecutiveDashboardApi {
   @override
   Future<Response> getCompletedSlotAllTherapist(
       {required date, CancelToken? cancelToken}) async {
-    return await dio.get(
-        "${AppUrls.getCompletedSlotDetailsForAllTherapist}&Session_Date=$date");
+    return await dio
+        .get("${AppUrls.getCompletedSlotAllTherapistUrl}&Session_Date=$date");
+  }
+
+  @override
+  Future<Response> getAllotedSlotAllTherapist(
+      {required date, CancelToken? cancelToken}) async {
+    return await dio
+        .get("${AppUrls.getAllotedSlotAllTherapistUrl}&Session_Date=$date");
   }
 }

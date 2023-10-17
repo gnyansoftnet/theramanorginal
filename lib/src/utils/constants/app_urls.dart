@@ -10,11 +10,13 @@ class AppUrls {
   static const String getAllotedSlotDetailsUrl = "/GetAllotedSlotDetails";
   static const String startSessionUrl = "/SessionStart";
   static const String completeSessionUrl = "/SessionCompleted";
-  static const String getUserDetails = "/GetUserProfileDetails";
-  static const String applyLeave = "/ApplyLeave";
-  static const String leaveStatus = "/GetAppliedLeaveDetails";
+  static const String getUserDetailsUrl = "/GetUserProfileDetails";
+  static const String applyLeaveUrl = "/ApplyLeave";
+  static const String leaveStatusUrl = "/GetAppliedLeaveDetails";
 
   // Executive
-  static const String getCompletedSlotDetailsForAllTherapist =
+  static const String getCompletedSlotAllTherapistUrl =
       "/GetAllotedSlotDetailsForAllTherapist/?Session_Status=C";
+  static const String getAllotedSlotAllTherapistUrl =
+      "/GetAllotedSlotDetailsForAllTherapist/?Session_Status=A";
 }

@@ -27,17 +27,16 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: ApplyLeaveRoute.page, path: "/ApplyLeaveRoute"),
         AutoRoute(page: LeaveStatusRoute.page, path: "/LeaveStatusRoute"),
 
-        // AutoRoute(
-        //     page: HomeRoute.page,
-        //     initial: false,
-        //     path: '/HomeRoute',
-        //     children: [
-        //       AutoRoute(
-        //         page: DashboardRoute.page,
-        //       ),
-        //       AutoRoute(
-        //         page: UserProfileRoute.page,
-        //       )
-        //     ])
+        // executive route
+        AutoRoute(
+            page: ExecutiveOngoingSessionRoute.page,
+            path: "/ExecutiveOngoingSessionRoute"),
+        AutoRoute(
+            page: ExecutiveCompletedSessionRoute.page,
+            path: "/ExecutiveCompletedSessionRoute"),
+        AutoRoute(
+            page: ExecutiveCancelledSessionRoute.page,
+            path: "/ExecutiveCancelledSessionRoute"),
+        AutoRoute(page: CancelSessionRoute.page, path: "/CancelSessionRoute"),
       ];
 }

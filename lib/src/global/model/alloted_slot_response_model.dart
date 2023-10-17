@@ -1,9 +1,9 @@
-class CompletedSlotAllTherapistModel {
+class AllotedSlotResponseModel {
   List<AllotSlots>? allotSlots;
 
-  CompletedSlotAllTherapistModel({this.allotSlots});
+  AllotedSlotResponseModel({this.allotSlots});
 
-  CompletedSlotAllTherapistModel.fromJson(Map<String, dynamic> json) {
+  AllotedSlotResponseModel.fromJson(Map<String, dynamic> json) {
     if (json['AllotSlots'] != null) {
       allotSlots = <AllotSlots>[];
       json['AllotSlots'].forEach((v) {
@@ -33,6 +33,7 @@ class AllotSlots {
   String? rSSlotType;
   String? rSSlotStatus;
   String? rSReason;
+  String? rSSessionType;
   String? rSTherapistStartTime;
   String? rSTherapistEndTime;
   String? rSDuration;
@@ -49,6 +50,7 @@ class AllotSlots {
       this.rSSlotType,
       this.rSSlotStatus,
       this.rSReason,
+      this.rSSessionType,
       this.rSTherapistStartTime,
       this.rSTherapistEndTime,
       this.rSDuration});
@@ -65,6 +67,7 @@ class AllotSlots {
     rSSlotType = json['RS_Slot_Type'];
     rSSlotStatus = json['RS_Slot_Status'];
     rSReason = json['RS_Reason'];
+    rSSessionType = json['RS_Session_Type'];
     rSTherapistStartTime = json['RS_Therapist_Start_Time'];
     rSTherapistEndTime = json['RS_Therapist_End_Time'];
     rSDuration = json['RS_Duration'];
@@ -83,6 +86,7 @@ class AllotSlots {
     data['RS_Slot_Type'] = rSSlotType;
     data['RS_Slot_Status'] = rSSlotStatus;
     data['RS_Reason'] = rSReason;
+    data['RS_Session_Type'] = rSSessionType;
     data['RS_Therapist_Start_Time'] = rSTherapistStartTime;
     data['RS_Therapist_End_Time'] = rSTherapistEndTime;
     data['RS_Duration'] = rSDuration;

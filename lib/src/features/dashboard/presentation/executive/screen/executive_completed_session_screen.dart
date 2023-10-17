@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,6 +7,7 @@ import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
 
+@RoutePage(deferredLoading: true, name: "ExecutiveCompletedSessionRoute")
 class ExecutiveCompletedSessionScreen extends ConsumerWidget {
   const ExecutiveCompletedSessionScreen({super.key});
 
@@ -36,7 +38,7 @@ class ExecutiveCompletedSessionScreen extends ConsumerWidget {
                       ),
                       gapH8,
                       const Text(
-                        "You did not complete any session",
+                        "Did not complete any session today",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       )
                     ],

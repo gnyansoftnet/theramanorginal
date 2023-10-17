@@ -52,7 +52,7 @@ class DrawerWidget extends StatelessWidget {
               icon: Icons.person,
               onTap: () {
                 if (currentPage != "UserProfileRoute") {
-                  context.navigateTo(const UserProfileRoute());
+                  context.navigateTo(UserProfileRoute());
                   Navigator.pop(context);
                 }
               },

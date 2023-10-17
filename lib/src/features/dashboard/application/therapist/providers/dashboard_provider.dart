@@ -4,13 +4,13 @@ import 'package:intl/intl.dart';
 import 'package:theraman/src/features/dashboard/application/therapist/notifiers/complete_session_notifier.dart';
 import 'package:theraman/src/features/dashboard/application/therapist/notifiers/start_session_notifier.dart';
 import 'package:theraman/src/features/dashboard/data/therapist/repo/dashboard_repo_pod.dart';
-import 'package:theraman/src/features/dashboard/model/therapist/completed_session_model.dart';
+import 'package:theraman/src/global/model/alloted_slot_response_model.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/cache_ext.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/cancel_ext.dart';
 import 'package:theraman/src/utils/local_store/preferences.dart';
 
 final completedSessionProvider =
-    FutureProvider.autoDispose<CompletedSessionModel>(
+    FutureProvider.autoDispose<AllotedSlotResponseModel>(
   (ref) async {
     final token = ref.cancelToken();
 

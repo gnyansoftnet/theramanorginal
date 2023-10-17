@@ -11,7 +11,7 @@ class UserApi extends IUserApi {
   Future<Response> getUserDetails(
       {required userId, required userType, CancelToken? cancelToken}) async {
     return await dio
-        .get("${AppUrls.getUserDetails}/?User_Id=$userId&Type=$userType");
+        .get("${AppUrls.getUserDetailsUrl}/?User_Id=$userId&Type=$userType");
   }
 
   @override
@@ -31,7 +31,7 @@ class UserApi extends IUserApi {
       "Leave_Type": leaveType,
       "Reason": reason
     };
-    return await dio.post(AppUrls.applyLeave, data: formData);
+    return await dio.post(AppUrls.applyLeaveUrl, data: formData);
   }
 
   @override
@@ -41,7 +41,7 @@ class UserApi extends IUserApi {
       required toDate,
       CancelToken? cancelToken}) async {
     return await dio.get(
-        "${AppUrls.leaveStatus}/?User_Id=$userId&From_Date=$fromDate&To_Date=$toDate");
+        "${AppUrls.leaveStatusUrl}/?User_Id=$userId&From_Date=$fromDate&To_Date=$toDate");
   }
   // http://cms.softnetcms.com/Api/MApp_ServicesApi/GetAppliedLeaveDetails/?User_Id=THST5&From_Date=10/10/2023&To_Date=10/10/2023
 }

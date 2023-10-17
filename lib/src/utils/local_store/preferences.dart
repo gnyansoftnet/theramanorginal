@@ -1,5 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:theraman/src/features/user/model/user_model.dart';
+import 'package:theraman/src/global/model/user_model.dart';
 
 Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
@@ -37,7 +37,6 @@ class Preferences {
   static Future<bool> saveUser(UserModel responseModel) async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     sp.setBool('isLogin', responseModel.isLogin!);
-    sp.setString('staffCode', responseModel.staffCode!);
     return true;
   }
 
@@ -49,7 +48,7 @@ class Preferences {
 
   static Future<bool> removeUser() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-    sp.clear();
+    await sp.clear();
     return true;
   }
 }

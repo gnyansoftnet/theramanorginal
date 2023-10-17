@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:theraman/src/core/exception/app_exception.dart';
-import 'package:theraman/src/features/user/model/user_model.dart';
+import 'package:theraman/src/global/model/user_model.dart';
 import 'package:theraman/src/features/user/model/leave_details_model.dart';
 
 abstract class IUserRepo {

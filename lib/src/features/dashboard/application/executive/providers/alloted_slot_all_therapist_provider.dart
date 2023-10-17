@@ -4,14 +4,14 @@ import 'package:theraman/src/features/dashboard/data/executive/repo/executive_da
 import 'package:theraman/src/global/model/alloted_slot_response_model.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/cancel_ext.dart';
 
-final completedSlotAllTherapistProvider =
+final allotedSlotAllTherapistProvider =
     FutureProvider.autoDispose<AllotedSlotResponseModel>((ref) async {
   final token = ref.cancelToken();
   final currentDate = DateTime.now();
   final date = DateFormat("MM/dd/yyy").format(currentDate);
   final result = await ref
       .watch(executivedashboardRepoProvider)
-      .getCompletedSlotAllTherapist(date: date, cancelToken: token);
+      .getAllotedSlotAllTherapist(date: date, cancelToken: token);
   return result.when((success) {
     return success;
   }, (error) {

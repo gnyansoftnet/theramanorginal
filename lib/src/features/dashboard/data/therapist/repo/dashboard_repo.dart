@@ -2,8 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:theraman/src/core/exception/app_exception.dart';
 import 'package:theraman/src/features/dashboard/data/therapist/apis/i_dashboard_api.dart';
-import 'package:theraman/src/features/dashboard/model/therapist/alloted_slot_response.dart';
-import 'package:theraman/src/features/dashboard/model/therapist/completed_session_model.dart';
+import 'package:theraman/src/global/model/alloted_slot_response_model.dart';
 import 'i_dashboard_repo.dart';
 
 class DashboardRepo extends IDashboardRepo {
@@ -11,7 +10,7 @@ class DashboardRepo extends IDashboardRepo {
   DashboardRepo({required this.iDashboardApi});
 
   @override
-  Stream<Result<AllotedSlotResponse, AppException>> getAllotedSlotDetails({
+  Stream<Result<AllotedSlotResponseModel, AppException>> getAllotedSlotDetails({
     required String userId,
     required String date,
     CancelToken? cancelToken,
@@ -21,7 +20,7 @@ class DashboardRepo extends IDashboardRepo {
 
     if (response.statusCode == 200) {
       try {
-        yield Success(AllotedSlotResponse.fromJson(response.data));
+        yield Success(AllotedSlotResponseModel.fromJson(response.data));
       } catch (e) {
         yield Error(AppException(response.data.toString()));
       }
@@ -38,7 +37,7 @@ class DashboardRepo extends IDashboardRepo {
   }
 
   @override
-  Future<Result<CompletedSessionModel, AppException>> getCompletedSession({
+  Future<Result<AllotedSlotResponseModel, AppException>> getCompletedSession({
     required String userId,
     required String date,
     CancelToken? cancelToken,
@@ -48,7 +47,7 @@ class DashboardRepo extends IDashboardRepo {
 
     if (response.statusCode == 200) {
       try {
-        return Success(CompletedSessionModel.fromJson(response.data));
+        return Success(AllotedSlotResponseModel.fromJson(response.data));
       } catch (e) {
         return Error(AppException(response.data.toString()));
       }
