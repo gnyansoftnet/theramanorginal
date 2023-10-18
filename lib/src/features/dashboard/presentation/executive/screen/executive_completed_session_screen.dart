@@ -75,7 +75,7 @@ class ExecutiveCompletedSessionScreen extends ConsumerWidget {
                                     fontSize: 13),
                               ),
                               trailing: Text(
-                                "${data.rSStartTime}",
+                                "${data.rSSessionType}",
                                 style: TextStyle(
                                     color: AppColors.white,
                                     fontWeight: FontWeight.bold,
@@ -85,34 +85,15 @@ class ExecutiveCompletedSessionScreen extends ConsumerWidget {
                             ListTile(
                               dense: true,
                               visualDensity: const VisualDensity(vertical: -3),
-                              leading: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    "${data.rSTherapistStartTime}",
-                                    style: TextStyle(
-                                        color: AppColors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12),
-                                  ),
-                                  Text(
-                                    "-",
-                                    style: TextStyle(
-                                        color: AppColors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12),
-                                  ),
-                                  Text(
-                                    "${data.rSTherapistEndTime}",
-                                    style: TextStyle(
-                                        color: AppColors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12),
-                                  )
-                                ],
+                              leading: Text(
+                                "${data.rSStartTime}",
+                                style: TextStyle(
+                                    color: AppColors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12),
                               ),
                               trailing: Text(
-                                "${data.rSDuration}",
+                                "${data.rSDoctorName}",
                                 style: TextStyle(
                                     color: AppColors.white,
                                     fontWeight: FontWeight.bold,

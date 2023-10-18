@@ -19,4 +19,9 @@ class AppUrls {
       "/GetAllotedSlotDetailsForAllTherapist/?Session_Status=C";
   static const String getAllotedSlotAllTherapistUrl =
       "/GetAllotedSlotDetailsForAllTherapist/?Session_Status=A";
+
+  static const String reasonsUrl = "/GetAllReasons";
+  static const String sessionCancelUrl = "/SessionCancelled";
+  static const String getCancelledSlotAllTherapistUrl =
+      "/GetAllotedSlotDetailsForAllTherapist/?Session_Status=D";
 }
