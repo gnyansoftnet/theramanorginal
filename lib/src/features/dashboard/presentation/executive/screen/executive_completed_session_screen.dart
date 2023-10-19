@@ -33,7 +33,7 @@ class ExecutiveCompletedSessionScreen extends ConsumerWidget {
                         child: SvgPicture.asset(
                           "assets/images/svg/blank.svg",
                           fit: BoxFit.cover,
-                          height: 100,
+                          height: 300,
                         ),
                       ),
                       gapH8,

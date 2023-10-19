@@ -70,21 +70,28 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                                 color: AppColors.white,
                                 itemBuilder: (context) =>
                                     <PopupMenuEntry<String>>[
-                                  const PopupMenuItem(
+                                  PopupMenuItem(
                                       child: ListTile(
+                                    onTap: () => context.navigateTo(
+                                        SessionRescheduleRoute(
+                                            allotSlots: data)),
                                     dense: true,
-                                    visualDensity: VisualDensity(vertical: -4),
+                                    visualDensity:
+                                        const VisualDensity(vertical: -4),
                                     contentPadding: EdgeInsets.zero,
-                                    leading: Icon(Icons.change_circle),
-                                    title: Text("Session Reschedule"),
+                                    leading: const Icon(Icons.change_circle),
+                                    title: const Text("Session Reschedule"),
                                   )),
-                                  const PopupMenuItem(
+                                  PopupMenuItem(
                                       child: ListTile(
+                                    onTap: () => context.navigateTo(
+                                        ChangeTherapistRoute(allotSlots: data)),
                                     dense: true,
-                                    visualDensity: VisualDensity(vertical: -4),
+                                    visualDensity:
+                                        const VisualDensity(vertical: -4),
                                     contentPadding: EdgeInsets.zero,
-                                    leading: Icon(Icons.group),
-                                    title: Text("Change Therapist"),
+                                    leading: const Icon(Icons.group),
+                                    title: const Text("Change Therapist"),
                                   )),
                                   PopupMenuItem(
                                       child: ListTile(

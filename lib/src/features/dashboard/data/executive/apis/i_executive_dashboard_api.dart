@@ -8,6 +8,9 @@ abstract class IExecutiveDashboardApi {
     CancelToken? cancelToken,
   });
   Future<Response> getReason({CancelToken? cancelToken});
+  Future<Response> getTherapistName({CancelToken? cancelToken});
+  Future<Response> getSlotTime({CancelToken? cancelToken});
+
   Future<Response> cancelSession(
       {required userId,
       required userType,
@@ -17,4 +20,22 @@ abstract class IExecutiveDashboardApi {
       CancelToken? cancelToken});
   Future<Response> getCancelledSessionAllTherapist(
       {required date, CancelToken? cancelToken});
+  Future<Response> changeTherapist({
+    required userType,
+    required userId,
+    required slotId,
+    required therapistName,
+    required reason,
+    CancelToken? cancelToken,
+  });
+
+  Future<Response> sessionReschedule({
+    required userType,
+    required userId,
+    required slotId,
+    required therapistName,
+    required reason,
+    required slotTime,
+    CancelToken? cancelToken,
+  });
 }

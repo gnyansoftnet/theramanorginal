@@ -20,7 +20,7 @@ import 'package:theraman/src/features/dashboard/presentation/dashboard_screen.da
     deferred as _i5;
 import 'package:theraman/src/features/dashboard/presentation/executive/screen/cancel_session_screen.dart'
     deferred as _i2;
-import 'package:theraman/src/features/dashboard/presentation/executive/screen/change_therapy_screen.dart'
+import 'package:theraman/src/features/dashboard/presentation/executive/screen/change_therapist_screen.dart'
     deferred as _i3;
 import 'package:theraman/src/features/dashboard/presentation/executive/screen/executive_cancelled_session_screen.dart'
     deferred as _i6;
@@ -28,7 +28,7 @@ import 'package:theraman/src/features/dashboard/presentation/executive/screen/ex
     deferred as _i7;
 import 'package:theraman/src/features/dashboard/presentation/executive/screen/executive_ongoing_session_screen.dart'
     deferred as _i8;
-import 'package:theraman/src/features/dashboard/presentation/executive/screen/reschedule_session_screen.dart'
+import 'package:theraman/src/features/dashboard/presentation/executive/screen/session_reschedule_screen.dart'
     deferred as _i12;
 import 'package:theraman/src/features/dashboard/presentation/therapist/screen/completed_session_screen.dart'
     deferred as _i4;
@@ -76,12 +76,16 @@ abstract class $AppRouter extends _i18.RootStackRouter {
         ),
       );
     },
-    ChangeTherapyRoute.name: (routeData) {
+    ChangeTherapistRoute.name: (routeData) {
+      final args = routeData.argsAs<ChangeTherapistRouteArgs>();
       return _i18.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i18.DeferredWidget(
           _i3.loadLibrary,
-          () => _i3.ChangeTherapyScreen(),
+          () => _i3.ChangeTherapistScreen(
+            key: args.key,
+            allotSlots: args.allotSlots,
+          ),
         ),
       );
     },
@@ -167,12 +171,16 @@ abstract class $AppRouter extends _i18.RootStackRouter {
         ),
       );
     },
-    RescheduleSessionRoute.name: (routeData) {
+    SessionRescheduleRoute.name: (routeData) {
+      final args = routeData.argsAs<SessionRescheduleRouteArgs>();
       return _i18.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i18.DeferredWidget(
           _i12.loadLibrary,
-          () => _i12.RescheduleSessionScreen(),
+          () => _i12.SessionRescheduleScreen(
+            key: args.key,
+            allotSlots: args.allotSlots,
+          ),
         ),
       );
     },
@@ -299,17 +307,42 @@ class CancelSessionRouteArgs {
 }
 
 /// generated route for
-/// [_i3.ChangeTherapyScreen]
-class ChangeTherapyRoute extends _i18.PageRouteInfo<void> {
-  const ChangeTherapyRoute({List<_i18.PageRouteInfo>? children})
-      : super(
-          ChangeTherapyRoute.name,
+/// [_i3.ChangeTherapistScreen]
+class ChangeTherapistRoute
+    extends _i18.PageRouteInfo<ChangeTherapistRouteArgs> {
+  ChangeTherapistRoute({
+    _i19.Key? key,
+    required _i20.AllotSlots allotSlots,
+    List<_i18.PageRouteInfo>? children,
+  }) : super(
+          ChangeTherapistRoute.name,
+          args: ChangeTherapistRouteArgs(
+            key: key,
+            allotSlots: allotSlots,
+          ),
           initialChildren: children,
         );
 
-  static const String name = 'ChangeTherapyRoute';
+  static const String name = 'ChangeTherapistRoute';
 
-  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+  static const _i18.PageInfo<ChangeTherapistRouteArgs> page =
+      _i18.PageInfo<ChangeTherapistRouteArgs>(name);
+}
+
+class ChangeTherapistRouteArgs {
+  const ChangeTherapistRouteArgs({
+    this.key,
+    required this.allotSlots,
+  });
+
+  final _i19.Key? key;
+
+  final _i20.AllotSlots allotSlots;
+
+  @override
+  String toString() {
+    return 'ChangeTherapistRouteArgs{key: $key, allotSlots: $allotSlots}';
+  }
 }
 
 /// generated route for
@@ -495,17 +528,42 @@ class OnGoingSessionRouteArgs {
 }
 
 /// generated route for
-/// [_i12.RescheduleSessionScreen]
-class RescheduleSessionRoute extends _i18.PageRouteInfo<void> {
-  const RescheduleSessionRoute({List<_i18.PageRouteInfo>? children})
-      : super(
-          RescheduleSessionRoute.name,
+/// [_i12.SessionRescheduleScreen]
+class SessionRescheduleRoute
+    extends _i18.PageRouteInfo<SessionRescheduleRouteArgs> {
+  SessionRescheduleRoute({
+    _i19.Key? key,
+    required _i20.AllotSlots allotSlots,
+    List<_i18.PageRouteInfo>? children,
+  }) : super(
+          SessionRescheduleRoute.name,
+          args: SessionRescheduleRouteArgs(
+            key: key,
+            allotSlots: allotSlots,
+          ),
           initialChildren: children,
         );
 
-  static const String name = 'RescheduleSessionRoute';
+  static const String name = 'SessionRescheduleRoute';
 
-  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+  static const _i18.PageInfo<SessionRescheduleRouteArgs> page =
+      _i18.PageInfo<SessionRescheduleRouteArgs>(name);
+}
+
+class SessionRescheduleRouteArgs {
+  const SessionRescheduleRouteArgs({
+    this.key,
+    required this.allotSlots,
+  });
+
+  final _i19.Key? key;
+
+  final _i20.AllotSlots allotSlots;
+
+  @override
+  String toString() {
+    return 'SessionRescheduleRouteArgs{key: $key, allotSlots: $allotSlots}';
+  }
 }
 
 /// generated route for

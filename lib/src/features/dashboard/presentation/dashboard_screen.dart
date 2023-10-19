@@ -30,14 +30,14 @@ class DashboardScreen extends ConsumerWidget {
                   padding: const EdgeInsets.only(right: 10),
                   child: IconButton(
                       onPressed: () {
-                        showSearch(
-                            context: context,
-                            delegate: allotSlotState.when(
-                              data: (value) =>
-                                  CustomSearch(allotSlots: value.allotSlots),
-                              error: (_, __) => CustomSearch(allotSlots: []),
-                              loading: () => CustomSearch(allotSlots: []),
-                            ));
+                        // showSearch(
+                        //     context: context,
+                        //     delegate: allotSlotState.when(
+                        //       data: (value) =>
+                        //           CustomSearch(allotSlots: value.allotSlots),
+                        //       error: (_, __) => CustomSearch(allotSlots: []),
+                        //       loading: () => CustomSearch(allotSlots: []),
+                        //     ));
                       },
                       icon: const Icon(
                         Icons.search,

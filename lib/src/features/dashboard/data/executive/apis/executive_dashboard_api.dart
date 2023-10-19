@@ -48,4 +48,52 @@ class ExecutiveDashboardApi extends IExecutiveDashboardApi {
     return await dio
         .get("${AppUrls.getCancelledSlotAllTherapistUrl}&Session_Date=$date");
   }
+
+  @override
+  Future<Response> getTherapistName({CancelToken? cancelToken}) async {
+    return await dio.get(AppUrls.therapistNameUrl);
+  }
+
+  @override
+  Future<Response> getSlotTime({CancelToken? cancelToken}) async {
+    return await dio.get(AppUrls.slotTimeUrl);
+  }
+
+  @override
+  Future<Response> changeTherapist(
+      {required userType,
+      required userId,
+      required slotId,
+      required therapistName,
+      required reason,
+      CancelToken? cancelToken}) async {
+    var formData = {
+      "User_Type": userType,
+      "User_Id": userId,
+      "Slot_Id": slotId,
+      "Staff_Code": therapistName,
+      "Reason_Id": reason
+    };
+    return await dio.post(AppUrls.changeTherapistUrl, data: formData);
+  }
+
+  @override
+  Future<Response> sessionReschedule(
+      {required userType,
+      required userId,
+      required slotId,
+      required therapistName,
+      required reason,
+      required slotTime,
+      CancelToken? cancelToken}) async {
+    var formDate = {
+      "User_Type": userType,
+      "User_Id": userId,
+      "Slot_Id": slotId,
+      "Slot_Time_Code": slotTime,
+      "Staff_Code": therapistName,
+      "Reason_Id": reason
+    };
+    return await dio.post(AppUrls.sessionRescheduleUrl, data: formDate);
+  }
 }

@@ -15,8 +15,8 @@ class InternetException extends AppException {
   InternetException([String? message]) : super(message, "Error: ");
 }
 
-class RequestTimeOut extends AppException {
-  RequestTimeOut([String? message]) : super(message, "Error: ");
+class RequestTimeOutException extends AppException {
+  RequestTimeOutException([String? message]) : super(message, "Error: ");
 }
 
 class ServerException extends AppException {
@@ -37,4 +37,8 @@ class MethodNotAllowedException extends AppException {
 
 class NotFoundException extends AppException {
   NotFoundException([String? message]) : super(message, "Error: ");
+}
+
+class BadRequestException extends AppException {
+  BadRequestException([String? message]) : super(message, "Error: ");
 }

@@ -17,11 +17,22 @@ class AppUrls {
   // Executive
   static const String getCompletedSlotAllTherapistUrl =
       "/GetAllotedSlotDetailsForAllTherapist/?Session_Status=C";
+
   static const String getAllotedSlotAllTherapistUrl =
       "/GetAllotedSlotDetailsForAllTherapist/?Session_Status=A";
 
   static const String reasonsUrl = "/GetAllReasons";
+
   static const String sessionCancelUrl = "/SessionCancelled";
+
   static const String getCancelledSlotAllTherapistUrl =
       "/GetAllotedSlotDetailsForAllTherapist/?Session_Status=D";
+
+  static const String therapistNameUrl = "/GetAllTherapist";
+
+  static const String slotTimeUrl = "/GetAllSlotTimes";
+
+  static const String changeTherapistUrl = "/ChangeTherapist";
+
+  static const String sessionRescheduleUrl = "/SessionReschedule";
 }

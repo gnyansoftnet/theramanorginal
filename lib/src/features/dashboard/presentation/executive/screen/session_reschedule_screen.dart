@@ -2,28 +2,33 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/reason_provider.dart';
+import 'package:theraman/src/features/dashboard/application/executive/providers/slot_time_provider.dart';
+import 'package:theraman/src/features/dashboard/application/executive/providers/therapist_name_provider.dart';
 import 'package:theraman/src/features/dashboard/model/executive/reason_model.dart';
+import 'package:theraman/src/features/dashboard/model/executive/slot_time_model.dart';
+import 'package:theraman/src/features/dashboard/model/executive/therapist_name_model.dart';
 import 'package:theraman/src/features/dashboard/presentation/executive/controller/e_dashboard_controller.dart';
-import 'package:theraman/src/features/dashboard/presentation/executive/widget/cancel_session_button.dart';
+import 'package:theraman/src/features/dashboard/presentation/executive/widget/session_reschedule_button.dart';
 import 'package:theraman/src/global/model/alloted_slot_response_model.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
 
-@RoutePage(deferredLoading: true, name: "CancelSessionRoute")
-class CancelSessionScreen extends StatelessWidget {
+@RoutePage(deferredLoading: true, name: "SessionRescheduleRoute")
+class SessionRescheduleScreen extends StatelessWidget {
   final AllotSlots allotSlots;
-  CancelSessionScreen({super.key, required this.allotSlots});
-  final dashboardController = EDashboardController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  SessionRescheduleScreen({super.key, required this.allotSlots});
 
   ValueNotifier<String?> reasonValue = ValueNotifier<String?>(null);
-  ValueNotifier<String?> adjustableValue = ValueNotifier<String?>(null);
+  ValueNotifier<String?> therapistValue = ValueNotifier<String?>(null);
+  ValueNotifier<String?> timeValue = ValueNotifier<String?>(null);
+  final dashboardController = EDashboardController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Cancel Session"),
+        title: const Text("Change Therapist"),
         centerTitle: true,
       ),
       body: Form(
@@ -80,8 +85,6 @@ class CancelSessionScreen extends StatelessWidget {
                   data: (value) {
                     final reasons = value.reasons;
                     return DropdownButtonFormField<Reasons>(
-                        // style: const TextStyle(),
-
                         isExpanded: true,
                         hint: const Text("Select Reason"),
                         decoration: InputDecoration(
@@ -110,43 +113,94 @@ class CancelSessionScreen extends StatelessWidget {
             }),
             gapH12,
             Text(
-              "Is Session Adjustable ?",
+              "Therapist",
               style: _textStyle,
             ),
-            DropdownButtonFormField<String>(
-              isExpanded: true,
-              hint: const Text("Select"),
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(vertical: 10),
-                enabled: false,
-                border: InputBorder.none,
-                fillColor: Theme.of(context).focusColor,
-              ),
-              validator: (p0) {
-                if (p0 != null && p0.isNotEmpty) {
-                  return null;
-                }
-                return "Is session adjustable required";
-              },
-              items: ["Yes", "No"].map((item) {
-                return DropdownMenuItem<String>(
-                  value: item,
-                  child: Text(item),
-                );
-              }).toList(),
-              onChanged: (newValue) {
-                adjustableValue.value = newValue!;
-              },
-            ),
-            gapH16,
             Consumer(builder: (context, ref, _) {
-              return CancelSessionButton(onSubmit: () {
+              final therapistNameState = ref.watch(therapistNameProvider);
+              return therapistNameState.easyWhen(
+                  isLinear: true,
+                  errorWidget: (error, stackTrace) =>
+                      const LinearProgressIndicator(),
+                  data: (value) {
+                    final staffs = value.allStaffs;
+                    return DropdownButtonFormField<AllStaffs>(
+                        isExpanded: true,
+                        hint: const Text("Select Therapist"),
+                        decoration: InputDecoration(
+                          contentPadding:
+                              const EdgeInsets.symmetric(vertical: 10),
+                          enabled: false,
+                          border: InputBorder.none,
+                          fillColor: Theme.of(context).focusColor,
+                        ),
+                        validator: (p0) {
+                          if (p0 != null && p0.staffName!.isNotEmpty) {
+                            return null;
+                          }
+                          return "Therapist is required";
+                        },
+                        items: staffs
+                                ?.map((staff) => DropdownMenuItem<AllStaffs>(
+                                    value: staff,
+                                    child: Text(staff.staffName ?? "")))
+                                .toList() ??
+                            [],
+                        onChanged: (newValue) {
+                          therapistValue.value = newValue!.staffCode;
+                        });
+                  });
+            }),
+            gapH12,
+            Text(
+              "Reschedule Session Time",
+              style: _textStyle,
+            ),
+            Consumer(builder: (context, ref, _) {
+              final slotTimeState = ref.watch(slotTimeProvider);
+              return slotTimeState.easyWhen(
+                  isLinear: true,
+                  errorWidget: (error, stackTrace) =>
+                      const LinearProgressIndicator(),
+                  data: (value) {
+                    final times = value.allSlotTime;
+                    return DropdownButtonFormField<AllSlotTime>(
+                        isExpanded: true,
+                        hint: const Text("Select Therapist"),
+                        decoration: InputDecoration(
+                          contentPadding:
+                              const EdgeInsets.symmetric(vertical: 10),
+                          enabled: false,
+                          border: InputBorder.none,
+                          fillColor: Theme.of(context).focusColor,
+                        ),
+                        validator: (p0) {
+                          if (p0 != null && p0.slotName!.isNotEmpty) {
+                            return null;
+                          }
+                          return "Time is required";
+                        },
+                        items: times
+                                ?.map((time) => DropdownMenuItem<AllSlotTime>(
+                                    value: time,
+                                    child: Text(time.slotName ?? "")))
+                                .toList() ??
+                            [],
+                        onChanged: (newValue) {
+                          timeValue.value = newValue!.slotCode;
+                        });
+                  });
+            }),
+            gapH12,
+            Consumer(builder: (context, ref, _) {
+              return SessionRescheduleButton(onSubmit: () {
                 if (!_formKey.currentState!.validate()) return;
-                dashboardController.cancelSession(
+                dashboardController.sessionRescdule(
                     ref: ref,
                     slotId: allotSlots.rSSlotId ?? 0,
                     reason: reasonValue.value.toString(),
-                    isAdjustable: adjustableValue.value.toString());
+                    slotTime: timeValue.value.toString(),
+                    therapistName: therapistValue.value.toString());
               });
             })
           ],

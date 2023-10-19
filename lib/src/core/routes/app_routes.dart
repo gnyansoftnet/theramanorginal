@@ -38,5 +38,9 @@ class AppRouter extends $AppRouter {
             page: ExecutiveCancelledSessionRoute.page,
             path: "/ExecutiveCancelledSessionRoute"),
         AutoRoute(page: CancelSessionRoute.page, path: "/CancelSessionRoute"),
+        AutoRoute(
+            page: ChangeTherapistRoute.page, path: "/ChangeTherapistRoute"),
+        AutoRoute(
+            page: SessionRescheduleRoute.page, path: "/SessionRescheduleRoute"),
       ];
 }
