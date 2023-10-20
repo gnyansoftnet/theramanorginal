@@ -5,16 +5,20 @@ import 'package:theraman/src/features/dashboard/application/executive/providers/
 import 'package:theraman/src/features/dashboard/application/executive/states/cancel_session_state.dart';
 import 'package:theraman/src/features/dashboard/data/executive/repo/executive_dashboard_repo_pod.dart';
 import 'package:theraman/src/global/widgets/elevated_button_widget.dart';
+import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/extensions/common_ext/snackbar_ext.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
 
 class CancelSessionButton extends ConsumerWidget {
-  const CancelSessionButton({
+  CancelSessionButton({
     super.key,
     required this.onSubmit,
   });
 
   final VoidCallback onSubmit;
+
+  final _textStyle =
+      TextStyle(color: AppColors.white, fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -48,26 +52,43 @@ class CancelSessionButton extends ConsumerWidget {
       data: (data) {
         return switch (data) {
           CancelSessionInitial() => ElevatedButtonWidget(
+              color: AppColors.red,
               onPressed: onSubmit,
-              child: const Text("Cancel"),
+              child: Text(
+                "Cancel Session",
+                style: _textStyle,
+              ),
             ),
-          CancelSessionLoading() => const ElevatedButtonWidget(
+          CancelSessionLoading() => ElevatedButtonWidget(
               onPressed: null,
-              child: Text("Cancel"),
+              color: AppColors.red,
+              child: Text(
+                "Cancel Session",
+                style: _textStyle,
+              ),
             ),
           CancelSessionLoaded() => ElevatedButtonWidget(
               onPressed: onSubmit,
-              child: const Text("Cancel"),
+              color: AppColors.red,
+              child: Text(
+                "Cancel Session",
+                style: _textStyle,
+              ),
             ),
         };
       },
       errorWidget: (error, stackTrace) => ElevatedButtonWidget(
         onPressed: onSubmit,
-        child: const Text("Cancel"),
+        color: AppColors.red,
+        child: Text(
+          "Cancel Session",
+          style: _textStyle,
+        ),
       ),
-      loadingWidget: () => const ElevatedButtonWidget(
+      loadingWidget: () => ElevatedButtonWidget(
         onPressed: null,
-        child: CircularProgressIndicator(
+        color: AppColors.red,
+        child: const CircularProgressIndicator(
           strokeWidth: 2.0,
         ),
       ),

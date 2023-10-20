@@ -19,7 +19,7 @@ final onGoingProvider = StreamProvider.autoDispose<AllotedSlotResponseModel>(
       print("Date $date");
     }
 
-    while (await Future.delayed(const Duration(seconds: 3), () => false)) {
+    while (await Future.delayed(const Duration(seconds: 3), () => true)) {
       yield* ref
           .watch(dashboardRepoProvider)
           .getAllotedSlotDetails(

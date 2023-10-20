@@ -1,27 +1,27 @@
-class AllotedSlotResponseModel {
-  List<AllotSlots>? allotSlots;
+class TomorrowSessionModel {
+  List<NextDaySlots>? nextDaySlots;
 
-  AllotedSlotResponseModel({this.allotSlots});
+  TomorrowSessionModel({this.nextDaySlots});
 
-  AllotedSlotResponseModel.fromJson(Map<String, dynamic> json) {
-    if (json['AllotSlots'] != null) {
-      allotSlots = <AllotSlots>[];
-      json['AllotSlots'].forEach((v) {
-        allotSlots!.add(AllotSlots.fromJson(v));
+  TomorrowSessionModel.fromJson(Map<String, dynamic> json) {
+    if (json['NextDaySlots'] != null) {
+      nextDaySlots = <NextDaySlots>[];
+      json['NextDaySlots'].forEach((v) {
+        nextDaySlots!.add(NextDaySlots.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (allotSlots != null) {
-      data['AllotSlots'] = allotSlots!.map((v) => v.toJson()).toList();
+    if (nextDaySlots != null) {
+      data['NextDaySlots'] = nextDaySlots!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class AllotSlots {
+class NextDaySlots {
   int? rSSlotId;
   String? rSPCode;
   String? rSPName;
@@ -39,7 +39,7 @@ class AllotSlots {
   String? rSTherapistEndTime;
   String? rSDuration;
 
-  AllotSlots(
+  NextDaySlots(
       {this.rSSlotId,
       this.rSPCode,
       this.rSPName,
@@ -57,7 +57,7 @@ class AllotSlots {
       this.rSTherapistEndTime,
       this.rSDuration});
 
-  AllotSlots.fromJson(Map<String, dynamic> json) {
+  NextDaySlots.fromJson(Map<String, dynamic> json) {
     rSSlotId = json['RS_Slot_Id'];
     rSPCode = json['RS_P_Code'];
     rSPName = json['RS_P_Name'];

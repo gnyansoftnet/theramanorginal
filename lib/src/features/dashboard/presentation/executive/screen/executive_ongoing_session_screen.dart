@@ -28,18 +28,17 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
             child: value.allotSlots!.isEmpty
                 ? Column(
                     children: [
-                      Expanded(
-                        child: SvgPicture.asset(
-                          "assets/images/svg/blank.svg",
-                          fit: BoxFit.cover,
-                        ),
+                      SvgPicture.asset(
+                        "assets/images/svg/blank.svg",
+                        fit: BoxFit.cover,
+                        height: 250,
                       ),
                       gapH8,
-                      const Expanded(
-                          child: Text(
-                        "You do not have any alloted slot",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ))
+                      ElevatedButton(
+                          onPressed: () {
+                            ref.invalidate(allotedSlotAllTherapistProvider);
+                          },
+                          child: const Text("Retry"))
                     ],
                   )
                 : ListView.builder(
@@ -51,14 +50,20 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                         elevation: 5.0,
                         color: data.rSSlotStatus == "Started"
                             ? AppColors.blue
-                            : AppColors.cyan,
+                            : data.rSSessionType == "Adjustment"
+                                ? AppColors.teal
+                                : data.rSActionStatus == "Rescheduled"
+                                    ? const Color(0xffb467ed)
+                                    : data.rSActionStatus == "Change Therapist"
+                                        ? Colors.orange
+                                        : AppColors.cyan,
                         child: Column(
                           children: [
                             ListTile(
                               contentPadding:
                                   const EdgeInsets.only(right: 0, left: 14),
                               dense: true,
-                              visualDensity: const VisualDensity(vertical: -3),
+                              visualDensity: const VisualDensity(vertical: -4),
                               leading: Text(
                                 "${data.rSPName}",
                                 style: TextStyle(
@@ -111,7 +116,7 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                             ),
                             ListTile(
                               dense: true,
-                              visualDensity: const VisualDensity(vertical: -3),
+                              visualDensity: const VisualDensity(vertical: -4),
                               leading: Text(
                                 "${data.rSSlotType}",
                                 style: TextStyle(
@@ -129,7 +134,7 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                             ),
                             ListTile(
                               dense: true,
-                              visualDensity: const VisualDensity(vertical: -1),
+                              visualDensity: const VisualDensity(vertical: -4),
                               leading: Text(
                                 "${data.rSStartTime}",
                                 style: TextStyle(
@@ -138,6 +143,17 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                                     fontSize: 12),
                               ),
                               trailing: Text(
+                                "${data.rSSlotStatus}",
+                                style: TextStyle(
+                                    color: AppColors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12),
+                              ),
+                            ),
+                            ListTile(
+                              dense: true,
+                              visualDensity: const VisualDensity(vertical: -4),
+                              leading: Text(
                                 "${data.rSDoctorName}",
                                 style: TextStyle(
                                     color: AppColors.white,

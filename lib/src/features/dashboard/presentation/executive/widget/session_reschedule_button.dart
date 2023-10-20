@@ -5,6 +5,7 @@ import 'package:theraman/src/features/dashboard/application/executive/providers/
 import 'package:theraman/src/features/dashboard/application/executive/states/session_reschedule_state.dart';
 import 'package:theraman/src/features/dashboard/data/executive/repo/executive_dashboard_repo_pod.dart';
 import 'package:theraman/src/global/widgets/elevated_button_widget.dart';
+import 'package:theraman/src/utils/extensions/common_ext/alert_dialog_ext.dart';
 import 'package:theraman/src/utils/extensions/common_ext/snackbar_ext.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
 
@@ -33,9 +34,22 @@ class SessionRescheduleButton extends ConsumerWidget {
               }
           },
           error: (e, _) {
-            /// show error snackbar
-            final snackBar = SnackBar(content: Text("$e"));
-            context.showSnackBar(snackBar);
+            // /// show error snackbar
+            // final snackBar = SnackBar(content: Text("$e"));
+            // context.showSnackBar(snackBar);
+            context.showCustomDialog(builder: (context) {
+              return AlertDialog.adaptive(
+                title: const Text("Warning "),
+                content: Text("$e"),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text("Ok"))
+                ],
+              );
+            });
           },
           loading: () {
             // show loading dialog

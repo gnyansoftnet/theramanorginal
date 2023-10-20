@@ -258,8 +258,7 @@ class ExecutiveDashboardRepo extends IExecutiveDashboardRepo {
       return Error(
           RequestTimeOutException("${response.statusCode} Request Timeout !"));
     } else if (response.statusCode == 500) {
-      return Error(ServerException(
-          "${response.statusCode} ${response.data["ExceptionMessage"]} !"));
+      return Error(ServerException("${response.data["ExceptionMessage"]} !"));
     } else {
       return Error(
           AppException("${response.statusCode} Something went wrong !"));
@@ -304,8 +303,7 @@ class ExecutiveDashboardRepo extends IExecutiveDashboardRepo {
       return Error(
           RequestTimeOutException("${response.statusCode} Request Timeout !"));
     } else if (response.statusCode == 500) {
-      return Error(ServerException(
-          "${response.statusCode} ${response.data["ExceptionMessage"]} !"));
+      return Error(ServerException("${response.data["ExceptionMessage"]} !"));
     } else {
       return Error(
           AppException("${response.statusCode} Something went wrong !"));

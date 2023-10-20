@@ -26,21 +26,22 @@ class ExecutiveCompletedSessionScreen extends ConsumerWidget {
             },
             child: value.allotSlots!.isEmpty
                 ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    // crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Center(
                         child: SvgPicture.asset(
                           "assets/images/svg/blank.svg",
                           fit: BoxFit.cover,
-                          height: 300,
+                          height: 250,
                         ),
                       ),
                       gapH8,
-                      const Text(
-                        "Did not complete any session today",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )
+                      ElevatedButton(
+                          onPressed: () {
+                            ref.invalidate(completedSlotAllTherapistProvider);
+                          },
+                          child: const Text("Retry"))
                     ],
                   )
                 : ListView.builder(

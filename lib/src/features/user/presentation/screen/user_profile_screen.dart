@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,10 +6,10 @@ import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/user/application/providers/user_provider.dart';
 import 'package:theraman/src/features/user/presentation/controller/user_controller.dart';
 import 'package:theraman/src/global/widgets/drawer_widget.dart';
+import 'package:theraman/src/utils/common_methods.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
-import 'package:theraman/src/utils/local_store/preferences.dart';
 
 @RoutePage(deferredLoading: true, name: "UserProfileRoute")
 class UserProfileScreen extends ConsumerWidget {
@@ -22,6 +21,13 @@ class UserProfileScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Profile"),
+        actions: [
+          IconButton(
+              onPressed: () {
+                context.router.replaceAll([const DashboardRoute()]);
+              },
+              icon: const Icon(Icons.home))
+        ],
       ),
       drawer: const DrawerWidget(currentPage: "UserProfileRoute"),
       body: RefreshIndicator(
@@ -78,40 +84,12 @@ class UserProfileScreen extends ConsumerWidget {
                             value: value.mobNo.toString(), action: 'tel');
                       },
                     ),
-                    gapH12,
-                    OutlinedButton(
-                        onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: const Text("Logout"),
-                                  content: const Text(
-                                      "Are you sure want to logout "),
-                                  actions: [
-                                    TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text("No")),
-                                    TextButton(
-                                        onPressed: () async {
-                                          print(await Preferences.removeUser());
-                                          if (await Preferences.removeUser()) {
-                                            if (context.mounted) {
-                                              // Phoenix.rebirth(context);
-
-                                              context.router.replaceAll(
-                                                  [const SplashRoute()]);
-                                            }
-                                          }
-                                        },
-                                        child: const Text("Yes"))
-                                  ],
-                                );
-                              });
-                        },
-                        child: const Text("Logout"))
+                    // gapH12,
+                    // OutlinedButton(
+                    //     onPressed: () {
+                    //       userLogout(context: context);
+                    //     },
+                    //     child: const Text("Logout"))
                   ],
                 )
               ],

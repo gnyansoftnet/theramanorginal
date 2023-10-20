@@ -26,21 +26,22 @@ class ExecutiveCancelledSessionScreen extends ConsumerWidget {
             },
             child: value.allotSlots!.isEmpty
                 ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    // crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Center(
                         child: SvgPicture.asset(
                           "assets/images/svg/blank.svg",
                           fit: BoxFit.cover,
-                          height: 300,
+                          height: 250,
                         ),
                       ),
                       gapH8,
-                      const Text(
-                        "Did not cancelled any session todaya",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )
+                      ElevatedButton(
+                          onPressed: () {
+                            ref.invalidate(cancelledSlotProvider);
+                          },
+                          child: const Text("Retry"))
                     ],
                   )
                 : ListView.builder(
@@ -94,6 +95,17 @@ class ExecutiveCancelledSessionScreen extends ConsumerWidget {
                               ),
                               trailing: Text(
                                 "${data.rSDoctorName}",
+                                style: TextStyle(
+                                    color: AppColors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12),
+                              ),
+                            ),
+                            ListTile(
+                              dense: true,
+                              visualDensity: const VisualDensity(vertical: -3),
+                              title: Text(
+                                "${data.rSReason}",
                                 style: TextStyle(
                                     color: AppColors.white,
                                     fontWeight: FontWeight.bold,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/user/application/providers/user_provider.dart';
 import 'package:theraman/src/global/widgets/drawer_widget.dart';
 import 'package:theraman/src/utils/common_methods.dart';
@@ -24,6 +25,13 @@ class LeaveStatusScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Leave Status"),
+        actions: [
+          IconButton(
+              onPressed: () {
+                context.router.replaceAll([const DashboardRoute()]);
+              },
+              icon: const Icon(Icons.home))
+        ],
       ),
       drawer: const DrawerWidget(currentPage: "LeaveStatusRoute"),
       body: Padding(

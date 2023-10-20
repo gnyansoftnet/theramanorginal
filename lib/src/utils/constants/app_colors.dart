@@ -8,4 +8,5 @@ class AppColors {
   static Color green = Colors.green;
   static Color cyan = Colors.cyan;
   static Color red = Colors.red;
+  static Color teal = Colors.teal;
 }

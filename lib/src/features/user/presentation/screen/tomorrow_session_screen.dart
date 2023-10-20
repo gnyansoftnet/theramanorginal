@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/user/application/providers/tomorrow_session_provider.dart';
 import 'package:theraman/src/global/widgets/drawer_widget.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
@@ -16,6 +17,13 @@ class TomorrowSessionScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Tomorrow Session"),
+        actions: [
+          IconButton(
+              onPressed: () {
+                context.router.replaceAll([const DashboardRoute()]);
+              },
+              icon: const Icon(Icons.home))
+        ],
       ),
       drawer: const DrawerWidget(currentPage: "TomorrowSessionRoute"),
       body: tomorrowSessionState.easyWhen(data: (value) {

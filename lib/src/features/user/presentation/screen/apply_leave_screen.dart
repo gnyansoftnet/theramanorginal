@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/user/application/providers/user_provider.dart';
 import 'package:theraman/src/features/user/presentation/controller/user_controller.dart';
 import 'package:theraman/src/features/user/presentation/widget/apply_leave_button.dart';
@@ -39,6 +40,13 @@ class ApplyLeaveScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Apply Leave"),
+        actions: [
+          IconButton(
+              onPressed: () {
+                context.router.replaceAll([const DashboardRoute()]);
+              },
+              icon: const Icon(Icons.home))
+        ],
       ),
       drawer: const DrawerWidget(currentPage: "ApplyLeaveRoute"),
       body: Padding(
@@ -52,7 +60,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    "Apllicants Name :",
+                    "Aplicant Name :",
                     style: _textStyle,
                   ),
                   gapH8,

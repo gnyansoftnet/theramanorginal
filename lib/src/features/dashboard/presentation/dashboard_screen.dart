@@ -7,10 +7,13 @@ import 'package:theraman/src/features/dashboard/presentation/executive/screen/ex
 import 'package:theraman/src/features/dashboard/presentation/executive/screen/executive_ongoing_session_screen.dart';
 import 'package:theraman/src/features/dashboard/presentation/therapist/screen/completed_session_screen.dart';
 import 'package:theraman/src/features/dashboard/presentation/therapist/screen/ongoing_session_screen.dart';
+import 'package:theraman/src/features/user/application/providers/user_provider.dart';
 import 'package:theraman/src/global/model/alloted_slot_response_model.dart';
 import 'package:theraman/src/global/pod/check_user_type_pod.dart';
 import 'package:theraman/src/global/widgets/drawer_widget.dart';
+import 'package:theraman/src/utils/common_methods.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
+import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
 
 @RoutePage(deferredLoading: true, name: "DashboardRoute")
 class DashboardScreen extends ConsumerWidget {
@@ -20,31 +23,50 @@ class DashboardScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final userTypeState = ref.watch(checkUserTypePod);
     final allotSlotState = ref.watch(allotedSlotAllTherapistProvider);
+    final userState = ref.watch(userProvider);
     return DefaultTabController(
       length: userTypeState.value == "T" ? 2 : 3,
       child: Scaffold(
           appBar: AppBar(
-              title: const Text("DashBoard"),
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: IconButton(
-                      onPressed: () {
-                        // showSearch(
-                        //     context: context,
-                        //     delegate: allotSlotState.when(
-                        //       data: (value) =>
-                        //           CustomSearch(allotSlots: value.allotSlots),
-                        //       error: (_, __) => CustomSearch(allotSlots: []),
-                        //       loading: () => CustomSearch(allotSlots: []),
-                        //     ));
-                      },
-                      icon: const Icon(
-                        Icons.search,
-                        // size: 25,
-                      )),
-                )
-              ],
+              title: userState.easyWhen(
+                data: (value) => FittedBox(
+                    fit: BoxFit.cover,
+                    child: Text(
+                      "${value.staffName}",
+                      style: const TextStyle(fontSize: 15),
+                    )),
+                errorWidget: (_, __) => const Text("Loading ..."),
+                loadingWidget: () => const Text("Loading ..."),
+              ),
+              actions: userTypeState.value == "E"
+                  ? [
+                      IconButton(
+                          onPressed: () {
+                            // showSearch(
+                            //     context: context,
+                            //     delegate: allotSlotState.when(
+                            //       data: (value) =>
+                            //           CustomSearch(allotSlots: value.allotSlots),
+                            //       error: (_, __) => CustomSearch(allotSlots: []),
+                            //       loading: () => CustomSearch(allotSlots: []),
+                            //     ));
+                          },
+                          icon: const Icon(
+                            Icons.search,
+                          )),
+                      IconButton(
+                          onPressed: () {
+                            userLogout(context: context);
+                          },
+                          icon: const Icon(Icons.logout))
+                    ]
+                  : [
+                      IconButton(
+                          onPressed: () {
+                            userLogout(context: context);
+                          },
+                          icon: const Icon(Icons.logout))
+                    ],
               bottom: TabBar(
                   tabs: userTypeState.value == "T"
                       ? [
@@ -82,14 +104,33 @@ class DashboardScreen extends ConsumerWidget {
                           )
                         ])),
           drawer: const DrawerWidget(currentPage: "DashboardRoute"),
-          body: TabBarView(
-            children: userTypeState.value == "T"
-                ? [OnGoingSessionScreen(), CompletedSessionScreen()]
-                : [
-                    const ExecutiveOngoingSessionScreen(),
-                    const ExecutiveCompletedSessionScreen(),
-                    const ExecutiveCancelledSessionScreen(),
-                  ],
+          body: WillPopScope(
+            onWillPop: () => showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text('Confirm Exit'),
+                content: const Text('Do you really want to exit the app?'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(false),
+                    child: const Text('No'),
+                  ),
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(true),
+                    child: const Text('Yes'),
+                  ),
+                ],
+              ),
+            ).then((value) => value ?? false),
+            child: TabBarView(
+              children: userTypeState.value == "T"
+                  ? [OnGoingSessionScreen(), CompletedSessionScreen()]
+                  : [
+                      const ExecutiveOngoingSessionScreen(),
+                      const ExecutiveCompletedSessionScreen(),
+                      const ExecutiveCancelledSessionScreen(),
+                    ],
+            ),
           )),
     );
   }

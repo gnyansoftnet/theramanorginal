@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/reason_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/slot_time_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/therapist_name_provider.dart';
@@ -28,7 +29,7 @@ class SessionRescheduleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Change Therapist"),
+        title: const Text(" Session Reschedule"),
         centerTitle: true,
       ),
       body: Form(
@@ -73,6 +74,99 @@ class SessionRescheduleScreen extends StatelessWidget {
                     .toString()),
             gapH12,
             Text(
+              "Reschedule Session Time",
+              style: _textStyle,
+            ),
+            Consumer(builder: (context, ref, _) {
+              final slotTimeState = ref.watch(slotTimeProvider);
+              return slotTimeState.easyWhen(
+                  isLinear: true,
+                  errorWidget: (error, stackTrace) =>
+                      const LinearProgressIndicator(),
+                  data: (value) {
+                    final times = value.allSlotTime;
+                    return DropdownButtonFormField<AllSlotTime>(
+                        isExpanded: true,
+                        hint: const Text("Select time"),
+                        decoration: InputDecoration(
+                          contentPadding:
+                              const EdgeInsets.symmetric(vertical: 10),
+                          enabled: false,
+                          border: InputBorder.none,
+                          fillColor: Theme.of(context).focusColor,
+                        ),
+                        validator: (p0) {
+                          if (p0 != null && p0.slotName!.isNotEmpty) {
+                            return null;
+                          }
+                          return "Time is required";
+                        },
+                        items: times
+                                ?.map((time) => DropdownMenuItem<AllSlotTime>(
+                                    value: time,
+                                    child: Text(time.slotName ?? "")))
+                                .toList() ??
+                            [],
+                        onChanged: (newValue) {
+                          timeValue.value = newValue!.slotCode;
+                        });
+                  });
+            }),
+            gapH12,
+            Text(
+              "Therapist",
+              style: _textStyle,
+            ),
+            Consumer(builder: (context, ref, _) {
+              final therapistNameState = ref.watch(therapistNameProvider);
+              return therapistNameState.easyWhen(
+                  isLinear: true,
+                  errorWidget: (error, stackTrace) =>
+                      const LinearProgressIndicator(),
+                  data: (value) {
+                    final staffs = value.allStaffs;
+
+                    return ValueListenableBuilder(
+                        valueListenable: therapistValue,
+                        builder: (context, value, child) {
+                          AllStaffs? selectedStaff = staffs?.firstWhere(
+                            (staff) =>
+                                staff.staffName == allotSlots.rSDoctorName,
+                          );
+                          therapistValue.value =
+                              selectedStaff!.staffCode.toString();
+                          return DropdownButtonFormField<AllStaffs>(
+                              isExpanded: true,
+                              value: selectedStaff,
+                              decoration: InputDecoration(
+                                contentPadding:
+                                    const EdgeInsets.symmetric(vertical: 10),
+                                enabled: false,
+                                border: InputBorder.none,
+                                fillColor: Theme.of(context).focusColor,
+                              ),
+                              validator: (p0) {
+                                if (p0 != null && p0.staffName!.isNotEmpty) {
+                                  return null;
+                                }
+                                return "Therapist is required";
+                              },
+                              items: staffs
+                                      ?.map((staff) =>
+                                          DropdownMenuItem<AllStaffs>(
+                                              value: staff,
+                                              child:
+                                                  Text(staff.staffName ?? "")))
+                                      .toList() ??
+                                  [],
+                              onChanged: (newValue) {
+                                therapistValue.value = newValue!.staffCode;
+                              });
+                        });
+                  });
+            }),
+            gapH12,
+            Text(
               "Reason",
               style: _textStyle,
             ),
@@ -112,95 +206,21 @@ class SessionRescheduleScreen extends StatelessWidget {
                   });
             }),
             gapH12,
-            Text(
-              "Therapist",
-              style: _textStyle,
-            ),
-            Consumer(builder: (context, ref, _) {
-              final therapistNameState = ref.watch(therapistNameProvider);
-              return therapistNameState.easyWhen(
-                  isLinear: true,
-                  errorWidget: (error, stackTrace) =>
-                      const LinearProgressIndicator(),
-                  data: (value) {
-                    final staffs = value.allStaffs;
-                    return DropdownButtonFormField<AllStaffs>(
-                        isExpanded: true,
-                        hint: const Text("Select Therapist"),
-                        decoration: InputDecoration(
-                          contentPadding:
-                              const EdgeInsets.symmetric(vertical: 10),
-                          enabled: false,
-                          border: InputBorder.none,
-                          fillColor: Theme.of(context).focusColor,
-                        ),
-                        validator: (p0) {
-                          if (p0 != null && p0.staffName!.isNotEmpty) {
-                            return null;
-                          }
-                          return "Therapist is required";
-                        },
-                        items: staffs
-                                ?.map((staff) => DropdownMenuItem<AllStaffs>(
-                                    value: staff,
-                                    child: Text(staff.staffName ?? "")))
-                                .toList() ??
-                            [],
-                        onChanged: (newValue) {
-                          therapistValue.value = newValue!.staffCode;
-                        });
-                  });
-            }),
-            gapH12,
-            Text(
-              "Reschedule Session Time",
-              style: _textStyle,
-            ),
-            Consumer(builder: (context, ref, _) {
-              final slotTimeState = ref.watch(slotTimeProvider);
-              return slotTimeState.easyWhen(
-                  isLinear: true,
-                  errorWidget: (error, stackTrace) =>
-                      const LinearProgressIndicator(),
-                  data: (value) {
-                    final times = value.allSlotTime;
-                    return DropdownButtonFormField<AllSlotTime>(
-                        isExpanded: true,
-                        hint: const Text("Select Therapist"),
-                        decoration: InputDecoration(
-                          contentPadding:
-                              const EdgeInsets.symmetric(vertical: 10),
-                          enabled: false,
-                          border: InputBorder.none,
-                          fillColor: Theme.of(context).focusColor,
-                        ),
-                        validator: (p0) {
-                          if (p0 != null && p0.slotName!.isNotEmpty) {
-                            return null;
-                          }
-                          return "Time is required";
-                        },
-                        items: times
-                                ?.map((time) => DropdownMenuItem<AllSlotTime>(
-                                    value: time,
-                                    child: Text(time.slotName ?? "")))
-                                .toList() ??
-                            [],
-                        onChanged: (newValue) {
-                          timeValue.value = newValue!.slotCode;
-                        });
-                  });
-            }),
-            gapH12,
             Consumer(builder: (context, ref, _) {
               return SessionRescheduleButton(onSubmit: () {
                 if (!_formKey.currentState!.validate()) return;
-                dashboardController.sessionRescdule(
-                    ref: ref,
-                    slotId: allotSlots.rSSlotId ?? 0,
-                    reason: reasonValue.value.toString(),
-                    slotTime: timeValue.value.toString(),
-                    therapistName: therapistValue.value.toString());
+                if (therapistValue.value != null &&
+                    reasonValue.value != null &&
+                    timeValue.value != null) {
+                  dashboardController.sessionRescdule(
+                      ref: ref,
+                      slotId: allotSlots.rSSlotId ?? 0,
+                      reason: reasonValue.value.toString(),
+                      slotTime: timeValue.value.toString(),
+                      therapistName: therapistValue.value.toString());
+                } else {
+                  Fluttertoast.showToast(msg: "Something is wrong");
+                }
               });
             })
           ],

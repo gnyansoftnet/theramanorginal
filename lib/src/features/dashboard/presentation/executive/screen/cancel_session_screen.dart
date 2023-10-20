@@ -68,6 +68,36 @@ class CancelSessionScreen extends StatelessWidget {
                     .toString()),
             gapH12,
             Text(
+              "Is Session Adjustable ?",
+              style: _textStyle,
+            ),
+            DropdownButtonFormField<String>(
+              isExpanded: true,
+              hint: const Text("Select"),
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                enabled: false,
+                border: InputBorder.none,
+                fillColor: Theme.of(context).focusColor,
+              ),
+              validator: (p0) {
+                if (p0 != null && p0.isNotEmpty) {
+                  return null;
+                }
+                return "Is session adjustable required";
+              },
+              items: ["Yes", "No"].map((item) {
+                return DropdownMenuItem<String>(
+                  value: item,
+                  child: Text(item),
+                );
+              }).toList(),
+              onChanged: (newValue) {
+                adjustableValue.value = newValue!;
+              },
+            ),
+            gapH12,
+            Text(
               "Reason",
               style: _textStyle,
             ),
@@ -108,36 +138,6 @@ class CancelSessionScreen extends StatelessWidget {
                         });
                   });
             }),
-            gapH12,
-            Text(
-              "Is Session Adjustable ?",
-              style: _textStyle,
-            ),
-            DropdownButtonFormField<String>(
-              isExpanded: true,
-              hint: const Text("Select"),
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(vertical: 10),
-                enabled: false,
-                border: InputBorder.none,
-                fillColor: Theme.of(context).focusColor,
-              ),
-              validator: (p0) {
-                if (p0 != null && p0.isNotEmpty) {
-                  return null;
-                }
-                return "Is session adjustable required";
-              },
-              items: ["Yes", "No"].map((item) {
-                return DropdownMenuItem<String>(
-                  value: item,
-                  child: Text(item),
-                );
-              }).toList(),
-              onChanged: (newValue) {
-                adjustableValue.value = newValue!;
-              },
-            ),
             gapH16,
             Consumer(builder: (context, ref, _) {
               return CancelSessionButton(onSubmit: () {
