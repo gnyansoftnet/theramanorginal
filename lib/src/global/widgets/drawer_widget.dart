@@ -147,6 +147,18 @@ class DrawerWidget extends ConsumerWidget {
                     isSelected:
                         currentPage == "UserProfileRoute" ? true : false),
                 DrawerTile(
+                    icon: Icons.person,
+                    onTap: () {
+                      if (currentPage != "ExeTomorrowSessionRoute") {
+                        context.navigateTo(const ExeTomorrowSessionRoute());
+                        Navigator.pop(context);
+                      }
+                    },
+                    title: "Tomorrow Session",
+                    isSelected: currentPage == "ExeTomorrowSessionRoute"
+                        ? true
+                        : false),
+                DrawerTile(
                   icon: Icons.logout,
                   onTap: () {
                     userLogout(context: context);
