@@ -37,4 +37,6 @@ class AppUrls {
   static const String sessionRescheduleUrl = "/SessionReschedule";
 
   static const String exeTomorrowSessionUrl = "/GetNextDayAllotedSlots/?";
+
+  static const String therapistLeaveDetailUrl = "/GetAppliedLeaveDetails/?";
 }

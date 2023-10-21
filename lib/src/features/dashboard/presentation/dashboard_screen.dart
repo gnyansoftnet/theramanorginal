@@ -7,7 +7,7 @@ import 'package:theraman/src/features/dashboard/presentation/executive/screen/ex
 import 'package:theraman/src/features/dashboard/presentation/executive/screen/executive_ongoing_session_screen.dart';
 import 'package:theraman/src/features/dashboard/presentation/therapist/screen/completed_session_screen.dart';
 import 'package:theraman/src/features/dashboard/presentation/therapist/screen/ongoing_session_screen.dart';
-import 'package:theraman/src/features/user/application/providers/user_provider.dart';
+import 'package:theraman/src/features/therapist/application/providers/user_provider.dart';
 import 'package:theraman/src/global/model/alloted_slot_response_model.dart';
 import 'package:theraman/src/global/pod/check_user_type_pod.dart';
 import 'package:theraman/src/global/widgets/drawer_widget.dart';
@@ -85,9 +85,13 @@ class DashboardScreen extends ConsumerWidget {
                         ]
                       : [
                           const Tab(
-                            child: Text(
-                              "ONGOING",
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                            child: Row(
+                              children: [
+                                Text(
+                                  "ONGOING",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                              ],
                             ),
                           ),
                           const Tab(

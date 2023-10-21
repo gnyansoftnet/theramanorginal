@@ -19,9 +19,9 @@ class SessionRescheduleScreen extends StatelessWidget {
   final AllotSlots allotSlots;
   SessionRescheduleScreen({super.key, required this.allotSlots});
 
-  ValueNotifier<String?> reasonValue = ValueNotifier<String?>(null);
-  ValueNotifier<String?> therapistValue = ValueNotifier<String?>(null);
-  ValueNotifier<String?> timeValue = ValueNotifier<String?>(null);
+  final reasonValue = ValueNotifier<String?>(null);
+  final therapistValue = ValueNotifier<String?>(null);
+  final timeValue = ValueNotifier<String?>(null);
   final dashboardController = EDashboardController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 

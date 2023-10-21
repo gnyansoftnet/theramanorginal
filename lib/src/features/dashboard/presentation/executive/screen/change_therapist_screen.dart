@@ -17,10 +17,9 @@ class ChangeTherapistScreen extends StatelessWidget {
   final AllotSlots allotSlots;
   ChangeTherapistScreen({super.key, required this.allotSlots});
 
-  ValueNotifier<String?> therapistValue = ValueNotifier<String?>(null);
-  ValueNotifier<String?> reasonValue = ValueNotifier<String?>(null);
+  final therapistValue = ValueNotifier<String?>(null);
+  final reasonValue = ValueNotifier<String?>(null);
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   final dashboardController = EDashboardController();
 
   @override

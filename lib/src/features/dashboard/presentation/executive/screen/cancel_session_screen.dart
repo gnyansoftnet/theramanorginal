@@ -16,8 +16,8 @@ class CancelSessionScreen extends StatelessWidget {
   final dashboardController = EDashboardController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  ValueNotifier<String?> reasonValue = ValueNotifier<String?>(null);
-  ValueNotifier<String?> adjustableValue = ValueNotifier<String?>(null);
+  final reasonValue = ValueNotifier<String?>(null);
+  final adjustableValue = ValueNotifier<String?>(null);
 
   @override
   Widget build(BuildContext context) {

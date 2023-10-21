@@ -5,14 +5,17 @@ import 'package:theraman/src/utils/local_store/preferences.dart';
 
 Future<DateTime> showDateTimeRangePicker({
   required BuildContext context,
+  required DateTime initialDate,
+  required DateTime firstDate,
+  required DateTime lastDate,
 }) async {
   DateTime? picked = await showDatePicker(
       useRootNavigator: false,
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1600),
-      lastDate: DateTime(5000));
-  return picked ?? DateTime.now();
+      initialDate: initialDate,
+      firstDate: firstDate,
+      lastDate: lastDate);
+  return picked!;
 }
 
 Future<void> userLogout({required BuildContext context}) async {

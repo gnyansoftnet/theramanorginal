@@ -6,7 +6,6 @@ import 'package:theraman/src/features/dashboard/application/executive/states/cha
 import 'package:theraman/src/features/dashboard/data/executive/repo/executive_dashboard_repo_pod.dart';
 import 'package:theraman/src/global/widgets/elevated_button_widget.dart';
 import 'package:theraman/src/utils/extensions/common_ext/alert_dialog_ext.dart';
-import 'package:theraman/src/utils/extensions/common_ext/snackbar_ext.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
 
 class ChangeTherapistButton extends ConsumerWidget {

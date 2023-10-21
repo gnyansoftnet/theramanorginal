@@ -7,17 +7,19 @@ import 'package:theraman/src/utils/extensions/riverpod_ext/cache_ext.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/cancel_ext.dart';
 import 'package:theraman/src/utils/local_store/preferences.dart';
 
-final onGoingProvider = FutureProvider.autoDispose<AllotedSlotResponseModel>(
+final tomorrowSessionProvider =
+    FutureProvider.autoDispose<AllotedSlotResponseModel>(
   (ref) async {
     final token = ref.cancelToken();
-    ref.autoRefresh(duration: const Duration(seconds: 5));
     String staffCode = await Preferences.getPreference("staffCode", "");
     final currentDate = DateTime.now();
-    final date = DateFormat('MM/dd/yyyy').format(currentDate);
+    DateTime yesterday = currentDate.add(const Duration(days: 1));
+    final date = DateFormat('MM/dd/yyyy').format(yesterday);
     if (kDebugMode) {
       print("Staff code $staffCode");
       print("Date $date");
     }
+
     final result = await ref.watch(dashboardRepoProvider).getAllotedSlotDetails(
         userId: staffCode, date: date, cancelToken: token);
     return result.when((success) {
@@ -27,5 +29,5 @@ final onGoingProvider = FutureProvider.autoDispose<AllotedSlotResponseModel>(
       throw error;
     });
   },
-  name: "onGoingProvider",
+  name: "tomorrowSessionProvider",
 );

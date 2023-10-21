@@ -45,5 +45,6 @@ class AppRouter extends $AppRouter {
         AutoRoute(
             page: ExeTomorrowSessionRoute.page,
             path: "/ExeTomorrowSessionRoute"),
+        AutoRoute(page: ExeLeaveStatusRoute.page, path: "/ExeLeaveStatusRoute"),
       ];
 }

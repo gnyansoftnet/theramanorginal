@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
-import 'package:theraman/src/features/user/application/providers/user_provider.dart';
+import 'package:theraman/src/features/therapist/application/providers/user_provider.dart';
 import 'package:theraman/src/global/pod/check_user_type_pod.dart';
 import 'package:theraman/src/utils/common_methods.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
@@ -147,10 +147,10 @@ class DrawerWidget extends ConsumerWidget {
                     isSelected:
                         currentPage == "UserProfileRoute" ? true : false),
                 DrawerTile(
-                    icon: Icons.person,
+                    icon: Icons.calendar_month,
                     onTap: () {
                       if (currentPage != "ExeTomorrowSessionRoute") {
-                        context.navigateTo(const ExeTomorrowSessionRoute());
+                        context.navigateTo(ExeTomorrowSessionRoute());
                         Navigator.pop(context);
                       }
                     },
@@ -158,6 +158,17 @@ class DrawerWidget extends ConsumerWidget {
                     isSelected: currentPage == "ExeTomorrowSessionRoute"
                         ? true
                         : false),
+                DrawerTile(
+                    icon: Icons.holiday_village,
+                    onTap: () {
+                      if (currentPage != "ExeLeaveStatusRoute") {
+                        context.navigateTo(const ExeLeaveStatusRoute());
+                        Navigator.pop(context);
+                      }
+                    },
+                    title: "leave Status",
+                    isSelected:
+                        currentPage == "ExeLeaveStatusRoute" ? true : false),
                 DrawerTile(
                   icon: Icons.logout,
                   onTap: () {
