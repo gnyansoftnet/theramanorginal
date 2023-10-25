@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/completed_slot_all_therapist.provider.dart';
-import 'package:theraman/src/utils/constants/app_colors.dart';
+import 'package:theraman/src/features/dashboard/presentation/executive/widget/completed_listview.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
 
@@ -49,61 +49,7 @@ class ExecutiveCompletedSessionScreen extends ConsumerWidget {
                     itemCount: value.allotSlots!.length,
                     itemBuilder: (context, index) {
                       final data = value.allotSlots![index];
-                      return Card(
-                        elevation: 5.0,
-                        color: AppColors.green,
-                        child: Column(
-                          children: [
-                            ListTile(
-                              dense: true,
-                              visualDensity: const VisualDensity(vertical: -3),
-                              leading: Text(
-                                "${data.rSPName}",
-                                style: TextStyle(
-                                    color: AppColors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 17),
-                              ),
-                            ),
-                            ListTile(
-                              dense: true,
-                              visualDensity: const VisualDensity(vertical: -3),
-                              leading: Text(
-                                "${data.rSSlotType}",
-                                style: TextStyle(
-                                    color: AppColors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13),
-                              ),
-                              trailing: Text(
-                                "${data.rSSessionType}",
-                                style: TextStyle(
-                                    color: AppColors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13),
-                              ),
-                            ),
-                            ListTile(
-                              dense: true,
-                              visualDensity: const VisualDensity(vertical: -3),
-                              leading: Text(
-                                "${data.rSStartTime}",
-                                style: TextStyle(
-                                    color: AppColors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12),
-                              ),
-                              trailing: Text(
-                                "${data.rSDoctorName}",
-                                style: TextStyle(
-                                    color: AppColors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12),
-                              ),
-                            )
-                          ],
-                        ),
-                      );
+                      return CompletedListView(data: data);
                     }),
           ),
         );
