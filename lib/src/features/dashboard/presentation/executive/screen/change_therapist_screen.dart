@@ -154,6 +154,7 @@ class ChangeTherapistScreen extends StatelessWidget {
               return ChangeTherapistButton(onSubmit: () {
                 if (!_formKey.currentState!.validate()) return;
                 dashboardController.changeTherapist(
+                    context: context,
                     ref: ref,
                     slotId: allotSlots.rSSlotId ?? 0,
                     reason: reasonValue.value.toString(),

@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:theraman/src/features/therapist/application/providers/user_provider.dart';
+import 'package:theraman/src/features/therapist/application/providers/apply_leave_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UserController {

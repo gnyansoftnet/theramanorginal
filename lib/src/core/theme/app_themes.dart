@@ -7,15 +7,14 @@ import 'package:google_fonts/google_fonts.dart';
 class AppThemes {
   static ThemeData get lightTheme => FlexThemeData.light(
         colors: const FlexSchemeColor(
-          primary: Color(0xff004881),
-          primaryContainer: Color(0xffd0e4ff),
-          secondary: Color(0xffac3306),
-          secondaryContainer: Color(0xffffdbcf),
-          tertiary: Color(0xff006875),
-          tertiaryContainer: Color(0xff95f0ff),
-          appBarColor: Color(0xffffdbcf),
-          error: Color(0xffb00020),
-        ),
+            primary: Color(0xff004881),
+            primaryContainer: Color(0xffd0e4ff),
+            secondary: Color(0xffac3306),
+            secondaryContainer: Color(0xffffdbcf),
+            tertiary: Color(0xff006875),
+            tertiaryContainer: Color(0xff95f0ff),
+            appBarColor: Color(0xffffdbcf),
+            error: Colors.red),
         surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
         blendLevel: 7,
         subThemesData: const FlexSubThemesData(

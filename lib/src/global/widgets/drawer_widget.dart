@@ -159,7 +159,7 @@ class DrawerWidget extends ConsumerWidget {
                         ? true
                         : false),
                 DrawerTile(
-                    icon: Icons.holiday_village,
+                    icon: Icons.check_circle,
                     onTap: () {
                       if (currentPage != "ExeLeaveStatusRoute") {
                         context.navigateTo(const ExeLeaveStatusRoute());

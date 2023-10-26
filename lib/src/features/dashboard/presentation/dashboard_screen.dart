@@ -142,26 +142,35 @@ class DashboardScreen extends ConsumerWidget {
                                   const Tab(
                                     child: Row(
                                       children: [
-                                        Text(
-                                          "ONGOING",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
+                                        FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: Text(
+                                            "ONGOING",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          ),
                                         ),
                                       ],
                                     ),
                                   ),
                                   const Tab(
-                                    child: Text(
-                                      "COMPLETED",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                        "COMPLETED",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ),
                                   ),
                                   const Tab(
-                                    child: Text(
-                                      "CANCELLED",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                        "CANCELLED",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ),
                                   )
                                 ])),

@@ -26,21 +26,23 @@ class OnGoingSessionScreen extends ConsumerWidget {
               ref.invalidate(onGoingProvider);
             },
             child: value.allotSlots!.isEmpty
-                ? Column(
-                    children: [
-                      Expanded(
-                        child: SvgPicture.asset(
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
                           "assets/images/svg/blank.svg",
                           fit: BoxFit.cover,
+                          height: MediaQuery.sizeOf(context).height / 3,
                         ),
-                      ),
-                      gapH8,
-                      const Expanded(
-                          child: Text(
-                        "You do not have any alloted slot",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ))
-                    ],
+                        gapH8,
+                        ElevatedButton(
+                            onPressed: () {
+                              ref.invalidate(onGoingProvider);
+                            },
+                            child: const Text("Retry"))
+                      ],
+                    ),
                   )
                 : ListView.builder(
                     physics: const AlwaysScrollableScrollPhysics(),
@@ -107,7 +109,7 @@ class OnGoingSessionScreen extends ConsumerWidget {
                                           ? "Complete"
                                           : index == 0
                                               ? "Start"
-                                              : "Disable",
+                                              : "Start",
                                       style: TextStyle(
                                           color: index != 0
                                               ? AppColors.white

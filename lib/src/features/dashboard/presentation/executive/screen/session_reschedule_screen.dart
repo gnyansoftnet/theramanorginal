@@ -213,6 +213,7 @@ class SessionRescheduleScreen extends StatelessWidget {
                     reasonValue.value != null &&
                     timeValue.value != null) {
                   dashboardController.sessionRescdule(
+                      context: context,
                       ref: ref,
                       slotId: allotSlots.rSSlotId ?? 0,
                       reason: reasonValue.value.toString(),

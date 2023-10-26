@@ -27,23 +27,23 @@ class CompletedSessionScreen extends ConsumerWidget {
               ref.invalidate(completedSessionProvider);
             },
             child: value.allotSlots!.isEmpty
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: SvgPicture.asset(
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
                           "assets/images/svg/blank.svg",
                           fit: BoxFit.cover,
-                          height: 100,
+                          height: MediaQuery.sizeOf(context).height / 3,
                         ),
-                      ),
-                      gapH8,
-                      const Text(
-                        "You did not complete any session",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )
-                    ],
+                        gapH8,
+                        ElevatedButton(
+                            onPressed: () {
+                              ref.invalidate(completedSessionProvider);
+                            },
+                            child: const Text("Retry"))
+                      ],
+                    ),
                   )
                 : ListView.builder(
                     physics: const AlwaysScrollableScrollPhysics(),

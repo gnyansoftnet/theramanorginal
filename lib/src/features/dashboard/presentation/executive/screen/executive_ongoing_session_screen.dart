@@ -25,20 +25,23 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
               ref.invalidate(allotedSlotAllTherapistProvider);
             },
             child: value.allotSlots!.isEmpty
-                ? Column(
-                    children: [
-                      SvgPicture.asset(
-                        "assets/images/svg/blank.svg",
-                        fit: BoxFit.cover,
-                        height: 250,
-                      ),
-                      gapH8,
-                      ElevatedButton(
-                          onPressed: () {
-                            ref.invalidate(allotedSlotAllTherapistProvider);
-                          },
-                          child: const Text("Retry"))
-                    ],
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          "assets/images/svg/blank.svg",
+                          fit: BoxFit.cover,
+                          height: MediaQuery.sizeOf(context).height / 3,
+                        ),
+                        gapH8,
+                        ElevatedButton(
+                            onPressed: () {
+                              ref.invalidate(allotedSlotAllTherapistProvider);
+                            },
+                            child: const Text("Retry"))
+                      ],
+                    ),
                   )
                 : ListView.builder(
                     physics: const AlwaysScrollableScrollPhysics(),

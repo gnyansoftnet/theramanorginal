@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
-import 'package:theraman/src/features/therapist/application/providers/user_provider.dart';
+import 'package:theraman/src/features/therapist/application/providers/leave_status_provider.dart';
 import 'package:theraman/src/global/widgets/drawer_widget.dart';
 import 'package:theraman/src/utils/common_methods.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
@@ -15,8 +15,10 @@ import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.
 class LeaveStatusScreen extends ConsumerWidget {
   LeaveStatusScreen({super.key});
 
-  final ValueNotifier<String> fromDateValue = ValueNotifier<String>("From");
-  final ValueNotifier<String> toDateValue = ValueNotifier<String>("To");
+  final fromDateValue =
+      ValueNotifier<String>(DateFormat("MM/dd/yyy").format(DateTime.now()));
+  final toDateValue =
+      ValueNotifier<String>(DateFormat("MM/dd/yyy").format(DateTime.now()));
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -39,11 +41,11 @@ class LeaveStatusScreen extends ConsumerWidget {
         child: Column(
           children: [
             Expanded(
-              flex: 1,
+              flex: 0,
               child: Row(
                 children: [
-                  Expanded(
-                    child: InkWell(
+                  dateFieldBox(
+                      dateValue: fromDateValue,
                       onTap: () {
                         showDateTimeRangePicker(
                                 context: context,
@@ -52,38 +54,12 @@ class LeaveStatusScreen extends ConsumerWidget {
                                 lastDate: DateTime(250000))
                             .then((value) {
                           fromDateValue.value =
-                              DateFormat('yyyy-MM-dd').format(value);
+                              DateFormat('MM/dd/yyy').format(value);
                         }).onError((error, stackTrace) => null);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(border: Border.all()),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.calendar_month),
-                              ValueListenableBuilder(
-                                  valueListenable: fromDateValue,
-                                  builder: (context, value, child) {
-                                    return Expanded(
-                                      child: FittedBox(
-                                        fit: BoxFit.scaleDown,
-                                        child: Text(
-                                          value,
-                                          style: const TextStyle(fontSize: 10),
-                                        ),
-                                      ),
-                                    );
-                                  })
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                      }),
                   gapW4,
-                  Expanded(
-                    child: InkWell(
+                  dateFieldBox(
+                      dateValue: toDateValue,
                       onTap: () {
                         showDateTimeRangePicker(
                                 context: context,
@@ -92,47 +68,17 @@ class LeaveStatusScreen extends ConsumerWidget {
                                 lastDate: DateTime(250000))
                             .then((value) {
                           toDateValue.value =
-                              DateFormat('yyyy-MM-dd').format(value);
+                              DateFormat('MM/dd/yyy').format(value);
                         }).onError((error, stackTrace) => null);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(border: Border.all()),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.calendar_month),
-                              ValueListenableBuilder(
-                                  valueListenable: toDateValue,
-                                  builder: (context, value, child) {
-                                    return Expanded(
-                                      child: FittedBox(
-                                        fit: BoxFit.scaleDown,
-                                        child: Text(
-                                          value,
-                                          style: const TextStyle(fontSize: 10),
-                                        ),
-                                      ),
-                                    );
-                                  })
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                      }),
                   gapW8,
                   ElevatedButton(
                       onPressed: () async {
-                        if (fromDateValue.value != 'From' &&
-                            toDateValue.value != 'To') {
-                          ref.watch(leaveStatusProvider(Date(
-                              from: fromDateValue.value,
-                              to: toDateValue.value)));
-                        }
+                        ref.watch(leaveStatusProvider(Date(
+                            from: fromDateValue.value, to: toDateValue.value)));
                       },
                       style: ElevatedButton.styleFrom(
-                          elevation: 4.0,
+                          elevation: 1.0,
                           shape: const RoundedRectangleBorder(
                               side: BorderSide(),
                               borderRadius: BorderRadius.all(Radius.zero))),
@@ -141,11 +87,8 @@ class LeaveStatusScreen extends ConsumerWidget {
               ),
             ),
             Expanded(
-              flex: 10,
               child: RefreshIndicator(
                 onRefresh: () async {
-                  fromDateValue.value = "From";
-                  toDateValue.value = "To";
                   ref.invalidate(leaveStatusProvider);
                 },
                 child: leaveDetailsState.easyWhen(onRetry: () {
@@ -158,17 +101,19 @@ class LeaveStatusScreen extends ConsumerWidget {
                         return value.leaveDtls!.isEmpty
                             ? Center(
                                 child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     SvgPicture.asset(
                                       "assets/images/svg/blank.svg",
                                       fit: BoxFit.cover,
-                                      height: 200,
+                                      height:
+                                          MediaQuery.sizeOf(context).height / 3,
                                     ),
-                                    const Text(
-                                      "You did not apply any leave",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    )
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          ref.invalidate(leaveStatusProvider);
+                                        },
+                                        child: const Text("Retry"))
                                   ],
                                 ),
                               )
@@ -246,6 +191,47 @@ class LeaveStatusScreen extends ConsumerWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget dateFieldBox(
+      {required ValueNotifier dateValue, required VoidCallback onTap}) {
+    return Expanded(
+      child: InkWell(
+        onTap: onTap,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColors.black, width: 0.5),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.calendar_month,
+                  color: AppColors.black,
+                ),
+                gapW8,
+                ValueListenableBuilder(
+                    valueListenable: dateValue,
+                    builder: (context, value, child) {
+                      return Expanded(
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            value,
+                            style: TextStyle(
+                                color: AppColors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      );
+                    }),
+              ],
+            ),
+          ),
         ),
       ),
     );

@@ -34,12 +34,13 @@ class ExeTomorrowSessionScreen extends ConsumerWidget {
         ],
       ),
       drawer: const DrawerWidget(currentPage: "ExeTomorrowSessionRoute"),
-      body: tomorrowSessionState.easyWhen(data: (value) {
-        return Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Column(
-            children: [
-              Row(
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          children: [
+            Expanded(
+              flex: 0,
+              child: Row(
                 children: [
                   Expanded(
                       child: InkWell(
@@ -52,7 +53,7 @@ class ExeTomorrowSessionScreen extends ConsumerWidget {
                         lastDate: DateTime(2500000),
                       ).then((value) {
                         dateValue.value =
-                            DateFormat('yyyy-MM-dd').format(value);
+                            DateFormat('MM/dd/yyyy').format(value);
                         ref.watch(exeTomorrowSessionProvider(dateValue.value));
                       }).onError((error, stackTrace) => null);
                     },
@@ -87,38 +88,44 @@ class ExeTomorrowSessionScreen extends ConsumerWidget {
                   )),
                   gapW4,
                   ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         ref.watch(exeTomorrowSessionProvider(dateValue.value));
                       },
                       style: ElevatedButton.styleFrom(
-                          elevation: 2.0,
+                          elevation: 1.0,
                           shape: const RoundedRectangleBorder(
                               side: BorderSide(width: 0.5),
                               borderRadius: BorderRadius.all(Radius.zero))),
                       child: const Text("Search"))
                 ],
               ),
-              Expanded(
-                // flex: 15,
-                child: RefreshIndicator(
+            ),
+            Expanded(
+              child: tomorrowSessionState.easyWhen(onRetry: () {
+                ref.invalidate(exeTomorrowSessionProvider);
+              }, data: (value) {
+                return RefreshIndicator(
                   onRefresh: () async {
                     ref.invalidate(exeTomorrowSessionProvider);
                   },
                   child: value.nextDaySlots!.isEmpty
-                      ? Column(
-                          children: [
-                            SvgPicture.asset(
-                              "assets/images/svg/blank.svg",
-                              fit: BoxFit.cover,
-                              height: 250,
-                            ),
-                            gapH8,
-                            ElevatedButton(
-                                onPressed: () {
-                                  ref.invalidate(exeTomorrowSessionProvider);
-                                },
-                                child: const Text("Retry"))
-                          ],
+                      ? Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                "assets/images/svg/blank.svg",
+                                fit: BoxFit.cover,
+                                height: MediaQuery.sizeOf(context).height / 3,
+                              ),
+                              gapH8,
+                              ElevatedButton(
+                                  onPressed: () {
+                                    ref.invalidate(exeTomorrowSessionProvider);
+                                  },
+                                  child: const Text("Retry"))
+                            ],
+                          ),
                         )
                       : ListView.builder(
                           itemCount: value.nextDaySlots!.length,
@@ -200,12 +207,12 @@ class ExeTomorrowSessionScreen extends ConsumerWidget {
                               ),
                             );
                           }),
-                ),
-              ),
-            ],
-          ),
-        );
-      }),
+                );
+              }),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

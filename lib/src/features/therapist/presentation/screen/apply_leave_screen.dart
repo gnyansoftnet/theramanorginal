@@ -10,15 +10,16 @@ import 'package:theraman/src/features/therapist/presentation/widget/apply_leave_
 import 'package:theraman/src/global/widgets/drawer_widget.dart';
 import 'package:theraman/src/global/widgets/textfield_widget.dart';
 import 'package:theraman/src/utils/common_methods.dart';
+import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
 
 @RoutePage(deferredLoading: true, name: "ApplyLeaveRoute")
 class ApplyLeaveScreen extends StatelessWidget {
   ApplyLeaveScreen({super.key});
 
-  final ValueNotifier<String> fromDateValue = ValueNotifier<String>("yy-mm-dd");
-  final ValueNotifier<String> toDateValue = ValueNotifier<String>("yy-mm-dd");
-  final ValueNotifier<bool> isOneDay = ValueNotifier<bool>(false);
+  final fromDateValue = ValueNotifier<String?>(null);
+  final toDateValue = ValueNotifier<String?>(null);
+  final isOneDay = ValueNotifier<bool>(false);
   TextEditingController reasonController = TextEditingController();
   TextEditingController noOfDaysController = TextEditingController();
   final userController = UserController();
@@ -96,13 +97,15 @@ class ApplyLeaveScreen extends StatelessWidget {
                     onChanged: (value) {
                       if (value == "1" || value == "0.5" || value == ".5") {
                         isOneDay.value = true;
-                        // fromDateValue.value = "yy-mm-dd";
-                        // toDateValue.value = "yy-mm-dd";
-                      } else if (fromDateValue.value != "yy-mm-dd" &&
-                          toDateValue.value != "yy-mm-dd") {
-                        getTodate(value: DateTime.parse(fromDateValue.value));
-                        isOneDay.value = false;
-                      } else {
+                      }
+                      //  else if (fromDateValue.value != null &&
+                      //     toDateValue.value != null) {
+                      //   getDate(
+                      //       value: DateTime.parse(fromDateValue.value ?? ""));
+                      //   isOneDay.value = false;
+
+                      // }
+                      else {
                         isOneDay.value = false;
                       }
                     },
@@ -131,7 +134,8 @@ class ApplyLeaveScreen extends StatelessWidget {
                                     style: _textStyle,
                                   ),
                                   gapH4,
-                                  InkWell(
+                                  dateFieldBox(
+                                    dateValue: fromDateValue,
                                     onTap: () {
                                       showDateTimeRangePicker(
                                               context: context,
@@ -140,32 +144,14 @@ class ApplyLeaveScreen extends StatelessWidget {
                                               lastDate: DateTime(250000))
                                           .then((value) {
                                         fromDateValue.value =
-                                            DateFormat('yyyy-MM-dd')
+                                            DateFormat('MM/dd/yyy')
                                                 .format(value);
                                         toDateValue.value =
-                                            DateFormat('yyyy-MM-dd')
+                                            DateFormat('MM/dd/yyy')
                                                 .format(value);
                                       }).onError((error, stackTrace) => null);
                                     },
-                                    child: Container(
-                                      decoration:
-                                          BoxDecoration(border: Border.all()),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Row(
-                                          children: [
-                                            const Icon(Icons.calendar_month),
-                                            ValueListenableBuilder(
-                                                valueListenable: fromDateValue,
-                                                builder:
-                                                    (context, value, child) {
-                                                  return Text(value.toString());
-                                                })
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  )
+                                  ),
                                 ],
                               )
                             : Row(
@@ -180,43 +166,24 @@ class ApplyLeaveScreen extends StatelessWidget {
                                           style: _textStyle,
                                         ),
                                         gapH4,
-                                        InkWell(
-                                          onTap: () {
-                                            showDateTimeRangePicker(
-                                                    context: context,
-                                                    initialDate: DateTime.now(),
-                                                    firstDate: DateTime(1600),
-                                                    lastDate: DateTime(250000))
-                                                .then((value) {
-                                              fromDateValue.value =
-                                                  DateFormat('yyyy-MM-dd')
-                                                      .format(value);
-                                              getTodate(value: value);
-                                            });
-                                          },
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                border: Border.all()),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Row(
-                                                children: [
-                                                  const Icon(
-                                                      Icons.calendar_month),
-                                                  ValueListenableBuilder(
-                                                      valueListenable:
-                                                          fromDateValue,
-                                                      builder: (context, value,
-                                                          child) {
-                                                        return Text(
-                                                            value.toString());
-                                                      })
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        )
+                                        dateFieldBox(
+                                            dateValue: fromDateValue,
+                                            onTap: () {
+                                              showDateTimeRangePicker(
+                                                      context: context,
+                                                      initialDate:
+                                                          DateTime.now(),
+                                                      firstDate: DateTime(1600),
+                                                      lastDate:
+                                                          DateTime(250000))
+                                                  .then((value) {
+                                                fromDateValue.value =
+                                                    DateFormat('MM/dd/yyy')
+                                                        .format(value);
+                                                getDate(value: value);
+                                              }).onError((error, stackTrace) =>
+                                                      null);
+                                            })
                                       ],
                                     ),
                                   ),
@@ -231,31 +198,9 @@ class ApplyLeaveScreen extends StatelessWidget {
                                           style: _textStyle,
                                         ),
                                         gapH4,
-                                        InkWell(
-                                          onTap: () {},
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                border: Border.all()),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Row(
-                                                children: [
-                                                  const Icon(
-                                                      Icons.calendar_month),
-                                                  ValueListenableBuilder(
-                                                      valueListenable:
-                                                          toDateValue,
-                                                      builder: (context, value,
-                                                          child) {
-                                                        return Text(
-                                                            value.toString());
-                                                      })
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        )
+                                        dateFieldBox(
+                                            dateValue: toDateValue,
+                                            onTap: () {}),
                                       ],
                                     ),
                                   )
@@ -274,30 +219,39 @@ class ApplyLeaveScreen extends StatelessWidget {
                     style: _textStyle,
                   ),
                   gapH8,
-                  ValueListenableBuilder(
-                      valueListenable: leaveTypeValue,
-                      builder: (context, value, child) {
-                        return DecoratedBox(
-                          decoration: BoxDecoration(border: Border.all()),
-                          child: DropdownButton<String>(
-                            underline: const SizedBox(),
-                            elevation: 3,
-                            hint: const Text("Select"),
-                            isExpanded: true,
-                            value: value.isEmpty ? null : value,
-                            onChanged: (newValue) {
-                              leaveTypeValue.value = newValue!;
-                            },
-                            items: leaveType
-                                .map<DropdownMenuItem<String>>((String type) {
-                              return DropdownMenuItem<String>(
-                                value: type,
-                                child: Text(type),
-                              );
-                            }).toList(),
-                          ),
-                        );
-                      }),
+                  DropdownButtonFormField<String>(
+                    elevation: 3,
+                    hint: const Text("Select"),
+                    isExpanded: true,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.black)),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.black),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.black),
+                      ),
+                      fillColor: Theme.of(context).scaffoldBackgroundColor,
+                    ),
+                    validator: (p0) {
+                      if (p0 != null && p0.isNotEmpty) {
+                        return null;
+                      }
+                      return "leave type is required";
+                    },
+                    onChanged: (newValue) {
+                      leaveTypeValue.value = newValue!;
+                    },
+                    items:
+                        leaveType.map<DropdownMenuItem<String>>((String type) {
+                      return DropdownMenuItem<String>(
+                        value: type,
+                        child: Text(type),
+                      );
+                    }).toList(),
+                  ),
                 ],
               ),
               gapH20,
@@ -345,7 +299,7 @@ class ApplyLeaveScreen extends StatelessWidget {
   }
 
   bool isValidated() {
-    if (fromDateValue.value == "yy-mm-dd" || toDateValue.value == "yy-mm-dd") {
+    if (fromDateValue.value == null || toDateValue.value == null) {
       Fluttertoast.showToast(msg: "Select your date");
       return false;
     } else if (leaveTypeValue.value == "") {
@@ -355,15 +309,54 @@ class ApplyLeaveScreen extends StatelessWidget {
     return true;
   }
 
-  void getTodate({required DateTime value}) {
+  void getDate({required DateTime value}) {
     if (noOfDaysController.text.isNotEmpty &&
         noOfDaysController.text.contains('.')) {
       final valueDouble = (double.parse(noOfDaysController.text)).round();
-      toDateValue.value = DateFormat('yyyy-MM-dd')
+      toDateValue.value = DateFormat('MM/dd/yyy')
           .format(value.add(Duration(days: valueDouble - 1)));
     } else if (noOfDaysController.text.isNotEmpty) {
-      toDateValue.value = DateFormat('yyyy-MM-dd').format(
+      toDateValue.value = DateFormat('MM/dd/yyy').format(
           value.add(Duration(days: (int.parse(noOfDaysController.text)) - 1)));
     }
+  }
+
+  Widget dateFieldBox(
+      {required ValueNotifier dateValue, required VoidCallback onTap}) {
+    return InkWell(
+      onTap: onTap,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColors.black, width: 1),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Icon(
+                Icons.calendar_month,
+                color: AppColors.black,
+              ),
+              gapW8,
+              ValueListenableBuilder(
+                  valueListenable: dateValue,
+                  builder: (context, value, child) {
+                    return Expanded(
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          value ?? "MM/dd/yyy",
+                          style: TextStyle(
+                            color: AppColors.black,
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

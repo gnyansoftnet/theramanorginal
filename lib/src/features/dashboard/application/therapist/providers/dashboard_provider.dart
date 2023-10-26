@@ -15,8 +15,7 @@ final completedSessionProvider =
     final token = ref.cancelToken();
 
     String staffCode = await Preferences.getPreference("staffCode", "");
-    final currentDate = DateTime.now();
-    final date = DateFormat('MM/dd/yyyy').format(currentDate);
+    final date = DateFormat("MM/dd/yyy").format(DateTime.now());
     if (kDebugMode) {
       print("Staff code $staffCode");
       print("Date $date");

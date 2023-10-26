@@ -143,6 +143,7 @@ class CancelSessionScreen extends StatelessWidget {
               return CancelSessionButton(onSubmit: () {
                 if (!_formKey.currentState!.validate()) return;
                 dashboardController.cancelSession(
+                    context: context,
                     ref: ref,
                     slotId: allotSlots.rSSlotId ?? 0,
                     reason: reasonValue.value.toString(),

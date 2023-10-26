@@ -8,8 +8,7 @@ import 'package:theraman/src/utils/extensions/riverpod_ext/cache_ext.dart';
 final cancelledSlotProvider =
     FutureProvider.autoDispose<AllotedSlotResponseModel>((ref) async {
   final token = CancelToken();
-  final currentDate = DateTime.now();
-  final date = DateFormat('MM/dd/yyyy').format(currentDate);
+  final date = DateFormat("MM/dd/yyy").format(DateTime.now());
   final result = await ref
       .watch(executivedashboardRepoProvider)
       .getCancelledSessionAllTherapist(date: date, cancelToken: token);

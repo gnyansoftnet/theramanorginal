@@ -25,24 +25,26 @@ class ExecutiveCompletedSessionScreen extends ConsumerWidget {
               ref.invalidate(completedSlotAllTherapistProvider);
             },
             child: value.allotSlots!.isEmpty
-                ? Column(
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    // crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: SvgPicture.asset(
-                          "assets/images/svg/blank.svg",
-                          fit: BoxFit.cover,
-                          height: 250,
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Center(
+                          child: SvgPicture.asset(
+                            "assets/images/svg/blank.svg",
+                            fit: BoxFit.cover,
+                            height: MediaQuery.sizeOf(context).height / 3,
+                          ),
                         ),
-                      ),
-                      gapH8,
-                      ElevatedButton(
-                          onPressed: () {
-                            ref.invalidate(completedSlotAllTherapistProvider);
-                          },
-                          child: const Text("Retry"))
-                    ],
+                        gapH8,
+                        ElevatedButton(
+                            onPressed: () {
+                              ref.invalidate(completedSlotAllTherapistProvider);
+                            },
+                            child: const Text("Retry"))
+                      ],
+                    ),
                   )
                 : ListView.builder(
                     physics: const AlwaysScrollableScrollPhysics(),

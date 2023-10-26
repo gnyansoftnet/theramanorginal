@@ -7,8 +7,7 @@ import 'package:theraman/src/utils/extensions/riverpod_ext/cancel_ext.dart';
 final allotedSlotAllTherapistProvider =
     FutureProvider.autoDispose<AllotedSlotResponseModel>((ref) async {
   final token = ref.cancelToken();
-  final currentDate = DateTime.now();
-  final date = DateFormat("MM/dd/yyy").format(currentDate);
+  final date = DateFormat("MM/dd/yyy").format(DateTime.now());
   final result = await ref
       .watch(executivedashboardRepoProvider)
       .getAllotedSlotAllTherapist(date: date, cancelToken: token);

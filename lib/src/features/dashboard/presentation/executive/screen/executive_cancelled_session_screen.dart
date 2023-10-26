@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/cancelled_slot_provider.dart';
 import 'package:theraman/src/features/dashboard/presentation/executive/widget/cancelled_listview.dart';
-import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
 
@@ -27,14 +26,13 @@ class ExecutiveCancelledSessionScreen extends ConsumerWidget {
             },
             child: value.allotSlots!.isEmpty
                 ? Column(
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    // crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Center(
                         child: SvgPicture.asset(
                           "assets/images/svg/blank.svg",
                           fit: BoxFit.cover,
-                          height: 250,
+                          height: MediaQuery.sizeOf(context).height / 3,
                         ),
                       ),
                       gapH8,

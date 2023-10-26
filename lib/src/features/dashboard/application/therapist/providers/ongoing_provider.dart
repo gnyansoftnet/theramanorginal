@@ -12,8 +12,7 @@ final onGoingProvider = FutureProvider.autoDispose<AllotedSlotResponseModel>(
     final token = ref.cancelToken();
     ref.autoRefresh(duration: const Duration(seconds: 5));
     String staffCode = await Preferences.getPreference("staffCode", "");
-    final currentDate = DateTime.now();
-    final date = DateFormat('MM/dd/yyyy').format(currentDate);
+    final date = DateFormat("MM/dd/yyy").format(DateTime.now());
     if (kDebugMode) {
       print("Staff code $staffCode");
       print("Date $date");
