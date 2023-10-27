@@ -45,6 +45,7 @@ class LeaveStatusScreen extends ConsumerWidget {
               child: Row(
                 children: [
                   dateFieldBox(
+                      context: context,
                       dateValue: fromDateValue,
                       onTap: () {
                         showDateTimeRangePicker(
@@ -59,6 +60,7 @@ class LeaveStatusScreen extends ConsumerWidget {
                       }),
                   gapW4,
                   dateFieldBox(
+                      context: context,
                       dateValue: toDateValue,
                       onTap: () {
                         showDateTimeRangePicker(
@@ -94,99 +96,98 @@ class LeaveStatusScreen extends ConsumerWidget {
                 child: leaveDetailsState.easyWhen(onRetry: () {
                   ref.invalidate(leaveStatusProvider);
                 }, data: (value) {
-                  return ListView.builder(
-                      itemCount: value.leaveDtls!.length,
-                      itemBuilder: (context, index) {
-                        final data = value.leaveDtls![index];
-                        return value.leaveDtls!.isEmpty
-                            ? Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                      "assets/images/svg/blank.svg",
-                                      fit: BoxFit.cover,
-                                      height:
-                                          MediaQuery.sizeOf(context).height / 3,
+                  return value.leaveDtls!.isEmpty
+                      ? Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                "assets/images/svg/blank.svg",
+                                fit: BoxFit.cover,
+                                height: MediaQuery.sizeOf(context).height / 3,
+                              ),
+                              ElevatedButton(
+                                  onPressed: () {
+                                    ref.invalidate(leaveStatusProvider);
+                                  },
+                                  child: const Text("Retry"))
+                            ],
+                          ),
+                        )
+                      : ListView.builder(
+                          itemCount: value.leaveDtls!.length,
+                          itemBuilder: (context, index) {
+                            final data = value.leaveDtls![index];
+                            return Card(
+                              elevation: 4.0,
+                              color: data.leaveStatus == "Approved"
+                                  ? AppColors.green
+                                  : data.leaveStatus == "Rejected"
+                                      ? AppColors.red
+                                      : AppColors.cyan,
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    visualDensity:
+                                        const VisualDensity(vertical: -4),
+                                    leading: Text(
+                                      "${data.leaveType}",
+                                      style: TextStyle(
+                                          color: AppColors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15),
                                     ),
-                                    ElevatedButton(
-                                        onPressed: () {
-                                          ref.invalidate(leaveStatusProvider);
-                                        },
-                                        child: const Text("Retry"))
-                                  ],
-                                ),
-                              )
-                            : Card(
-                                elevation: 4.0,
-                                color: data.leaveStatus == "Approved"
-                                    ? AppColors.green
-                                    : data.leaveStatus == "Rejected"
-                                        ? AppColors.red
-                                        : AppColors.cyan,
-                                child: Column(
-                                  children: [
-                                    ListTile(
-                                      visualDensity:
-                                          const VisualDensity(vertical: -4),
-                                      leading: Text(
-                                        "${data.leaveType}",
-                                        style: TextStyle(
-                                            color: AppColors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15),
-                                      ),
-                                      trailing: Text(
-                                        "${data.noOfDays}",
-                                        style: TextStyle(
-                                            color: AppColors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15),
-                                      ),
+                                    trailing: Text(
+                                      "${data.noOfDays}",
+                                      style: TextStyle(
+                                          color: AppColors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15),
                                     ),
-                                    ListTile(
-                                      visualDensity:
-                                          const VisualDensity(vertical: -4),
-                                      leading: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(
-                                            "${data.leaveFrom}",
-                                            style: TextStyle(
-                                                color: AppColors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 10),
-                                          ),
-                                          gapW4,
-                                          Text(
-                                            "to",
-                                            style: TextStyle(
+                                  ),
+                                  ListTile(
+                                    visualDensity:
+                                        const VisualDensity(vertical: -4),
+                                    leading: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          "${data.leaveFrom}",
+                                          style: TextStyle(
                                               color: AppColors.white,
                                               fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          gapW4,
-                                          Text(
-                                            "${data.leaveTo}",
-                                            style: TextStyle(
-                                                color: AppColors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 10),
-                                          ),
-                                        ],
-                                      ),
-                                      trailing: Text(
-                                        "${data.leaveStatus}",
-                                        style: TextStyle(
+                                              fontSize: 10),
+                                        ),
+                                        gapW4,
+                                        Text(
+                                          "to",
+                                          style: TextStyle(
                                             color: AppColors.white,
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 10),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              );
-                      });
+                                          ),
+                                        ),
+                                        gapW4,
+                                        Text(
+                                          "${data.leaveTo}",
+                                          style: TextStyle(
+                                              color: AppColors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 10),
+                                        ),
+                                      ],
+                                    ),
+                                    trailing: Text(
+                                      "${data.leaveStatus}",
+                                      style: TextStyle(
+                                          color: AppColors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 10),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            );
+                          });
                 }),
               ),
             ),
@@ -197,12 +198,15 @@ class LeaveStatusScreen extends ConsumerWidget {
   }
 
   Widget dateFieldBox(
-      {required ValueNotifier dateValue, required VoidCallback onTap}) {
+      {required BuildContext context,
+      required ValueNotifier dateValue,
+      required VoidCallback onTap}) {
     return Expanded(
       child: InkWell(
         onTap: onTap,
         child: DecoratedBox(
           decoration: BoxDecoration(
+            color: Theme.of(context).focusColor,
             border: Border.all(color: AppColors.black, width: 0.5),
           ),
           child: Padding(

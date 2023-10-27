@@ -59,6 +59,7 @@ class ExeTomorrowSessionScreen extends ConsumerWidget {
                     },
                     child: DecoratedBox(
                       decoration: BoxDecoration(
+                        color: Theme.of(context).focusColor,
                         border: Border.all(color: AppColors.black, width: 0.5),
                         // color: AppColors.green
                       ),
@@ -108,7 +109,7 @@ class ExeTomorrowSessionScreen extends ConsumerWidget {
                   onRefresh: () async {
                     ref.invalidate(exeTomorrowSessionProvider);
                   },
-                  child: value.nextDaySlots!.isEmpty
+                  child: value.allotSlots!.isEmpty
                       ? Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -128,9 +129,9 @@ class ExeTomorrowSessionScreen extends ConsumerWidget {
                           ),
                         )
                       : ListView.builder(
-                          itemCount: value.nextDaySlots!.length,
+                          itemCount: value.allotSlots!.length,
                           itemBuilder: (context, index) {
-                            final data = value.nextDaySlots![index];
+                            final data = value.allotSlots![index];
                             return Card(
                               elevation: 4.0,
                               color: data.rSSlotStatus == "Cancelled"
@@ -139,6 +140,8 @@ class ExeTomorrowSessionScreen extends ConsumerWidget {
                               child: Column(
                                 children: [
                                   ListTile(
+                                    contentPadding: const EdgeInsets.only(
+                                        right: 0, left: 14),
                                     dense: true,
                                     visualDensity:
                                         const VisualDensity(vertical: -2),
@@ -151,6 +154,59 @@ class ExeTomorrowSessionScreen extends ConsumerWidget {
                                               data.rSSlotStatus == "Cancelled"
                                                   ? AppColors.white
                                                   : AppColors.black),
+                                    ),
+                                    trailing: PopupMenuButton(
+                                      itemBuilder: (context) =>
+                                          <PopupMenuEntry<String>>[
+                                        PopupMenuItem(
+                                            child: ListTile(
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                            context.navigateTo(
+                                                SessionRescheduleRoute(
+                                                    allotSlots: data));
+                                          },
+                                          dense: true,
+                                          visualDensity:
+                                              const VisualDensity(vertical: -4),
+                                          contentPadding: EdgeInsets.zero,
+                                          leading:
+                                              const Icon(Icons.change_circle),
+                                          title:
+                                              const Text("Session Reschedule"),
+                                        )),
+                                        PopupMenuItem(
+                                            child: ListTile(
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                            context.navigateTo(
+                                                ChangeTherapistRoute(
+                                                    allotSlots: data));
+                                          },
+                                          dense: true,
+                                          visualDensity:
+                                              const VisualDensity(vertical: -4),
+                                          contentPadding: EdgeInsets.zero,
+                                          leading: const Icon(Icons.group),
+                                          title: const Text("Change Therapist"),
+                                        )),
+                                        PopupMenuItem(
+                                            child: ListTile(
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                            context.navigateTo(
+                                                CancelSessionRoute(
+                                                    allotSlots: data));
+                                          },
+                                          dense: true,
+                                          visualDensity:
+                                              const VisualDensity(vertical: -4),
+                                          contentPadding: EdgeInsets.zero,
+                                          leading: const Icon(Icons.cancel),
+                                          title: const Text(
+                                              " Session Cancellation"),
+                                        )),
+                                      ],
                                     ),
                                   ),
                                   ListTile(

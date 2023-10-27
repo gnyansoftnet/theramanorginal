@@ -7,6 +7,7 @@ import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/therapist/application/providers/user_provider.dart';
 import 'package:theraman/src/global/pod/check_user_type_pod.dart';
 import 'package:theraman/src/utils/common_methods.dart';
+import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
 
@@ -20,29 +21,45 @@ class DrawerWidget extends ConsumerWidget {
     final userTypeState = ref.watch(checkUserTypePod);
     return Drawer(
       elevation: 5.0,
-      width: MediaQuery.sizeOf(context).width / 1.2,
+      // width: MediaQuery.sizeOf(context).width / 1.2,
       child: ListView(
+        padding: const EdgeInsets.all(0),
         children: userTypeState.value == "T"
             ? [
                 DrawerHeader(
+                    padding: const EdgeInsets.all(0),
+                    decoration:
+                        BoxDecoration(color: Theme.of(context).primaryColor),
                     child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 40,
-                      backgroundColor: Colors.transparent,
-                      child: SvgPicture.asset("assets/images/svg/profile.svg",
-                          fit: BoxFit.cover),
-                    ),
-                    gapH12,
-                    userState.easyWhen(
-                      data: (value) => Text("${value.staffName}"),
-                      errorWidget: (_, __) => const Text("Loading ..."),
-                      loadingWidget: () => const Text("Loading ..."),
-                    )
-                  ],
-                )),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius: 40,
+                          backgroundColor: Colors.transparent,
+                          child: SvgPicture.asset(
+                            "assets/images/svg/profile.svg",
+                            fit: BoxFit.cover,
+                            color: AppColors.white,
+                          ),
+                        ),
+                        gapH12,
+                        userState.easyWhen(
+                          data: (value) => Text(
+                            "${value.staffName}",
+                            style: TextStyle(color: AppColors.white),
+                          ),
+                          errorWidget: (_, __) => Text(
+                            "Loading ...",
+                            style: TextStyle(color: AppColors.white),
+                          ),
+                          loadingWidget: () => Text(
+                            "Loading ...",
+                            style: TextStyle(color: AppColors.white),
+                          ),
+                        )
+                      ],
+                    )),
                 DrawerTile(
                     icon: Icons.dashboard,
                     onTap: () {
@@ -107,24 +124,39 @@ class DrawerWidget extends ConsumerWidget {
               ]
             : [
                 DrawerHeader(
+                    padding: const EdgeInsets.all(0),
+                    decoration:
+                        BoxDecoration(color: Theme.of(context).primaryColor),
                     child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 40,
-                      backgroundColor: Colors.transparent,
-                      child: SvgPicture.asset("assets/images/svg/profile.svg",
-                          fit: BoxFit.cover),
-                    ),
-                    gapH12,
-                    userState.easyWhen(
-                      data: (value) => Text("${value.staffName}"),
-                      errorWidget: (_, __) => const Text("Loading ..."),
-                      loadingWidget: () => const Text("Loading ..."),
-                    )
-                  ],
-                )),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius: 40,
+                          backgroundColor: Colors.transparent,
+                          child: SvgPicture.asset(
+                            "assets/images/svg/profile.svg",
+                            fit: BoxFit.cover,
+                            color: AppColors.white,
+                          ),
+                        ),
+                        gapH12,
+                        userState.easyWhen(
+                          data: (value) => Text(
+                            "${value.staffName}",
+                            style: TextStyle(color: AppColors.white),
+                          ),
+                          errorWidget: (_, __) => Text(
+                            "Loading ...",
+                            style: TextStyle(color: AppColors.white),
+                          ),
+                          loadingWidget: () => Text(
+                            "Loading ...",
+                            style: TextStyle(color: AppColors.white),
+                          ),
+                        )
+                      ],
+                    )),
                 DrawerTile(
                     icon: Icons.dashboard,
                     onTap: () {
@@ -204,15 +236,22 @@ class DrawerTile extends StatelessWidget {
             margin: const EdgeInsets.only(left: 5, right: 10),
             decoration: BoxDecoration(
                 color: isSelected
-                    ? Theme.of(context).focusColor
+                    ? Theme.of(context).primaryColor
                     : Colors.transparent,
                 borderRadius: const BorderRadius.all(Radius.circular(50))),
             child: ListTile(
               visualDensity: const VisualDensity(
                 vertical: -2,
               ),
-              leading: Icon(icon),
-              title: AutoSizeText(title),
+              leading: Icon(
+                icon,
+                color: isSelected ? AppColors.white : AppColors.black,
+              ),
+              title: Text(
+                title,
+                style: TextStyle(
+                    color: isSelected ? AppColors.white : AppColors.black),
+              ),
             )));
   }
 }

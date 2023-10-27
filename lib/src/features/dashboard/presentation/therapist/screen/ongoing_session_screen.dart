@@ -92,6 +92,7 @@ class OnGoingSessionScreen extends ConsumerWidget {
                                 trailing: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         elevation: 5.0,
+                                        backgroundColor: AppColors.blue,
                                         minimumSize: const Size(120, 40)),
                                     onPressed: index != 0
                                         ? null
@@ -111,9 +112,7 @@ class OnGoingSessionScreen extends ConsumerWidget {
                                               ? "Start"
                                               : "Start",
                                       style: TextStyle(
-                                          color: index != 0
-                                              ? AppColors.white
-                                              : AppColors.blue,
+                                          color: AppColors.white,
                                           fontWeight: FontWeight.bold),
                                     )))
                           ],

@@ -52,7 +52,6 @@ class CancelSessionButton extends ConsumerWidget {
       data: (data) {
         return switch (data) {
           CancelSessionInitial() => ElevatedButtonWidget(
-              color: AppColors.red,
               onPressed: onSubmit,
               child: Text(
                 "Cancel Session",
@@ -61,7 +60,6 @@ class CancelSessionButton extends ConsumerWidget {
             ),
           CancelSessionLoading() => ElevatedButtonWidget(
               onPressed: null,
-              color: AppColors.red,
               child: Text(
                 "Cancel Session",
                 style: _textStyle,
@@ -69,7 +67,6 @@ class CancelSessionButton extends ConsumerWidget {
             ),
           CancelSessionLoaded() => ElevatedButtonWidget(
               onPressed: onSubmit,
-              color: AppColors.red,
               child: Text(
                 "Cancel Session",
                 style: _textStyle,
@@ -79,16 +76,14 @@ class CancelSessionButton extends ConsumerWidget {
       },
       errorWidget: (error, stackTrace) => ElevatedButtonWidget(
         onPressed: onSubmit,
-        color: AppColors.red,
         child: Text(
           "Cancel Session",
           style: _textStyle,
         ),
       ),
-      loadingWidget: () => ElevatedButtonWidget(
+      loadingWidget: () => const ElevatedButtonWidget(
         onPressed: null,
-        color: AppColors.red,
-        child: const CircularProgressIndicator(
+        child: CircularProgressIndicator(
           strokeWidth: 2.0,
         ),
       ),

@@ -4,19 +4,19 @@ import 'package:theraman/src/core/exception/app_exception.dart';
 import 'package:theraman/src/features/executive/data/apis/i_executive_api.dart';
 import 'package:theraman/src/features/executive/data/repo/i_executive_repo.dart';
 import 'package:theraman/src/features/therapist/model/leave_details_model.dart';
-import 'package:theraman/src/global/model/tomorrow_session_model.dart';
+import 'package:theraman/src/global/model/alloted_slot_response_model.dart';
 
 class ExecutiveRepo extends IExecutiveRepo {
   final IExecutiveApi iExecutiveApi;
   ExecutiveRepo({required this.iExecutiveApi});
 
   @override
-  Future<Result<TomorrowSessionModel, AppException>> getTomorrowSession(
+  Future<Result<AllotedSlotResponseModel, AppException>> getTomorrowSession(
       {required String date, CancelToken? cancelToken}) async {
     final response = await iExecutiveApi.getTomorrowSession(date: date);
     if (response.statusCode == 200) {
       try {
-        return Success(TomorrowSessionModel.fromJson(response.data));
+        return Success(AllotedSlotResponseModel.fromJson(response.data));
       } catch (e) {
         return Error(AppException(response.data.toString()));
       }

@@ -60,6 +60,7 @@ class TomorrowSessionScreen extends ConsumerWidget {
                       },
                       child: DecoratedBox(
                         decoration: BoxDecoration(
+                          color: Theme.of(context).focusColor,
                           border:
                               Border.all(color: AppColors.black, width: 0.5),
                           // color: AppColors.green

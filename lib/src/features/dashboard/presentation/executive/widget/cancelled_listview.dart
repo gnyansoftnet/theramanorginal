@@ -14,6 +14,7 @@ class CancelledListView extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
+            contentPadding: const EdgeInsets.only(right: 0, left: 14),
             dense: true,
             visualDensity: const VisualDensity(vertical: -3),
             leading: Text(
@@ -22,6 +23,22 @@ class CancelledListView extends StatelessWidget {
                   color: AppColors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 17),
+            ),
+            trailing: PopupMenuButton(
+              color: AppColors.white,
+              itemBuilder: (context) => <PopupMenuEntry<String>>[
+                PopupMenuItem(
+                    child: ListTile(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  dense: true,
+                  visualDensity: const VisualDensity(vertical: -4),
+                  contentPadding: EdgeInsets.zero,
+                  leading: const Icon(Icons.restore),
+                  title: const Text("Resume Session"),
+                )),
+              ],
             ),
           ),
           ListTile(

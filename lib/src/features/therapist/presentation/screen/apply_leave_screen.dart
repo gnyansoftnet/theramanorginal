@@ -226,13 +226,21 @@ class ApplyLeaveScreen extends StatelessWidget {
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.symmetric(vertical: 10),
                       border: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.black)),
+                          borderSide: BorderSide(color: AppColors.black),
+                          borderRadius: BorderRadius.circular(0)),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.black),
-                      ),
+                          borderSide: BorderSide(color: AppColors.black),
+                          borderRadius: BorderRadius.circular(0)),
+                      disabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.black),
+                          borderRadius: BorderRadius.circular(0)),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.black),
-                      ),
+                          borderSide: BorderSide(color: AppColors.black),
+                          borderRadius: BorderRadius.circular(0)),
+                      errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.error),
+                          borderRadius: BorderRadius.circular(0)),
                       fillColor: Theme.of(context).scaffoldBackgroundColor,
                     ),
                     validator: (p0) {

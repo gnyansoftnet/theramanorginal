@@ -6,6 +6,7 @@ import 'package:theraman/src/features/dashboard/model/executive/reason_model.dar
 import 'package:theraman/src/features/dashboard/presentation/executive/controller/e_dashboard_controller.dart';
 import 'package:theraman/src/features/dashboard/presentation/executive/widget/cancel_session_button.dart';
 import 'package:theraman/src/global/model/alloted_slot_response_model.dart';
+import 'package:theraman/src/global/widgets/dropdown_button_formfield_widget.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
 
@@ -71,15 +72,8 @@ class CancelSessionScreen extends StatelessWidget {
               "Is Session Adjustable ?",
               style: _textStyle,
             ),
-            DropdownButtonFormField<String>(
-              isExpanded: true,
-              hint: const Text("Select"),
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(vertical: 10),
-                enabled: false,
-                border: InputBorder.none,
-                fillColor: Theme.of(context).focusColor,
-              ),
+            DropDownButtonFormFieldWidget(
+              hintText: const Text("Select"),
               validator: (p0) {
                 if (p0 != null && p0.isNotEmpty) {
                   return null;
@@ -109,30 +103,20 @@ class CancelSessionScreen extends StatelessWidget {
                       const LinearProgressIndicator(),
                   data: (value) {
                     final reasons = value.reasons;
-                    return DropdownButtonFormField<Reasons>(
-                        // style: const TextStyle(),
-
-                        isExpanded: true,
-                        hint: const Text("Select Reason"),
-                        decoration: InputDecoration(
-                          contentPadding:
-                              const EdgeInsets.symmetric(vertical: 10),
-                          enabled: false,
-                          border: InputBorder.none,
-                          fillColor: Theme.of(context).focusColor,
-                        ),
-                        validator: (p0) {
-                          if (p0 != null && p0.reasonName!.isNotEmpty) {
-                            return null;
-                          }
-                          return "Reason is required";
-                        },
+                    return DropDownButtonFormFieldWidget<Reasons>(
+                        hintText: const Text("Select Reason"),
                         items: reasons
                                 ?.map((reason) => DropdownMenuItem<Reasons>(
                                     value: reason,
                                     child: Text(reason.reasonName ?? "")))
                                 .toList() ??
                             [],
+                        validator: (p0) {
+                          if (p0 != null && p0.reasonName!.isNotEmpty) {
+                            return null;
+                          }
+                          return "Reason is required";
+                        },
                         onChanged: (newValue) {
                           reasonValue.value = newValue!.reasonCode;
                         });

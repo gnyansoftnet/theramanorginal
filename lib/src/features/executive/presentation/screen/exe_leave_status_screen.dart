@@ -44,6 +44,7 @@ class ExeLeaveStatusScreen extends ConsumerWidget {
                 child: Row(
                   children: [
                     dateFieldBox(
+                        context: context,
                         dateValue: fromDateValue,
                         onTap: () {
                           showDateTimeRangePicker(
@@ -58,6 +59,7 @@ class ExeLeaveStatusScreen extends ConsumerWidget {
                         }),
                     gapW4,
                     dateFieldBox(
+                      context: context,
                       dateValue: toDateValue,
                       onTap: () {
                         showDateTimeRangePicker(
@@ -212,12 +214,15 @@ class ExeLeaveStatusScreen extends ConsumerWidget {
   }
 
   Widget dateFieldBox(
-      {required ValueNotifier dateValue, required VoidCallback onTap}) {
+      {required BuildContext context,
+      required ValueNotifier dateValue,
+      required VoidCallback onTap}) {
     return Expanded(
       child: InkWell(
         onTap: onTap,
         child: DecoratedBox(
           decoration: BoxDecoration(
+            color: Theme.of(context).focusColor,
             border: Border.all(color: AppColors.black, width: 0.5),
           ),
           child: Padding(

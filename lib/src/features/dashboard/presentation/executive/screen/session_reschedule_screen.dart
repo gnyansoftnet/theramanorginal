@@ -11,6 +11,7 @@ import 'package:theraman/src/features/dashboard/model/executive/therapist_name_m
 import 'package:theraman/src/features/dashboard/presentation/executive/controller/e_dashboard_controller.dart';
 import 'package:theraman/src/features/dashboard/presentation/executive/widget/session_reschedule_button.dart';
 import 'package:theraman/src/global/model/alloted_slot_response_model.dart';
+import 'package:theraman/src/global/widgets/dropdown_button_formfield_widget.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
 
@@ -85,21 +86,14 @@ class SessionRescheduleScreen extends StatelessWidget {
                       const LinearProgressIndicator(),
                   data: (value) {
                     final times = value.allSlotTime;
-                    return DropdownButtonFormField<AllSlotTime>(
-                        isExpanded: true,
-                        hint: const Text("Select time"),
-                        decoration: InputDecoration(
-                          contentPadding:
-                              const EdgeInsets.symmetric(vertical: 10),
-                          enabled: false,
-                          border: InputBorder.none,
-                          fillColor: Theme.of(context).focusColor,
-                        ),
+
+                    return DropDownButtonFormFieldWidget<AllSlotTime>(
+                        hintText: const Text("Select slot time"),
                         validator: (p0) {
                           if (p0 != null && p0.slotName!.isNotEmpty) {
                             return null;
                           }
-                          return "Time is required";
+                          return "Slot Time is required";
                         },
                         items: times
                                 ?.map((time) => DropdownMenuItem<AllSlotTime>(
@@ -135,16 +129,9 @@ class SessionRescheduleScreen extends StatelessWidget {
                           );
                           therapistValue.value =
                               selectedStaff!.staffCode.toString();
-                          return DropdownButtonFormField<AllStaffs>(
-                              isExpanded: true,
+                          return DropDownButtonFormFieldWidget<AllStaffs>(
+                              hintText: const Text("Select Therapist"),
                               value: selectedStaff,
-                              decoration: InputDecoration(
-                                contentPadding:
-                                    const EdgeInsets.symmetric(vertical: 10),
-                                enabled: false,
-                                border: InputBorder.none,
-                                fillColor: Theme.of(context).focusColor,
-                              ),
                               validator: (p0) {
                                 if (p0 != null && p0.staffName!.isNotEmpty) {
                                   return null;
@@ -178,28 +165,20 @@ class SessionRescheduleScreen extends StatelessWidget {
                       const LinearProgressIndicator(),
                   data: (value) {
                     final reasons = value.reasons;
-                    return DropdownButtonFormField<Reasons>(
-                        isExpanded: true,
-                        hint: const Text("Select Reason"),
-                        decoration: InputDecoration(
-                          contentPadding:
-                              const EdgeInsets.symmetric(vertical: 10),
-                          enabled: false,
-                          border: InputBorder.none,
-                          fillColor: Theme.of(context).focusColor,
-                        ),
-                        validator: (p0) {
-                          if (p0 != null && p0.reasonName!.isNotEmpty) {
-                            return null;
-                          }
-                          return "Reason is required";
-                        },
+                    return DropDownButtonFormFieldWidget<Reasons>(
+                        hintText: const Text("Select Reason"),
                         items: reasons
                                 ?.map((reason) => DropdownMenuItem<Reasons>(
                                     value: reason,
                                     child: Text(reason.reasonName ?? "")))
                                 .toList() ??
                             [],
+                        validator: (p0) {
+                          if (p0 != null && p0.reasonName!.isNotEmpty) {
+                            return null;
+                          }
+                          return "Reason is required";
+                        },
                         onChanged: (newValue) {
                           reasonValue.value = newValue!.reasonCode;
                         });
