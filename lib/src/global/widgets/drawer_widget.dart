@@ -64,7 +64,7 @@ class DrawerWidget extends ConsumerWidget {
                     icon: Icons.dashboard,
                     onTap: () {
                       if (currentPage != "DashboardRoute") {
-                        context.navigateTo(const DashboardRoute());
+                        context.navigateTo(DashboardRoute());
                         Navigator.pop(context);
                       }
                     },
@@ -85,7 +85,7 @@ class DrawerWidget extends ConsumerWidget {
                     icon: Icons.calendar_month,
                     onTap: () {
                       if (currentPage != "TomorrowSessionRoute") {
-                        context.navigateTo(const TomorrowSessionRoute());
+                        context.navigateTo(TomorrowSessionRoute());
                         Navigator.pop(context);
                       }
                     },
@@ -161,7 +161,7 @@ class DrawerWidget extends ConsumerWidget {
                     icon: Icons.dashboard,
                     onTap: () {
                       if (currentPage != "DashboardRoute") {
-                        context.navigateTo(const DashboardRoute());
+                        context.navigateTo(DashboardRoute());
                         Navigator.pop(context);
                       }
                     },
@@ -194,7 +194,7 @@ class DrawerWidget extends ConsumerWidget {
                     icon: Icons.check_circle,
                     onTap: () {
                       if (currentPage != "ExeLeaveStatusRoute") {
-                        context.navigateTo(const ExeLeaveStatusRoute());
+                        context.navigateTo(ExeLeaveStatusRoute());
                         Navigator.pop(context);
                       }
                     },

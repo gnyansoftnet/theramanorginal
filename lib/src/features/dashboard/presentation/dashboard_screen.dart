@@ -198,7 +198,7 @@ class DashboardScreen extends ConsumerWidget {
                       children: userTypeState.value == "T"
                           ? [OnGoingSessionScreen(), CompletedSessionScreen()]
                           : [
-                              const ExecutiveOngoingSessionScreen(),
+                              ExecutiveOngoingSessionScreen(),
                               const ExecutiveCompletedSessionScreen(),
                               const ExecutiveCancelledSessionScreen(),
                             ],

@@ -38,4 +38,17 @@ abstract class IExecutiveDashboardApi {
     required slotTime,
     CancelToken? cancelToken,
   });
+
+  Future<Response> exeStartSession({
+    required userType,
+    required userId,
+    required slotId,
+    CancelToken? cancelToken,
+  });
+  Future<Response> exeCompleteSession({
+    required userType,
+    required userId,
+    required slotId,
+    CancelToken? cancelToken,
+  });
 }

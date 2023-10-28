@@ -51,4 +51,16 @@ abstract class IExecutiveDashboardRepo {
       required String therapistName,
       required String slotTime,
       CancelToken? cancelToken});
+  Future<Result<String, AppException>> exeStartSession({
+    required String userType,
+    required String userId,
+    required int slotId,
+    CancelToken? cancelToken,
+  });
+  Future<Result<String, AppException>> exeCompleteSession({
+    required String userType,
+    required String userId,
+    required int slotId,
+    CancelToken? cancelToken,
+  });
 }

@@ -96,4 +96,26 @@ class ExecutiveDashboardApi extends IExecutiveDashboardApi {
     };
     return await dio.post(AppUrls.sessionRescheduleUrl, data: formDate);
   }
+
+  @override
+  Future<Response> exeStartSession({
+    required userType,
+    required userId,
+    required slotId,
+    CancelToken? cancelToken,
+  }) async {
+    return await dio.post(
+        "${AppUrls.exeStartSessionUrl}Id=$slotId&Type=$userType&UserId=$userType");
+  }
+
+  @override
+  Future<Response> exeCompleteSession({
+    required userType,
+    required userId,
+    required slotId,
+    CancelToken? cancelToken,
+  }) async {
+    return await dio.post(
+        "${AppUrls.exeCompleteSessionUrl}Id=$slotId&Type=$userType&UserId=$userId");
+  }
 }

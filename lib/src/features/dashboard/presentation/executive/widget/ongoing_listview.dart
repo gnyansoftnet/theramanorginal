@@ -1,15 +1,19 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
+import 'package:theraman/src/features/dashboard/presentation/executive/controller/e_dashboard_controller.dart';
 import 'package:theraman/src/global/model/alloted_slot_response_model.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
 
-class OngoingListview extends StatelessWidget {
+class OngoingListview extends ConsumerWidget {
   final AllotSlots data;
-  const OngoingListview({super.key, required this.data});
+  OngoingListview({super.key, required this.data});
+
+  final eDashboardControlller = EDashboardController();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Card(
       elevation: 5.0,
       color: data.rSSlotStatus == "Started"
@@ -73,6 +77,31 @@ class OngoingListview extends StatelessWidget {
                   contentPadding: EdgeInsets.zero,
                   leading: const Icon(Icons.cancel),
                   title: const Text(" Session Cancellation"),
+                )),
+                PopupMenuItem(
+                    child: ListTile(
+                  onTap: data.rSSlotStatus != "Started"
+                      ? () {
+                          Navigator.pop(context);
+                          eDashboardControlller.exeStartSession(
+                              context: context,
+                              ref: ref,
+                              slotId: data.rSSlotId ?? 0);
+                        }
+                      : () {
+                          Navigator.pop(context);
+                          eDashboardControlller.exeCompleteSession(
+                              context: context,
+                              ref: ref,
+                              slotId: data.rSSlotId ?? 0);
+                        },
+                  dense: true,
+                  visualDensity: const VisualDensity(vertical: -4),
+                  contentPadding: EdgeInsets.zero,
+                  leading: const Icon(Icons.done),
+                  title: Text(data.rSSlotStatus != "Started"
+                      ? "Start Session"
+                      : "Complete Session"),
                 )),
               ],
             ),

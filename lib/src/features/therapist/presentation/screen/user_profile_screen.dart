@@ -24,7 +24,7 @@ class UserProfileScreen extends ConsumerWidget {
         actions: [
           IconButton(
               onPressed: () {
-                context.router.replaceAll([const DashboardRoute()]);
+                context.router.replaceAll([DashboardRoute()]);
               },
               icon: const Icon(Icons.home))
         ],

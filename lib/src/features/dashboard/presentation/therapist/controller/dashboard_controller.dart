@@ -16,14 +16,14 @@ class DashboardController {
           context: context,
           builder: (BuildContext ctx) {
             return AlertDialog(
-              title: const AutoSizeText("Complete"),
-              content: const AutoSizeText("Are you want to complete ?"),
+              title: const Text("Complete"),
+              content: const Text("Are you want to complete ?"),
               actions: [
                 TextButton(
                     onPressed: () async {
                       Navigator.pop(ctx);
                     },
-                    child: const AutoSizeText("No")),
+                    child: const Text("No")),
                 TextButton(
                     onPressed: () async {
                       await ref
@@ -32,7 +32,7 @@ class DashboardController {
                       ref.invalidate(onGoingProvider);
                       if (context.mounted) Navigator.pop(ctx);
                     },
-                    child: const AutoSizeText("Yes")),
+                    child: const Text("Yes")),
               ],
             );
           });
@@ -41,14 +41,14 @@ class DashboardController {
           context: context,
           builder: (BuildContext ctx) {
             return AlertDialog(
-              title: const AutoSizeText("Start"),
-              content: const AutoSizeText("Are you want to start ?"),
+              title: const Text("Start"),
+              content: const Text("Are you want to start ?"),
               actions: [
                 TextButton(
                     onPressed: () async {
                       Navigator.pop(ctx);
                     },
-                    child: const AutoSizeText("No")),
+                    child: const Text("No")),
                 TextButton(
                     onPressed: () async {
                       await ref
@@ -57,7 +57,7 @@ class DashboardController {
                       ref.invalidate(onGoingProvider);
                       if (context.mounted) Navigator.pop(ctx);
                     },
-                    child: const AutoSizeText("Yes")),
+                    child: const Text("Yes")),
               ],
             );
           });

@@ -27,8 +27,7 @@ class VerifyOtpButton extends ConsumerWidget {
           data: (data) => switch (data) {
             VerifyOtpInitial() => null,
             VerifyOtpLoading() => null,
-            VerifyOtpLoaded() =>
-              context.router.replaceAll([const DashboardRoute()]),
+            VerifyOtpLoaded() => context.router.replaceAll([DashboardRoute()]),
           },
           error: (e, _) {
             /// show error snackbar

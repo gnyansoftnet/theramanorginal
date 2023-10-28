@@ -12,7 +12,7 @@ class SplashServices {
             () => context.router.replaceAll([const UserTypeRoute()]));
       } else {
         Timer(const Duration(seconds: 3),
-            () => context.router.replaceAll([const DashboardRoute()]));
+            () => context.router.replaceAll([DashboardRoute()]));
       }
     });
   }

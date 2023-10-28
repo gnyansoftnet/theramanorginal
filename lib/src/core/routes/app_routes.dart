@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 
 import 'app_routes.gr.dart';
 
@@ -29,8 +30,9 @@ class AppRouter extends $AppRouter {
 
         // executive route
         AutoRoute(
-            page: ExecutiveOngoingSessionRoute.page,
-            path: "/ExecutiveOngoingSessionRoute"),
+          page: ExecutiveOngoingSessionRoute.page,
+          path: "/ExecutiveOngoingSessionRoute",
+        ),
         AutoRoute(
             page: ExecutiveCompletedSessionRoute.page,
             path: "/ExecutiveCompletedSessionRoute"),
@@ -46,5 +48,16 @@ class AppRouter extends $AppRouter {
             page: ExeTomorrowSessionRoute.page,
             path: "/ExeTomorrowSessionRoute"),
         AutoRoute(page: ExeLeaveStatusRoute.page, path: "/ExeLeaveStatusRoute"),
+        CustomRoute(
+          page: LoadingDialogRoute.page,
+          path: '/loadingDialogRoute',
+          customRouteBuilder: <T>(context, child, AutoRoutePage<T> page) {
+            return DialogRoute(
+              context: context,
+              settings: page,
+              builder: (_) => child,
+            );
+          },
+        ),
       ];
 }

@@ -21,7 +21,7 @@ class ExecutiveDashboardRepo extends IExecutiveDashboardRepo {
       try {
         return Success(AllotedSlotResponseModel.fromJson(response.data));
       } catch (e) {
-        return Error(AppException(response.data.toString()));
+        return Error(ServerException(response.data.toString()));
       }
     } else if (response.statusCode == 405) {
       return Error(MethodNotAllowedException(
@@ -38,7 +38,7 @@ class ExecutiveDashboardRepo extends IExecutiveDashboardRepo {
           ServerException("${response.statusCode} internal server error !"));
     } else {
       return Error(
-          AppException("${response.statusCode} Something went wrong !"));
+          ServerException("${response.statusCode} Something went wrong !"));
     }
   }
 
@@ -52,7 +52,7 @@ class ExecutiveDashboardRepo extends IExecutiveDashboardRepo {
       try {
         return Success(AllotedSlotResponseModel.fromJson(response.data));
       } catch (e) {
-        return Error(AppException(response.data.toString()));
+        return Error(ServerException(response.data.toString()));
       }
     } else if (response.statusCode == 404) {
       return Error(NotFoundException("${response.statusCode}Not Found !"));
@@ -69,7 +69,7 @@ class ExecutiveDashboardRepo extends IExecutiveDashboardRepo {
           ServerException("${response.statusCode} internal server error !"));
     } else {
       return Error(
-          AppException("${response.statusCode} Something went wrong !"));
+          ServerException("${response.statusCode} Something went wrong !"));
     }
   }
 
@@ -82,7 +82,7 @@ class ExecutiveDashboardRepo extends IExecutiveDashboardRepo {
       try {
         return Success(ReasonModel.fromJson(response.data));
       } catch (e) {
-        return Error(AppException(response.data.toString()));
+        return Error(ServerException(response.data.toString()));
       }
     } else if (response.statusCode == 404) {
       return Error(NotFoundException("${response.statusCode}Not Found !"));
@@ -99,7 +99,7 @@ class ExecutiveDashboardRepo extends IExecutiveDashboardRepo {
           ServerException("${response.statusCode} internal server error !"));
     } else {
       return Error(
-          AppException("${response.statusCode} Something went wrong !"));
+          ServerException("${response.statusCode} Something went wrong !"));
     }
   }
 
@@ -121,7 +121,7 @@ class ExecutiveDashboardRepo extends IExecutiveDashboardRepo {
       try {
         return Success(response.data.toString());
       } catch (e) {
-        return Error(AppException(response.data.toString()));
+        return Error(ServerException(response.data.toString()));
       }
     } else if (response.statusCode == 405) {
       return Error(MethodNotAllowedException(
@@ -138,7 +138,7 @@ class ExecutiveDashboardRepo extends IExecutiveDashboardRepo {
           "${response.statusCode} ${response.data["Message"]} !"));
     } else {
       return Error(
-          AppException("${response.statusCode} Something went wrong !"));
+          ServerException("${response.statusCode} Something went wrong !"));
     }
   }
 
@@ -152,7 +152,7 @@ class ExecutiveDashboardRepo extends IExecutiveDashboardRepo {
       try {
         return Success(AllotedSlotResponseModel.fromJson(response.data));
       } catch (e) {
-        return Error(AppException(response.data.toString()));
+        return Error(ServerException(response.data.toString()));
       }
     } else if (response.statusCode == 405) {
       return Error(MethodNotAllowedException(
@@ -169,7 +169,7 @@ class ExecutiveDashboardRepo extends IExecutiveDashboardRepo {
           "${response.statusCode} ${response.data["Message"]} !"));
     } else {
       return Error(
-          AppException("${response.statusCode} Something went wrong !"));
+          ServerException("${response.statusCode} Something went wrong !"));
     }
   }
 
@@ -181,7 +181,7 @@ class ExecutiveDashboardRepo extends IExecutiveDashboardRepo {
       try {
         return Success(TherapistNameModel.fromJson(response.data));
       } catch (e) {
-        return Error(AppException(response.data.toString()));
+        return Error(ServerException(response.data.toString()));
       }
     } else if (response.statusCode == 405) {
       return Error(MethodNotAllowedException(
@@ -196,7 +196,7 @@ class ExecutiveDashboardRepo extends IExecutiveDashboardRepo {
           ServerException("${response.statusCode} Internal server error !!"));
     } else {
       return Error(
-          AppException("${response.statusCode} Something went wrong !"));
+          ServerException("${response.statusCode} Something went wrong !"));
     }
   }
 
@@ -209,7 +209,7 @@ class ExecutiveDashboardRepo extends IExecutiveDashboardRepo {
       try {
         return Success(SlotTimeModel.fromJson(response.data));
       } catch (e) {
-        return Error(AppException(response.data.toString()));
+        return Error(ServerException(response.data.toString()));
       }
     } else if (response.statusCode == 405) {
       return Error(MethodNotAllowedException(
@@ -224,7 +224,7 @@ class ExecutiveDashboardRepo extends IExecutiveDashboardRepo {
           ServerException("${response.statusCode} Internal server error !!"));
     } else {
       return Error(
-          AppException("${response.statusCode} Something went wrong !"));
+          ServerException("${response.statusCode} Something went wrong !"));
     }
   }
 
@@ -247,7 +247,7 @@ class ExecutiveDashboardRepo extends IExecutiveDashboardRepo {
       try {
         return Success(response.data.toString());
       } catch (e) {
-        return Error(AppException(response.data.toString()));
+        return Error(ServerException(response.data.toString()));
       }
     } else if (response.statusCode == 405) {
       return Error(MethodNotAllowedException(
@@ -261,7 +261,7 @@ class ExecutiveDashboardRepo extends IExecutiveDashboardRepo {
       return Error(ServerException("${response.data["ExceptionMessage"]} !"));
     } else {
       return Error(
-          AppException("${response.statusCode} Something went wrong !"));
+          ServerException("${response.statusCode} Something went wrong !"));
     }
   }
 
@@ -287,7 +287,7 @@ class ExecutiveDashboardRepo extends IExecutiveDashboardRepo {
       try {
         return Success(response.data.toString());
       } catch (e) {
-        return Error(AppException(response.data.toString()));
+        return Error(ServerException(response.data.toString()));
       }
     }
     // else if (response.data["detail"].toString() ==
@@ -306,7 +306,69 @@ class ExecutiveDashboardRepo extends IExecutiveDashboardRepo {
       return Error(ServerException("${response.data["ExceptionMessage"]} !"));
     } else {
       return Error(
-          AppException("${response.statusCode} Something went wrong !"));
+          ServerException("${response.statusCode} Something went wrong !"));
+    }
+  }
+
+  @override
+  Future<Result<String, AppException>> exeCompleteSession(
+      {required String userType,
+      required String userId,
+      required int slotId,
+      CancelToken? cancelToken}) async {
+    final response = await iExecutiveDashboardApi.exeCompleteSession(
+        userType: userType, userId: userId, slotId: slotId);
+    if (response.statusCode == 200) {
+      try {
+        return Success(response.data.toString());
+      } catch (e) {
+        return Error(ServerException(response.data.toString()));
+      }
+    } else if (response.statusCode == 405) {
+      return Error(MethodNotAllowedException(
+          "${response.statusCode} ${response.data["Message"]}"));
+    } else if (response.statusCode == 400) {
+      return Error(BadRequestException("${response.statusCode} Bad Request !"));
+    } else if (response.statusCode == 408) {
+      return Error(
+          RequestTimeOutException("${response.statusCode} Request Timeout !"));
+    } else if (response.statusCode == 500) {
+      return Error(
+          ServerException("${response.statusCode} Something went wrong  !"));
+    } else {
+      return Error(
+          ServerException("${response.statusCode} Something went wrong !"));
+    }
+  }
+
+  @override
+  Future<Result<String, AppException>> exeStartSession(
+      {required String userType,
+      required String userId,
+      required int slotId,
+      CancelToken? cancelToken}) async {
+    final response = await iExecutiveDashboardApi.exeStartSession(
+        userType: userType, userId: userId, slotId: slotId);
+    if (response.statusCode == 200) {
+      try {
+        return Success(response.data.toString());
+      } catch (e) {
+        return Error(ServerException(response.data.toString()));
+      }
+    } else if (response.statusCode == 405) {
+      return Error(MethodNotAllowedException(
+          "${response.statusCode} ${response.data["Message"]}"));
+    } else if (response.statusCode == 400) {
+      return Error(BadRequestException("${response.statusCode} Bad Request !"));
+    } else if (response.statusCode == 408) {
+      return Error(
+          RequestTimeOutException("${response.statusCode} Request Timeout !"));
+    } else if (response.statusCode == 500) {
+      return Error(
+          ServerException("${response.statusCode} Something went wrong  !"));
+    } else {
+      return Error(
+          ServerException("${response.statusCode} Something went wrong !"));
     }
   }
 }

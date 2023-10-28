@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/cancel_session_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/change_therapist_provider.dart';
+import 'package:theraman/src/features/dashboard/application/executive/providers/exe_complete_session_provider.dart';
+import 'package:theraman/src/features/dashboard/application/executive/providers/exe_start_session_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/session_reschedule_provider.dart';
+import 'package:theraman/src/features/dashboard/application/therapist/providers/ongoing_provider.dart';
 import 'package:theraman/src/utils/extensions/common_ext/alert_dialog_ext.dart';
 
 class EDashboardController {
@@ -91,5 +94,63 @@ class EDashboardController {
         ],
       );
     });
+  }
+
+  Future<void> exeStartSession(
+      {required BuildContext context,
+      required WidgetRef ref,
+      required int slotId}) async {
+    showDialog(
+        context: context,
+        builder: (BuildContext ctx) {
+          return AlertDialog(
+            title: const Text("Start Session"),
+            content: const Text("Are you sure want to start ? "),
+            actions: [
+              TextButton(
+                  onPressed: () async {
+                    Navigator.pop(ctx);
+                  },
+                  child: const Text("No")),
+              TextButton(
+                  onPressed: () async {
+                    await ref
+                        .read(exeStartSessionProvider.notifier)
+                        .exeStartSession(slotId: slotId);
+                    if (context.mounted) Navigator.pop(ctx);
+                  },
+                  child: const Text("Yes"))
+            ],
+          );
+        });
+  }
+
+  Future<void> exeCompleteSession(
+      {required BuildContext context,
+      required WidgetRef ref,
+      required int slotId}) async {
+    showDialog(
+        context: context,
+        builder: (BuildContext ctx) {
+          return AlertDialog(
+            title: const Text("Complete Session"),
+            content: const Text("Are you sure want to complete ? "),
+            actions: [
+              TextButton(
+                  onPressed: () async {
+                    Navigator.pop(ctx);
+                  },
+                  child: const Text("No")),
+              TextButton(
+                  onPressed: () async {
+                    await ref
+                        .read(exeCompleteSessionProvider.notifier)
+                        .exeCompleteSession(slotId: slotId);
+                    if (context.mounted) Navigator.pop(context);
+                  },
+                  child: const Text("Yes"))
+            ],
+          );
+        });
   }
 }
