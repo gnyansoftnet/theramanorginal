@@ -200,7 +200,7 @@ class DashboardScreen extends ConsumerWidget {
                           : [
                               ExecutiveOngoingSessionScreen(),
                               const ExecutiveCompletedSessionScreen(),
-                              const ExecutiveCancelledSessionScreen(),
+                              ExecutiveCancelledSessionScreen(),
                             ],
                     ),
                   ));

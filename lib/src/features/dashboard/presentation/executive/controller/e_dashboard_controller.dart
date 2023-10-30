@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:theraman/src/features/dashboard/application/executive/providers/alloted_slot_all_therapist_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/cancel_session_provider.dart';
+import 'package:theraman/src/features/dashboard/application/executive/providers/cancelled_slot_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/change_therapist_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/exe_complete_session_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/exe_start_session_provider.dart';
+import 'package:theraman/src/features/dashboard/application/executive/providers/resume_cancelled_session_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/session_reschedule_provider.dart';
-import 'package:theraman/src/features/dashboard/application/therapist/providers/ongoing_provider.dart';
 import 'package:theraman/src/utils/extensions/common_ext/alert_dialog_ext.dart';
 
 class EDashboardController {
@@ -96,11 +98,11 @@ class EDashboardController {
     });
   }
 
-  Future<void> exeStartSession(
+  Future<bool?> exeStartSession(
       {required BuildContext context,
       required WidgetRef ref,
       required int slotId}) async {
-    showDialog(
+    return showDialog<bool>(
         context: context,
         builder: (BuildContext ctx) {
           return AlertDialog(
@@ -109,7 +111,7 @@ class EDashboardController {
             actions: [
               TextButton(
                   onPressed: () async {
-                    Navigator.pop(ctx);
+                    Navigator.pop(ctx, false);
                   },
                   child: const Text("No")),
               TextButton(
@@ -117,7 +119,8 @@ class EDashboardController {
                     await ref
                         .read(exeStartSessionProvider.notifier)
                         .exeStartSession(slotId: slotId);
-                    if (context.mounted) Navigator.pop(ctx);
+                    ref.invalidate(allotedSlotAllTherapistProvider);
+                    if (context.mounted) Navigator.pop(ctx, true);
                   },
                   child: const Text("Yes"))
             ],
@@ -125,11 +128,11 @@ class EDashboardController {
         });
   }
 
-  Future<void> exeCompleteSession(
+  Future<bool?> exeCompleteSession(
       {required BuildContext context,
       required WidgetRef ref,
       required int slotId}) async {
-    showDialog(
+    return showDialog<bool>(
         context: context,
         builder: (BuildContext ctx) {
           return AlertDialog(
@@ -138,7 +141,7 @@ class EDashboardController {
             actions: [
               TextButton(
                   onPressed: () async {
-                    Navigator.pop(ctx);
+                    Navigator.pop(ctx, false);
                   },
                   child: const Text("No")),
               TextButton(
@@ -146,7 +149,38 @@ class EDashboardController {
                     await ref
                         .read(exeCompleteSessionProvider.notifier)
                         .exeCompleteSession(slotId: slotId);
-                    if (context.mounted) Navigator.pop(context);
+                    ref.invalidate(allotedSlotAllTherapistProvider);
+                    if (context.mounted) Navigator.pop(ctx, true);
+                  },
+                  child: const Text("Yes"))
+            ],
+          );
+        });
+  }
+
+  Future<bool?> resumeCancelledSession(
+      {required BuildContext context,
+      required WidgetRef ref,
+      required int slotId}) async {
+    return showDialog<bool>(
+        context: context,
+        builder: (ctx) {
+          return AlertDialog(
+            title: const Text("Resume"),
+            content: const Text("Are you sure resume the session ?"),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(ctx, false);
+                  },
+                  child: const Text("No")),
+              TextButton(
+                  onPressed: () async {
+                    await ref
+                        .read(resumeCancelledSessionProvider.notifier)
+                        .resumeCancelledSession(slotId: slotId);
+                    ref.invalidate(cancelledSlotProvider);
+                    if (context.mounted) Navigator.pop(ctx, true);
                   },
                   child: const Text("Yes"))
             ],

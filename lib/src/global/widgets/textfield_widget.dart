@@ -58,13 +58,20 @@ class TextFieldWidget extends StatelessWidget {
         hintStyle: const TextStyle(fontSize: 15),
         labelText: label,
         labelStyle: const TextStyle(fontSize: 12),
-        fillColor: Theme.of(context).cardColor,
+        fillColor: Theme.of(context).focusColor,
         contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-        disabledBorder: const OutlineInputBorder(),
-        errorBorder:
-            OutlineInputBorder(borderSide: BorderSide(color: AppColors.red)),
-        focusedBorder: const OutlineInputBorder(),
-        enabledBorder: const OutlineInputBorder(),
+        disabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Theme.of(context).dividerColor),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Theme.of(context).dividerColor),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Theme.of(context).dividerColor),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Theme.of(context).dividerColor),
+        ),
       ),
       validator: validator,
       inputFormatters: inputFormatters,

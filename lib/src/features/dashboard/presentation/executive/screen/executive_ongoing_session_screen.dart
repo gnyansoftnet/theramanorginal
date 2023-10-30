@@ -22,117 +22,117 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final allotedSlotState = ref.watch(allotedSlotAllTherapistProvider);
 
-    ref.listen(
-      exeStartSessionProvider,
-      (previous, next) async {
-        if (next is AsyncLoading) {
-          /// show loading dialog
-          await context.router.navigate(const LoadingDialogRoute());
-        } else if (previous is AsyncLoading && next is AsyncData) {
-          /// on success hide loading dialog
-          /// need to complete the flow
-          if (context.router.current.name ==
-              const LoadingDialogRoute().routeName) {
-            context.popRoute();
-          }
+    // ref.listen(
+    //   exeStartSessionProvider,
+    //   (previous, next) async {
+    //     if (next is AsyncLoading) {
+    //       /// show loading dialog
+    //       await context.router.navigate(const LoadingDialogRoute());
+    //     } else if (previous is AsyncLoading && next is AsyncData) {
+    //       /// on success hide loading dialog
+    //       /// need to complete the flow
+    //       if (context.router.current.name ==
+    //           const LoadingDialogRoute().routeName) {
+    //         context.popRoute();
+    //       }
 
-          /// on success refresh list
-          /// to get updated slot
-          ref.invalidate(allotedSlotAllTherapistProvider);
+    //       /// on success refresh list
+    //       /// to get updated slot
+    //       ref.invalidate(allotedSlotAllTherapistProvider);
 
-          // final snackBar = SnackBar(
-          //   content: const Text("Cancelled Session"),
-          //   action: SnackBarAction(
-          //     label: "Cancel",
-          //     onPressed: () {
-          //       context.hideSnackBar();
-          //     },
-          //   ),
-          // );
+    //       // final snackBar = SnackBar(
+    //       //   content: const Text("Cancelled Session"),
+    //       //   action: SnackBarAction(
+    //       //     label: "Cancel",
+    //       //     onPressed: () {
+    //       //       context.hideSnackBar();
+    //       //     },
+    //       //   ),
+    //       // );
 
-          /// show snackbar
-          // context.showSnackBar(snackBar);
-        } else if (previous is AsyncLoading && next is AsyncError) {
-          if (context.router.current.name ==
-              const LoadingDialogRoute().routeName) {
-            context.popRoute();
-          }
+    //       /// show snackbar
+    //       // context.showSnackBar(snackBar);
+    //     } else if (previous is AsyncLoading && next is AsyncError) {
+    //       if (context.router.current.name ==
+    //           const LoadingDialogRoute().routeName) {
+    //         context.popRoute();
+    //       }
 
-          /// clear all previous snackbars
-          context.clearSnackBar();
+    //       /// clear all previous snackbars
+    //       context.clearSnackBar();
 
-          /// error snackbar
-          final snackBar = SnackBar(
-            content: const Text("Failed to cancel session"),
-            action: SnackBarAction(
-              label: "Cancel",
-              onPressed: () {
-                context.hideSnackBar();
-              },
-            ),
-          );
+    //       /// error snackbar
+    //       final snackBar = SnackBar(
+    //         content: const Text("Failed to cancel session"),
+    //         action: SnackBarAction(
+    //           label: "Cancel",
+    //           onPressed: () {
+    //             context.hideSnackBar();
+    //           },
+    //         ),
+    //       );
 
-          /// show error snackbar
-          context.showSnackBar(snackBar);
-        }
-      },
-    );
-    ref.listen(
-      exeCompleteSessionProvider,
-      (previous, next) async {
-        if (next is AsyncLoading) {
-          /// show loading dialog
-          await context.router.navigate(const LoadingDialogRoute());
-        } else if (previous is AsyncLoading && next is AsyncData) {
-          /// on success hide loading dialog
-          /// need to complete the flow
-          context.popRoute();
-          if (context.router.current.name ==
-              const LoadingDialogRoute().routeName) {
-            context.popRoute();
-          }
+    //       /// show error snackbar
+    //       context.showSnackBar(snackBar);
+    //     }
+    //   },
+    // );
+    // ref.listen(
+    //   exeCompleteSessionProvider,
+    //   (previous, next) async {
+    //     if (next is AsyncLoading) {
+    //       /// show loading dialog
+    //       await context.router.navigate(const LoadingDialogRoute());
+    //     } else if (previous is AsyncLoading && next is AsyncData) {
+    //       /// on success hide loading dialog
+    //       /// need to complete the flow
+    //       context.popRoute();
+    //       if (context.router.current.name ==
+    //           const LoadingDialogRoute().routeName) {
+    //         context.popRoute();
+    //       }
 
-          /// on success refresh list
-          /// to get updated slot
-          ref.invalidate(allotedSlotAllTherapistProvider);
+    //       /// on success refresh list
+    //       /// to get updated slot
+    //       ref.invalidate(allotedSlotAllTherapistProvider);
 
-          // final snackBar = SnackBar(
-          //   content: const Text("Cancelled Session"),
-          //   action: SnackBarAction(
-          //     label: "Cancel",
-          //     onPressed: () {
-          //       context.hideSnackBar();
-          //     },
-          //   ),
-          // );
+    //       // final snackBar = SnackBar(
+    //       //   content: const Text("Cancelled Session"),
+    //       //   action: SnackBarAction(
+    //       //     label: "Cancel",
+    //       //     onPressed: () {
+    //       //       context.hideSnackBar();
+    //       //     },
+    //       //   ),
+    //       // );
 
-          /// show snackbar
-          // context.showSnackBar(snackBar);
-        } else if (previous is AsyncLoading && next is AsyncError) {
-          if (context.router.current.name ==
-              const LoadingDialogRoute().routeName) {
-            context.popRoute();
-          }
+    //       /// show snackbar
+    //       // context.showSnackBar(snackBar);
+    //     } else if (previous is AsyncLoading && next is AsyncError) {
+    //       if (context.router.current.name ==
+    //           const LoadingDialogRoute().routeName) {
+    //         context.popRoute();
+    //       }
 
-          /// clear all previous snackbars
-          context.clearSnackBar();
+    //       /// clear all previous snackbars
+    //       context.clearSnackBar();
 
-          /// error snackbar
-          final snackBar = SnackBar(
-            content: const Text("Failed to cancel session"),
-            action: SnackBarAction(
-              label: "Cancel",
-              onPressed: () {
-                context.hideSnackBar();
-              },
-            ),
-          );
+    //       /// error snackbar
+    //       final snackBar = SnackBar(
+    //         content: const Text("Failed to cancel session"),
+    //         action: SnackBarAction(
+    //           label: "Cancel",
+    //           onPressed: () {
+    //             context.hideSnackBar();
+    //           },
+    //         ),
+    //       );
 
-          /// show error snackbar
-          context.showSnackBar(snackBar);
-        }
-      },
-    );
+    //       /// show error snackbar
+    //       context.showSnackBar(snackBar);
+    //     }
+    //   },
+    // );
 
     return Scaffold(
       body: allotedSlotState.easyWhen(onRetry: () {
@@ -155,11 +155,13 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                           height: MediaQuery.sizeOf(context).height / 3,
                         ),
                         gapH8,
+                        const Text("Ohh ! here is no slot available"),
+                        gapH8,
                         ElevatedButton(
                             onPressed: () {
                               ref.invalidate(allotedSlotAllTherapistProvider);
                             },
-                            child: const Text("Retry"))
+                            child: const Text("Refresh"))
                       ],
                     ),
                   )
@@ -248,7 +250,13 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                                                 .exeStartSession(
                                                     context: context,
                                                     ref: ref,
-                                                    slotId: data.rSSlotId ?? 0);
+                                                    slotId: data.rSSlotId ?? 0)
+                                                .then((value) {})
+                                                .onError((error, stackTrace) {
+                                              context.showSnackBar(SnackBar(
+                                                  content: Text(
+                                                      "$error something went wrong !")));
+                                            });
                                           }
                                         : () {
                                             Navigator.pop(context);
@@ -256,7 +264,13 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                                                 .exeCompleteSession(
                                                     context: context,
                                                     ref: ref,
-                                                    slotId: data.rSSlotId ?? 0);
+                                                    slotId: data.rSSlotId ?? 0)
+                                                .then((value) {})
+                                                .onError((error, stackTrace) {
+                                              context.showSnackBar(SnackBar(
+                                                  content: Text(
+                                                      "$error something went wrong !")));
+                                            });
                                           },
                                     dense: true,
                                     visualDensity:

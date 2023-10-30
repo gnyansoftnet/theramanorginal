@@ -56,4 +56,42 @@ class ExecutiveRepo extends IExecutiveRepo {
       return Error(AppException("Some thing is wrong"));
     }
   }
+
+  @override
+  Future<Result<String, AppException>> exeApplyLeave(
+      {required String userId,
+      required double noOfDays,
+      required String fromDate,
+      required String toDate,
+      required String leaveType,
+      required String reason,
+      CancelToken? cancelToken}) async {
+    final response = await iExecutiveApi.exeApplyLeave(
+        userId: userId,
+        noOfDays: noOfDays,
+        fromDate: fromDate,
+        toDate: toDate,
+        leaveType: leaveType,
+        reason: reason,
+        cancelToken: cancelToken);
+
+    if (response.statusCode == 200) {
+      try {
+        return Success(response.data.toString());
+      } catch (e) {
+        return Error(AppException(response.data.toString()));
+      }
+    } else if (response.statusCode == 405) {
+      return Error(MethodNotAllowedException(
+          "${response.statusCode} ${response.data["Message"]} !"));
+    } else if (response.statusCode == 404) {
+      return Error(
+          NotFoundException("${response.statusCode} something is wrong !"));
+    } else if (response.statusCode == 500) {
+      return Error(
+          ServerException("${response.statusCode} internal server error !"));
+    } else {
+      return Error(NotFoundException("Something  is wrong !"));
+    }
+  }
 }

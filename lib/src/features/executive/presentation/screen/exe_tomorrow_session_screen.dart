@@ -120,11 +120,14 @@ class ExeTomorrowSessionScreen extends ConsumerWidget {
                                 height: MediaQuery.sizeOf(context).height / 3,
                               ),
                               gapH8,
+                              const Text(
+                                  "Ohh ! tomorrow session is not availble"),
+                              gapH8,
                               ElevatedButton(
                                   onPressed: () {
                                     ref.invalidate(exeTomorrowSessionProvider);
                                   },
-                                  child: const Text("Retry"))
+                                  child: const Text("Refresh"))
                             ],
                           ),
                         )

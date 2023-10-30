@@ -8,7 +8,7 @@ class AppUrls {
 
   // Therapist
   static const String getAllotedSlotDetailsUrl = "/GetAllotedSlotDetails";
-  static const String startSessionUrl = "/SessionStart";
+  static const String startSessionUrl = "/SessionStart?";
   static const String completeSessionUrl = "/SessionCompleted";
   static const String getUserDetailsUrl = "/GetUserProfileDetails";
   static const String applyLeaveUrl = "/ApplyLeave";
@@ -43,4 +43,6 @@ class AppUrls {
   static const String exeStartSessionUrl = "/SessionStart/?";
 
   static const String exeCompleteSessionUrl = "/SessionCompleted/?";
+
+  static const String resumeCancelledSessionUrl = "/ResumeCancelledSession";
 }

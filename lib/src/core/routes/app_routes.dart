@@ -59,5 +59,6 @@ class AppRouter extends $AppRouter {
             );
           },
         ),
+        AutoRoute(page: ExeApplyLeaveRoute.page, path: "/ExeApplyLeaveRoute")
       ];
 }

@@ -109,12 +109,14 @@ class ExeLeaveStatusScreen extends ConsumerWidget {
                                 height: MediaQuery.sizeOf(context).height / 3,
                               ),
                               gapH8,
+                              const Text("Ohh ! leave status is empty"),
+                              gapH8,
                               ElevatedButton(
                                   onPressed: () {
                                     ref.invalidate(
                                         therapistLeaveStatusProvider);
                                   },
-                                  child: const Text("Retry"))
+                                  child: const Text("Refresh"))
                             ],
                           ),
                         )

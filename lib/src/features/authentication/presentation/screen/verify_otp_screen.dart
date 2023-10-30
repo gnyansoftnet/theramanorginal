@@ -46,7 +46,7 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          // backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         ),
         body: SingleChildScrollView(
           child: Center(

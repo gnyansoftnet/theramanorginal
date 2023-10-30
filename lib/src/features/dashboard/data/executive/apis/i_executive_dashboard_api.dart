@@ -51,4 +51,10 @@ abstract class IExecutiveDashboardApi {
     required slotId,
     CancelToken? cancelToken,
   });
+
+  Future<Response> resumeCancelledSession(
+      {required userType,
+      required userId,
+      required slotId,
+      CancelToken? cancelToken});
 }

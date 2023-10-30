@@ -179,6 +179,17 @@ class DrawerWidget extends ConsumerWidget {
                     isSelected:
                         currentPage == "UserProfileRoute" ? true : false),
                 DrawerTile(
+                    icon: Icons.holiday_village,
+                    onTap: () {
+                      if (currentPage != "ExeApplyLeaveRoute") {
+                        context.navigateTo(ExeApplyLeaveRoute());
+                        Navigator.pop(context);
+                      }
+                    },
+                    title: "Apply Leave",
+                    isSelected:
+                        currentPage == "ExeApplyLeaveRoute" ? true : false),
+                DrawerTile(
                     icon: Icons.calendar_month,
                     onTap: () {
                       if (currentPage != "ExeTomorrowSessionRoute") {

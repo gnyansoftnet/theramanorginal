@@ -118,4 +118,18 @@ class ExecutiveDashboardApi extends IExecutiveDashboardApi {
     return await dio.post(
         "${AppUrls.exeCompleteSessionUrl}Id=$slotId&Type=$userType&UserId=$userId");
   }
+
+  @override
+  Future<Response> resumeCancelledSession(
+      {required userType,
+      required userId,
+      required slotId,
+      CancelToken? cancelToken}) async {
+    var formData = {
+      "User_Type": userType,
+      "User_Id": userId,
+      "Slot_Id": slotId
+    };
+    return await dio.post(AppUrls.resumeCancelledSessionUrl, data: formData);
+  }
 }

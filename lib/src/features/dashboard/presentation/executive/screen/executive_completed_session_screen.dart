@@ -38,11 +38,13 @@ class ExecutiveCompletedSessionScreen extends ConsumerWidget {
                           ),
                         ),
                         gapH8,
+                        const Text("Ohh ! you did not completed any session"),
+                        gapH8,
                         ElevatedButton(
                             onPressed: () {
                               ref.invalidate(completedSlotAllTherapistProvider);
                             },
-                            child: const Text("Retry"))
+                            child: const Text("Refresh"))
                       ],
                     ),
                   )

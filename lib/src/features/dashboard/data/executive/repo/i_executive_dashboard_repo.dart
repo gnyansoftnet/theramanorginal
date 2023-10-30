@@ -63,4 +63,10 @@ abstract class IExecutiveDashboardRepo {
     required int slotId,
     CancelToken? cancelToken,
   });
+  Future<Result<String, AppException>> resumeCancelledSession({
+    required String userType,
+    required String userId,
+    required int slotId,
+    CancelToken? cancelToken,
+  });
 }

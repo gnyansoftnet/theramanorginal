@@ -371,4 +371,35 @@ class ExecutiveDashboardRepo extends IExecutiveDashboardRepo {
           ServerException("${response.statusCode} Something went wrong !"));
     }
   }
+
+  @override
+  Future<Result<String, AppException>> resumeCancelledSession(
+      {required String userType,
+      required String userId,
+      required int slotId,
+      CancelToken? cancelToken}) async {
+    final response = await iExecutiveDashboardApi.resumeCancelledSession(
+        userType: userType, userId: userId, slotId: slotId);
+    if (response.statusCode == 200) {
+      try {
+        return Success(response.data.toString());
+      } catch (e) {
+        return Error(ServerException(response.data.toString()));
+      }
+    } else if (response.statusCode == 405) {
+      return Error(MethodNotAllowedException(
+          "${response.statusCode} ${response.data["Message"]}"));
+    } else if (response.statusCode == 400) {
+      return Error(BadRequestException("${response.statusCode} Bad Request !"));
+    } else if (response.statusCode == 408) {
+      return Error(
+          RequestTimeOutException("${response.statusCode} Request Timeout !"));
+    } else if (response.statusCode == 500) {
+      return Error(
+          ServerException("${response.statusCode} Something went wrong  !"));
+    } else {
+      return Error(
+          ServerException("${response.statusCode} Something went wrong !"));
+    }
+  }
 }
