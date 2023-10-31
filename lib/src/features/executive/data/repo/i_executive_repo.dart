@@ -12,6 +12,7 @@ abstract class IExecutiveRepo {
   Future<Result<LeaveDetailsModel, AppException>> getAllTherapistLeaveDetail(
       {required fromDate, required toDate, CancelToken? cancelToken});
   Future<Result<String, AppException>> exeApplyLeave({
+    required String userType,
     required String userId,
     required double noOfDays,
     required String fromDate,

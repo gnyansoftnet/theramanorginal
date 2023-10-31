@@ -36,11 +36,13 @@ class OnGoingSessionScreen extends ConsumerWidget {
                           height: MediaQuery.sizeOf(context).height / 3,
                         ),
                         gapH8,
+                        const Text("Ohh you did not have any session !"),
+                        gapH8,
                         ElevatedButton(
                             onPressed: () {
                               ref.invalidate(onGoingProvider);
                             },
-                            child: const Text("Retry"))
+                            child: const Text("Refresh"))
                       ],
                     ),
                   )
@@ -91,8 +93,9 @@ class OnGoingSessionScreen extends ConsumerWidget {
                                 ),
                                 trailing: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        elevation: 5.0,
-                                        backgroundColor: AppColors.blue,
+                                        elevation: 2.0,
+                                        // backgroundColor:
+                                        // Theme.of(context).cardColor,
                                         minimumSize: const Size(120, 40)),
                                     onPressed: index != 0
                                         ? null
@@ -100,8 +103,7 @@ class OnGoingSessionScreen extends ConsumerWidget {
                                             dashboardController.session(
                                                 context: context,
                                                 ref: ref,
-                                                rsSlotId:
-                                                    data.rSSlotId.toString(),
+                                                rsSlotId: data.rSSlotId ?? 0,
                                                 status: data.rSSlotStatus
                                                     .toString());
                                           },

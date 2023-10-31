@@ -8,10 +8,12 @@ import 'package:theraman/src/features/therapist/application/providers/user_provi
 import 'package:theraman/src/features/therapist/presentation/controller/user_controller.dart';
 import 'package:theraman/src/features/therapist/presentation/widget/apply_leave_button.dart';
 import 'package:theraman/src/global/widgets/drawer_widget.dart';
+import 'package:theraman/src/global/widgets/dropdown_button_formfield_widget.dart';
 import 'package:theraman/src/global/widgets/textfield_widget.dart';
 import 'package:theraman/src/utils/common_methods.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
+import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
 
 @RoutePage(deferredLoading: true, name: "ApplyLeaveRoute")
 class ApplyLeaveScreen extends StatelessWidget {
@@ -25,7 +27,7 @@ class ApplyLeaveScreen extends StatelessWidget {
   final userController = UserController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final ValueNotifier<String> leaveTypeValue = ValueNotifier<String>('');
+  final leaveTypeValue = ValueNotifier<String?>(null);
   List<String> leaveType = [
     'Medical Leave',
     'Emergency Leave',
@@ -65,19 +67,22 @@ class ApplyLeaveScreen extends StatelessWidget {
                     style: _textStyle,
                   ),
                   gapH8,
-                  Container(
-                      decoration: BoxDecoration(border: Border.all()),
-                      child: Consumer(builder: (context, ref, _) {
-                        final userState = ref.watch(userProvider);
-                        final userName =
-                            userState.whenData((value) => value.staffName);
-                        return Padding(
-                          padding: const EdgeInsets.all(13.0),
-                          child: Text(userName.value == null
-                              ? "Dr. Demo"
-                              : "${userName.value}"),
-                        );
-                      }))
+                  DecoratedBox(
+                    decoration: BoxDecoration(
+                        border:
+                            Border.all(color: Theme.of(context).dividerColor),
+                        color: Theme.of(context).focusColor),
+                    child: Consumer(builder: (context, ref, _) {
+                      final userState = ref.watch(userProvider);
+                      return Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: userState.easyWhen(
+                            loadingWidget: () => const Text("Loading.."),
+                            errorWidget: (_, __) => const Text("Loading.."),
+                            data: (value) => Text("${value.staffName}")),
+                      );
+                    }),
+                  )
                 ],
               ),
               gapH20,
@@ -135,6 +140,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                                   ),
                                   gapH4,
                                   dateFieldBox(
+                                    context: context,
                                     dateValue: fromDateValue,
                                     onTap: () {
                                       showDateTimeRangePicker(
@@ -167,6 +173,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                                         ),
                                         gapH4,
                                         dateFieldBox(
+                                            context: context,
                                             dateValue: fromDateValue,
                                             onTap: () {
                                               showDateTimeRangePicker(
@@ -199,6 +206,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                                         ),
                                         gapH4,
                                         dateFieldBox(
+                                            context: context,
                                             dateValue: toDateValue,
                                             onTap: () {}),
                                       ],
@@ -219,30 +227,8 @@ class ApplyLeaveScreen extends StatelessWidget {
                     style: _textStyle,
                   ),
                   gapH8,
-                  DropdownButtonFormField<String>(
-                    elevation: 3,
-                    hint: const Text("Select"),
-                    isExpanded: true,
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(vertical: 10),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.black),
-                          borderRadius: BorderRadius.circular(0)),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.black),
-                          borderRadius: BorderRadius.circular(0)),
-                      disabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.black),
-                          borderRadius: BorderRadius.circular(0)),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.black),
-                          borderRadius: BorderRadius.circular(0)),
-                      errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.error),
-                          borderRadius: BorderRadius.circular(0)),
-                      fillColor: Theme.of(context).scaffoldBackgroundColor,
-                    ),
+                  DropDownButtonFormFieldWidget(
+                    hintText: const Text("Select"),
                     validator: (p0) {
                       if (p0 != null && p0.isNotEmpty) {
                         return null;
@@ -274,6 +260,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                   gapH8,
                   TextFieldWidget(
                     controller: reasonController,
+                    hint: "Specify reason",
                     maxLines: 3,
                     validator: (p0) {
                       if (p0 != null && p0.isNotEmpty) {
@@ -310,9 +297,6 @@ class ApplyLeaveScreen extends StatelessWidget {
     if (fromDateValue.value == null || toDateValue.value == null) {
       Fluttertoast.showToast(msg: "Select your date");
       return false;
-    } else if (leaveTypeValue.value == "") {
-      Fluttertoast.showToast(msg: "Select leave type");
-      return false;
     }
     return true;
   }
@@ -330,13 +314,15 @@ class ApplyLeaveScreen extends StatelessWidget {
   }
 
   Widget dateFieldBox(
-      {required ValueNotifier dateValue, required VoidCallback onTap}) {
+      {required BuildContext context,
+      required ValueNotifier dateValue,
+      required VoidCallback onTap}) {
     return InkWell(
       onTap: onTap,
       child: DecoratedBox(
         decoration: BoxDecoration(
-          border: Border.all(color: AppColors.black, width: 1),
-        ),
+            border: Border.all(color: Theme.of(context).dividerColor),
+            color: Theme.of(context).focusColor),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(

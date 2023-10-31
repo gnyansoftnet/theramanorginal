@@ -15,12 +15,13 @@ class ExecutiveApi extends IExecutiveApi {
   Future<Response> getAllTherapistLeaveDetail(
       {required fromDate, required toDate, CancelToken? cancelToken}) async {
     return await dio.get(
-        "${AppUrls.therapistLeaveDetailUrl}From_Date=$fromDate&To_Date=$toDate");
+        "${AppUrls.exeLeaveStatusUrl}/?From_Date=$fromDate&To_Date=$toDate");
   }
 
   @override
   Future<Response> exeApplyLeave(
-      {required userId,
+      {required userType,
+      required userId,
       required noOfDays,
       required fromDate,
       required toDate,
@@ -28,6 +29,7 @@ class ExecutiveApi extends IExecutiveApi {
       required reason,
       CancelToken? cancelToken}) async {
     var formData = {
+      "User_Type": userType,
       "Staff_Code": userId,
       "No_Of_Days": noOfDays,
       "Leave_from": fromDate,
@@ -35,6 +37,6 @@ class ExecutiveApi extends IExecutiveApi {
       "Leave_Type": leaveType,
       "Reason": reason
     };
-    return await dio.post(AppUrls.applyLeaveUrl, data: formData);
+    return await dio.post(AppUrls.exeApplyLeavUrl, data: formData);
   }
 }

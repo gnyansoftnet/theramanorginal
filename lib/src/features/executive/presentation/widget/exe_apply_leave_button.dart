@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/executive/application/provider/exe_apply_leave_provider.dart';
 import 'package:theraman/src/features/executive/application/states/exe_apply_leave_state.dart';
 import 'package:theraman/src/utils/extensions/common_ext/snackbar_ext.dart';
@@ -27,7 +29,7 @@ class ExeApplyLeaveButton extends ConsumerWidget {
             ExeApplyLeaveLoaded() => {
                 Fluttertoast.showToast(
                     msg: "Your application submitted sucessfully"),
-                // context.navigateTo(LeaveStatusRoute()),
+                context.navigateTo((ExeLeaveStatusRoute())),
               },
           },
           error: (e, _) {

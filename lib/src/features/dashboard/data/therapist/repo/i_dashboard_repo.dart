@@ -17,10 +17,12 @@ abstract class IDashboardRepo {
 
   Future<Result<String, AppException>> startSession({
     required String userId,
+    required int slotId,
     required String userType,
     CancelToken? cancelToken,
   });
   Future<Result<String, AppException>> completeSession({
+    required int slotId,
     required String userId,
     required String userType,
     CancelToken? cancelToken,

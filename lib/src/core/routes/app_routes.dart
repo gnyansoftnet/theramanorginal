@@ -59,6 +59,7 @@ class AppRouter extends $AppRouter {
             );
           },
         ),
-        AutoRoute(page: ExeApplyLeaveRoute.page, path: "/ExeApplyLeaveRoute")
+        AutoRoute(page: ExeApplyLeaveRoute.page, path: "/ExeApplyLeaveRoute"),
+        AutoRoute(page: SessionReportRoute.page, path: "/SessionReportRoute")
       ];
 }

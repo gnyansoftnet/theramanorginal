@@ -118,11 +118,14 @@ class TomorrowSessionScreen extends ConsumerWidget {
                                 fit: BoxFit.cover,
                                 height: MediaQuery.sizeOf(context).height / 3,
                               ),
+                              gapH8,
+                              const Text("Ohh you did not have any session !"),
+                              gapH8,
                               ElevatedButton(
                                   onPressed: () {
                                     ref.invalidate(tomorrowSessionProvider);
                                   },
-                                  child: const Text("Retry"))
+                                  child: const Text("Refresh"))
                             ],
                           ),
                         )

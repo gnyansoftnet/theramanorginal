@@ -9,6 +9,7 @@ abstract class IExecutiveApi {
       {required fromDate, required toDate, CancelToken? cancelToken});
 
   Future<Response> exeApplyLeave({
+    required userType,
     required userId,
     required noOfDays,
     required fromDate,

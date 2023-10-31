@@ -59,7 +59,8 @@ class ExecutiveRepo extends IExecutiveRepo {
 
   @override
   Future<Result<String, AppException>> exeApplyLeave(
-      {required String userId,
+      {required String userType,
+      required String userId,
       required double noOfDays,
       required String fromDate,
       required String toDate,
@@ -67,6 +68,7 @@ class ExecutiveRepo extends IExecutiveRepo {
       required String reason,
       CancelToken? cancelToken}) async {
     final response = await iExecutiveApi.exeApplyLeave(
+        userType: userType,
         userId: userId,
         noOfDays: noOfDays,
         fromDate: fromDate,

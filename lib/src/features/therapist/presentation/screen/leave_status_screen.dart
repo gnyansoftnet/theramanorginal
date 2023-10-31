@@ -106,11 +106,14 @@ class LeaveStatusScreen extends ConsumerWidget {
                                 fit: BoxFit.cover,
                                 height: MediaQuery.sizeOf(context).height / 3,
                               ),
+                              gapH8,
+                              const Text("Ohh you did not apply any leave !"),
+                              gapH8,
                               ElevatedButton(
                                   onPressed: () {
                                     ref.invalidate(leaveStatusProvider);
                                   },
-                                  child: const Text("Retry"))
+                                  child: const Text("Refresh"))
                             ],
                           ),
                         )

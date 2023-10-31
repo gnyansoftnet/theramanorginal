@@ -21,16 +21,22 @@ class DashboardApi extends IDashboardApi {
 
   @override
   Future<Response> startSession(
-      {required userId, required userType, CancelToken? cancelToken}) async {
-    return await dio
-        .post("${AppUrls.startSessionUrl}/?Id=$userId&Type=$userType");
+      {required userId,
+      required slotId,
+      required userType,
+      CancelToken? cancelToken}) async {
+    return await dio.post(
+        "${AppUrls.exeStartSessionUrl}Id=$slotId&Type=$userType&UserId=$userId");
   }
 
   @override
   Future<Response> completeSession(
-      {required userId, required userType, CancelToken? cancelToken}) async {
-    return await dio
-        .post("${AppUrls.completeSessionUrl}/?Id=$userId&Type=$userType");
+      {required slotId,
+      required userId,
+      required userType,
+      CancelToken? cancelToken}) async {
+    return await dio.post(
+        "${AppUrls.exeCompleteSessionUrl}Id=$slotId&Type=$userType&UserId=$userId");
   }
 }
 // http://cms.softnetcms.com/Api/MApp_ServicesApi/SessionCompleted/?Id=1234&Type=T

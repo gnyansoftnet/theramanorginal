@@ -11,12 +11,16 @@ class CompleteSessionNotifier extends AutoDisposeAsyncNotifier<void> {
     return future;
   }
 
-  Future<void> completeSession(String userId) async {
+  Future<void> completeSession({
+    required int slotId,
+  }) async {
     state = const AsyncLoading();
     String userType = await Preferences.getPreference("userType", "");
+    final userId = await Preferences.getPreference("staffCode", "");
     Future.delayed(const Duration(seconds: 3));
     final result = await ref.watch(dashboardRepoProvider).completeSession(
           userId: userId,
+          slotId: slotId,
           userType: userType,
           cancelToken: ref.cancelToken(),
         );

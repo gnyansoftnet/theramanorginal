@@ -68,10 +68,14 @@ class DashboardRepo extends IDashboardRepo {
   @override
   Future<Result<String, AppException>> startSession(
       {required String userId,
+      required int slotId,
       required String userType,
       CancelToken? cancelToken}) async {
     final response = await iDashboardApi.startSession(
-        userId: userId, userType: userType, cancelToken: cancelToken);
+        userId: userId,
+        slotId: slotId,
+        userType: userType,
+        cancelToken: cancelToken);
 
     if (response.statusCode == 200) {
       try {
@@ -96,9 +100,13 @@ class DashboardRepo extends IDashboardRepo {
   Future<Result<String, AppException>> completeSession(
       {required String userId,
       required String userType,
+      required int slotId,
       CancelToken? cancelToken}) async {
     final response = await iDashboardApi.completeSession(
-        userId: userId, userType: userType, cancelToken: cancelToken);
+        userId: userId,
+        slotId: slotId,
+        userType: userType,
+        cancelToken: cancelToken);
 
     if (response.statusCode == 200) {
       try {

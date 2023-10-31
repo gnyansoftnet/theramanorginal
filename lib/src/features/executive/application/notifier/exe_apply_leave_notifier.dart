@@ -21,8 +21,10 @@ class ExeApplyleaveNotifier
     required reason,
   }) async {
     String userId = await Preferences.getPreference("staffCode", "");
+    String userType = await Preferences.getPreference("userType", "");
     state = const AsyncLoading();
     final result = await ref.watch(executiveRepoProvider).exeApplyLeave(
+        userType: userType,
         userId: userId,
         noOfDays: noOfdays,
         fromDate: fromDate,

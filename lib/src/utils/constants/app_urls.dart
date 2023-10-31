@@ -14,6 +14,8 @@ class AppUrls {
   static const String applyLeaveUrl = "/ApplyLeave";
   static const String leaveStatusUrl = "/GetAppliedLeaveDetails";
 
+  static const String sessionReportUrl = "/GetSessionSummaryReport";
+
   // Executive
   static const String getCompletedSlotAllTherapistUrl =
       "/GetAllotedSlotDetailsForAllTherapist/?Session_Status=C";
@@ -45,4 +47,8 @@ class AppUrls {
   static const String exeCompleteSessionUrl = "/SessionCompleted/?";
 
   static const String resumeCancelledSessionUrl = "/ResumeCancelledSession";
+
+  static const String exeApplyLeavUrl = "/ApplyLeaveByExecutive";
+
+  static const String exeLeaveStatusUrl = "/GetAppliedLeaveDetails";
 }

@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theraman/src/features/dashboard/application/therapist/providers/dashboard_provider.dart';
@@ -8,7 +7,7 @@ class DashboardController {
   Future<void> session({
     required BuildContext context,
     required WidgetRef ref,
-    required String rsSlotId,
+    required int rsSlotId,
     required String status,
   }) async {
     if (status == "Started") {
@@ -28,7 +27,7 @@ class DashboardController {
                     onPressed: () async {
                       await ref
                           .read(completeSessionProvider.notifier)
-                          .completeSession(rsSlotId);
+                          .completeSession(slotId: rsSlotId);
                       ref.invalidate(onGoingProvider);
                       if (context.mounted) Navigator.pop(ctx);
                     },
@@ -53,7 +52,7 @@ class DashboardController {
                     onPressed: () async {
                       await ref
                           .read(startSessionProvider.notifier)
-                          .startSession(rsSlotId);
+                          .startSession(slotId: rsSlotId);
                       ref.invalidate(onGoingProvider);
                       if (context.mounted) Navigator.pop(ctx);
                     },

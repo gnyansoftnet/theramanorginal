@@ -11,12 +11,14 @@ class StartSessionNotifier extends AutoDisposeAsyncNotifier<void> {
     return future;
   }
 
-  Future<void> startSession(String userId) async {
+  Future<void> startSession({required int slotId}) async {
     state = const AsyncLoading();
     String userType = await Preferences.getPreference("userType", "");
+    final userId = await Preferences.getPreference("staffCode", "");
     Future.delayed(const Duration(seconds: 3));
     final result = await ref.watch(dashboardRepoProvider).startSession(
           userId: userId,
+          slotId: slotId,
           userType: userType,
           cancelToken: ref.cancelToken(),
         );

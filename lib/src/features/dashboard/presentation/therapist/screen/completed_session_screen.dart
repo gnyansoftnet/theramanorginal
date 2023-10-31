@@ -37,11 +37,13 @@ class CompletedSessionScreen extends ConsumerWidget {
                           height: MediaQuery.sizeOf(context).height / 3,
                         ),
                         gapH8,
+                        const Text("Ohh you did not complete any session !"),
+                        gapH8,
                         ElevatedButton(
                             onPressed: () {
                               ref.invalidate(completedSessionProvider);
                             },
-                            child: const Text("Retry"))
+                            child: const Text("Refresh"))
                       ],
                     ),
                   )

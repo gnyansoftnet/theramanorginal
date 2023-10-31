@@ -22,4 +22,9 @@ abstract class ITherapistApi {
     required toDate,
     CancelToken? cancelToken,
   });
+  Future<Response> getSessionSummary({
+    required userId,
+    required month,
+    CancelToken? cancelToken,
+  });
 }

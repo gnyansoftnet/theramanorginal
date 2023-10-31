@@ -15,9 +15,11 @@ abstract class IDashboardApi {
   Future<Response> startSession({
     required userId,
     required userType,
+    required slotId,
     CancelToken? cancelToken,
   });
   Future<Response> completeSession({
+    required slotId,
     required userId,
     required userType,
     CancelToken? cancelToken,
