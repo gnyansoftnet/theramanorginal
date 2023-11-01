@@ -4,6 +4,7 @@ import 'package:theraman/src/features/dashboard/application/executive/providers/
 import 'package:theraman/src/features/dashboard/application/executive/providers/cancel_session_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/cancelled_slot_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/change_therapist_provider.dart';
+import 'package:theraman/src/features/dashboard/application/executive/providers/clock_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/exe_complete_session_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/exe_start_session_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/resume_cancelled_session_provider.dart';
@@ -102,6 +103,7 @@ class EDashboardController {
       {required BuildContext context,
       required WidgetRef ref,
       required int slotId}) async {
+    final clockState = ref.watch(clockProvider);
     return showDialog<bool>(
         context: context,
         builder: (BuildContext ctx) {

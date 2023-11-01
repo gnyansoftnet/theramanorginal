@@ -16,6 +16,8 @@ class AppUrls {
 
   static const String sessionReportUrl = "/GetSessionSummaryReport";
 
+  static const String sessionSummaryDetailsUrl = "/GetSessionDetailReport";
+
   // Executive
   static const String getCompletedSlotAllTherapistUrl =
       "/GetAllotedSlotDetailsForAllTherapist/?Session_Status=C";

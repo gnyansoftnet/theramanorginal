@@ -2,8 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/alloted_slot_all_therapist_provider.dart';
+import 'package:theraman/src/features/dashboard/application/executive/providers/clock_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/exe_complete_session_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/exe_start_session_provider.dart';
 import 'package:theraman/src/features/dashboard/presentation/executive/controller/e_dashboard_controller.dart';
@@ -21,118 +23,12 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final allotedSlotState = ref.watch(allotedSlotAllTherapistProvider);
+    final clockState = ref.watch(clockProvider);
 
-    // ref.listen(
-    //   exeStartSessionProvider,
-    //   (previous, next) async {
-    //     if (next is AsyncLoading) {
-    //       /// show loading dialog
-    //       await context.router.navigate(const LoadingDialogRoute());
-    //     } else if (previous is AsyncLoading && next is AsyncData) {
-    //       /// on success hide loading dialog
-    //       /// need to complete the flow
-    //       if (context.router.current.name ==
-    //           const LoadingDialogRoute().routeName) {
-    //         context.popRoute();
-    //       }
+    // final time = DateFormat("HH:mm").format(clockState);
+    // DateTime timeNew = DateFormat().parse(time);
 
-    //       /// on success refresh list
-    //       /// to get updated slot
-    //       ref.invalidate(allotedSlotAllTherapistProvider);
-
-    //       // final snackBar = SnackBar(
-    //       //   content: const Text("Cancelled Session"),
-    //       //   action: SnackBarAction(
-    //       //     label: "Cancel",
-    //       //     onPressed: () {
-    //       //       context.hideSnackBar();
-    //       //     },
-    //       //   ),
-    //       // );
-
-    //       /// show snackbar
-    //       // context.showSnackBar(snackBar);
-    //     } else if (previous is AsyncLoading && next is AsyncError) {
-    //       if (context.router.current.name ==
-    //           const LoadingDialogRoute().routeName) {
-    //         context.popRoute();
-    //       }
-
-    //       /// clear all previous snackbars
-    //       context.clearSnackBar();
-
-    //       /// error snackbar
-    //       final snackBar = SnackBar(
-    //         content: const Text("Failed to cancel session"),
-    //         action: SnackBarAction(
-    //           label: "Cancel",
-    //           onPressed: () {
-    //             context.hideSnackBar();
-    //           },
-    //         ),
-    //       );
-
-    //       /// show error snackbar
-    //       context.showSnackBar(snackBar);
-    //     }
-    //   },
-    // );
-    // ref.listen(
-    //   exeCompleteSessionProvider,
-    //   (previous, next) async {
-    //     if (next is AsyncLoading) {
-    //       /// show loading dialog
-    //       await context.router.navigate(const LoadingDialogRoute());
-    //     } else if (previous is AsyncLoading && next is AsyncData) {
-    //       /// on success hide loading dialog
-    //       /// need to complete the flow
-    //       context.popRoute();
-    //       if (context.router.current.name ==
-    //           const LoadingDialogRoute().routeName) {
-    //         context.popRoute();
-    //       }
-
-    //       /// on success refresh list
-    //       /// to get updated slot
-    //       ref.invalidate(allotedSlotAllTherapistProvider);
-
-    //       // final snackBar = SnackBar(
-    //       //   content: const Text("Cancelled Session"),
-    //       //   action: SnackBarAction(
-    //       //     label: "Cancel",
-    //       //     onPressed: () {
-    //       //       context.hideSnackBar();
-    //       //     },
-    //       //   ),
-    //       // );
-
-    //       /// show snackbar
-    //       // context.showSnackBar(snackBar);
-    //     } else if (previous is AsyncLoading && next is AsyncError) {
-    //       if (context.router.current.name ==
-    //           const LoadingDialogRoute().routeName) {
-    //         context.popRoute();
-    //       }
-
-    //       /// clear all previous snackbars
-    //       context.clearSnackBar();
-
-    //       /// error snackbar
-    //       final snackBar = SnackBar(
-    //         content: const Text("Failed to cancel session"),
-    //         action: SnackBarAction(
-    //           label: "Cancel",
-    //           onPressed: () {
-    //             context.hideSnackBar();
-    //           },
-    //         ),
-    //       );
-
-    //       /// show error snackbar
-    //       context.showSnackBar(snackBar);
-    //     }
-    //   },
-    // );
+    final beforeTime = DateFormat("yyyy-MM-dd hh:mm").format(clockState);
 
     return Scaffold(
       body: allotedSlotState.easyWhen(onRetry: () {
@@ -170,6 +66,22 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                     itemCount: value.allotSlots!.length,
                     itemBuilder: (context, index) {
                       final data = value.allotSlots![index];
+                      DateTime slotTime = DateFormat("yyyy-MM-dd hh:mm").parse(
+                          "${DateFormat("yyyy-MM-dd").format(DateTime.now())} ${data.rSStartTime}");
+                      // TimeOfDay timeOfDay = TimeOfDay.fromDateTime(slotTime);
+                      // final time = timeOfDay.format(context);
+
+                      print("slotTime======$slotTime");
+                      print("Before time==$beforeTime");
+
+                      print(DateFormat("yyyy-MM-dd hh:mm")
+                          .parse(slotTime.toString())
+                          .isAfter(DateTime.parse(beforeTime)));
+
+                      print(DateFormat("yyyy-MM-dd hh:mm")
+                          .parse(slotTime.toString())
+                          .difference(DateTime.parse(beforeTime)));
+
                       return Card(
                         elevation: 5.0,
                         color: data.rSSlotStatus == "Started"
@@ -246,17 +158,42 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                                     onTap: data.rSSlotStatus != "Started"
                                         ? () {
                                             Navigator.pop(context);
-                                            eDashboardControlller
-                                                .exeStartSession(
-                                                    context: context,
-                                                    ref: ref,
-                                                    slotId: data.rSSlotId ?? 0)
-                                                .then((value) {})
-                                                .onError((error, stackTrace) {
-                                              context.showSnackBar(SnackBar(
-                                                  content: Text(
-                                                      "$error something went wrong !")));
-                                            });
+
+                                            if (DateFormat("yyyy-MM-dd hh:mm")
+                                                    .parse(slotTime.toString())
+                                                    .difference(DateTime.parse(
+                                                        beforeTime)) >=
+                                                const Duration(seconds: 10)) {
+                                              eDashboardControlller
+                                                  .exeStartSession(
+                                                      context: context,
+                                                      ref: ref,
+                                                      slotId:
+                                                          data.rSSlotId ?? 0)
+                                                  .then((value) {})
+                                                  .onError((error, stackTrace) {
+                                                context.showSnackBar(SnackBar(
+                                                    content: Text(
+                                                        "$error something went wrong !")));
+                                              });
+                                            } else if (DateFormat(
+                                                    "yyyy-MM-dd hh:mm")
+                                                .parse(slotTime.toString())
+                                                .isAfter(DateTime.parse(
+                                                    beforeTime))) {
+                                              // eDashboardControlller
+                                              //     .exeStartSession(
+                                              //         context: context,
+                                              //         ref: ref,
+                                              //         slotId:
+                                              //             data.rSSlotId ?? 0)
+                                              //     .then((value) {})
+                                              //     .onError((error, stackTrace) {
+                                              //   context.showSnackBar(SnackBar(
+                                              //       content: Text(
+                                              //           "$error something went wrong !")));
+                                              // });
+                                            }
                                           }
                                         : () {
                                             Navigator.pop(context);

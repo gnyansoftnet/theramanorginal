@@ -9,7 +9,7 @@ final allotedSlotAllTherapistProvider =
     FutureProvider.autoDispose<AllotedSlotResponseModel>((ref) async {
   final token = ref.cancelToken();
   final date = DateFormat("MM/dd/yyy").format(DateTime.now());
-  ref.autoRefresh(duration: const Duration(seconds: 5));
+  // ref.autoRefresh(duration: const Duration(seconds: 5));
   final result = await ref
       .watch(executivedashboardRepoProvider)
       .getAllotedSlotAllTherapist(date: date, cancelToken: token);

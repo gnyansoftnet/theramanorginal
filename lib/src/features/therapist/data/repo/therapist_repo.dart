@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:theraman/src/core/exception/app_exception.dart';
+import 'package:theraman/src/features/therapist/model/session_summary_detail_model.dart';
 import 'package:theraman/src/features/therapist/model/session_summery_model.dart';
 import 'package:theraman/src/global/model/user_model.dart';
 import 'package:theraman/src/features/therapist/data/apis/i_therapist_api.dart';
@@ -118,6 +119,33 @@ class TherapistRepo extends ITherapistRepo {
     if (response.statusCode == 200) {
       try {
         return Success(SessionSummaryModel.fromJson(response.data));
+      } catch (e) {
+        return Error(ServerException(response.data.toString()));
+      }
+    } else if (response.statusCode == 405) {
+      return Error(MethodNotAllowedException(
+          "${response.statusCode} ${response.data["Message"]} !"));
+    } else if (response.statusCode == 404) {
+      return Error(NotFoundException("${response.statusCode} Not found !"));
+    } else if (response.statusCode == 500) {
+      return Error(
+          ServerException("${response.statusCode} internal server error !"));
+    } else {
+      return Error(NotFoundException("not found !"));
+    }
+  }
+
+  @override
+  Future<Result<SessionSummaryDetailModel, AppException>>
+      getSessionSummaryDetails(
+          {required String userId,
+          required String month,
+          CancelToken? cancelToken}) async {
+    final response =
+        await iUserApi.getSessionSummaryDetail(userId: userId, month: month);
+    if (response.statusCode == 200) {
+      try {
+        return Success(SessionSummaryDetailModel.fromJson(response.data));
       } catch (e) {
         return Error(ServerException(response.data.toString()));
       }

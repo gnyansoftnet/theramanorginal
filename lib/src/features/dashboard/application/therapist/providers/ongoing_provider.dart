@@ -10,7 +10,7 @@ import 'package:theraman/src/utils/local_store/preferences.dart';
 final onGoingProvider = FutureProvider.autoDispose<AllotedSlotResponseModel>(
   (ref) async {
     final token = ref.cancelToken();
-    ref.autoRefresh(duration: const Duration(seconds: 5));
+    // ref.autoRefresh(duration: const Duration(seconds: 5));
     String staffCode = await Preferences.getPreference("staffCode", "");
     final date = DateFormat("MM/dd/yyy").format(DateTime.now());
     if (kDebugMode) {
