@@ -140,129 +140,261 @@ class ExeTomorrowSessionScreen extends ConsumerWidget {
                               color: data.rSSlotStatus == "Cancelled"
                                   ? AppColors.red
                                   : Theme.of(context).cardColor,
-                              child: Column(
-                                children: [
-                                  ListTile(
-                                    contentPadding: const EdgeInsets.only(
-                                        right: 0, left: 14),
-                                    dense: true,
-                                    visualDensity:
-                                        const VisualDensity(vertical: -2),
-                                    leading: Text(
-                                      "${data.rSPName}",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 17,
-                                          color:
-                                              data.rSSlotStatus == "Cancelled"
-                                                  ? AppColors.white
-                                                  : AppColors.black),
-                                    ),
-                                    trailing: PopupMenuButton(
-                                      itemBuilder: (context) =>
-                                          <PopupMenuEntry<String>>[
-                                        PopupMenuItem(
-                                            child: ListTile(
-                                          onTap: () {
-                                            Navigator.pop(context);
-                                            context.navigateTo(
-                                                SessionRescheduleRoute(
-                                                    allotSlots: data));
-                                          },
-                                          dense: true,
-                                          visualDensity:
-                                              const VisualDensity(vertical: -4),
-                                          contentPadding: EdgeInsets.zero,
-                                          leading:
-                                              const Icon(Icons.change_circle),
-                                          title:
-                                              const Text("Session Reschedule"),
-                                        )),
-                                        PopupMenuItem(
-                                            child: ListTile(
-                                          onTap: () {
-                                            Navigator.pop(context);
-                                            context.navigateTo(
-                                                ChangeTherapistRoute(
-                                                    allotSlots: data));
-                                          },
-                                          dense: true,
-                                          visualDensity:
-                                              const VisualDensity(vertical: -4),
-                                          contentPadding: EdgeInsets.zero,
-                                          leading: const Icon(Icons.group),
-                                          title: const Text("Change Therapist"),
-                                        )),
-                                        PopupMenuItem(
-                                            child: ListTile(
-                                          onTap: () {
-                                            Navigator.pop(context);
-                                            context.navigateTo(
-                                                CancelSessionRoute(
-                                                    allotSlots: data));
-                                          },
-                                          dense: true,
-                                          visualDensity:
-                                              const VisualDensity(vertical: -4),
-                                          contentPadding: EdgeInsets.zero,
-                                          leading: const Icon(Icons.cancel),
-                                          title: const Text(
-                                              " Session Cancellation"),
-                                        )),
+                              child: Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            "${data.rSPName}",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 17,
+                                                color: data.rSSlotStatus ==
+                                                        "Cancelled"
+                                                    ? AppColors.white
+                                                    : AppColors.black),
+                                          ),
+                                        ),
+                                        PopupMenuButton(
+                                          itemBuilder: (context) =>
+                                              <PopupMenuEntry<String>>[
+                                            PopupMenuItem(
+                                                child: ListTile(
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                                context.navigateTo(
+                                                    SessionRescheduleRoute(
+                                                        allotSlots: data));
+                                              },
+                                              dense: true,
+                                              visualDensity:
+                                                  const VisualDensity(
+                                                      vertical: -4),
+                                              contentPadding: EdgeInsets.zero,
+                                              leading: const Icon(
+                                                  Icons.change_circle),
+                                              title: const Text(
+                                                  "Session Reschedule"),
+                                            )),
+                                            PopupMenuItem(
+                                                child: ListTile(
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                                context.navigateTo(
+                                                    ChangeTherapistRoute(
+                                                        allotSlots: data));
+                                              },
+                                              dense: true,
+                                              visualDensity:
+                                                  const VisualDensity(
+                                                      vertical: -4),
+                                              contentPadding: EdgeInsets.zero,
+                                              leading: const Icon(Icons.group),
+                                              title: const Text(
+                                                  "Change Therapist"),
+                                            )),
+                                            PopupMenuItem(
+                                                child: ListTile(
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                                context.navigateTo(
+                                                    CancelSessionRoute(
+                                                        allotSlots: data));
+                                              },
+                                              dense: true,
+                                              visualDensity:
+                                                  const VisualDensity(
+                                                      vertical: -4),
+                                              contentPadding: EdgeInsets.zero,
+                                              leading: const Icon(Icons.cancel),
+                                              title: const Text(
+                                                  " Session Cancellation"),
+                                            )),
+                                          ],
+                                        ),
                                       ],
                                     ),
-                                  ),
-                                  ListTile(
-                                    dense: true,
-                                    visualDensity:
-                                        const VisualDensity(vertical: -2),
-                                    leading: Text(
-                                      "${data.rSSlotType}",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13,
-                                          color:
-                                              data.rSSlotStatus == "Cancelled"
+                                    gapH8,
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "${data.rSSlotType}",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 13,
+                                              color: data.rSSlotStatus ==
+                                                      "Cancelled"
                                                   ? AppColors.white
                                                   : AppColors.black),
-                                    ),
-                                    trailing: Text(
-                                      "${data.rSSessionType}",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13,
-                                          color:
-                                              data.rSSlotStatus == "Cancelled"
+                                        ),
+                                        Text(
+                                          "${data.rSSessionType}",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 13,
+                                              color: data.rSSlotStatus ==
+                                                      "Cancelled"
                                                   ? AppColors.white
                                                   : AppColors.black),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                  ListTile(
-                                    dense: true,
-                                    visualDensity:
-                                        const VisualDensity(vertical: -2),
-                                    leading: Text(
-                                      "${data.rSDoctorName}",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13,
-                                          color:
-                                              data.rSSlotStatus == "Cancelled"
+                                    gapH8,
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "${data.rSDoctorName}",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 13,
+                                              color: data.rSSlotStatus ==
+                                                      "Cancelled"
                                                   ? AppColors.white
                                                   : AppColors.black),
-                                    ),
-                                    trailing: Text(
-                                      "${data.rSStartTime}",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13,
-                                          color:
-                                              data.rSSlotStatus == "Cancelled"
+                                        ),
+                                        Text(
+                                          "${data.rSStartTime}",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 13,
+                                              color: data.rSSlotStatus ==
+                                                      "Cancelled"
                                                   ? AppColors.white
                                                   : AppColors.black),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                ],
+                                    // ListTile(
+                                    //   contentPadding: const EdgeInsets.only(
+                                    //       right: 0, left: 14),
+                                    //   dense: true,
+                                    //   visualDensity:
+                                    //       const VisualDensity(vertical: -2),
+                                    //   leading: Text(
+                                    //     "${data.rSPName}",
+                                    //     style: TextStyle(
+                                    //         fontWeight: FontWeight.bold,
+                                    //         fontSize: 17,
+                                    //         color:
+                                    //             data.rSSlotStatus == "Cancelled"
+                                    //                 ? AppColors.white
+                                    //                 : AppColors.black),
+                                    //   ),
+                                    //   trailing: PopupMenuButton(
+                                    //     itemBuilder: (context) =>
+                                    //         <PopupMenuEntry<String>>[
+                                    //       PopupMenuItem(
+                                    //           child: ListTile(
+                                    //         onTap: () {
+                                    //           Navigator.pop(context);
+                                    //           context.navigateTo(
+                                    //               SessionRescheduleRoute(
+                                    //                   allotSlots: data));
+                                    //         },
+                                    //         dense: true,
+                                    //         visualDensity:
+                                    //             const VisualDensity(vertical: -4),
+                                    //         contentPadding: EdgeInsets.zero,
+                                    //         leading:
+                                    //             const Icon(Icons.change_circle),
+                                    //         title:
+                                    //             const Text("Session Reschedule"),
+                                    //       )),
+                                    //       PopupMenuItem(
+                                    //           child: ListTile(
+                                    //         onTap: () {
+                                    //           Navigator.pop(context);
+                                    //           context.navigateTo(
+                                    //               ChangeTherapistRoute(
+                                    //                   allotSlots: data));
+                                    //         },
+                                    //         dense: true,
+                                    //         visualDensity:
+                                    //             const VisualDensity(vertical: -4),
+                                    //         contentPadding: EdgeInsets.zero,
+                                    //         leading: const Icon(Icons.group),
+                                    //         title: const Text("Change Therapist"),
+                                    //       )),
+                                    //       PopupMenuItem(
+                                    //           child: ListTile(
+                                    //         onTap: () {
+                                    //           Navigator.pop(context);
+                                    //           context.navigateTo(
+                                    //               CancelSessionRoute(
+                                    //                   allotSlots: data));
+                                    //         },
+                                    //         dense: true,
+                                    //         visualDensity:
+                                    //             const VisualDensity(vertical: -4),
+                                    //         contentPadding: EdgeInsets.zero,
+                                    //         leading: const Icon(Icons.cancel),
+                                    //         title: const Text(
+                                    //             " Session Cancellation"),
+                                    //       )),
+                                    //     ],
+                                    //   ),
+                                    // ),
+                                    // ListTile(
+                                    //   dense: true,
+                                    //   visualDensity:
+                                    //       const VisualDensity(vertical: -2),
+                                    //   leading: Text(
+                                    //     "${data.rSSlotType}",
+                                    //     style: TextStyle(
+                                    //         fontWeight: FontWeight.bold,
+                                    //         fontSize: 13,
+                                    //         color:
+                                    //             data.rSSlotStatus == "Cancelled"
+                                    //                 ? AppColors.white
+                                    //                 : AppColors.black),
+                                    //   ),
+                                    //   trailing: Text(
+                                    //     "${data.rSSessionType}",
+                                    //     style: TextStyle(
+                                    //         fontWeight: FontWeight.bold,
+                                    //         fontSize: 13,
+                                    //         color:
+                                    //             data.rSSlotStatus == "Cancelled"
+                                    //                 ? AppColors.white
+                                    //                 : AppColors.black),
+                                    //   ),
+                                    // ),
+                                    // ListTile(
+                                    //   dense: true,
+                                    //   visualDensity:
+                                    //       const VisualDensity(vertical: -2),
+                                    //   leading: Text(
+                                    //     "${data.rSDoctorName}",
+                                    //     style: TextStyle(
+                                    //         fontWeight: FontWeight.bold,
+                                    //         fontSize: 13,
+                                    //         color:
+                                    //             data.rSSlotStatus == "Cancelled"
+                                    //                 ? AppColors.white
+                                    //                 : AppColors.black),
+                                    //   ),
+                                    //   trailing: Text(
+                                    //     "${data.rSStartTime}",
+                                    //     style: TextStyle(
+                                    //         fontWeight: FontWeight.bold,
+                                    //         fontSize: 13,
+                                    //         color:
+                                    //             data.rSSlotStatus == "Cancelled"
+                                    //                 ? AppColors.white
+                                    //                 : AppColors.black),
+                                    //   ),
+                                    // ),
+                                  ],
+                                ),
                               ),
                             );
                           }),

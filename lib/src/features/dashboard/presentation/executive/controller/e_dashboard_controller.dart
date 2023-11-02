@@ -103,7 +103,6 @@ class EDashboardController {
       {required BuildContext context,
       required WidgetRef ref,
       required int slotId}) async {
-    final clockState = ref.watch(clockProvider);
     return showDialog<bool>(
         context: context,
         builder: (BuildContext ctx) {

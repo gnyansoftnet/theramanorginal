@@ -1,7 +1,10 @@
 class AppUrls {
   AppUrls._();
+  // static const String baseUrl =
+  //     "http://cms.softnetcms.com/Api/MApp_ServicesApi";
+
   static const String baseUrl =
-      "http://cms.softnetcms.com/Api/MApp_ServicesApi";
+      "https://harmony.softnetapps.in/Api/MApp_ServicesApi";
 
   static const String sendOtpUrl = "/RegisterUser";
   static const String verifyOtpUrl = "/VerifyOTP";

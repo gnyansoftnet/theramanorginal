@@ -94,8 +94,10 @@ class OnGoingSessionScreen extends ConsumerWidget {
                                 trailing: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         elevation: 2.0,
-                                        // backgroundColor:
-                                        // Theme.of(context).cardColor,
+                                        backgroundColor:
+                                            data.rSSlotStatus == "Started"
+                                                ? Theme.of(context).primaryColor
+                                                : AppColors.blue,
                                         minimumSize: const Size(120, 40)),
                                     onPressed: index != 0
                                         ? null

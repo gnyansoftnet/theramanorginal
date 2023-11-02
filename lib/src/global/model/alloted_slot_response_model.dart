@@ -28,6 +28,7 @@ class AllotSlots {
   String? rSDoctorCode;
   String? rSDoctorName;
   String? rSSlotDate;
+  String? slotStartTime;
   String? rSStartTime;
   String? rSEndTime;
   String? rSSlotType;
@@ -46,6 +47,7 @@ class AllotSlots {
       this.rSDoctorCode,
       this.rSDoctorName,
       this.rSSlotDate,
+      this.slotStartTime,
       this.rSStartTime,
       this.rSEndTime,
       this.rSSlotType,
@@ -64,6 +66,9 @@ class AllotSlots {
     rSDoctorCode = json['RS_Doctor_Code'];
     rSDoctorName = json['RS_Doctor_Name'];
     rSSlotDate = json['RS_Slot_Date'];
+
+    slotStartTime = json['Slot_Start_Time'];
+
     rSStartTime = json['RS_Start_Time'];
     rSEndTime = json['RS_End_Time'];
     rSSlotType = json['RS_Slot_Type'];
@@ -83,7 +88,10 @@ class AllotSlots {
     data['RS_P_Name'] = rSPName;
     data['RS_Doctor_Code'] = rSDoctorCode;
     data['RS_Doctor_Name'] = rSDoctorName;
+
     data['RS_Slot_Date'] = rSSlotDate;
+    data['Slot_Start_Time'] = slotStartTime;
+
     data['RS_Start_Time'] = rSStartTime;
     data['RS_End_Time'] = rSEndTime;
     data['RS_Slot_Type'] = rSSlotType;

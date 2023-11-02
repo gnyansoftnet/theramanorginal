@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/alloted_slot_all_therapist_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/cancelled_slot_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/completed_slot_all_therapist.provider.dart';
@@ -43,16 +44,21 @@ class DashboardScreen extends ConsumerWidget {
             builder: (context, value, child) {
               return Scaffold(
                   appBar: AppBar(
-                      title: userState.easyWhen(
-                        data: (value) => FittedBox(
-                            fit: BoxFit.cover,
-                            child: Text(
-                              "${value.staffName}",
-                              style: const TextStyle(fontSize: 15),
-                            )),
-                        errorWidget: (_, __) => const Text("Loading ..."),
-                        loadingWidget: () => const Text("Loading ..."),
-                      ),
+                      title: userTypeState.value == "T"
+                          ? userState.easyWhen(
+                              data: (value) => FittedBox(
+                                  fit: BoxFit.cover,
+                                  child: Text(
+                                    "${value.staffName}",
+                                    style: const TextStyle(fontSize: 15),
+                                  )),
+                              errorWidget: (_, __) => const Text("Loading ..."),
+                              loadingWidget: () => const Text("Loading ..."),
+                            )
+                          : Text(
+                              DateFormat('yyyy-MM-dd').format(DateTime.now()),
+                              style: const TextStyle(fontSize: 18),
+                            ),
                       actions: userTypeState.value == "E"
                           ? [
                               IconButton(
