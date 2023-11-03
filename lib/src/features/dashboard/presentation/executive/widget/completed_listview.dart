@@ -40,12 +40,14 @@ class CompletedListView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "${data.rSSlotType}",
-                  style: TextStyle(
-                      color: AppColors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13),
+                Expanded(
+                  child: Text(
+                    "${data.rSSlotType}",
+                    style: TextStyle(
+                        color: AppColors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13),
+                  ),
                 ),
                 Text(
                   "${data.rSSessionType}",

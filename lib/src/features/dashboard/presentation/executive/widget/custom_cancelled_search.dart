@@ -4,6 +4,7 @@ import 'package:theraman/src/features/dashboard/presentation/executive/controlle
 import 'package:theraman/src/features/dashboard/presentation/executive/widget/cancelled_listview.dart';
 import 'package:theraman/src/global/model/alloted_slot_response_model.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
+import 'package:theraman/src/utils/constants/gaps.dart';
 
 class CustomCancelledSearch extends SearchDelegate {
   final List<AllotSlots>? allotSlots;
@@ -50,97 +51,100 @@ class CustomCancelledSearch extends SearchDelegate {
             return Card(
               elevation: 5.0,
               color: AppColors.red,
-              child: Column(
-                children: [
-                  ListTile(
-                    contentPadding: const EdgeInsets.only(right: 0, left: 14),
-                    dense: true,
-                    visualDensity: const VisualDensity(vertical: -3),
-                    leading: Text(
-                      "${data.rSPName}",
-                      style: TextStyle(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 17),
-                    ),
-                    trailing: Consumer(builder: (context, ref, _) {
-                      return PopupMenuButton(
-                        color: AppColors.white,
-                        itemBuilder: (context) => <PopupMenuEntry<String>>[
-                          PopupMenuItem(
-                              child: ListTile(
-                            onTap: () async {
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                              await edashBoardController
-                                  .resumeCancelledSession(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    top: 0, bottom: 5, left: 10, right: 10),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            "${data.rSPName}",
+                            style: TextStyle(
+                                color: AppColors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17),
+                          ),
+                        ),
+                        Consumer(builder: (context, ref, child) {
+                          return PopupMenuButton(
+                            color: AppColors.white,
+                            itemBuilder: (context) => <PopupMenuEntry<String>>[
+                              PopupMenuItem(
+                                  child: ListTile(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  edashBoardController.resumeCancelledSession(
                                       context: context,
                                       ref: ref,
-                                      slotId: data.rSSlotId ?? 0)
-                                  .then((value) {
-                                if (value! && context.mounted) {
-                                  close(context, null);
-                                }
-                              }).onError((error, stackTrace) => null);
-                            },
-                            dense: true,
-                            visualDensity: const VisualDensity(vertical: -4),
-                            contentPadding: EdgeInsets.zero,
-                            leading: const Icon(Icons.restore),
-                            title: const Text("Resume Session"),
-                          )),
-                        ],
-                      );
-                    }),
-                  ),
-                  ListTile(
-                    dense: true,
-                    visualDensity: const VisualDensity(vertical: -3),
-                    leading: Text(
-                      "${data.rSSlotType}",
-                      style: TextStyle(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13),
+                                      slotId: data.rSSlotId ?? 0);
+                                },
+                                dense: true,
+                                visualDensity:
+                                    const VisualDensity(vertical: -4),
+                                contentPadding: EdgeInsets.zero,
+                                leading: const Icon(Icons.restore),
+                                title: const Text("Resume Session"),
+                              )),
+                            ],
+                          );
+                        }),
+                      ],
                     ),
-                    trailing: Text(
-                      "${data.rSSessionType}",
-                      style: TextStyle(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13),
-                    ),
-                  ),
-                  ListTile(
-                    dense: true,
-                    visualDensity: const VisualDensity(vertical: -3),
-                    leading: Text(
-                      "${data.rSStartTime}",
-                      style: TextStyle(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12),
-                    ),
-                    trailing: Text(
-                      "${data.rSDoctorName}",
-                      style: TextStyle(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12),
-                    ),
-                  ),
-                  ListTile(
-                    dense: true,
-                    visualDensity: const VisualDensity(vertical: -3),
-                    title: Text(
-                      "${data.rSReason}",
-                      style: TextStyle(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12),
-                    ),
-                  )
-                ],
+                    gapH8,
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              "${data.rSSlotType}",
+                              style: TextStyle(
+                                  color: AppColors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13),
+                            ),
+                          ),
+                          Text(
+                            "${data.rSSessionType}",
+                            style: TextStyle(
+                                color: AppColors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13),
+                          ),
+                        ]),
+                    gapH8,
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "${data.rSStartTime}",
+                            style: TextStyle(
+                                color: AppColors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12),
+                          ),
+                          Text(
+                            "${data.rSDoctorName}",
+                            style: TextStyle(
+                                color: AppColors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12),
+                          ),
+                        ]),
+                    gapH8,
+                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                      Text(
+                        "${data.rSReason}",
+                        style: TextStyle(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12),
+                      ),
+                    ])
+                  ],
+                ),
               ),
             );
           }),
@@ -166,96 +170,100 @@ class CustomCancelledSearch extends SearchDelegate {
             return Card(
               elevation: 5.0,
               color: AppColors.red,
-              child: Column(
-                children: [
-                  ListTile(
-                    contentPadding: const EdgeInsets.only(right: 0, left: 14),
-                    dense: true,
-                    visualDensity: const VisualDensity(vertical: -3),
-                    leading: Text(
-                      "${data.rSPName}",
-                      style: TextStyle(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 17),
-                    ),
-                    trailing: Consumer(builder: (context, ref, _) {
-                      return PopupMenuButton(
-                        color: AppColors.white,
-                        itemBuilder: (context) => <PopupMenuEntry<String>>[
-                          PopupMenuItem(
-                              child: ListTile(
-                            onTap: () async {
-                              Navigator.pop(context);
-                              await edashBoardController
-                                  .resumeCancelledSession(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    top: 0, bottom: 5, left: 10, right: 10),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            "${data.rSPName}",
+                            style: TextStyle(
+                                color: AppColors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17),
+                          ),
+                        ),
+                        Consumer(builder: (context, ref, _) {
+                          return PopupMenuButton(
+                            color: AppColors.white,
+                            itemBuilder: (context) => <PopupMenuEntry<String>>[
+                              PopupMenuItem(
+                                  child: ListTile(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  edashBoardController.resumeCancelledSession(
                                       context: context,
                                       ref: ref,
-                                      slotId: data.rSSlotId ?? 0)
-                                  .then((value) {
-                                if (value! && context.mounted) {
-                                  close(context, null);
-                                }
-                              }).onError((error, stackTrace) => null);
-                            },
-                            dense: true,
-                            visualDensity: const VisualDensity(vertical: -4),
-                            contentPadding: EdgeInsets.zero,
-                            leading: const Icon(Icons.restore),
-                            title: const Text("Resume Session"),
-                          )),
-                        ],
-                      );
-                    }),
-                  ),
-                  ListTile(
-                    dense: true,
-                    visualDensity: const VisualDensity(vertical: -3),
-                    leading: Text(
-                      "${data.rSSlotType}",
-                      style: TextStyle(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13),
+                                      slotId: data.rSSlotId ?? 0);
+                                },
+                                dense: true,
+                                visualDensity:
+                                    const VisualDensity(vertical: -4),
+                                contentPadding: EdgeInsets.zero,
+                                leading: const Icon(Icons.restore),
+                                title: const Text("Resume Session"),
+                              )),
+                            ],
+                          );
+                        }),
+                      ],
                     ),
-                    trailing: Text(
-                      "${data.rSSessionType}",
-                      style: TextStyle(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13),
-                    ),
-                  ),
-                  ListTile(
-                    dense: true,
-                    visualDensity: const VisualDensity(vertical: -3),
-                    leading: Text(
-                      "${data.rSStartTime}",
-                      style: TextStyle(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12),
-                    ),
-                    trailing: Text(
-                      "${data.rSDoctorName}",
-                      style: TextStyle(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12),
-                    ),
-                  ),
-                  ListTile(
-                    dense: true,
-                    visualDensity: const VisualDensity(vertical: -3),
-                    title: Text(
-                      "${data.rSReason}",
-                      style: TextStyle(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12),
-                    ),
-                  )
-                ],
+                    gapH8,
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              "${data.rSSlotType}",
+                              style: TextStyle(
+                                  color: AppColors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13),
+                            ),
+                          ),
+                          Text(
+                            "${data.rSSessionType}",
+                            style: TextStyle(
+                                color: AppColors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13),
+                          ),
+                        ]),
+                    gapH8,
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "${data.rSStartTime}",
+                            style: TextStyle(
+                                color: AppColors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12),
+                          ),
+                          Text(
+                            "${data.rSDoctorName}",
+                            style: TextStyle(
+                                color: AppColors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12),
+                          ),
+                        ]),
+                    gapH8,
+                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                      Text(
+                        "${data.rSReason}",
+                        style: TextStyle(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12),
+                      ),
+                    ])
+                  ],
+                ),
               ),
             );
           }),

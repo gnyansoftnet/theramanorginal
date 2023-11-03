@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/cancelled_slot_provider.dart';
 import 'package:theraman/src/features/dashboard/presentation/executive/controller/e_dashboard_controller.dart';
 import 'package:theraman/src/features/dashboard/presentation/executive/widget/cancelled_listview.dart';
@@ -56,92 +57,105 @@ class ExecutiveCancelledSessionScreen extends ConsumerWidget {
                       return Card(
                         elevation: 5.0,
                         color: AppColors.red,
-                        child: Column(
-                          children: [
-                            ListTile(
-                              contentPadding:
-                                  const EdgeInsets.only(right: 0, left: 14),
-                              dense: true,
-                              visualDensity: const VisualDensity(vertical: -3),
-                              leading: Text(
-                                "${data.rSPName}",
-                                style: TextStyle(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 0, bottom: 5, left: 10, right: 10),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      "${data.rSPName}",
+                                      style: TextStyle(
+                                          color: AppColors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 17),
+                                    ),
+                                  ),
+                                  PopupMenuButton(
                                     color: AppColors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 17),
-                              ),
-                              trailing: PopupMenuButton(
-                                color: AppColors.white,
-                                itemBuilder: (context) =>
-                                    <PopupMenuEntry<String>>[
-                                  PopupMenuItem(
-                                      child: ListTile(
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                      edashBoardController
-                                          .resumeCancelledSession(
-                                              context: context,
-                                              ref: ref,
-                                              slotId: data.rSSlotId ?? 0);
-                                    },
-                                    dense: true,
-                                    visualDensity:
-                                        const VisualDensity(vertical: -4),
-                                    contentPadding: EdgeInsets.zero,
-                                    leading: const Icon(Icons.restore),
-                                    title: const Text("Resume Session"),
-                                  )),
+                                    itemBuilder: (context) =>
+                                        <PopupMenuEntry<String>>[
+                                      PopupMenuItem(
+                                          child: ListTile(
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                          edashBoardController
+                                              .resumeCancelledSession(
+                                                  context: context,
+                                                  ref: ref,
+                                                  slotId: data.rSSlotId ?? 0);
+                                        },
+                                        dense: true,
+                                        visualDensity:
+                                            const VisualDensity(vertical: -4),
+                                        contentPadding: EdgeInsets.zero,
+                                        leading: const Icon(Icons.restore),
+                                        title: const Text("Resume Session"),
+                                      )),
+                                    ],
+                                  ),
                                 ],
                               ),
-                            ),
-                            ListTile(
-                              dense: true,
-                              visualDensity: const VisualDensity(vertical: -3),
-                              leading: Text(
-                                "${data.rSSlotType}",
-                                style: TextStyle(
-                                    color: AppColors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13),
-                              ),
-                              trailing: Text(
-                                "${data.rSSessionType}",
-                                style: TextStyle(
-                                    color: AppColors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13),
-                              ),
-                            ),
-                            ListTile(
-                              dense: true,
-                              visualDensity: const VisualDensity(vertical: -3),
-                              leading: Text(
-                                "${data.rSStartTime}",
-                                style: TextStyle(
-                                    color: AppColors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12),
-                              ),
-                              trailing: Text(
-                                "${data.rSDoctorName}",
-                                style: TextStyle(
-                                    color: AppColors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12),
-                              ),
-                            ),
-                            ListTile(
-                              dense: true,
-                              visualDensity: const VisualDensity(vertical: -3),
-                              title: Text(
-                                "${data.rSReason}",
-                                style: TextStyle(
-                                    color: AppColors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12),
-                              ),
-                            )
-                          ],
+                              gapH8,
+                              Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        "${data.rSSlotType}",
+                                        style: TextStyle(
+                                            color: AppColors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 13),
+                                      ),
+                                    ),
+                                    Text(
+                                      "${data.rSSessionType}",
+                                      style: TextStyle(
+                                          color: AppColors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 13),
+                                    ),
+                                  ]),
+                              gapH8,
+                              Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "${data.rSStartTime}",
+                                      style: TextStyle(
+                                          color: AppColors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12),
+                                    ),
+                                    Text(
+                                      "${data.rSDoctorName}",
+                                      style: TextStyle(
+                                          color: AppColors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12),
+                                    ),
+                                  ]),
+                              gapH8,
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "${data.rSReason}",
+                                      style: TextStyle(
+                                          color: AppColors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12),
+                                    ),
+                                  ])
+                            ],
+                          ),
                         ),
                       );
                     }),

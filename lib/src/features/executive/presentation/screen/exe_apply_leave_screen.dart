@@ -100,6 +100,7 @@ class ExeApplyLeave extends StatelessWidget {
                     controller: noOfDaysController,
                     hint: "Days",
                     maxLines: 1,
+                    keyboardKey: TextInputType.number,
                     onChanged: (value) {
                       if (value == "1" || value == "0.5" || value == ".5") {
                         _isOneDay.value = true;

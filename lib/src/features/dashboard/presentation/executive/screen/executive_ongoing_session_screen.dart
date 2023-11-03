@@ -147,20 +147,14 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                                         onTap: data.rSSlotStatus != "Started"
                                             ? () {
                                                 Navigator.pop(context);
-                                                debugPrint("time===$time");
+
                                                 final currTime =
                                                     DateTime.parse(time);
-                                                debugPrint(
-                                                    "currentTime=== $currTime");
-                                                debugPrint(
-                                                    "currentTimen type=== ${currTime.runtimeType}");
+
                                                 final slotTime = DateFormat(
                                                         'yyyy-dd-MM HH:mm')
                                                     .parse(data.slotStartTime!);
-                                                debugPrint(
-                                                    "slot time=== $slotTime");
-                                                debugPrint(
-                                                    "slot time=== ${slotTime.runtimeType}");
+
                                                 final duration = slotTime
                                                     .subtract(const Duration(
                                                         minutes: 10))
@@ -170,10 +164,6 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                                                                 minutes: 10)));
                                                 final difference = slotTime
                                                     .difference(currTime);
-                                                debugPrint(
-                                                    "duration=== $duration");
-                                                debugPrint(
-                                                    "difference=== $difference");
 
                                                 if (duration == -1 ||
                                                     duration == 0) {
@@ -292,12 +282,14 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    "${data.rSSlotType}",
-                                    style: TextStyle(
-                                        color: AppColors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 13),
+                                  Expanded(
+                                    child: Text(
+                                      "${data.rSSlotType}",
+                                      style: TextStyle(
+                                          color: AppColors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 13),
+                                    ),
                                   ),
                                   Text(
                                     "${data.rSSessionType}",
@@ -342,244 +334,6 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                                   ),
                                 ],
                               ),
-                              // ListTile(
-                              //   contentPadding:
-                              //       const EdgeInsets.only(right: 0, left: 14),
-                              //   dense: true,
-                              //   visualDensity: const VisualDensity(vertical: -4),
-                              //   leading: Text(
-                              //     "${data.rSPName}",
-                              //     style: TextStyle(
-                              //         color: AppColors.white,
-                              //         fontWeight: FontWeight.bold,
-                              //         fontSize: 17),
-                              //   ),
-                              //   trailing: PopupMenuButton(
-                              //     color: AppColors.white,
-                              //     itemBuilder: (context) =>
-                              //         <PopupMenuEntry<String>>[
-                              //       PopupMenuItem(
-                              //           child: ListTile(
-                              //         onTap: () {
-                              //           Navigator.pop(context);
-                              //           context.navigateTo(SessionRescheduleRoute(
-                              //               allotSlots: data));
-                              //         },
-                              //         dense: true,
-                              //         visualDensity:
-                              //             const VisualDensity(vertical: -4),
-                              //         contentPadding: EdgeInsets.zero,
-                              //         leading: const Icon(Icons.change_circle),
-                              //         title: const Text("Session Reschedule"),
-                              //       )),
-                              //       PopupMenuItem(
-                              //           child: ListTile(
-                              //         onTap: () {
-                              //           Navigator.pop(context);
-                              //           context.navigateTo(ChangeTherapistRoute(
-                              //               allotSlots: data));
-                              //         },
-                              //         dense: true,
-                              //         visualDensity:
-                              //             const VisualDensity(vertical: -4),
-                              //         contentPadding: EdgeInsets.zero,
-                              //         leading: const Icon(Icons.group),
-                              //         title: const Text("Change Therapist"),
-                              //       )),
-                              //       PopupMenuItem(
-                              //           child: ListTile(
-                              //         onTap: () {
-                              //           Navigator.pop(context);
-                              //           context.navigateTo(
-                              //               CancelSessionRoute(allotSlots: data));
-                              //         },
-                              //         dense: true,
-                              //         visualDensity:
-                              //             const VisualDensity(vertical: -4),
-                              //         contentPadding: EdgeInsets.zero,
-                              //         leading: const Icon(Icons.cancel),
-                              //         title: const Text(" Session Cancellation"),
-                              //       )),
-                              //       PopupMenuItem(
-                              //           child: ListTile(
-                              //         onTap: data.rSSlotStatus != "Started"
-                              //             ? () {
-                              //                 Navigator.pop(context);
-                              //                 debugPrint("time===$time");
-                              //                 final currTime =
-                              //                     DateTime.parse(time);
-                              //                 debugPrint(
-                              //                     "currentTime=== $currTime");
-                              //                 debugPrint(
-                              //                     "currentTimen type=== ${currTime.runtimeType}");
-                              //                 final slotTime =
-                              //                     DateFormat('yyyy-dd-MM HH:mm')
-                              //                         .parse(data.slotStartTime!);
-                              //                 debugPrint(
-                              //                     "slot time=== $slotTime");
-                              //                 debugPrint(
-                              //                     "slot time=== ${slotTime.runtimeType}");
-                              //                 final duration = slotTime
-                              //                     .subtract(
-                              //                         const Duration(minutes: 10))
-                              //                     .compareTo(currTime.subtract(
-                              //                         const Duration(
-                              //                             minutes: 10)));
-                              //                 final difference =
-                              //                     slotTime.difference(currTime);
-                              //                 debugPrint("duration=== $duration");
-                              //                 debugPrint(
-                              //                     "difference=== $difference");
-
-                              //                 if (duration == -1 ||
-                              //                     duration == 0) {
-                              //                   eDashboardControlller
-                              //                       .exeStartSession(
-                              //                           context: context,
-                              //                           ref: ref,
-                              //                           slotId:
-                              //                               data.rSSlotId ?? 0)
-                              //                       .then((value) {})
-                              //                       .onError((error, stackTrace) {
-                              //                     context.showSnackBar(SnackBar(
-                              //                         content: Text(
-                              //                             "$error something went wrong !")));
-                              //                   });
-                              //                 } else if (duration == 1 &&
-                              //                         difference ==
-                              //                             const Duration(
-                              //                                 minutes: 1) ||
-                              //                     difference ==
-                              //                         const Duration(
-                              //                             minutes: 2) ||
-                              //                     difference ==
-                              //                         const Duration(
-                              //                             minutes: 3) ||
-                              //                     difference ==
-                              //                         const Duration(
-                              //                             minutes: 4) ||
-                              //                     difference ==
-                              //                         const Duration(
-                              //                             minutes: 5) ||
-                              //                     difference ==
-                              //                         const Duration(
-                              //                             minutes: 6) ||
-                              //                     difference ==
-                              //                         const Duration(
-                              //                             minutes: 7) ||
-                              //                     difference ==
-                              //                         const Duration(
-                              //                             minutes: 8) ||
-                              //                     difference ==
-                              //                         const Duration(
-                              //                             minutes: 9) ||
-                              //                     difference ==
-                              //                         const Duration(
-                              //                             minutes: 10)) {
-                              //                   eDashboardControlller
-                              //                       .exeStartSession(
-                              //                           context: context,
-                              //                           ref: ref,
-                              //                           slotId:
-                              //                               data.rSSlotId ?? 0)
-                              //                       .then((value) {})
-                              //                       .onError((error, stackTrace) {
-                              //                     context.showSnackBar(SnackBar(
-                              //                         content: Text(
-                              //                             "$error something went wrong !")));
-                              //                   });
-                              //                 } else {
-                              //                   context.showCustomDialog(
-                              //                       builder: (ctx) {
-                              //                     return AlertDialog(
-                              //                       title:
-                              //                           const Text("Warning !"),
-                              //                       content: const Text(
-                              //                           "You will start the session before 10 minutes"),
-                              //                       actions: [
-                              //                         TextButton(
-                              //                             child: const Text("OK"),
-                              //                             onPressed: () {
-                              //                               Navigator.pop(ctx);
-                              //                             })
-                              //                       ],
-                              //                     );
-                              //                   });
-                              //                 }
-                              //               }
-                              //             : () {
-                              //                 Navigator.pop(context);
-                              //                 eDashboardControlller
-                              //                     .exeCompleteSession(
-                              //                         context: context,
-                              //                         ref: ref,
-                              //                         slotId: data.rSSlotId ?? 0)
-                              //                     .then((value) {})
-                              //                     .onError((error, stackTrace) {
-                              //                   context.showSnackBar(SnackBar(
-                              //                       content: Text(
-                              //                           "$error something went wrong !")));
-                              //                 });
-                              //               },
-                              //         dense: true,
-                              //         visualDensity:
-                              //             const VisualDensity(vertical: -4),
-                              //         contentPadding: EdgeInsets.zero,
-                              //         leading: const Icon(Icons.done),
-                              //         title: Text(data.rSSlotStatus != "Started"
-                              //             ? "Start Session"
-                              //             : "Complete Session"),
-                              //       )),
-                              //     ],
-                              //   ),
-                              // ),
-                              // ListTile(
-                              //   dense: true,
-                              //   visualDensity: const VisualDensity(vertical: -4),
-                              //   leading: Text(
-                              //     "${data.rSSlotType}",
-                              //     style: TextStyle(
-                              //         color: AppColors.white,
-                              //         fontWeight: FontWeight.bold,
-                              //         fontSize: 13),
-                              //   ),
-                              //   trailing: Text(
-                              //     "${data.rSSessionType}",
-                              //     style: TextStyle(
-                              //         color: AppColors.white,
-                              //         fontWeight: FontWeight.bold,
-                              //         fontSize: 13),
-                              //   ),
-                              // ),
-                              // ListTile(
-                              //   dense: true,
-                              //   visualDensity: const VisualDensity(vertical: -4),
-                              //   leading: Text(
-                              //     "${data.rSStartTime}",
-                              //     style: TextStyle(
-                              //         color: AppColors.white,
-                              //         fontWeight: FontWeight.bold,
-                              //         fontSize: 12),
-                              //   ),
-                              //   trailing: Text(
-                              //     "${data.rSSlotStatus}",
-                              //     style: TextStyle(
-                              //         color: AppColors.white,
-                              //         fontWeight: FontWeight.bold,
-                              //         fontSize: 12),
-                              //   ),
-                              // ),
-                              // ListTile(
-                              //   dense: true,
-                              //   visualDensity: const VisualDensity(vertical: -4),
-                              //   leading: Text(
-                              //     "${data.rSDoctorName}",
-                              //     style: TextStyle(
-                              //         color: AppColors.white,
-                              //         fontWeight: FontWeight.bold,
-                              //         fontSize: 12),
-                              //   ),
-                              // )
                             ],
                           ),
                         ),

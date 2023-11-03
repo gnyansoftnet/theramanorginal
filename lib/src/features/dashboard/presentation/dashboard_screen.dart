@@ -5,6 +5,8 @@ import 'package:intl/intl.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/alloted_slot_all_therapist_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/cancelled_slot_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/completed_slot_all_therapist.provider.dart';
+import 'package:theraman/src/features/dashboard/application/therapist/providers/dashboard_provider.dart';
+import 'package:theraman/src/features/dashboard/application/therapist/providers/ongoing_provider.dart';
 import 'package:theraman/src/features/dashboard/presentation/executive/screen/executive_cancelled_session_screen.dart';
 import 'package:theraman/src/features/dashboard/presentation/executive/screen/executive_completed_session_screen.dart';
 import 'package:theraman/src/features/dashboard/presentation/executive/screen/executive_ongoing_session_screen.dart';
@@ -31,6 +33,8 @@ class DashboardScreen extends ConsumerWidget {
     final allotSlotState = ref.watch(allotedSlotAllTherapistProvider);
     final completedSlotState = ref.watch(completedSlotAllTherapistProvider);
     final cancelledSlotState = ref.watch(cancelledSlotProvider);
+    final therapistAllotedSlotState = ref.watch(onGoingProvider);
+    final therapistCompletedState = ref.watch(completedSessionProvider);
     final userState = ref.watch(userProvider);
     return DefaultTabController(
       length: userTypeState.value == "T" ? 2 : 3,
@@ -129,56 +133,118 @@ class DashboardScreen extends ConsumerWidget {
                       bottom: TabBar(
                           tabs: userTypeState.value == "T"
                               ? [
-                                  const Tab(
-                                    child: Text(
-                                      "ONGOING",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
+                                  Tab(
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: therapistAllotedSlotState.easyWhen(
+                                        data: (value) => Text(
+                                          "ONGOING(${value.allotSlots!.length})",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        errorWidget: (_, __) => const Text(
+                                          "ONGOING",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        loadingWidget: () => const Text(
+                                          "ONGOING",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                  const Tab(
-                                    child: Text(
-                                      "COMPLETED",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
+                                  Tab(
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: therapistCompletedState.easyWhen(
+                                        data: (value) => Text(
+                                          "COMPLETED(${value.allotSlots!.length})",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        errorWidget: (_, __) => const Text(
+                                          "COMPLETED",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        loadingWidget: () => const Text(
+                                          "COMPLETED",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
                                     ),
-                                  )
+                                  ),
                                 ]
                               : [
-                                  const Tab(
-                                    child: Row(
-                                      children: [
-                                        FittedBox(
-                                          fit: BoxFit.scaleDown,
-                                          child: Text(
-                                            "ONGOING",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
+                                  Tab(
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: allotSlotState.easyWhen(
+                                        data: (value) => Text(
+                                          "ONGOING(${value.allotSlots!.length})",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                  const Tab(
-                                    child: FittedBox(
-                                      fit: BoxFit.scaleDown,
-                                      child: Text(
-                                        "COMPLETED",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
+                                        errorWidget: (_, __) => const Text(
+                                          "ONGOING",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        loadingWidget: () => const Text(
+                                          "ONGOING",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                  const Tab(
+                                  Tab(
                                     child: FittedBox(
                                       fit: BoxFit.scaleDown,
-                                      child: Text(
-                                        "CANCELLED",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
+                                      child: completedSlotState.easyWhen(
+                                        data: (value) => Text(
+                                          "COMPLETED(${value.allotSlots!.length})",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        errorWidget: (_, __) => const Text(
+                                          "COMPLETED",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        loadingWidget: () => const Text(
+                                          "COMPLETED",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
                                     ),
-                                  )
+                                  ),
+                                  Tab(
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: cancelledSlotState.easyWhen(
+                                        data: (value) => Text(
+                                          "CANCELLED(${value.allotSlots!.length})",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        errorWidget: (_, __) => const Text(
+                                          "CANCELLED",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        loadingWidget: () => const Text(
+                                          "CANCELLED",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ])),
                   drawer: const DrawerWidget(currentPage: "DashboardRoute"),
                   body: WillPopScope(
