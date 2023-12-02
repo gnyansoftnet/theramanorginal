@@ -1,9 +1,11 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theraman/src/core/routes/auto_route_observer.dart';
 import 'package:theraman/src/core/routes/router_pod.dart';
 import 'package:theraman/src/core/theme/app_themes.dart';
 import 'package:theraman/src/global/widgets/monitoring_connection_view.dart';
+import 'package:theraman/src/utils/responsive_break_point.dart';
 
 class App extends ConsumerWidget {
   const App({super.key});
@@ -21,6 +23,8 @@ class App extends ConsumerWidget {
         ],
       ),
       builder: (context, child) {
+        child = DevicePreview.appBuilder(context, child);
+        child = ResponsiveBreakPointWrapper(child: child);
         return GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: child,

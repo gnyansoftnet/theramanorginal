@@ -105,7 +105,7 @@ class ExecutiveDashboardApi extends IExecutiveDashboardApi {
     CancelToken? cancelToken,
   }) async {
     return await dio.post(
-        "${AppUrls.exeStartSessionUrl}Id=$slotId&Type=$userType&UserId=$userType");
+        "${AppUrls.exeStartSessionUrl}Id=$slotId&Type=$userType&UserId=$userId");
   }
 
   @override

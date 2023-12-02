@@ -56,7 +56,8 @@ class ExeLeaveStatusScreen extends ConsumerWidget {
                             fromDateValue.value =
                                 DateFormat('MM/dd/yyy').format(value);
                           }).onError((error, stackTrace) => null);
-                        }),
+                        }
+                        ),
                     gapW4,
                     dateFieldBox(
                       context: context,
