@@ -22,13 +22,13 @@ class ApplyLeaveScreen extends StatelessWidget {
   final fromDateValue = ValueNotifier<String?>(null);
   final toDateValue = ValueNotifier<String?>(null);
   final isOneDay = ValueNotifier<bool>(false);
-  TextEditingController reasonController = TextEditingController();
-  TextEditingController noOfDaysController = TextEditingController();
+  final reasonController = TextEditingController();
+  final noOfDaysController = TextEditingController();
   final userController = UserController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   final leaveTypeValue = ValueNotifier<String?>(null);
-  List<String> leaveType = [
+  final leaveType = [
     'Medical Leave',
     'Emergency Leave',
     'Casual Leave',

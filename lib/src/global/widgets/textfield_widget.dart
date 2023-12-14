@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:theraman/src/utils/constants/app_colors.dart';
 
 class TextFieldWidget extends StatelessWidget {
   final String? label;
@@ -16,6 +15,7 @@ class TextFieldWidget extends StatelessWidget {
   final VoidCallback? onTap;
   final int? maxLines;
   final Widget? preFixIcon;
+  final Widget? suffixIcon;
   final bool readOnly;
   // final TextStyle? hintStyle;
 
@@ -34,6 +34,7 @@ class TextFieldWidget extends StatelessWidget {
       this.onTap,
       this.maxLines,
       this.preFixIcon,
+      this.suffixIcon,
       // this.hintStyle,
       this.readOnly = false})
       : super(key: key);
@@ -53,6 +54,7 @@ class TextFieldWidget extends StatelessWidget {
       onFieldSubmitted: onFieldSubmitted,
       decoration: InputDecoration(
         prefixIcon: preFixIcon,
+        suffixIcon: suffixIcon,
         hintText: hint,
         // hintStyle: hintStyle,
         hintStyle: const TextStyle(fontSize: 15),

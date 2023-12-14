@@ -16,11 +16,57 @@ class AppRouter extends $AppRouter {
           page: UserTypeRoute.page,
           path: '/UserTypeRoute',
         ),
-        AutoRoute(page: MobileNumberRoute.page, path: "/LoginRoute"),
-        AutoRoute(page: VerifyOtpRoute.page, path: "/VerifyOtpRoute"),
-        AutoRoute(
+        CustomRoute(
+          page: LoginRoute.page,
+          path: "/LoginRoute",
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(1.0, 0.0),
+                end: Offset.zero,
+              ).animate(animation),
+              child: child,
+            );
+          },
+        ),
+        CustomRoute(
+          page: MobileNumberRoute.page,
+          path: "/MobileNumberRoute",
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(1.0, 0.0),
+                end: Offset.zero,
+              ).animate(animation),
+              child: child,
+            );
+          },
+        ),
+        CustomRoute(
+          page: VerifyOtpRoute.page,
+          path: "/VerifyOtpRoute",
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(1.0, 0.0),
+                end: Offset.zero,
+              ).animate(animation),
+              child: child,
+            );
+          },
+        ),
+        CustomRoute(
           page: DashboardRoute.page,
           path: "/DashboardRoute",
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(1.0, 0.0),
+                end: Offset.zero,
+              ).animate(animation),
+              child: child,
+            );
+          },
         ),
         AutoRoute(page: UserProfileRoute.page, path: "/UserProfileRoute"),
         AutoRoute(

@@ -7,7 +7,6 @@ import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/alloted_slot_all_therapist_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/clock_provider.dart';
 import 'package:theraman/src/features/dashboard/presentation/executive/controller/e_dashboard_controller.dart';
-import 'package:theraman/src/global/widgets/elevated_button_widget.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
 import 'package:theraman/src/utils/extensions/common_ext/alert_dialog_ext.dart';

@@ -11,6 +11,7 @@ import 'package:theraman/src/features/authentication/application/providers/clock
 import 'package:theraman/src/features/authentication/application/providers/login_provider.dart';
 import 'package:theraman/src/features/authentication/presentation/controller/login_controller.dart';
 import 'package:theraman/src/features/authentication/presentation/widget/verify_otp_button.dart';
+import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
 
 @RoutePage(deferredLoading: true, name: "VerifyOtpRoute")
@@ -46,110 +47,116 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          // backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          leading: IconButton(
+              onPressed: () {
+                context.popRoute();
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                color: AppColors.black,
+              )),
         ),
-        body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
-                const Image(
-                    fit: BoxFit.cover,
-                    height: 200,
-                    image: AssetImage("assets/images/harmoney_logo.png")),
-                gapH20,
-                const Text(
-                  "Verify your OTP",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                gapH16,
-                PinCodeTextField(
-                  pinBoxRadius: 10,
-                  defaultBorderColor: Colors.black.withOpacity(0.5),
-                  controller: pinController,
-                  maxLength: 4,
-                  hasError: false,
-                  hideCharacter: false,
-                  pinBoxWidth: 50,
-                  pinBoxHeight: 50,
-                  pinBoxDecoration:
-                      ProvidedPinBoxDecoration.defaultPinBoxDecoration,
-                  pinTextAnimatedSwitcherTransition:
-                      ProvidedPinBoxTextAnimation.scalingTransition,
-                  pinTextAnimatedSwitcherDuration:
-                      const Duration(milliseconds: 300),
-                  highlightAnimationBeginColor: Colors.black,
-                  highlightAnimationEndColor: Colors.white12,
-                  keyboardType: TextInputType.number,
-                  wrapAlignment: WrapAlignment.center,
-                  pinTextStyle:
-                      const TextStyle(fontSize: 17, color: Colors.black),
-                  onTextChanged: (text) {
-                    if (text.length == 4) {
-                      otpText = text;
-                    }
-                  },
-                  onDone: (pin) {},
-                ),
-                gapH16,
-                Text(
-                    "OTP sent to this No. +91${widget.mobileNoController.text}"),
-                gapH20,
-                VerifyOtpButton(onSubmit: () {
-                  if (isValidated()) {
-                    loginController.verifyOtp(
-                        ref: ref,
-                        mobileNumber: widget.mobileNoController.text,
-                        otp: pinController.text,
-                        userType: widget.userType);
-                  }
-                }),
-                ValueListenableBuilder(
-                    valueListenable: isResend,
-                    builder: (context, value, _) {
-                      if (timeState == 0) {
-                        isResend.value = true;
-                      }
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextButton(
-                              onPressed: isResend.value
-                                  ? () {
-                                      isResend.value = false;
-                                      ref
-                                          .read(sendOtpProvider.notifier)
-                                          .sendOtp(
-                                              mobileNo: widget
-                                                  .mobileNoController.text,
-                                              userType: widget.userType);
-
-                                      ref
-                                          .read(timerProvider.notifier)
-                                          .startTimer();
-                                      fetchAutoOTPFromPhone();
-                                    }
-                                  : null,
-                              child: Text(
-                                "Resend OTP",
-                                style: TextStyle(
-                                    color: isResend.value
-                                        ? Colors.blue
-                                        : Colors.black,
-                                    fontWeight: isResend.value
-                                        ? FontWeight.bold
-                                        : FontWeight.normal),
-                              )),
-                          gapW4,
-                          Text(
-                            isResend.value ? "" : "$timeState Sec",
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      );
-                    })
-              ],
+        body: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          shrinkWrap: true,
+          children: [
+            const Image(
+                fit: BoxFit.contain,
+                // height: 300,
+                image: AssetImage("assets/images/harmoney_logo.png")),
+            // gapH8,
+            const Text(
+              "Verify your OTP",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
-          ),
+            gapH16,
+            Center(
+              child: PinCodeTextField(
+                pinBoxRadius: 10,
+                defaultBorderColor: Colors.black.withOpacity(0.5),
+                controller: pinController,
+                maxLength: 4,
+                hasError: false,
+                hideCharacter: false,
+                pinBoxWidth: 50,
+                pinBoxHeight: 50,
+                pinBoxDecoration:
+                    ProvidedPinBoxDecoration.defaultPinBoxDecoration,
+                pinTextAnimatedSwitcherTransition:
+                    ProvidedPinBoxTextAnimation.scalingTransition,
+                pinTextAnimatedSwitcherDuration:
+                    const Duration(milliseconds: 300),
+                highlightAnimationBeginColor: Colors.black,
+                highlightAnimationEndColor: Colors.white12,
+                keyboardType: TextInputType.number,
+                wrapAlignment: WrapAlignment.center,
+                pinTextStyle:
+                    const TextStyle(fontSize: 17, color: Colors.black),
+                onTextChanged: (text) {
+                  if (text.length == 4) {
+                    otpText = text;
+                  }
+                },
+                onDone: (pin) {},
+              ),
+            ),
+            gapH16,
+            Text(
+              "OTP sent to this No. +91${widget.mobileNoController.text}",
+              textAlign: TextAlign.center,
+            ),
+            gapH20,
+            VerifyOtpButton(onSubmit: () {
+              if (isValidated()) {
+                loginController.verifyOtp(
+                    ref: ref,
+                    mobileNumber: widget.mobileNoController.text,
+                    otp: pinController.text,
+                    userType: widget.userType);
+              }
+            }),
+            gapW40,
+            ValueListenableBuilder(
+                valueListenable: isResend,
+                builder: (context, value, _) {
+                  if (timeState == 0) {
+                    isResend.value = true;
+                  }
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                          onPressed: isResend.value
+                              ? () {
+                                  isResend.value = false;
+                                  ref.read(sendOtpProvider.notifier).sendOtp(
+                                      mobileNo: widget.mobileNoController.text,
+                                      userType: widget.userType);
+
+                                  ref.read(timerProvider.notifier).startTimer();
+                                  fetchAutoOTPFromPhone();
+                                }
+                              : null,
+                          child: Text(
+                            "Resend OTP",
+                            style: TextStyle(
+                                color:
+                                    isResend.value ? Colors.blue : Colors.black,
+                                fontWeight: isResend.value
+                                    ? FontWeight.bold
+                                    : FontWeight.normal),
+                          )),
+                      gapW4,
+                      Text(
+                        isResend.value ? "" : "$timeState Sec",
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  );
+                })
+          ],
         ));
   }
 

@@ -24,15 +24,15 @@ class ExeApplyLeave extends StatelessWidget {
   final _isOneDay = ValueNotifier<bool>(false);
 
   final _leaveTypeValue = ValueNotifier<String?>(null);
-  List<String> leaveType = [
+  final leaveType = [
     'Medical Leave',
     'Emergency Leave',
     'Casual Leave',
     'Other'
   ];
 
-  TextEditingController reasonController = TextEditingController();
-  TextEditingController noOfDaysController = TextEditingController();
+  final reasonController = TextEditingController();
+  final noOfDaysController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextStyle _textStyle =
       const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500);

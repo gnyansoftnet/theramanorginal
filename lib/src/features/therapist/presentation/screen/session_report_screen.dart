@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:data_table_2/data_table_2.dart';
 // import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,7 +24,6 @@ class SessionReport extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final width = MediaQuery.sizeOf(context).width;
     final sessionSummaryState =
         ref.watch(sessionSummaryProvider(_dropDowndateValue.value));
     final sessionSummaryDetailState =
@@ -155,6 +153,7 @@ class SessionReport extends ConsumerWidget {
                         ValueListenableBuilder(
                             valueListenable: _dropDowndateValue,
                             builder: (context, value, child) {
+                              debugPrint("value=====$value");
                               return Text(
                                 "Session Details of ${value == "Current Month" ? DateFormat.yMMMM().format(DateTime.now()) : DateFormat.yMMMM().format(DateTime.now().subtract(const Duration(days: 1)))}",
                                 style: const TextStyle(
@@ -232,19 +231,17 @@ class SessionReport extends ConsumerWidget {
                                                   : Theme.of(context)
                                                       .scaffoldBackgroundColor),
                                           cells: [
-                                            DataCell(Container(
-                                              child: Text(
-                                                "${value.sessionDtl![index].allotDay}",
-                                                style: TextStyle(
-                                                    color:
-                                                        value.sessionDtl![index]
-                                                                    .isSunday ==
-                                                                "Y"
-                                                            ? AppColors.white
-                                                            : AppColors.black,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
+                                            DataCell(Text(
+                                              "${value.sessionDtl![index].allotDay}",
+                                              style: TextStyle(
+                                                  color:
+                                                      value.sessionDtl![index]
+                                                                  .isSunday ==
+                                                              "Y"
+                                                          ? AppColors.white
+                                                          : AppColors.black,
+                                                  fontWeight:
+                                                      FontWeight.bold),
                                             )),
                                             DataCell(Text(
                                               "${value.sessionDtl![index].allotted}",

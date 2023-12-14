@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -40,6 +39,7 @@ class DrawerWidget extends ConsumerWidget {
                           child: SvgPicture.asset(
                             "assets/images/svg/profile.svg",
                             fit: BoxFit.cover,
+                            // ignore: deprecated_member_use
                             color: AppColors.white,
                           ),
                         ),
@@ -118,7 +118,7 @@ class DrawerWidget extends ConsumerWidget {
                     icon: Icons.report,
                     onTap: () {
                       if (currentPage != "SessionReportRoute") {
-                        context.navigateTo(const SessionReportRoute());
+                        context.navigateTo(SessionReportRoute());
                         Navigator.pop(context);
                       }
                     },
@@ -148,6 +148,7 @@ class DrawerWidget extends ConsumerWidget {
                           child: SvgPicture.asset(
                             "assets/images/svg/profile.svg",
                             fit: BoxFit.cover,
+                            // ignore: deprecated_member_use
                             color: AppColors.white,
                           ),
                         ),

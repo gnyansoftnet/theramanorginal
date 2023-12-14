@@ -26,7 +26,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
         child: Center(
             child: Image(
                 fit: BoxFit.cover,
-                height: 200,
                 image: AssetImage("assets/images/harmoney_logo.png"))),
       ),
     );

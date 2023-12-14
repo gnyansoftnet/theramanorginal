@@ -247,6 +247,7 @@ class DashboardScreen extends ConsumerWidget {
                                   ),
                                 ])),
                   drawer: const DrawerWidget(currentPage: "DashboardRoute"),
+                  // ignore: deprecated_member_use
                   body: WillPopScope(
                     onWillPop: () => showDialog(
                       context: context,
