@@ -5,20 +5,16 @@ import 'package:theraman/src/features/dashboard/application/executive/providers/
 import 'package:theraman/src/features/dashboard/application/executive/states/cancel_session_state.dart';
 import 'package:theraman/src/features/dashboard/data/executive/repo/executive_dashboard_repo_pod.dart';
 import 'package:theraman/src/global/widgets/elevated_button_widget.dart';
-import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/extensions/common_ext/snackbar_ext.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
 
 class CancelSessionButton extends ConsumerWidget {
-  CancelSessionButton({
+  const CancelSessionButton({
     super.key,
     required this.onSubmit,
   });
 
   final VoidCallback onSubmit;
-
-  final _textStyle =
-      TextStyle(color: AppColors.white, fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -53,36 +49,25 @@ class CancelSessionButton extends ConsumerWidget {
         return switch (data) {
           CancelSessionInitial() => ElevatedButtonWidget(
               onPressed: onSubmit,
-              child: Text(
-                "Cancel Session",
-                style: _textStyle,
-              ),
+              text: "CANCEL SESSION",
             ),
-          CancelSessionLoading() => ElevatedButtonWidget(
+          CancelSessionLoading() => const ElevatedButtonWidget(
               onPressed: null,
-              child: Text(
-                "Cancel Session",
-                style: _textStyle,
-              ),
+              text: "CANCEL SESSION",
             ),
           CancelSessionLoaded() => ElevatedButtonWidget(
               onPressed: onSubmit,
-              child: Text(
-                "Cancel Session",
-                style: _textStyle,
-              ),
+              text: "CANCEL SESSION",
             ),
         };
       },
       errorWidget: (error, stackTrace) => ElevatedButtonWidget(
         onPressed: onSubmit,
-        child: Text(
-          "Cancel Session",
-          style: _textStyle,
-        ),
+        text: "CANCEL SESSION",
       ),
       loadingWidget: () => const ElevatedButtonWidget(
         onPressed: null,
+        isChild: true,
         child: CircularProgressIndicator(
           strokeWidth: 2.0,
         ),

@@ -53,24 +53,25 @@ class SendOtpButton extends ConsumerWidget {
         return switch (data) {
           SendOtpInitial() => ElevatedButtonWidget(
               onPressed: onSubmit,
-              child: const Text("SEND OTP"),
+              text: "SEND OTP",
             ),
           SendOtpLoading() => const ElevatedButtonWidget(
               onPressed: null,
-              child: Text("SEND OTP"),
+              text: "SEND OTP",
             ),
           SendOtpLoaded() => ElevatedButtonWidget(
               onPressed: onSubmit,
-              child: const Text("SEND OTP"),
+              text: "SEND OTP",
             ),
         };
       },
       errorWidget: (error, stackTrace) => ElevatedButtonWidget(
         onPressed: onSubmit,
-        child: const Text("SEND OTP"),
+        text: "SEND OTP",
       ),
       loadingWidget: () => const ElevatedButtonWidget(
         onPressed: null,
+        isChild: true,
         child: CircularProgressIndicator(
           strokeWidth: 2.0,
         ),

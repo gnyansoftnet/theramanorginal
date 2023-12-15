@@ -62,24 +62,25 @@ class SessionRescheduleButton extends ConsumerWidget {
         return switch (data) {
           SessionRescheduleInitial() => ElevatedButtonWidget(
               onPressed: onSubmit,
-              child: const Text("Reschedule"),
+              text: "RESCHEDULE",
             ),
           SessionRescheduleLoading() => const ElevatedButtonWidget(
               onPressed: null,
-              child: Text("Reschedule"),
+              text: "RESCHEDULE",
             ),
           SessionRescheduleLoaded() => ElevatedButtonWidget(
               onPressed: onSubmit,
-              child: const Text("Reschedule"),
+              text: "RESCHEDULE",
             ),
         };
       },
       errorWidget: (error, stackTrace) => ElevatedButtonWidget(
         onPressed: onSubmit,
-        child: const Text("Reschedule"),
+        text: "RESCHEDULE",
       ),
       loadingWidget: () => const ElevatedButtonWidget(
         onPressed: null,
+        isChild: true,
         child: CircularProgressIndicator(
           strokeWidth: 2.0,
         ),

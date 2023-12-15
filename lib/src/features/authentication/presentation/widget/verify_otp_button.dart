@@ -46,24 +46,25 @@ class VerifyOtpButton extends ConsumerWidget {
         return switch (data) {
           VerifyOtpInitial() => ElevatedButtonWidget(
               onPressed: onSubmit,
-              child: const Text("Verify"),
+              text: "VERIFY OTP",
             ),
           VerifyOtpLoading() => const ElevatedButtonWidget(
               onPressed: null,
-              child: Text("Verify"),
+              text: "VERIFY OTP",
             ),
           VerifyOtpLoaded() => const ElevatedButtonWidget(
               onPressed: null,
-              child: Text("Verify"),
+              text: "VERIFY OTP",
             ),
         };
       },
       errorWidget: (error, stackTrace) => ElevatedButtonWidget(
         onPressed: onSubmit,
-        child: const Text("Verify"),
+        text: "VERIFY OTP",
       ),
       loadingWidget: () => const ElevatedButtonWidget(
         onPressed: null,
+        isChild: true,
         child: CircularProgressIndicator(
           strokeWidth: 2.0,
         ),

@@ -17,6 +17,7 @@ class TextFieldWidget extends StatelessWidget {
   final Widget? preFixIcon;
   final Widget? suffixIcon;
   final bool readOnly;
+  final bool? obsecure;
   // final TextStyle? hintStyle;
 
   const TextFieldWidget(
@@ -35,7 +36,7 @@ class TextFieldWidget extends StatelessWidget {
       this.maxLines,
       this.preFixIcon,
       this.suffixIcon,
-      // this.hintStyle,
+      this.obsecure = false,
       this.readOnly = false})
       : super(key: key);
 
@@ -52,6 +53,7 @@ class TextFieldWidget extends StatelessWidget {
       onTap: onTap,
       readOnly: readOnly,
       onFieldSubmitted: onFieldSubmitted,
+      obscureText: obsecure!,
       decoration: InputDecoration(
         prefixIcon: preFixIcon,
         suffixIcon: suffixIcon,

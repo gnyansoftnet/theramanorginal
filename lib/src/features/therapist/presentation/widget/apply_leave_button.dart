@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/therapist/application/providers/apply_leave_provider.dart';
 import 'package:theraman/src/features/therapist/application/states/apply_leave_state.dart';
+import 'package:theraman/src/global/widgets/elevated_button_widget.dart';
 import 'package:theraman/src/utils/extensions/common_ext/snackbar_ext.dart';
 import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
 
@@ -47,25 +48,25 @@ class ApplyLeaveButton extends ConsumerWidget {
     return applyLeaveState.easyWhen(
       data: (data) {
         return switch (data) {
-          ApplyLeaveInitial() => ElevatedButton(
+          ApplyLeaveInitial() => ElevatedButtonWidget(
               onPressed: onSubmit,
-              child: const Text("Submit"),
+              text: "SUBMIT",
             ),
-          ApplyLeaveLoading() => const ElevatedButton(
+          ApplyLeaveLoading() => const ElevatedButtonWidget(
               onPressed: null,
-              child: Text("Submit"),
+              text: "SUBMIT",
             ),
-          ApplyLeaveLoaded() => ElevatedButton(
+          ApplyLeaveLoaded() => ElevatedButtonWidget(
               onPressed: onSubmit,
-              child: const Text("Submit"),
+              text: "SUBMIT",
             ),
         };
       },
-      errorWidget: (error, stackTrace) => ElevatedButton(
+      errorWidget: (error, stackTrace) => ElevatedButtonWidget(
         onPressed: onSubmit,
-        child: const Text("Submit"),
+        text: "SUBMIT",
       ),
-      loadingWidget: () => const ElevatedButton(
+      loadingWidget: () => const ElevatedButtonWidget(
         onPressed: null,
         child: CircularProgressIndicator(),
       ),

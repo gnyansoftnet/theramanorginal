@@ -13,7 +13,6 @@ class MobileNumberScreen extends ConsumerWidget {
   final String userType;
   MobileNumberScreen({super.key, required this.userType});
   final mobileNoController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final loginController = LoginController();
 
   @override
@@ -37,71 +36,76 @@ class MobileNumberScreen extends ConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           children: [
             const Image(
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
+                height: 300,
                 image: AssetImage("assets/images/harmoney_logo.png")),
             gapH16,
+            const Text(
+              "Enter Your Resister Mobile Number",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            gapH16,
             Card(
-              elevation: 0.5,
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.black.withOpacity(0.5))),
+              elevation: 2.0,
+              color: Theme.of(context).inputDecorationTheme.fillColor,
+              margin: EdgeInsets.zero,
+              shape: StadiumBorder(
+                  side: BorderSide(
+                      color: Theme.of(context).primaryColor.withOpacity(0.2),
+                      width: 1)),
+              shadowColor: Theme.of(context).primaryColor,
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
                 child: Row(
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: Text(
-                        "+91 |",
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w600),
-                      ),
+                    Text(
+                      "+91 |",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium!
+                          .copyWith(fontWeight: FontWeight.w500),
                     ),
                     Expanded(
-                        child: Form(
-                      key: _formKey,
-                      child: TextFormField(
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w400, fontSize: 15),
-                        controller: mobileNoController,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        inputFormatters: <TextInputFormatter>[
-                          LengthLimitingTextInputFormatter(10),
-                          FilteringTextInputFormatter.allow(RegExp('[0-9]')),
-                        ],
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
+                        child: TextFormField(
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium!
+                          .copyWith(fontWeight: FontWeight.bold),
+                      controller: mobileNoController,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      inputFormatters: <TextInputFormatter>[
+                        LengthLimitingTextInputFormatter(10),
+                        FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                      ],
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
                           hintText: "Mobile Number",
                           border: InputBorder.none,
-                          fillColor: Colors.white.withOpacity(0.2),
-                          disabledBorder: const OutlineInputBorder(
-                              borderSide: BorderSide.none),
-                          enabledBorder: const OutlineInputBorder(
-                              borderSide: BorderSide.none),
-                          errorBorder: const OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                          ),
-                          focusedBorder: const OutlineInputBorder(
-                              borderSide: BorderSide.none),
-                        ),
-                      ),
+                          disabledBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          errorBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none),
                     ))
                   ],
                 ),
               ),
             ),
-            gapH16,
-            SendOtpButton(
-                mobileNoController: mobileNoController,
-                usertype: userType,
-                onSubmit: () {
-                  if (isValidated()) {
-                    loginController.login(
-                        ref: ref,
-                        mobileNumber: mobileNoController.text,
-                        userType: userType);
-                  }
-                })
+            gapW40,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 60),
+              child: SendOtpButton(
+                  mobileNoController: mobileNoController,
+                  usertype: userType,
+                  onSubmit: () {
+                    if (isValidated()) {
+                      loginController.login(
+                          ref: ref,
+                          mobileNumber: mobileNoController.text,
+                          userType: userType);
+                    }
+                  }),
+            )
           ],
         ),
       ),

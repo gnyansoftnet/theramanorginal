@@ -63,14 +63,13 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
           children: [
             const Image(
                 fit: BoxFit.contain,
-                // height: 300,
                 image: AssetImage("assets/images/harmoney_logo.png")),
-            // gapH8,
-            const Text(
-              "Verify your OTP",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            Text("Verify your OTP",
+                textAlign: TextAlign.center,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .copyWith(fontWeight: FontWeight.bold)),
             gapH16,
             Center(
               child: PinCodeTextField(
@@ -80,8 +79,8 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
                 maxLength: 4,
                 hasError: false,
                 hideCharacter: false,
-                pinBoxWidth: 50,
-                pinBoxHeight: 50,
+                pinBoxWidth: 60,
+                pinBoxHeight: 60,
                 pinBoxDecoration:
                     ProvidedPinBoxDecoration.defaultPinBoxDecoration,
                 pinTextAnimatedSwitcherTransition:
@@ -106,17 +105,22 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
             Text(
               "OTP sent to this No. +91${widget.mobileNoController.text}",
               textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.titleSmall,
             ),
             gapH20,
-            VerifyOtpButton(onSubmit: () {
-              if (isValidated()) {
-                loginController.verifyOtp(
-                    ref: ref,
-                    mobileNumber: widget.mobileNoController.text,
-                    otp: pinController.text,
-                    userType: widget.userType);
-              }
-            }),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 60),
+              child: VerifyOtpButton(onSubmit: () {
+                if (isValidated()) {
+                  loginController.verifyOtp(
+                      ref: ref,
+                      mobileNumber: widget.mobileNoController.text,
+                      otp: pinController.text,
+                      userType: widget.userType);
+                }
+              }),
+            ),
             gapW40,
             ValueListenableBuilder(
                 valueListenable: isResend,

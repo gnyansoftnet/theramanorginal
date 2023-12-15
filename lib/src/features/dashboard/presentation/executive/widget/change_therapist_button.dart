@@ -62,24 +62,25 @@ class ChangeTherapistButton extends ConsumerWidget {
         return switch (data) {
           ChangeTherapistInitial() => ElevatedButtonWidget(
               onPressed: onSubmit,
-              child: const Text("Change"),
+              text: "CHANGE",
             ),
           ChangeTherapistLoading() => const ElevatedButtonWidget(
               onPressed: null,
-              child: Text("Change"),
+              text: "CHANGE",
             ),
           ChangeTherapistLoaded() => ElevatedButtonWidget(
               onPressed: onSubmit,
-              child: const Text("Change"),
+              text: "CHANGE",
             ),
         };
       },
       errorWidget: (error, stackTrace) => ElevatedButtonWidget(
         onPressed: onSubmit,
-        child: const Text("Change"),
+        text: "CHANGE",
       ),
       loadingWidget: () => const ElevatedButtonWidget(
         onPressed: null,
+        isChild: true,
         child: CircularProgressIndicator(
           strokeWidth: 2.0,
         ),

@@ -155,7 +155,7 @@ class SessionReport extends ConsumerWidget {
                             builder: (context, value, child) {
                               debugPrint("value=====$value");
                               return Text(
-                                "Session Details of ${value == "Current Month" ? DateFormat.yMMMM().format(DateTime.now()) : DateFormat.yMMMM().format(DateTime.now().subtract(const Duration(days: 1)))}",
+                                "Session Details of ${value == "Current Month" ? DateFormat.yMMMM().format(DateTime.now()) : DateFormat.yMMMM().format(DateTime(DateTime.now().year, DateTime.now().month - 1))}",
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 16),
                               );
@@ -240,8 +240,7 @@ class SessionReport extends ConsumerWidget {
                                                               "Y"
                                                           ? AppColors.white
                                                           : AppColors.black,
-                                                  fontWeight:
-                                                      FontWeight.bold),
+                                                  fontWeight: FontWeight.bold),
                                             )),
                                             DataCell(Text(
                                               "${value.sessionDtl![index].allotted}",
