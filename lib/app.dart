@@ -5,7 +5,7 @@ import 'package:theraman/src/core/routes/auto_route_observer.dart';
 import 'package:theraman/src/core/routes/router_pod.dart';
 import 'package:theraman/src/core/theme/app_themes.dart';
 import 'package:theraman/src/global/widgets/monitoring_connection_view.dart';
-import 'package:theraman/src/utils/responsive_break_point.dart';
+import 'package:theraman/src/global/helper/responsive_break_point.dart';
 
 class App extends ConsumerWidget {
   const App({super.key});

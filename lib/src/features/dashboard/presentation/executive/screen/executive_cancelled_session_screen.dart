@@ -6,7 +6,7 @@ import 'package:theraman/src/features/dashboard/application/executive/providers/
 import 'package:theraman/src/features/dashboard/presentation/executive/controller/e_dashboard_controller.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
-import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
+import 'package:theraman/src/utils/extensions/asyncvalue_easy_when.dart';
 
 @RoutePage(deferredLoading: true, name: "ExecutiveCancelledSessionRoute")
 class ExecutiveCancelledSessionScreen extends ConsumerWidget {

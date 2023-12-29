@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:theraman/src/features/authentication/data/apis/i_login_api.dart';
+import 'package:theraman/src/features/authentication/data/apis/i_auth_api.dart';
 import 'package:theraman/src/utils/constants/app_urls.dart';
 
-class LoginApi extends ILoginApi {
+class AuthApi extends IAuthApi {
   final Dio dio;
-  LoginApi({required this.dio});
+  AuthApi({required this.dio});
   @override
   Future<Response> sendOtp(
       {required String mobileNo,

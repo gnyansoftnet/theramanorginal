@@ -12,88 +12,122 @@ class AppRouter extends $AppRouter {
           path: '/',
           initial: true,
         ),
-        AutoRoute(
+        CustomRoute(
           page: UserTypeRoute.page,
           path: '/UserTypeRoute',
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return slidAnimation(animation, child);
+          },
         ),
         CustomRoute(
           page: LoginRoute.page,
           path: "/LoginRoute",
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(1.0, 0.0),
-                end: Offset.zero,
-              ).animate(animation),
-              child: child,
-            );
+            return slidAnimation(animation, child);
           },
         ),
         CustomRoute(
           page: MobileNumberRoute.page,
           path: "/MobileNumberRoute",
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(1.0, 0.0),
-                end: Offset.zero,
-              ).animate(animation),
-              child: child,
-            );
+            return slidAnimation(animation, child);
           },
         ),
         CustomRoute(
           page: VerifyOtpRoute.page,
           path: "/VerifyOtpRoute",
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(1.0, 0.0),
-                end: Offset.zero,
-              ).animate(animation),
-              child: child,
-            );
+            return slidAnimation(animation, child);
           },
         ),
         CustomRoute(
           page: DashboardRoute.page,
           path: "/DashboardRoute",
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(1.0, 0.0),
-                end: Offset.zero,
-              ).animate(animation),
-              child: child,
-            );
+            return slidAnimation(animation, child);
           },
         ),
-        AutoRoute(page: UserProfileRoute.page, path: "/UserProfileRoute"),
-        AutoRoute(
-            page: TomorrowSessionRoute.page, path: "/TomorrowSessionRoute"),
-        AutoRoute(page: ApplyLeaveRoute.page, path: "/ApplyLeaveRoute"),
-        AutoRoute(page: LeaveStatusRoute.page, path: "/LeaveStatusRoute"),
+        CustomRoute(
+          page: UserProfileRoute.page,
+          path: "/UserProfileRoute",
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return slidAnimation(animation, child);
+          },
+        ),
+        CustomRoute(
+          page: TomorrowSessionRoute.page,
+          path: "/TomorrowSessionRoute",
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return slidAnimation(animation, child);
+          },
+        ),
+        CustomRoute(
+          page: ApplyLeaveRoute.page,
+          path: "/ApplyLeaveRoute",
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return slidAnimation(animation, child);
+          },
+        ),
+        CustomRoute(page: LeaveStatusRoute.page, path: "/LeaveStatusRoute"),
 
         // executive route
-        AutoRoute(
+        CustomRoute(
           page: ExecutiveOngoingSessionRoute.page,
           path: "/ExecutiveOngoingSessionRoute",
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return slidAnimation(animation, child);
+          },
         ),
-        AutoRoute(
-            page: ExecutiveCompletedSessionRoute.page,
-            path: "/ExecutiveCompletedSessionRoute"),
-        AutoRoute(
-            page: ExecutiveCancelledSessionRoute.page,
-            path: "/ExecutiveCancelledSessionRoute"),
-        AutoRoute(page: CancelSessionRoute.page, path: "/CancelSessionRoute"),
-        AutoRoute(
-            page: ChangeTherapistRoute.page, path: "/ChangeTherapistRoute"),
-        AutoRoute(
-            page: SessionRescheduleRoute.page, path: "/SessionRescheduleRoute"),
-        AutoRoute(
-            page: ExeTomorrowSessionRoute.page,
-            path: "/ExeTomorrowSessionRoute"),
-        AutoRoute(page: ExeLeaveStatusRoute.page, path: "/ExeLeaveStatusRoute"),
+        CustomRoute(
+          page: ExecutiveCompletedSessionRoute.page,
+          path: "/ExecutiveCompletedSessionRoute",
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return slidAnimation(animation, child);
+          },
+        ),
+
+        CustomRoute(
+          page: ExecutiveCancelledSessionRoute.page,
+          path: "/ExecutiveCancelledSessionRoute",
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return slidAnimation(animation, child);
+          },
+        ),
+        CustomRoute(
+          page: CancelSessionRoute.page,
+          path: "/CancelSessionRoute",
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return slidAnimation(animation, child);
+          },
+        ),
+        CustomRoute(
+          page: ChangeTherapistRoute.page,
+          path: "/ChangeTherapistRoute",
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return slidAnimation(animation, child);
+          },
+        ),
+        CustomRoute(
+          page: SessionRescheduleRoute.page,
+          path: "/SessionRescheduleRoute",
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return slidAnimation(animation, child);
+          },
+        ),
+        CustomRoute(
+          page: ExeTomorrowSessionRoute.page,
+          path: "/ExeTomorrowSessionRoute",
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return slidAnimation(animation, child);
+          },
+        ),
+        CustomRoute(
+          page: ExeLeaveStatusRoute.page,
+          path: "/ExeLeaveStatusRoute",
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return slidAnimation(animation, child);
+          },
+        ),
         CustomRoute(
           page: LoadingDialogRoute.page,
           path: '/loadingDialogRoute',
@@ -105,7 +139,37 @@ class AppRouter extends $AppRouter {
             );
           },
         ),
-        AutoRoute(page: ExeApplyLeaveRoute.page, path: "/ExeApplyLeaveRoute"),
-        AutoRoute(page: SessionReportRoute.page, path: "/SessionReportRoute")
+        CustomRoute(
+          page: ExeApplyLeaveRoute.page,
+          path: "/ExeApplyLeaveRoute",
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return slidAnimation(animation, child);
+          },
+        ),
+        CustomRoute(
+          page: SessionReportRoute.page,
+          path: "/SessionReportRoute",
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return slidAnimation(animation, child);
+          },
+        ),
+
+        CustomRoute(
+          page: SettingRoute.page,
+          path: "/SettingRoute",
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return slidAnimation(animation, child);
+          },
+        )
       ];
+
+  SlideTransition slidAnimation(Animation<double> animation, Widget child) {
+    return SlideTransition(
+      position: Tween<Offset>(
+        begin: const Offset(1.0, 0.0),
+        end: Offset.zero,
+      ).animate(animation),
+      child: child,
+    );
+  }
 }

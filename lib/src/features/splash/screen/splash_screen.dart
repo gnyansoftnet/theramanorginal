@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:theraman/src/features/splash/service/splash_service.dart';
+import 'package:theraman/src/utils/constants/app_assets.dart';
 
 @RoutePage(deferredLoading: true, name: "SplashRoute")
 class SplashScreen extends ConsumerStatefulWidget {
@@ -24,9 +25,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     return const Scaffold(
       body: SafeArea(
         child: Center(
-            child: Image(
-                fit: BoxFit.cover,
-                image: AssetImage("assets/images/harmoney_logo.png"))),
+            child: Image(fit: BoxFit.cover, image: AssetImage(AppAssets.logo))),
       ),
     );
   }

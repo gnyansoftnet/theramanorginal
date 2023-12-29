@@ -6,10 +6,10 @@ import 'package:intl/intl.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/therapist/application/providers/leave_status_provider.dart';
 import 'package:theraman/src/global/widgets/drawer_widget.dart';
-import 'package:theraman/src/utils/common_methods.dart';
+import 'package:theraman/src/global/helper/common_methods.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
-import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
+import 'package:theraman/src/utils/extensions/asyncvalue_easy_when.dart';
 
 @RoutePage(deferredLoading: true, name: "LeaveStatusRoute")
 class LeaveStatusScreen extends ConsumerWidget {

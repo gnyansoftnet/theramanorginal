@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/completed_slot_all_therapist.provider.dart';
 import 'package:theraman/src/features/dashboard/presentation/executive/widget/completed_listview.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
-import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
+import 'package:theraman/src/utils/extensions/asyncvalue_easy_when.dart';
 
 @RoutePage(deferredLoading: true, name: "ExecutiveCompletedSessionRoute")
 class ExecutiveCompletedSessionScreen extends ConsumerWidget {

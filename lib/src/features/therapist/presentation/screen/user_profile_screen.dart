@@ -8,7 +8,7 @@ import 'package:theraman/src/features/therapist/presentation/controller/user_con
 import 'package:theraman/src/global/widgets/drawer_widget.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
-import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
+import 'package:theraman/src/utils/extensions/asyncvalue_easy_when.dart';
 
 @RoutePage(deferredLoading: true, name: "UserProfileRoute")
 class UserProfileScreen extends ConsumerWidget {

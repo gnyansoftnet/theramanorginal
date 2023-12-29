@@ -18,8 +18,8 @@ import 'package:theraman/src/features/therapist/application/providers/user_provi
 import 'package:theraman/src/global/pod/check_user_type_pod.dart';
 import 'package:theraman/src/features/dashboard/presentation/executive/widget/custom_ongoing_search.dart';
 import 'package:theraman/src/global/widgets/drawer_widget.dart';
-import 'package:theraman/src/utils/common_methods.dart';
-import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
+import 'package:theraman/src/global/helper/common_methods.dart';
+import 'package:theraman/src/utils/extensions/asyncvalue_easy_when.dart';
 
 @RoutePage(deferredLoading: true, name: "DashboardRoute")
 class DashboardScreen extends ConsumerWidget {

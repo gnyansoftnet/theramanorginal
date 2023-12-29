@@ -1,8 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:theraman/src/features/authentication/application/providers/login_provider.dart';
+import 'package:theraman/src/features/authentication/application/providers/send_otp_provider.dart';
+import 'package:theraman/src/features/authentication/application/providers/verify_otp_provider.dart';
 
-class LoginController {
-  void login(
+class AuthController {
+  void sendOtp(
       {required WidgetRef ref,
       required String mobileNumber,
       required String userType}) {

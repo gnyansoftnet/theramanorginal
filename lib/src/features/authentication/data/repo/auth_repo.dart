@@ -1,14 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:theraman/src/core/exception/app_exception.dart';
-import 'package:theraman/src/features/authentication/data/apis/i_login_api.dart';
-import 'package:theraman/src/features/authentication/data/repo/i_login_repo.dart';
+import 'package:theraman/src/features/authentication/data/apis/i_auth_api.dart';
+import 'package:theraman/src/features/authentication/data/repo/i_auth_repo.dart';
 import 'package:theraman/src/global/model/user_model.dart';
 import 'package:theraman/src/utils/local_store/preferences.dart';
 
-class LoginRepo extends ILoginRepo {
-  final ILoginApi iLoginApi;
-  LoginRepo({required this.iLoginApi});
+class AuthRepo extends IAuthRepo {
+  final IAuthApi iLoginApi;
+  AuthRepo({required this.iLoginApi});
 
   @override
   Future<Result<String, AppException>> sendOtp({
@@ -22,7 +22,7 @@ class LoginRepo extends ILoginRepo {
       try {
         return Success(response.data.toString());
       } catch (e) {
-        return Error(AppException(response.data.toString()));
+        return Error(NotFoundException("Your account does not exist !"));
       }
     } else if (response.statusCode == 405) {
       return Error(MethodNotAllowedException(
@@ -62,7 +62,7 @@ class LoginRepo extends ILoginRepo {
         Preferences.setPreference("userType", userType);
         return Success(response.data.toString());
       } catch (e) {
-        return Error(AppException(response.data.toString()));
+        return Error(NotFoundException("Your account does not exist !"));
       }
     } else if (response.statusCode == 405) {
       return Error(MethodNotAllowedException(

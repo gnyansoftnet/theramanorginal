@@ -1,14 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/therapist/application/providers/user_provider.dart';
 import 'package:theraman/src/global/pod/check_user_type_pod.dart';
-import 'package:theraman/src/utils/common_methods.dart';
+import 'package:theraman/src/global/helper/common_methods.dart';
+import 'package:theraman/src/utils/constants/app_assets.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
-import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
+import 'package:theraman/src/utils/extensions/asyncvalue_easy_when.dart';
 
 class DrawerWidget extends ConsumerWidget {
   final String currentPage;
@@ -19,8 +19,6 @@ class DrawerWidget extends ConsumerWidget {
     final userState = ref.watch(userProvider);
     final userTypeState = ref.watch(checkUserTypePod);
     return Drawer(
-      elevation: 5.0,
-      // width: MediaQuery.sizeOf(context).width / 1.2,
       child: ListView(
         padding: const EdgeInsets.all(0),
         children: userTypeState.value == "T"
@@ -34,16 +32,13 @@ class DrawerWidget extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         CircleAvatar(
-                          radius: 40,
-                          backgroundColor: Colors.transparent,
-                          child: SvgPicture.asset(
-                            "assets/images/svg/profile.svg",
-                            fit: BoxFit.cover,
-                            // ignore: deprecated_member_use
-                            color: AppColors.white,
-                          ),
-                        ),
-                        gapH12,
+                            radius: 60,
+                            backgroundColor: Colors.transparent,
+                            child: Image.asset(
+                              AppAssets.user,
+                              fit: BoxFit.cover,
+                            )),
+                        gapH4,
                         userState.easyWhen(
                           data: (value) => Text(
                             "${value.staffName}",
@@ -126,6 +121,16 @@ class DrawerWidget extends ConsumerWidget {
                     isSelected:
                         currentPage == "SessionReportRoute" ? true : false),
                 DrawerTile(
+                    icon: Icons.settings,
+                    onTap: () {
+                      if (currentPage != "SettingRoute") {
+                        context.navigateTo(const SettingRoute());
+                        Navigator.pop(context);
+                      }
+                    },
+                    title: "Setting",
+                    isSelected: currentPage == "SettingRoute" ? true : false),
+                DrawerTile(
                     icon: Icons.logout,
                     onTap: () {
                       userLogout(context: context);
@@ -143,16 +148,13 @@ class DrawerWidget extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         CircleAvatar(
-                          radius: 40,
-                          backgroundColor: Colors.transparent,
-                          child: SvgPicture.asset(
-                            "assets/images/svg/profile.svg",
-                            fit: BoxFit.cover,
-                            // ignore: deprecated_member_use
-                            color: AppColors.white,
-                          ),
-                        ),
-                        gapH12,
+                            radius: 60,
+                            backgroundColor: Colors.transparent,
+                            child: Image.asset(
+                              AppAssets.user,
+                              fit: BoxFit.cover,
+                            )),
+                        gapH4,
                         userState.easyWhen(
                           data: (value) => Text(
                             "${value.staffName}",
@@ -224,6 +226,16 @@ class DrawerWidget extends ConsumerWidget {
                     title: "leave Status",
                     isSelected:
                         currentPage == "ExeLeaveStatusRoute" ? true : false),
+                DrawerTile(
+                    icon: Icons.settings,
+                    onTap: () {
+                      if (currentPage != "SettingRoute") {
+                        context.navigateTo(const SettingRoute());
+                        Navigator.pop(context);
+                      }
+                    },
+                    title: "setting",
+                    isSelected: currentPage == "SettingRoute" ? true : false),
                 DrawerTile(
                   icon: Icons.logout,
                   onTap: () {

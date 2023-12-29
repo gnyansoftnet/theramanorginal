@@ -5,8 +5,8 @@ import 'package:theraman/src/features/dashboard/application/therapist/notifiers/
 import 'package:theraman/src/features/dashboard/application/therapist/notifiers/start_session_notifier.dart';
 import 'package:theraman/src/features/dashboard/data/therapist/repo/dashboard_repo_pod.dart';
 import 'package:theraman/src/global/model/alloted_slot_response_model.dart';
-import 'package:theraman/src/utils/extensions/riverpod_ext/cache_ext.dart';
-import 'package:theraman/src/utils/extensions/riverpod_ext/cancel_ext.dart';
+import 'package:theraman/src/utils/extensions/cache_ext.dart';
+import 'package:theraman/src/utils/extensions/cancel_ext.dart';
 import 'package:theraman/src/utils/local_store/preferences.dart';
 
 final completedSessionProvider =

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:theraman/src/features/therapist/data/repo/therapist_repo_pod.dart';
 import 'package:theraman/src/features/therapist/model/session_summery_model.dart';
-import 'package:theraman/src/utils/extensions/riverpod_ext/cancel_ext.dart';
+import 'package:theraman/src/utils/extensions/cancel_ext.dart';
 import 'package:theraman/src/utils/local_store/preferences.dart';
 
 final sessionSummaryProvider =

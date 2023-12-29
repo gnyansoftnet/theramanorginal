@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:theraman/src/features/authentication/presentation/controller/login_controller.dart';
+import 'package:theraman/src/features/authentication/presentation/controller/auth_controller.dart';
 import 'package:theraman/src/features/authentication/presentation/widget/send_otp_button.dart';
+import 'package:theraman/src/utils/constants/app_assets.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
 
@@ -13,7 +14,7 @@ class MobileNumberScreen extends ConsumerWidget {
   final String userType;
   MobileNumberScreen({super.key, required this.userType});
   final mobileNoController = TextEditingController();
-  final loginController = LoginController();
+  final loginController = AuthController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -38,7 +39,7 @@ class MobileNumberScreen extends ConsumerWidget {
             const Image(
                 fit: BoxFit.contain,
                 height: 300,
-                image: AssetImage("assets/images/harmoney_logo.png")),
+                image: AssetImage(AppAssets.logo)),
             gapH16,
             const Text(
               "Enter Your Resister Mobile Number",
@@ -99,7 +100,7 @@ class MobileNumberScreen extends ConsumerWidget {
                   usertype: userType,
                   onSubmit: () {
                     if (isValidated()) {
-                      loginController.login(
+                      loginController.sendOtp(
                           ref: ref,
                           mobileNumber: mobileNoController.text,
                           userType: userType);

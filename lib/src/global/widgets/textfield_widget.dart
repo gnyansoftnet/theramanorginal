@@ -70,6 +70,9 @@ class TextFieldWidget extends StatelessWidget {
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Theme.of(context).dividerColor),
         ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Theme.of(context).dividerColor),
+        ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Theme.of(context).dividerColor),
         ),

@@ -8,7 +8,7 @@ import 'package:theraman/src/features/dashboard/presentation/executive/widget/ca
 import 'package:theraman/src/global/model/alloted_slot_response_model.dart';
 import 'package:theraman/src/global/widgets/dropdown_button_formfield_widget.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
-import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
+import 'package:theraman/src/utils/extensions/asyncvalue_easy_when.dart';
 
 @RoutePage(deferredLoading: true, name: "CancelSessionRoute")
 class CancelSessionScreen extends StatelessWidget {

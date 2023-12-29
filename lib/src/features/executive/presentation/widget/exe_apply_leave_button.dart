@@ -6,8 +6,8 @@ import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/executive/application/provider/exe_apply_leave_provider.dart';
 import 'package:theraman/src/features/executive/application/states/exe_apply_leave_state.dart';
 import 'package:theraman/src/global/widgets/elevated_button_widget.dart';
-import 'package:theraman/src/utils/extensions/common_ext/snackbar_ext.dart';
-import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
+import 'package:theraman/src/utils/extensions/snackbar_ext.dart';
+import 'package:theraman/src/utils/extensions/asyncvalue_easy_when.dart';
 
 class ExeApplyLeaveButton extends ConsumerWidget {
   final VoidCallback onSubmit;

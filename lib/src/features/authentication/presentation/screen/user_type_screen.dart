@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
+import 'package:theraman/src/utils/constants/app_assets.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
 
@@ -19,7 +20,7 @@ class UserTypeScreen extends StatelessWidget {
             children: [
               const Image(
                   fit: BoxFit.cover,
-                  image: AssetImage("assets/images/harmoney_logo.png")),
+                  image: AssetImage(AppAssets.logo)),
               gapH20,
               userTypeCard(
                   context: context,

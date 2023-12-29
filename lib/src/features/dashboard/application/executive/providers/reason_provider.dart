@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theraman/src/features/dashboard/data/executive/repo/executive_dashboard_repo_pod.dart';
 
 import 'package:theraman/src/features/dashboard/model/executive/reason_model.dart';
-import 'package:theraman/src/utils/extensions/riverpod_ext/cache_ext.dart';
+import 'package:theraman/src/utils/extensions/cache_ext.dart';
 
 final reasonProvider = FutureProvider.autoDispose<ReasonModel>((ref) async {
   final token = CancelToken();

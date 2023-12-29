@@ -7,10 +7,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 import 'package:theraman/src/core/exception/app_exception.dart';
-import 'package:theraman/src/features/authentication/application/providers/clock_provider.dart';
-import 'package:theraman/src/features/authentication/application/providers/login_provider.dart';
-import 'package:theraman/src/features/authentication/presentation/controller/login_controller.dart';
+import 'package:theraman/src/features/authentication/application/providers/timer_provider.dart';
+import 'package:theraman/src/features/authentication/application/providers/send_otp_provider.dart';
+import 'package:theraman/src/features/authentication/presentation/controller/auth_controller.dart';
 import 'package:theraman/src/features/authentication/presentation/widget/verify_otp_button.dart';
+import 'package:theraman/src/utils/constants/app_assets.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
 
@@ -28,7 +29,7 @@ class VerifyOtpScreen extends ConsumerStatefulWidget {
 
 class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
   TextEditingController pinController = TextEditingController();
-  final loginController = LoginController();
+  final loginController = AuthController();
 
   final ValueNotifier<bool> isResend = ValueNotifier<bool>(false);
 
@@ -38,7 +39,6 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
   void initState() {
     super.initState();
     fetchAutoOTPFromPhone();
-    ref.read(timerProvider.notifier).startTimer();
   }
 
   @override
@@ -61,9 +61,7 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           shrinkWrap: true,
           children: [
-            const Image(
-                fit: BoxFit.contain,
-                image: AssetImage("assets/images/harmoney_logo.png")),
+            const Image(fit: BoxFit.contain, image: AssetImage(AppAssets.logo)),
             Text("Verify your OTP",
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
@@ -138,8 +136,7 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
                                   ref.read(sendOtpProvider.notifier).sendOtp(
                                       mobileNo: widget.mobileNoController.text,
                                       userType: widget.userType);
-
-                                  ref.read(timerProvider.notifier).startTimer();
+                                  ref.read(timerProvider.notifier).resetTimer();
                                   fetchAutoOTPFromPhone();
                                 }
                               : null,

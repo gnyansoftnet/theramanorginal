@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theraman/src/features/dashboard/data/therapist/repo/dashboard_repo_pod.dart';
-import 'package:theraman/src/utils/extensions/riverpod_ext/cancel_ext.dart';
+import 'package:theraman/src/utils/extensions/cancel_ext.dart';
 import 'package:theraman/src/utils/local_store/preferences.dart';
 
 class CompleteSessionNotifier extends AutoDisposeAsyncNotifier<void> {

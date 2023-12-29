@@ -8,7 +8,7 @@ import 'package:theraman/src/features/dashboard/application/executive/providers/
 import 'package:theraman/src/features/dashboard/application/executive/providers/exe_start_session_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/resume_cancelled_session_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/session_reschedule_provider.dart';
-import 'package:theraman/src/utils/extensions/common_ext/alert_dialog_ext.dart';
+import 'package:theraman/src/utils/extensions/alert_dialog_ext.dart';
 
 class EDashboardController {
   void cancelSession(

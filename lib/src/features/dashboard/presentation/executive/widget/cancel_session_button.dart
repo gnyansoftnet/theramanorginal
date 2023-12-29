@@ -5,8 +5,8 @@ import 'package:theraman/src/features/dashboard/application/executive/providers/
 import 'package:theraman/src/features/dashboard/application/executive/states/cancel_session_state.dart';
 import 'package:theraman/src/features/dashboard/data/executive/repo/executive_dashboard_repo_pod.dart';
 import 'package:theraman/src/global/widgets/elevated_button_widget.dart';
-import 'package:theraman/src/utils/extensions/common_ext/snackbar_ext.dart';
-import 'package:theraman/src/utils/extensions/riverpod_ext/asyncvalue_easy_when.dart';
+import 'package:theraman/src/utils/extensions/snackbar_ext.dart';
+import 'package:theraman/src/utils/extensions/asyncvalue_easy_when.dart';
 
 class CancelSessionButton extends ConsumerWidget {
   const CancelSessionButton({

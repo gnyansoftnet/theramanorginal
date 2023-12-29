@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theraman/src/global/model/user_model.dart';
 import 'package:theraman/src/features/therapist/data/repo/therapist_repo_pod.dart';
-import 'package:theraman/src/utils/extensions/riverpod_ext/cache_ext.dart';
-import 'package:theraman/src/utils/extensions/riverpod_ext/cancel_ext.dart';
+import 'package:theraman/src/utils/extensions/cache_ext.dart';
+import 'package:theraman/src/utils/extensions/cancel_ext.dart';
 import 'package:theraman/src/utils/local_store/preferences.dart';
 
 final userProvider = FutureProvider.autoDispose<UserModel>(

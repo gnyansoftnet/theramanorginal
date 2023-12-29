@@ -8,8 +8,8 @@ import 'package:theraman/src/features/dashboard/presentation/executive/controlle
 import 'package:theraman/src/global/model/alloted_slot_response_model.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
-import 'package:theraman/src/utils/extensions/common_ext/alert_dialog_ext.dart';
-import 'package:theraman/src/utils/extensions/common_ext/snackbar_ext.dart';
+import 'package:theraman/src/utils/extensions/alert_dialog_ext.dart';
+import 'package:theraman/src/utils/extensions/snackbar_ext.dart';
 
 class CustomOngoingSearch extends SearchDelegate {
   final List<AllotSlots>? allotSlots;
