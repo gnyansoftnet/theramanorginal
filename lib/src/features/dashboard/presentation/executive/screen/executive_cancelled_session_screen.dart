@@ -37,9 +37,9 @@ class ExecutiveCancelledSessionScreen extends ConsumerWidget {
                           height: MediaQuery.sizeOf(context).height / 3,
                         ),
                       ),
-                      gapH8,
+                      gap8,
                       const Text("Ohh ! you did not cancelled any session"),
-                      gapH8,
+                      gap8,
                       ElevatedButton(
                           onPressed: () {
                             ref.invalidate(cancelledSlotProvider);
@@ -98,7 +98,7 @@ class ExecutiveCancelledSessionScreen extends ConsumerWidget {
                                   ),
                                 ],
                               ),
-                              gapH8,
+                              gap8,
                               Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -120,7 +120,7 @@ class ExecutiveCancelledSessionScreen extends ConsumerWidget {
                                           fontSize: 13),
                                     ),
                                   ]),
-                              gapH8,
+                              gap8,
                               Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -140,7 +140,7 @@ class ExecutiveCancelledSessionScreen extends ConsumerWidget {
                                           fontSize: 12),
                                     ),
                                   ]),
-                              gapH8,
+                              gap8,
                               Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [

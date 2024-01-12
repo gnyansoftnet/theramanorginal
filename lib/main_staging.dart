@@ -1,19 +1,32 @@
+import 'dart:async';
+
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_displaymode/flutter_displaymode.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:theraman/app.dart';
+import 'package:theraman/init.dart';
+import 'package:theraman/src/features/authentication/application/providers/user_provider.dart';
 import 'package:theraman/src/global/helper/app_talker.dart';
 import 'package:theraman/src/global/helper/riverpod_observer.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await FlutterDisplayMode.setHighRefreshRate();
+  unawaited(init());
+  final directory = await getApplicationCacheDirectory();
+  await Hive.initFlutter(directory.path);
+  await Hive.initFlutter();
+  final userBox = await Hive.openBox('userBox');
   runApp(
     ProviderScope(
-        overrides: const [],
-        observers: [RiverpodObserverLogger(talker: talker)],
+        overrides: [
+          userBoxProvider.overrideWithValue(userBox),
+        ],
+        observers: [
+          RiverpodObserverLogger(talker: talker)
+        ],
         child: DevicePreview(
             enabled: true,
             tools: const [
@@ -21,7 +34,4 @@ Future<void> main() async {
             ],
             builder: (context) => const App())),
   );
-
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  await SystemChannels.textInput.invokeMethod('TextInput.hide');
 }

@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:theraman/src/features/authentication/application/providers/user_provider.dart';
 import 'package:theraman/src/features/therapist/application/states/apply_leave_state.dart';
 import 'package:theraman/src/features/therapist/data/repo/therapist_repo_pod.dart';
 import 'package:theraman/src/utils/extensions/cancel_ext.dart';
-import 'package:theraman/src/utils/local_store/preferences.dart';
 
 class ApplyleaveNotifier extends AutoDisposeAsyncNotifier<ApplyLeaveState> {
   @override
@@ -19,10 +19,11 @@ class ApplyleaveNotifier extends AutoDisposeAsyncNotifier<ApplyLeaveState> {
     required leaveType,
     required reason,
   }) async {
-    String userId = await Preferences.getPreference("staffCode", "");
+    final userId = ref.watch(userProvider.select((value) => value?.Staff_Code));
+
     state = const AsyncLoading();
     final result = await ref.watch(therapistRepoProvider).userApplyLeave(
-        userId: userId,
+        userId: userId ?? "",
         noOfDays: noOfdays,
         fromDate: fromDate,
         toDate: toDate,

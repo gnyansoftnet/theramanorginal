@@ -92,7 +92,7 @@ class CustomCancelledSearch extends SearchDelegate {
                         }),
                       ],
                     ),
-                    gapH8,
+                    gap8,
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -113,7 +113,7 @@ class CustomCancelledSearch extends SearchDelegate {
                                 fontSize: 13),
                           ),
                         ]),
-                    gapH8,
+                    gap8,
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -132,7 +132,7 @@ class CustomCancelledSearch extends SearchDelegate {
                                 fontSize: 12),
                           ),
                         ]),
-                    gapH8,
+                    gap8,
                     Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                       Text(
                         "${data.rSReason}",
@@ -211,7 +211,7 @@ class CustomCancelledSearch extends SearchDelegate {
                         }),
                       ],
                     ),
-                    gapH8,
+                    gap8,
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -232,7 +232,7 @@ class CustomCancelledSearch extends SearchDelegate {
                                 fontSize: 13),
                           ),
                         ]),
-                    gapH8,
+                    gap8,
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -251,7 +251,7 @@ class CustomCancelledSearch extends SearchDelegate {
                                 fontSize: 12),
                           ),
                         ]),
-                    gapH8,
+                    gap8,
                     Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                       Text(
                         "${data.rSReason}",

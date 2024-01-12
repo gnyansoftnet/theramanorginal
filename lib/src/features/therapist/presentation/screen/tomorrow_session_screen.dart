@@ -73,7 +73,7 @@ class TomorrowSessionScreen extends ConsumerWidget {
                                 Icons.calendar_month,
                                 color: AppColors.black,
                               ),
-                              gapW8,
+                              gap8,
                               ValueListenableBuilder(
                                   valueListenable: dateValue,
                                   builder: (context, value, child) {
@@ -89,7 +89,7 @@ class TomorrowSessionScreen extends ConsumerWidget {
                         ),
                       ),
                     )),
-                    gapW4,
+                    gap4,
                     ElevatedButton(
                         onPressed: () async {
                           ref.watch(tomorrowSessionProvider(dateValue.value));
@@ -118,9 +118,9 @@ class TomorrowSessionScreen extends ConsumerWidget {
                                 fit: BoxFit.cover,
                                 height: MediaQuery.sizeOf(context).height / 3,
                               ),
-                              gapH8,
+                              gap8,
                               const Text("Ohh you did not have any session !"),
-                              gapH8,
+                              gap8,
                               ElevatedButton(
                                   onPressed: () {
                                     ref.invalidate(tomorrowSessionProvider);

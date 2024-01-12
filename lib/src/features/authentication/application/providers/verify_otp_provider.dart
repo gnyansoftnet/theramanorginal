@@ -5,5 +5,4 @@ import 'package:theraman/src/features/authentication/application/states/verify_o
 final verifyOtpProvider =
     AutoDisposeAsyncNotifierProvider<VerifyOtpNotifier, VerifyOtpState>(
   () => VerifyOtpNotifier(),
-  name: "verifyOtpProvider",
 );

@@ -36,7 +36,7 @@ class CompletedListView extends StatelessWidget {
                 ),
               ],
             ),
-            gapH12,
+            gap12,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -58,7 +58,7 @@ class CompletedListView extends StatelessWidget {
                 ),
               ],
             ),
-            gapH12,
+            gap12,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

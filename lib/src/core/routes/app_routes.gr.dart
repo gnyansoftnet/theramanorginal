@@ -11,50 +11,50 @@
 import 'package:auto_route/auto_route.dart' as _i25;
 import 'package:flutter/material.dart' as _i26;
 import 'package:theraman/src/features/authentication/presentation/screen/login_screen.dart'
-    deferred as _i14;
-import 'package:theraman/src/features/authentication/presentation/screen/mobile_number_screen.dart'
     deferred as _i15;
+import 'package:theraman/src/features/authentication/presentation/screen/mobile_number_screen.dart'
+    deferred as _i16;
 import 'package:theraman/src/features/authentication/presentation/screen/user_type_screen.dart'
     deferred as _i23;
 import 'package:theraman/src/features/authentication/presentation/screen/verify_otp_screen.dart'
     deferred as _i24;
 import 'package:theraman/src/features/dashboard/presentation/dashboard_screen.dart'
-    deferred as _i6;
+    deferred as _i7;
 import 'package:theraman/src/features/dashboard/presentation/executive/screen/cancel_session_screen.dart'
     deferred as _i3;
 import 'package:theraman/src/features/dashboard/presentation/executive/screen/change_therapist_screen.dart'
-    deferred as _i4;
-import 'package:theraman/src/features/dashboard/presentation/executive/screen/executive_cancelled_session_screen.dart'
-    deferred as _i10;
-import 'package:theraman/src/features/dashboard/presentation/executive/screen/executive_completed_session_screen.dart'
-    deferred as _i11;
-import 'package:theraman/src/features/dashboard/presentation/executive/screen/executive_ongoing_session_screen.dart'
-    deferred as _i12;
-import 'package:theraman/src/features/dashboard/presentation/executive/screen/session_reschedule_screen.dart'
-    deferred as _i18;
-import 'package:theraman/src/features/dashboard/presentation/therapist/screen/completed_session_screen.dart'
     deferred as _i5;
-import 'package:theraman/src/features/dashboard/presentation/therapist/screen/ongoing_session_screen.dart'
-    deferred as _i16;
-import 'package:theraman/src/features/executive/presentation/screen/exe_apply_leave_screen.dart'
-    deferred as _i7;
-import 'package:theraman/src/features/executive/presentation/screen/exe_leave_status_screen.dart'
-    deferred as _i8;
-import 'package:theraman/src/features/executive/presentation/screen/exe_tomorrow_session_screen.dart'
-    deferred as _i9;
-import 'package:theraman/src/features/setting/presentation/screen/setting_screen.dart'
-    deferred as _i19;
-import 'package:theraman/src/features/splash/screen/splash_screen.dart'
+import 'package:theraman/src/features/dashboard/presentation/executive/screen/executive_cancelled_session_screen.dart'
+    deferred as _i11;
+import 'package:theraman/src/features/dashboard/presentation/executive/screen/executive_completed_session_screen.dart'
+    deferred as _i12;
+import 'package:theraman/src/features/dashboard/presentation/executive/screen/executive_ongoing_session_screen.dart'
+    deferred as _i13;
+import 'package:theraman/src/features/dashboard/presentation/executive/screen/session_reschedule_screen.dart'
     deferred as _i20;
+import 'package:theraman/src/features/dashboard/presentation/therapist/screen/completed_session_screen.dart'
+    deferred as _i6;
+import 'package:theraman/src/features/dashboard/presentation/therapist/screen/ongoing_session_screen.dart'
+    deferred as _i17;
+import 'package:theraman/src/features/executive/presentation/screen/exe_apply_leave_screen.dart'
+    deferred as _i8;
+import 'package:theraman/src/features/executive/presentation/screen/exe_leave_status_screen.dart'
+    deferred as _i9;
+import 'package:theraman/src/features/executive/presentation/screen/exe_tomorrow_session_screen.dart'
+    deferred as _i10;
+import 'package:theraman/src/features/profile/presentation/screen/change_password_screen.dart'
+    deferred as _i4;
+import 'package:theraman/src/features/profile/presentation/screen/profile_screen.dart'
+    deferred as _i18;
+import 'package:theraman/src/features/splash/splash_screen.dart'
+    deferred as _i21;
 import 'package:theraman/src/features/therapist/presentation/screen/apply_leave_screen.dart'
     deferred as _i2;
 import 'package:theraman/src/features/therapist/presentation/screen/leave_status_screen.dart'
-    deferred as _i13;
+    deferred as _i14;
 import 'package:theraman/src/features/therapist/presentation/screen/session_report_screen.dart'
-    deferred as _i17;
+    deferred as _i19;
 import 'package:theraman/src/features/therapist/presentation/screen/tomorrow_session_screen.dart'
-    deferred as _i21;
-import 'package:theraman/src/features/therapist/presentation/screen/user_profile_screen.dart'
     deferred as _i22;
 import 'package:theraman/src/global/model/alloted_slot_response_model.dart'
     as _i27;
@@ -99,13 +99,24 @@ abstract class $AppRouter extends _i25.RootStackRouter {
         ),
       );
     },
+    ChangePasswordRoute.name: (routeData) {
+      final args = routeData.argsAs<ChangePasswordRouteArgs>(
+          orElse: () => const ChangePasswordRouteArgs());
+      return _i25.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i25.DeferredWidget(
+          _i4.loadLibrary,
+          () => _i4.ChangePasswordScreen(key: args.key),
+        ),
+      );
+    },
     ChangeTherapistRoute.name: (routeData) {
       final args = routeData.argsAs<ChangeTherapistRouteArgs>();
       return _i25.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i25.DeferredWidget(
-          _i4.loadLibrary,
-          () => _i4.ChangeTherapistScreen(
+          _i5.loadLibrary,
+          () => _i5.ChangeTherapistScreen(
             key: args.key,
             allotSlots: args.allotSlots,
           ),
@@ -118,8 +129,8 @@ abstract class $AppRouter extends _i25.RootStackRouter {
       return _i25.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i25.DeferredWidget(
-          _i5.loadLibrary,
-          () => _i5.CompletedSessionScreen(key: args.key),
+          _i6.loadLibrary,
+          () => _i6.CompletedSessionScreen(key: args.key),
         ),
       );
     },
@@ -129,8 +140,8 @@ abstract class $AppRouter extends _i25.RootStackRouter {
       return _i25.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i25.DeferredWidget(
-          _i6.loadLibrary,
-          () => _i6.DashboardScreen(key: args.key),
+          _i7.loadLibrary,
+          () => _i7.DashboardScreen(key: args.key),
         ),
       );
     },
@@ -140,8 +151,8 @@ abstract class $AppRouter extends _i25.RootStackRouter {
       return _i25.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i25.DeferredWidget(
-          _i7.loadLibrary,
-          () => _i7.ExeApplyLeave(key: args.key),
+          _i8.loadLibrary,
+          () => _i8.ExeApplyLeave(key: args.key),
         ),
       );
     },
@@ -151,8 +162,8 @@ abstract class $AppRouter extends _i25.RootStackRouter {
       return _i25.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i25.DeferredWidget(
-          _i8.loadLibrary,
-          () => _i8.ExeLeaveStatusScreen(key: args.key),
+          _i9.loadLibrary,
+          () => _i9.ExeLeaveStatusScreen(key: args.key),
         ),
       );
     },
@@ -162,8 +173,8 @@ abstract class $AppRouter extends _i25.RootStackRouter {
       return _i25.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i25.DeferredWidget(
-          _i9.loadLibrary,
-          () => _i9.ExeTomorrowSessionScreen(key: args.key),
+          _i10.loadLibrary,
+          () => _i10.ExeTomorrowSessionScreen(key: args.key),
         ),
       );
     },
@@ -173,8 +184,8 @@ abstract class $AppRouter extends _i25.RootStackRouter {
       return _i25.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i25.DeferredWidget(
-          _i10.loadLibrary,
-          () => _i10.ExecutiveCancelledSessionScreen(key: args.key),
+          _i11.loadLibrary,
+          () => _i11.ExecutiveCancelledSessionScreen(key: args.key),
         ),
       );
     },
@@ -182,8 +193,8 @@ abstract class $AppRouter extends _i25.RootStackRouter {
       return _i25.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i25.DeferredWidget(
-          _i11.loadLibrary,
-          () => _i11.ExecutiveCompletedSessionScreen(),
+          _i12.loadLibrary,
+          () => _i12.ExecutiveCompletedSessionScreen(),
         ),
       );
     },
@@ -193,8 +204,8 @@ abstract class $AppRouter extends _i25.RootStackRouter {
       return _i25.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i25.DeferredWidget(
-          _i12.loadLibrary,
-          () => _i12.ExecutiveOngoingSessionScreen(key: args.key),
+          _i13.loadLibrary,
+          () => _i13.ExecutiveOngoingSessionScreen(key: args.key),
         ),
       );
     },
@@ -204,8 +215,8 @@ abstract class $AppRouter extends _i25.RootStackRouter {
       return _i25.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i25.DeferredWidget(
-          _i13.loadLibrary,
-          () => _i13.LeaveStatusScreen(key: args.key),
+          _i14.loadLibrary,
+          () => _i14.LeaveStatusScreen(key: args.key),
         ),
       );
     },
@@ -214,8 +225,8 @@ abstract class $AppRouter extends _i25.RootStackRouter {
       return _i25.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i25.DeferredWidget(
-          _i14.loadLibrary,
-          () => _i14.LoginScreen(
+          _i15.loadLibrary,
+          () => _i15.LoginScreen(
             key: args.key,
             userType: args.userType,
           ),
@@ -227,8 +238,8 @@ abstract class $AppRouter extends _i25.RootStackRouter {
       return _i25.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i25.DeferredWidget(
-          _i15.loadLibrary,
-          () => _i15.MobileNumberScreen(
+          _i16.loadLibrary,
+          () => _i16.MobileNumberScreen(
             key: args.key,
             userType: args.userType,
           ),
@@ -241,8 +252,17 @@ abstract class $AppRouter extends _i25.RootStackRouter {
       return _i25.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i25.DeferredWidget(
-          _i16.loadLibrary,
-          () => _i16.OnGoingSessionScreen(key: args.key),
+          _i17.loadLibrary,
+          () => _i17.OnGoingSessionScreen(key: args.key),
+        ),
+      );
+    },
+    ProfileRoute.name: (routeData) {
+      return _i25.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i25.DeferredWidget(
+          _i18.loadLibrary,
+          () => _i18.ProfileScreen(),
         ),
       );
     },
@@ -252,8 +272,8 @@ abstract class $AppRouter extends _i25.RootStackRouter {
       return _i25.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i25.DeferredWidget(
-          _i17.loadLibrary,
-          () => _i17.SessionReport(key: args.key),
+          _i19.loadLibrary,
+          () => _i19.SessionReport(key: args.key),
         ),
       );
     },
@@ -262,20 +282,11 @@ abstract class $AppRouter extends _i25.RootStackRouter {
       return _i25.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i25.DeferredWidget(
-          _i18.loadLibrary,
-          () => _i18.SessionRescheduleScreen(
+          _i20.loadLibrary,
+          () => _i20.SessionRescheduleScreen(
             key: args.key,
             allotSlots: args.allotSlots,
           ),
-        ),
-      );
-    },
-    SettingRoute.name: (routeData) {
-      return _i25.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i25.DeferredWidget(
-          _i19.loadLibrary,
-          () => _i19.SettingScreen(),
         ),
       );
     },
@@ -283,8 +294,8 @@ abstract class $AppRouter extends _i25.RootStackRouter {
       return _i25.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i25.DeferredWidget(
-          _i20.loadLibrary,
-          () => _i20.SplashScreen(),
+          _i21.loadLibrary,
+          () => _i21.SplashScreen(),
         ),
       );
     },
@@ -294,19 +305,8 @@ abstract class $AppRouter extends _i25.RootStackRouter {
       return _i25.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i25.DeferredWidget(
-          _i21.loadLibrary,
-          () => _i21.TomorrowSessionScreen(key: args.key),
-        ),
-      );
-    },
-    UserProfileRoute.name: (routeData) {
-      final args = routeData.argsAs<UserProfileRouteArgs>(
-          orElse: () => const UserProfileRouteArgs());
-      return _i25.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i25.DeferredWidget(
           _i22.loadLibrary,
-          () => _i22.UserProfileScreen(key: args.key),
+          () => _i22.TomorrowSessionScreen(key: args.key),
         ),
       );
     },
@@ -418,7 +418,36 @@ class CancelSessionRouteArgs {
 }
 
 /// generated route for
-/// [_i4.ChangeTherapistScreen]
+/// [_i4.ChangePasswordScreen]
+class ChangePasswordRoute extends _i25.PageRouteInfo<ChangePasswordRouteArgs> {
+  ChangePasswordRoute({
+    _i26.Key? key,
+    List<_i25.PageRouteInfo>? children,
+  }) : super(
+          ChangePasswordRoute.name,
+          args: ChangePasswordRouteArgs(key: key),
+          initialChildren: children,
+        );
+
+  static const String name = 'ChangePasswordRoute';
+
+  static const _i25.PageInfo<ChangePasswordRouteArgs> page =
+      _i25.PageInfo<ChangePasswordRouteArgs>(name);
+}
+
+class ChangePasswordRouteArgs {
+  const ChangePasswordRouteArgs({this.key});
+
+  final _i26.Key? key;
+
+  @override
+  String toString() {
+    return 'ChangePasswordRouteArgs{key: $key}';
+  }
+}
+
+/// generated route for
+/// [_i5.ChangeTherapistScreen]
 class ChangeTherapistRoute
     extends _i25.PageRouteInfo<ChangeTherapistRouteArgs> {
   ChangeTherapistRoute({
@@ -457,7 +486,7 @@ class ChangeTherapistRouteArgs {
 }
 
 /// generated route for
-/// [_i5.CompletedSessionScreen]
+/// [_i6.CompletedSessionScreen]
 class CompletedSessionRoute
     extends _i25.PageRouteInfo<CompletedSessionRouteArgs> {
   CompletedSessionRoute({
@@ -487,7 +516,7 @@ class CompletedSessionRouteArgs {
 }
 
 /// generated route for
-/// [_i6.DashboardScreen]
+/// [_i7.DashboardScreen]
 class DashboardRoute extends _i25.PageRouteInfo<DashboardRouteArgs> {
   DashboardRoute({
     _i26.Key? key,
@@ -516,7 +545,7 @@ class DashboardRouteArgs {
 }
 
 /// generated route for
-/// [_i7.ExeApplyLeave]
+/// [_i8.ExeApplyLeave]
 class ExeApplyLeaveRoute extends _i25.PageRouteInfo<ExeApplyLeaveRouteArgs> {
   ExeApplyLeaveRoute({
     _i26.Key? key,
@@ -545,7 +574,7 @@ class ExeApplyLeaveRouteArgs {
 }
 
 /// generated route for
-/// [_i8.ExeLeaveStatusScreen]
+/// [_i9.ExeLeaveStatusScreen]
 class ExeLeaveStatusRoute extends _i25.PageRouteInfo<ExeLeaveStatusRouteArgs> {
   ExeLeaveStatusRoute({
     _i26.Key? key,
@@ -574,7 +603,7 @@ class ExeLeaveStatusRouteArgs {
 }
 
 /// generated route for
-/// [_i9.ExeTomorrowSessionScreen]
+/// [_i10.ExeTomorrowSessionScreen]
 class ExeTomorrowSessionRoute
     extends _i25.PageRouteInfo<ExeTomorrowSessionRouteArgs> {
   ExeTomorrowSessionRoute({
@@ -604,7 +633,7 @@ class ExeTomorrowSessionRouteArgs {
 }
 
 /// generated route for
-/// [_i10.ExecutiveCancelledSessionScreen]
+/// [_i11.ExecutiveCancelledSessionScreen]
 class ExecutiveCancelledSessionRoute
     extends _i25.PageRouteInfo<ExecutiveCancelledSessionRouteArgs> {
   ExecutiveCancelledSessionRoute({
@@ -634,7 +663,7 @@ class ExecutiveCancelledSessionRouteArgs {
 }
 
 /// generated route for
-/// [_i11.ExecutiveCompletedSessionScreen]
+/// [_i12.ExecutiveCompletedSessionScreen]
 class ExecutiveCompletedSessionRoute extends _i25.PageRouteInfo<void> {
   const ExecutiveCompletedSessionRoute({List<_i25.PageRouteInfo>? children})
       : super(
@@ -648,7 +677,7 @@ class ExecutiveCompletedSessionRoute extends _i25.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i12.ExecutiveOngoingSessionScreen]
+/// [_i13.ExecutiveOngoingSessionScreen]
 class ExecutiveOngoingSessionRoute
     extends _i25.PageRouteInfo<ExecutiveOngoingSessionRouteArgs> {
   ExecutiveOngoingSessionRoute({
@@ -678,7 +707,7 @@ class ExecutiveOngoingSessionRouteArgs {
 }
 
 /// generated route for
-/// [_i13.LeaveStatusScreen]
+/// [_i14.LeaveStatusScreen]
 class LeaveStatusRoute extends _i25.PageRouteInfo<LeaveStatusRouteArgs> {
   LeaveStatusRoute({
     _i26.Key? key,
@@ -707,7 +736,7 @@ class LeaveStatusRouteArgs {
 }
 
 /// generated route for
-/// [_i14.LoginScreen]
+/// [_i15.LoginScreen]
 class LoginRoute extends _i25.PageRouteInfo<LoginRouteArgs> {
   LoginRoute({
     _i26.Key? key,
@@ -745,7 +774,7 @@ class LoginRouteArgs {
 }
 
 /// generated route for
-/// [_i15.MobileNumberScreen]
+/// [_i16.MobileNumberScreen]
 class MobileNumberRoute extends _i25.PageRouteInfo<MobileNumberRouteArgs> {
   MobileNumberRoute({
     _i26.Key? key,
@@ -783,7 +812,7 @@ class MobileNumberRouteArgs {
 }
 
 /// generated route for
-/// [_i16.OnGoingSessionScreen]
+/// [_i17.OnGoingSessionScreen]
 class OnGoingSessionRoute extends _i25.PageRouteInfo<OnGoingSessionRouteArgs> {
   OnGoingSessionRoute({
     _i26.Key? key,
@@ -812,7 +841,21 @@ class OnGoingSessionRouteArgs {
 }
 
 /// generated route for
-/// [_i17.SessionReport]
+/// [_i18.ProfileScreen]
+class ProfileRoute extends _i25.PageRouteInfo<void> {
+  const ProfileRoute({List<_i25.PageRouteInfo>? children})
+      : super(
+          ProfileRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ProfileRoute';
+
+  static const _i25.PageInfo<void> page = _i25.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i19.SessionReport]
 class SessionReportRoute extends _i25.PageRouteInfo<SessionReportRouteArgs> {
   SessionReportRoute({
     _i26.Key? key,
@@ -841,7 +884,7 @@ class SessionReportRouteArgs {
 }
 
 /// generated route for
-/// [_i18.SessionRescheduleScreen]
+/// [_i20.SessionRescheduleScreen]
 class SessionRescheduleRoute
     extends _i25.PageRouteInfo<SessionRescheduleRouteArgs> {
   SessionRescheduleRoute({
@@ -880,21 +923,7 @@ class SessionRescheduleRouteArgs {
 }
 
 /// generated route for
-/// [_i19.SettingScreen]
-class SettingRoute extends _i25.PageRouteInfo<void> {
-  const SettingRoute({List<_i25.PageRouteInfo>? children})
-      : super(
-          SettingRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'SettingRoute';
-
-  static const _i25.PageInfo<void> page = _i25.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i20.SplashScreen]
+/// [_i21.SplashScreen]
 class SplashRoute extends _i25.PageRouteInfo<void> {
   const SplashRoute({List<_i25.PageRouteInfo>? children})
       : super(
@@ -908,7 +937,7 @@ class SplashRoute extends _i25.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i21.TomorrowSessionScreen]
+/// [_i22.TomorrowSessionScreen]
 class TomorrowSessionRoute
     extends _i25.PageRouteInfo<TomorrowSessionRouteArgs> {
   TomorrowSessionRoute({
@@ -934,35 +963,6 @@ class TomorrowSessionRouteArgs {
   @override
   String toString() {
     return 'TomorrowSessionRouteArgs{key: $key}';
-  }
-}
-
-/// generated route for
-/// [_i22.UserProfileScreen]
-class UserProfileRoute extends _i25.PageRouteInfo<UserProfileRouteArgs> {
-  UserProfileRoute({
-    _i26.Key? key,
-    List<_i25.PageRouteInfo>? children,
-  }) : super(
-          UserProfileRoute.name,
-          args: UserProfileRouteArgs(key: key),
-          initialChildren: children,
-        );
-
-  static const String name = 'UserProfileRoute';
-
-  static const _i25.PageInfo<UserProfileRouteArgs> page =
-      _i25.PageInfo<UserProfileRouteArgs>(name);
-}
-
-class UserProfileRouteArgs {
-  const UserProfileRouteArgs({this.key});
-
-  final _i26.Key? key;
-
-  @override
-  String toString() {
-    return 'UserProfileRouteArgs{key: $key}';
   }
 }
 

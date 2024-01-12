@@ -8,13 +8,6 @@ class TherapistApi extends ITherapistApi {
   TherapistApi({required this.dio});
 
   @override
-  Future<Response> getUserDetails(
-      {required userId, required userType, CancelToken? cancelToken}) async {
-    return await dio
-        .get("${AppUrls.getUserDetailsUrl}/?User_Id=$userId&Type=$userType");
-  }
-
-  @override
   Future<Response> userApplyLeave(
       {required userId,
       required noOfDays,

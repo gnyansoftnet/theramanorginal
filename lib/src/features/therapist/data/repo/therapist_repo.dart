@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:multiple_result/multiple_result.dart';
-import 'package:theraman/src/core/exception/app_exception.dart';
+import 'package:theraman/src/global/exception/app_exception.dart';
 import 'package:theraman/src/features/therapist/model/session_summary_detail_model.dart';
 import 'package:theraman/src/features/therapist/model/session_summery_model.dart';
-import 'package:theraman/src/global/model/user_model.dart';
 import 'package:theraman/src/features/therapist/data/apis/i_therapist_api.dart';
 import 'package:theraman/src/features/therapist/data/repo/i_therapist_repo.dart';
 import 'package:theraman/src/features/therapist/model/leave_details_model.dart';
@@ -11,34 +10,6 @@ import 'package:theraman/src/features/therapist/model/leave_details_model.dart';
 class TherapistRepo extends ITherapistRepo {
   final ITherapistApi iUserApi;
   TherapistRepo({required this.iUserApi});
-
-  @override
-  Future<Result<UserModel, AppException>> getuserDetails(
-      {required String userId,
-      required String userType,
-      CancelToken? cancelToken}) async {
-    final response = await iUserApi.getUserDetails(
-        userType: userType, userId: userId, cancelToken: cancelToken);
-
-    if (response.statusCode == 200) {
-      try {
-        return Success(UserModel.fromJson(response.data));
-      } catch (e) {
-        return Error(AppException(response.data.toString()));
-      }
-    } else if (response.statusCode == 405) {
-      return Error(MethodNotAllowedException(
-          "${response.statusCode} ${response.data["Message"]} !"));
-    } else if (response.statusCode == 404) {
-      return Error(
-          NotFoundException("${response.statusCode} user not found !"));
-    } else if (response.statusCode == 500) {
-      return Error(
-          ServerException("${response.statusCode} internal server error !"));
-    } else {
-      return Error(NotFoundException("user Not Found is wrong !"));
-    }
-  }
 
   @override
   Future<Result<String, AppException>> userApplyLeave(

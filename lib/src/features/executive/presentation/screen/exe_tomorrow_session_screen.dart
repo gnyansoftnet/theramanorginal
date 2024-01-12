@@ -71,7 +71,7 @@ class ExeTomorrowSessionScreen extends ConsumerWidget {
                               Icons.calendar_month,
                               color: AppColors.black,
                             ),
-                            gapW8,
+                          gap8,
                             ValueListenableBuilder(
                                 valueListenable: dateValue,
                                 builder: (context, value, child) {
@@ -87,7 +87,7 @@ class ExeTomorrowSessionScreen extends ConsumerWidget {
                       ),
                     ),
                   )),
-                  gapW4,
+                  gap4,
                   ElevatedButton(
                       onPressed: () async {
                         ref.watch(exeTomorrowSessionProvider(dateValue.value));
@@ -119,10 +119,10 @@ class ExeTomorrowSessionScreen extends ConsumerWidget {
                                 fit: BoxFit.cover,
                                 height: MediaQuery.sizeOf(context).height / 3,
                               ),
-                              gapH8,
+                              gap8,
                               const Text(
                                   "Ohh ! tomorrow session is not availble"),
-                              gapH8,
+                              gap8,
                               ElevatedButton(
                                   onPressed: () {
                                     ref.invalidate(exeTomorrowSessionProvider);
@@ -219,7 +219,7 @@ class ExeTomorrowSessionScreen extends ConsumerWidget {
                                         ),
                                       ],
                                     ),
-                                    gapH8,
+                                    gap8,
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -248,7 +248,7 @@ class ExeTomorrowSessionScreen extends ConsumerWidget {
                                         ),
                                       ],
                                     ),
-                                    gapH8,
+                                    gap8,
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,

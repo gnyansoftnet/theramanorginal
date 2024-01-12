@@ -56,9 +56,8 @@ class ExeLeaveStatusScreen extends ConsumerWidget {
                             fromDateValue.value =
                                 DateFormat('MM/dd/yyy').format(value);
                           }).onError((error, stackTrace) => null);
-                        }
-                        ),
-                    gapW4,
+                        }),
+                  gap4,
                     dateFieldBox(
                       context: context,
                       dateValue: toDateValue,
@@ -74,7 +73,7 @@ class ExeLeaveStatusScreen extends ConsumerWidget {
                         }).onError((error, stackTrace) => null);
                       },
                     ),
-                    gapW8,
+                    gap8,
                     Expanded(
                       child: ElevatedButton(
                           onPressed: () {
@@ -109,9 +108,9 @@ class ExeLeaveStatusScreen extends ConsumerWidget {
                                 fit: BoxFit.cover,
                                 height: MediaQuery.sizeOf(context).height / 3,
                               ),
-                              gapH8,
+                              gap8,
                               const Text("Ohh ! leave status is empty"),
-                              gapH8,
+                              gap8,
                               ElevatedButton(
                                   onPressed: () {
                                     ref.invalidate(
@@ -177,7 +176,7 @@ class ExeLeaveStatusScreen extends ConsumerWidget {
                                               fontWeight: FontWeight.bold,
                                               fontSize: 10),
                                         ),
-                                        gapW4,
+                                      gap4,
                                         Text(
                                           "to",
                                           style: TextStyle(
@@ -185,7 +184,7 @@ class ExeLeaveStatusScreen extends ConsumerWidget {
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        gapW4,
+                                        gap4,
                                         Text(
                                           "${data.leaveTo}",
                                           style: TextStyle(
@@ -236,7 +235,7 @@ class ExeLeaveStatusScreen extends ConsumerWidget {
                   Icons.calendar_month,
                   color: AppColors.black,
                 ),
-                gapW8,
+                gap8,
                 ValueListenableBuilder(
                     valueListenable: dateValue,
                     builder: (context, value, child) {

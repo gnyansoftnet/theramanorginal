@@ -46,9 +46,9 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                           fit: BoxFit.cover,
                           height: MediaQuery.sizeOf(context).height / 3,
                         ),
-                        gapH8,
+                        gap8,
                         const Text("Ohh ! here is no slot available"),
-                        gapH8,
+                        gap8,
                         ElevatedButton(
                             onPressed: () {
                               ref.invalidate(allotedSlotAllTherapistProvider);
@@ -276,7 +276,7 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                                   ),
                                 ],
                               ),
-                              gapH4,
+                              gap4,
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -299,7 +299,7 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                                   ),
                                 ],
                               ),
-                              gapH8,
+                              gap8,
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -320,7 +320,7 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                                   ),
                                 ],
                               ),
-                              gapH8,
+                              gap8,
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [

@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
-import 'package:theraman/src/features/therapist/application/providers/user_provider.dart';
+import 'package:theraman/src/features/authentication/application/providers/user_provider.dart';
 import 'package:theraman/src/features/therapist/presentation/controller/user_controller.dart';
 import 'package:theraman/src/features/therapist/presentation/widget/apply_leave_button.dart';
 import 'package:theraman/src/global/widgets/drawer_widget.dart';
@@ -13,7 +13,6 @@ import 'package:theraman/src/global/widgets/textfield_widget.dart';
 import 'package:theraman/src/global/helper/common_methods.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
-import 'package:theraman/src/utils/extensions/asyncvalue_easy_when.dart';
 
 @RoutePage(deferredLoading: true, name: "ApplyLeaveRoute")
 class ApplyLeaveScreen extends StatelessWidget {
@@ -66,26 +65,23 @@ class ApplyLeaveScreen extends StatelessWidget {
                     "Aplicant Name :",
                     style: _textStyle,
                   ),
-                  gapH8,
+                  gap8,
                   DecoratedBox(
                     decoration: BoxDecoration(
                         border:
                             Border.all(color: Theme.of(context).dividerColor),
                         color: Theme.of(context).focusColor),
                     child: Consumer(builder: (context, ref, _) {
-                      final userState = ref.watch(userProvider);
+                      final userName = ref.watch(
+                          userProvider.select((value) => value?.Staff_Name));
                       return Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: userState.easyWhen(
-                            loadingWidget: () => const Text("Loading.."),
-                            errorWidget: (_, __) => const Text("Loading.."),
-                            data: (value) => Text("${value.staffName}")),
-                      );
+                          padding: const EdgeInsets.all(12.0),
+                          child: Text(userName ?? ""));
                     }),
                   )
                 ],
               ),
-              gapH20,
+              gap20,
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -94,7 +90,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                     "Number Of Days :",
                     style: _textStyle,
                   ),
-                  gapH4,
+                  gap4,
                   TextFieldWidget(
                     controller: noOfDaysController,
                     hint: "Days",
@@ -124,7 +120,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                   )
                 ],
               ),
-              gapH20,
+              gap20,
               ValueListenableBuilder(
                   valueListenable: isOneDay,
                   builder: (context, value, child) {
@@ -139,7 +135,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                                     "Date :",
                                     style: _textStyle,
                                   ),
-                                  gapH4,
+                                  gap4,
                                   dateFieldBox(
                                     context: context,
                                     dateValue: fromDateValue,
@@ -172,7 +168,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                                           "From Date :",
                                           style: _textStyle,
                                         ),
-                                        gapH4,
+                                        gap4,
                                         dateFieldBox(
                                             context: context,
                                             dateValue: fromDateValue,
@@ -195,7 +191,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  gapW12,
+                                  gap12,
                                   Expanded(
                                     child: Column(
                                       crossAxisAlignment:
@@ -205,7 +201,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                                           "To Date :",
                                           style: _textStyle,
                                         ),
-                                        gapH4,
+                                        gap4,
                                         dateFieldBox(
                                             context: context,
                                             dateValue: toDateValue,
@@ -218,7 +214,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                       ],
                     );
                   }),
-              gapH20,
+              gap20,
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -227,7 +223,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                     "Leave type:",
                     style: _textStyle,
                   ),
-                  gapH8,
+                  gap8,
                   DropDownButtonFormFieldWidget(
                     hintText: const Text("Select"),
                     validator: (p0) {
@@ -249,7 +245,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              gapH20,
+              gap20,
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -258,7 +254,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                     "Specify the reson for Leave :",
                     style: _textStyle,
                   ),
-                  gapH8,
+                  gap8,
                   TextFieldWidget(
                     controller: reasonController,
                     hint: "Specify reason",
@@ -272,7 +268,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              gapH20,
+              gap20,
               Consumer(builder: (context, ref, _) {
                 return ApplyLeaveButton(onSubmit: () {
                   if (!_formKey.currentState!.validate()) return;
@@ -332,7 +328,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                 Icons.calendar_month,
                 color: AppColors.black,
               ),
-              gapW8,
+              gap8,
               ValueListenableBuilder(
                   valueListenable: dateValue,
                   builder: (context, value, child) {

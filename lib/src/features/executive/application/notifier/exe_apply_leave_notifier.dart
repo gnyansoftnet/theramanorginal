@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:theraman/src/features/authentication/application/providers/user_provider.dart';
 import 'package:theraman/src/features/executive/application/states/exe_apply_leave_state.dart';
 import 'package:theraman/src/features/executive/data/repo/executive_repo_pod.dart';
 import 'package:theraman/src/utils/extensions/cancel_ext.dart';
-import 'package:theraman/src/utils/local_store/preferences.dart';
 
 class ExeApplyleaveNotifier
     extends AutoDisposeAsyncNotifier<ExeApplyLeaveState> {
@@ -20,12 +20,12 @@ class ExeApplyleaveNotifier
     required leaveType,
     required reason,
   }) async {
-    String userId = await Preferences.getPreference("staffCode", "");
-    String userType = await Preferences.getPreference("userType", "");
+    final userId = ref.watch(userProvider.select((value) => value?.Staff_Code));
+    final userType = ref.watch(userProvider.select((value) => value?.userType));
     state = const AsyncLoading();
     final result = await ref.watch(executiveRepoProvider).exeApplyLeave(
-        userType: userType,
-        userId: userId,
+        userType: userType ?? "",
+        userId: userId ?? "",
         noOfDays: noOfdays,
         fromDate: fromDate,
         toDate: toDate,

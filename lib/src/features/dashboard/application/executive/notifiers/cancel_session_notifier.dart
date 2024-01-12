@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:theraman/src/features/authentication/application/providers/user_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/states/cancel_session_state.dart';
 import 'package:theraman/src/features/dashboard/data/executive/repo/executive_dashboard_repo_pod.dart';
-import 'package:theraman/src/utils/local_store/preferences.dart';
 
 class CancelSessionNotifier
     extends AutoDisposeAsyncNotifier<CancelSessionState> {
@@ -18,13 +18,13 @@ class CancelSessionNotifier
       required String isAdjustable,
       required String reason}) async {
     state = const AsyncLoading();
-    final userId = await Preferences.getPreference("staffCode", "");
-    final userType = await Preferences.getPreference("userType", "");
+    final userId = ref.watch(userProvider.select((value) => value?.Staff_Code));
+    final userType = ref.watch(userProvider.select((value) => value?.userType));
     final result = await ref
         .watch(executivedashboardRepoProvider)
         .cancelSession(
-            userId: userId,
-            userType: userType,
+            userId: userId ?? "",
+            userType: userType ?? "",
             slotId: slotId,
             isAdjustable: isAdjustable,
             reason: reason,

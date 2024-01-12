@@ -246,7 +246,7 @@ class CustomOngoingSearch extends SearchDelegate {
                             ),
                           ],
                         ),
-                        gapH4,
+                        gap4,
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -268,7 +268,7 @@ class CustomOngoingSearch extends SearchDelegate {
                             ),
                           ],
                         ),
-                        gapH8,
+                        gap8,
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -288,7 +288,7 @@ class CustomOngoingSearch extends SearchDelegate {
                             ),
                           ],
                         ),
-                        gapH8,
+                        gap8,
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -512,7 +512,7 @@ class CustomOngoingSearch extends SearchDelegate {
                           ),
                         ],
                       ),
-                      gapH4,
+                      gap4,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -534,7 +534,7 @@ class CustomOngoingSearch extends SearchDelegate {
                           ),
                         ],
                       ),
-                      gapH8,
+                      gap8,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -554,7 +554,7 @@ class CustomOngoingSearch extends SearchDelegate {
                           ),
                         ],
                       ),
-                      gapH8,
+                      gap8,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [

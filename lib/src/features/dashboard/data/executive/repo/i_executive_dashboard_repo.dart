@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:multiple_result/multiple_result.dart';
-import 'package:theraman/src/core/exception/app_exception.dart';
+import 'package:theraman/src/global/exception/app_exception.dart';
 import 'package:theraman/src/features/dashboard/model/executive/reason_model.dart';
 import 'package:theraman/src/features/dashboard/model/executive/slot_time_model.dart';
 import 'package:theraman/src/features/dashboard/model/executive/therapist_name_model.dart';

@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-
 import 'app_routes.gr.dart';
 
 @AutoRouterConfig()
@@ -48,7 +47,7 @@ class AppRouter extends $AppRouter {
           },
         ),
         CustomRoute(
-          page: UserProfileRoute.page,
+          page: ProfileRoute.page,
           path: "/UserProfileRoute",
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return slidAnimation(animation, child);
@@ -155,8 +154,8 @@ class AppRouter extends $AppRouter {
         ),
 
         CustomRoute(
-          page: SettingRoute.page,
-          path: "/SettingRoute",
+          page: ChangePasswordRoute.page,
+          path: "/ChangePasswordRoute",
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return slidAnimation(animation, child);
           },

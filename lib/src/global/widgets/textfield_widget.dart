@@ -21,7 +21,7 @@ class TextFieldWidget extends StatelessWidget {
   // final TextStyle? hintStyle;
 
   const TextFieldWidget(
-      {Key? key,
+      {super.key,
       this.label,
       this.hint,
       this.validator,
@@ -37,8 +37,7 @@ class TextFieldWidget extends StatelessWidget {
       this.preFixIcon,
       this.suffixIcon,
       this.obsecure = false,
-      this.readOnly = false})
-      : super(key: key);
+      this.readOnly = false});
 
   @override
   Widget build(BuildContext context) {

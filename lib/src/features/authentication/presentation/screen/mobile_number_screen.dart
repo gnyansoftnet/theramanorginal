@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:theraman/src/features/authentication/presentation/controller/auth_controller.dart';
-import 'package:theraman/src/features/authentication/presentation/widget/send_otp_button.dart';
+import 'package:theraman/src/features/authentication/presentation/comp/send_otp_button.dart';
 import 'package:theraman/src/utils/constants/app_assets.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
@@ -40,13 +40,13 @@ class MobileNumberScreen extends ConsumerWidget {
                 fit: BoxFit.contain,
                 height: 300,
                 image: AssetImage(AppAssets.logo)),
-            gapH16,
+            gap16,
             const Text(
               "Enter Your Resister Mobile Number",
               textAlign: TextAlign.center,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            gapH16,
+            gap16,
             Card(
               elevation: 2.0,
               color: Theme.of(context).inputDecorationTheme.fillColor,
@@ -92,7 +92,7 @@ class MobileNumberScreen extends ConsumerWidget {
                 ),
               ),
             ),
-            gapW40,
+            gap40,
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 60),
               child: SendOtpButton(

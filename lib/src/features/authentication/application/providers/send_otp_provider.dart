@@ -5,5 +5,4 @@ import 'package:theraman/src/features/authentication/application/states/send_otp
 final sendOtpProvider =
     AutoDisposeAsyncNotifierProvider<SendOtpNotifier, SendOtpState>(
   () => SendOtpNotifier(),
-  name: "loginProvider",
 );

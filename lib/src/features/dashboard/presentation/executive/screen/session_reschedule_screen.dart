@@ -43,28 +43,28 @@ class SessionRescheduleScreen extends StatelessWidget {
               style: _textStyle,
             ),
             boxWidget(context: context, title: allotSlots.rSPName.toString()),
-            gapH12,
+            gap12,
             Text(
               "Therapist Name",
               style: _textStyle,
             ),
             boxWidget(
                 context: context, title: allotSlots.rSDoctorName.toString()),
-            gapH12,
+            gap12,
             Text(
               "Therapy Type",
               style: _textStyle,
             ),
             boxWidget(
                 context: context, title: allotSlots.rSSlotType.toString()),
-            gapH12,
+            gap12,
             Text(
               "Session Type",
               style: _textStyle,
             ),
             boxWidget(
                 context: context, title: allotSlots.rSSessionType.toString()),
-            gapH12,
+            gap12,
             Text(
               "Slot Time",
               style: _textStyle,
@@ -73,7 +73,7 @@ class SessionRescheduleScreen extends StatelessWidget {
                 context: context,
                 title: "${allotSlots.rSStartTime} -- ${allotSlots.rSEndTime}"
                     .toString()),
-            gapH12,
+            gap12,
             Text(
               "Reschedule Session Time",
               style: _textStyle,
@@ -106,7 +106,7 @@ class SessionRescheduleScreen extends StatelessWidget {
                         });
                   });
             }),
-            gapH12,
+            gap12,
             Text(
               "Therapist",
               style: _textStyle,
@@ -152,7 +152,7 @@ class SessionRescheduleScreen extends StatelessWidget {
                         });
                   });
             }),
-            gapH12,
+            gap12,
             Text(
               "Reason",
               style: _textStyle,
@@ -184,7 +184,7 @@ class SessionRescheduleScreen extends StatelessWidget {
                         });
                   });
             }),
-            gapH12,
+            gap12,
             Consumer(builder: (context, ref, _) {
               return SessionRescheduleButton(onSubmit: () {
                 if (!_formKey.currentState!.validate()) return;

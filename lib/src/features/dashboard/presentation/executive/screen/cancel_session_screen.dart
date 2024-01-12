@@ -37,28 +37,28 @@ class CancelSessionScreen extends StatelessWidget {
               style: _textStyle,
             ),
             boxWidget(context: context, title: allotSlots.rSPName.toString()),
-            gapH12,
+            gap12,
             Text(
               "Therapist Name",
               style: _textStyle,
             ),
             boxWidget(
                 context: context, title: allotSlots.rSDoctorName.toString()),
-            gapH12,
+            gap12,
             Text(
               "Therapy Type",
               style: _textStyle,
             ),
             boxWidget(
                 context: context, title: allotSlots.rSSlotType.toString()),
-            gapH12,
+            gap12,
             Text(
               "Session Type",
               style: _textStyle,
             ),
             boxWidget(
                 context: context, title: allotSlots.rSSessionType.toString()),
-            gapH12,
+            gap12,
             Text(
               "Slot Time",
               style: _textStyle,
@@ -67,7 +67,7 @@ class CancelSessionScreen extends StatelessWidget {
                 context: context,
                 title: "${allotSlots.rSStartTime} -- ${allotSlots.rSEndTime}"
                     .toString()),
-            gapH12,
+            gap12,
             Text(
               "Is Session Adjustable ?",
               style: _textStyle,
@@ -90,7 +90,7 @@ class CancelSessionScreen extends StatelessWidget {
                 adjustableValue.value = newValue!;
               },
             ),
-            gapH12,
+            gap12,
             Text(
               "Reason",
               style: _textStyle,
@@ -122,7 +122,7 @@ class CancelSessionScreen extends StatelessWidget {
                         });
                   });
             }),
-            gapH16,
+            gap16,
             Consumer(builder: (context, ref, _) {
               return CancelSessionButton(onSubmit: () {
                 if (!_formKey.currentState!.validate()) return;

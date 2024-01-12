@@ -13,7 +13,7 @@ import 'package:theraman/src/utils/extensions/focus_node_ext.dart';
 @RoutePage(deferredLoading: true, name: "LoginRoute")
 class LoginScreen extends StatelessWidget {
   final String userType;
-  LoginScreen({Key? key, required this.userType}) : super(key: key);
+  LoginScreen({super.key, required this.userType});
 
   final _obsecurePassword = ValueNotifier<bool>(true);
 
@@ -60,7 +60,7 @@ class LoginScreen extends StatelessWidget {
                   fit: BoxFit.contain,
                   height: 250,
                   image: AssetImage(AppAssets.logo)),
-              gapH8,
+              gap8,
               Text(
                 "Sign In With Your Number & Password\nor Continue With Mobile Number",
                 textAlign: TextAlign.center,
@@ -70,7 +70,7 @@ class LoginScreen extends StatelessWidget {
                     .bodyLarge!
                     .copyWith(fontWeight: FontWeight.w500),
               ),
-              gapW32,
+              gap32,
               TextFieldWidget(
                 focusNode: emailNode,
                 controller: mobileController,
@@ -90,7 +90,7 @@ class LoginScreen extends StatelessWidget {
                 hint: "Mobile Number",
                 validator: FormValidators.phone.call,
               ),
-              gapH16,
+              gap16,
               ValueListenableBuilder(
                   valueListenable: _obsecurePassword,
                   builder: (context, value, _) {
@@ -118,19 +118,19 @@ class LoginScreen extends StatelessWidget {
                       validator: FormValidators.password.call,
                     );
                   }),
-              gapH24,
+              gap24,
               ElevatedButtonWidget(
                 onPressed: () {},
                 text: "LOGIN",
               ),
-              gapW28,
+              gap28,
               Text(
                 "OR",
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     color: AppColors.black, fontWeight: FontWeight.bold),
               ),
-              gapW28,
+              gap28,
               CircleAvatar(
                 radius: 35,
                 backgroundColor: Theme.of(context).primaryColor,

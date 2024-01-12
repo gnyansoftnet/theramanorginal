@@ -1,7 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
-import 'package:theraman/src/utils/local_store/preferences.dart';
+import 'package:theraman/src/features/authentication/application/providers/user_provider.dart';
 
 Future<DateTime> showDateTimeRangePicker({
   required BuildContext context,
@@ -31,15 +32,17 @@ Future<void> userLogout({required BuildContext context}) async {
                   Navigator.pop(context);
                 },
                 child: const Text("No")),
-            TextButton(
-                onPressed: () async {
-                  if (await Preferences.removeUser()) {
-                    if (context.mounted) {
-                      context.router.replaceAll([const SplashRoute()]);
-                    }
-                  }
-                },
-                child: const Text("Yes"))
+            Consumer(builder: (context, ref, __) {
+              return TextButton(
+                  onPressed: () async {
+                    ref.read(userProvider.notifier).clearUser().then((value) {
+                      if (value && context.mounted) {
+                        context.router.replaceAll([const UserTypeRoute()]);
+                      }
+                    });
+                  },
+                  child: const Text("Yes"));
+            })
           ],
         );
       });

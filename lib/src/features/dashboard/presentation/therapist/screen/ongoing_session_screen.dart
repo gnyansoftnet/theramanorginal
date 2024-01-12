@@ -35,9 +35,9 @@ class OnGoingSessionScreen extends ConsumerWidget {
                           fit: BoxFit.cover,
                           height: MediaQuery.sizeOf(context).height / 3,
                         ),
-                        gapH8,
+                        gap8,
                         const Text("Ohh you did not have any session !"),
-                        gapH8,
+                        gap8,
                         ElevatedButton(
                             onPressed: () {
                               ref.invalidate(onGoingProvider);

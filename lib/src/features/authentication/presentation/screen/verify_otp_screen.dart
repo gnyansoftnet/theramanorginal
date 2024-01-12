@@ -6,11 +6,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
-import 'package:theraman/src/core/exception/app_exception.dart';
+import 'package:theraman/src/global/exception/app_exception.dart';
 import 'package:theraman/src/features/authentication/application/providers/timer_provider.dart';
 import 'package:theraman/src/features/authentication/application/providers/send_otp_provider.dart';
 import 'package:theraman/src/features/authentication/presentation/controller/auth_controller.dart';
-import 'package:theraman/src/features/authentication/presentation/widget/verify_otp_button.dart';
+import 'package:theraman/src/features/authentication/presentation/comp/verify_otp_button.dart';
 import 'package:theraman/src/utils/constants/app_assets.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
@@ -68,7 +68,7 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
                     .textTheme
                     .titleMedium!
                     .copyWith(fontWeight: FontWeight.bold)),
-            gapH16,
+            gap16,
             Center(
               child: PinCodeTextField(
                 pinBoxRadius: 10,
@@ -99,14 +99,14 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
                 onDone: (pin) {},
               ),
             ),
-            gapH16,
+            gap16,
             Text(
               "OTP sent to this No. +91${widget.mobileNoController.text}",
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.titleSmall,
             ),
-            gapH20,
+            gap20,
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 60),
               child: VerifyOtpButton(onSubmit: () {
@@ -119,7 +119,7 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
                 }
               }),
             ),
-            gapW40,
+            gap40,
             ValueListenableBuilder(
                 valueListenable: isResend,
                 builder: (context, value, _) {
@@ -149,7 +149,7 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
                                     ? FontWeight.bold
                                     : FontWeight.normal),
                           )),
-                      gapW4,
+                      gap4,
                       Text(
                         isResend.value ? "" : "$timeState Sec",
                         style: const TextStyle(fontWeight: FontWeight.bold),

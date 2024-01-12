@@ -2,13 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
-import 'package:theraman/src/features/therapist/application/providers/user_provider.dart';
-import 'package:theraman/src/global/pod/check_user_type_pod.dart';
+import 'package:theraman/src/features/authentication/application/providers/user_provider.dart';
 import 'package:theraman/src/global/helper/common_methods.dart';
 import 'package:theraman/src/utils/constants/app_assets.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
-import 'package:theraman/src/utils/extensions/asyncvalue_easy_when.dart';
 
 class DrawerWidget extends ConsumerWidget {
   final String currentPage;
@@ -16,12 +14,11 @@ class DrawerWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userState = ref.watch(userProvider);
-    final userTypeState = ref.watch(checkUserTypePod);
+    final userType = ref.watch(userProvider.select((value) => value?.userType));
     return Drawer(
       child: ListView(
         padding: const EdgeInsets.all(0),
-        children: userTypeState.value == "T"
+        children: userType == "T"
             ? [
                 DrawerHeader(
                     padding: const EdgeInsets.all(0),
@@ -38,21 +35,15 @@ class DrawerWidget extends ConsumerWidget {
                               AppAssets.user,
                               fit: BoxFit.cover,
                             )),
-                        gapH4,
-                        userState.easyWhen(
-                          data: (value) => Text(
-                            "${value.staffName}",
+                        gap4,
+                        Consumer(builder: (context, ref, _) {
+                          final userName = ref.watch(userProvider
+                              .select((value) => value?.Staff_Name));
+                          return Text(
+                            "$userName",
                             style: TextStyle(color: AppColors.white),
-                          ),
-                          errorWidget: (_, __) => Text(
-                            "Loading ...",
-                            style: TextStyle(color: AppColors.white),
-                          ),
-                          loadingWidget: () => Text(
-                            "Loading ...",
-                            style: TextStyle(color: AppColors.white),
-                          ),
-                        )
+                          );
+                        })
                       ],
                     )),
                 DrawerTile(
@@ -69,7 +60,7 @@ class DrawerWidget extends ConsumerWidget {
                     icon: Icons.person,
                     onTap: () {
                       if (currentPage != "UserProfileRoute") {
-                        context.navigateTo(UserProfileRoute());
+                        context.navigateTo(const ProfileRoute());
                         Navigator.pop(context);
                       }
                     },
@@ -121,16 +112,6 @@ class DrawerWidget extends ConsumerWidget {
                     isSelected:
                         currentPage == "SessionReportRoute" ? true : false),
                 DrawerTile(
-                    icon: Icons.settings,
-                    onTap: () {
-                      if (currentPage != "SettingRoute") {
-                        context.navigateTo(const SettingRoute());
-                        Navigator.pop(context);
-                      }
-                    },
-                    title: "Setting",
-                    isSelected: currentPage == "SettingRoute" ? true : false),
-                DrawerTile(
                     icon: Icons.logout,
                     onTap: () {
                       userLogout(context: context);
@@ -154,21 +135,15 @@ class DrawerWidget extends ConsumerWidget {
                               AppAssets.user,
                               fit: BoxFit.cover,
                             )),
-                        gapH4,
-                        userState.easyWhen(
-                          data: (value) => Text(
-                            "${value.staffName}",
+                        gap4,
+                        Consumer(builder: (context, ref, _) {
+                          final userName = ref.watch(userProvider
+                              .select((value) => value?.Staff_Name));
+                          return Text(
+                            "$userName",
                             style: TextStyle(color: AppColors.white),
-                          ),
-                          errorWidget: (_, __) => Text(
-                            "Loading ...",
-                            style: TextStyle(color: AppColors.white),
-                          ),
-                          loadingWidget: () => Text(
-                            "Loading ...",
-                            style: TextStyle(color: AppColors.white),
-                          ),
-                        )
+                          );
+                        })
                       ],
                     )),
                 DrawerTile(
@@ -185,7 +160,7 @@ class DrawerWidget extends ConsumerWidget {
                     icon: Icons.person,
                     onTap: () {
                       if (currentPage != "UserProfileRoute") {
-                        context.navigateTo(UserProfileRoute());
+                        context.navigateTo(const ProfileRoute());
                         Navigator.pop(context);
                       }
                     },
@@ -226,16 +201,6 @@ class DrawerWidget extends ConsumerWidget {
                     title: "leave Status",
                     isSelected:
                         currentPage == "ExeLeaveStatusRoute" ? true : false),
-                DrawerTile(
-                    icon: Icons.settings,
-                    onTap: () {
-                      if (currentPage != "SettingRoute") {
-                        context.navigateTo(const SettingRoute());
-                        Navigator.pop(context);
-                      }
-                    },
-                    title: "setting",
-                    isSelected: currentPage == "SettingRoute" ? true : false),
                 DrawerTile(
                   icon: Icons.logout,
                   onTap: () {

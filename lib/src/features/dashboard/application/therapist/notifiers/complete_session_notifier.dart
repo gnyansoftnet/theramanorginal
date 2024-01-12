@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:theraman/src/features/authentication/application/providers/user_provider.dart';
 import 'package:theraman/src/features/dashboard/data/therapist/repo/dashboard_repo_pod.dart';
 import 'package:theraman/src/utils/extensions/cancel_ext.dart';
-import 'package:theraman/src/utils/local_store/preferences.dart';
 
 class CompleteSessionNotifier extends AutoDisposeAsyncNotifier<void> {
   @override
@@ -15,13 +15,13 @@ class CompleteSessionNotifier extends AutoDisposeAsyncNotifier<void> {
     required int slotId,
   }) async {
     state = const AsyncLoading();
-    String userType = await Preferences.getPreference("userType", "");
-    final userId = await Preferences.getPreference("staffCode", "");
+    final userId = ref.watch(userProvider.select((value) => value?.Staff_Code));
+    final userType = ref.watch(userProvider.select((value) => value?.userType));
     Future.delayed(const Duration(seconds: 3));
     final result = await ref.watch(dashboardRepoProvider).completeSession(
-          userId: userId,
+          userId: userId ?? "",
           slotId: slotId,
-          userType: userType,
+          userType: userType ?? "",
           cancelToken: ref.cancelToken(),
         );
 

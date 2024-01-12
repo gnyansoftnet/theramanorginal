@@ -64,7 +64,7 @@ class SessionReport extends ConsumerWidget {
                         );
                       }),
                 ),
-                gapH12,
+                gap12,
                 Expanded(
                     child: sessionSummaryState.easyWhen(onRetry: () {
                   ref.invalidate(sessionSummaryProvider);
@@ -86,7 +86,7 @@ class SessionReport extends ConsumerWidget {
                                   borderRadius: BorderRadius.all(Radius.zero)),
                               child: Column(
                                 children: [
-                                  gapH8,
+                                  gap8,
                                   ListTile(
                                     dense: true,
                                     visualDensity:
@@ -111,7 +111,7 @@ class SessionReport extends ConsumerWidget {
                                       ],
                                     ),
                                   ),
-                                  gapH12,
+                                  gap12,
                                   ListTile(
                                     dense: true,
                                     visualDensity:
@@ -144,7 +144,7 @@ class SessionReport extends ConsumerWidget {
                         }),
                   );
                 })),
-                gapH12,
+                gap12,
                 Expanded(
                     flex: 0,
                     child: Row(
@@ -162,7 +162,7 @@ class SessionReport extends ConsumerWidget {
                             })
                       ],
                     )),
-                gapH12,
+                gap12,
                 Expanded(
                     flex: 3,
                     child:

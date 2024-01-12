@@ -1,12 +1,6 @@
 import 'package:dio/dio.dart';
 
 abstract class ITherapistApi {
-  Future<Response> getUserDetails({
-    required userId,
-    required userType,
-    CancelToken? cancelToken,
-  });
-
   Future<Response> userApplyLeave({
     required userId,
     required noOfDays,

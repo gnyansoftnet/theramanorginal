@@ -18,10 +18,8 @@ class UserTypeScreen extends StatelessWidget {
             shrinkWrap: true,
             padding: const EdgeInsets.symmetric(horizontal: 20),
             children: [
-              const Image(
-                  fit: BoxFit.cover,
-                  image: AssetImage(AppAssets.logo)),
-              gapH20,
+              const Image(fit: BoxFit.cover, image: AssetImage(AppAssets.logo)),
+              gap20,
               userTypeCard(
                   context: context,
                   title: "I am  Executive",
@@ -29,7 +27,7 @@ class UserTypeScreen extends StatelessWidget {
                     context.navigateTo(LoginRoute(userType: "E"));
                   },
                   userType: "E"),
-              gapH16,
+              gap16,
               userTypeCard(
                   context: context,
                   title: "I am  Therapist",
@@ -37,7 +35,7 @@ class UserTypeScreen extends StatelessWidget {
                     context.navigateTo(LoginRoute(userType: "T"));
                   },
                   userType: "T"),
-              gapH16,
+              gap16,
               userTypeCard(
                   context: context,
                   title: "I am  Patient",

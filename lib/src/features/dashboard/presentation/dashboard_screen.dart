@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:theraman/src/features/authentication/application/providers/user_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/alloted_slot_all_therapist_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/cancelled_slot_provider.dart';
 import 'package:theraman/src/features/dashboard/application/executive/providers/completed_slot_all_therapist.provider.dart';
@@ -14,8 +15,6 @@ import 'package:theraman/src/features/dashboard/presentation/executive/widget/cu
 import 'package:theraman/src/features/dashboard/presentation/executive/widget/custom_completed_search.dart';
 import 'package:theraman/src/features/dashboard/presentation/therapist/screen/completed_session_screen.dart';
 import 'package:theraman/src/features/dashboard/presentation/therapist/screen/ongoing_session_screen.dart';
-import 'package:theraman/src/features/therapist/application/providers/user_provider.dart';
-import 'package:theraman/src/global/pod/check_user_type_pod.dart';
 import 'package:theraman/src/features/dashboard/presentation/executive/widget/custom_ongoing_search.dart';
 import 'package:theraman/src/global/widgets/drawer_widget.dart';
 import 'package:theraman/src/global/helper/common_methods.dart';
@@ -29,15 +28,16 @@ class DashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userTypeState = ref.watch(checkUserTypePod);
     final allotSlotState = ref.watch(allotedSlotAllTherapistProvider);
     final completedSlotState = ref.watch(completedSlotAllTherapistProvider);
     final cancelledSlotState = ref.watch(cancelledSlotProvider);
     final therapistAllotedSlotState = ref.watch(onGoingProvider);
     final therapistCompletedState = ref.watch(completedSessionProvider);
-    final userState = ref.watch(userProvider);
+    final userType = ref.watch(userProvider.select((value) => value?.userType));
+    final userName =
+        ref.watch(userProvider.select((value) => value?.Staff_Name));
     return DefaultTabController(
-      length: userTypeState.value == "T" ? 2 : 3,
+      length: userType == "T" ? 2 : 3,
       child: Builder(builder: (context) {
         final tabController = DefaultTabController.of(context);
         tabController.addListener(() {
@@ -48,22 +48,13 @@ class DashboardScreen extends ConsumerWidget {
             builder: (context, value, child) {
               return Scaffold(
                   appBar: AppBar(
-                      title: userTypeState.value == "T"
-                          ? userState.easyWhen(
-                              data: (value) => FittedBox(
-                                  fit: BoxFit.cover,
-                                  child: Text(
-                                    "${value.staffName}",
-                                    style: const TextStyle(fontSize: 15),
-                                  )),
-                              errorWidget: (_, __) => const Text("Loading ..."),
-                              loadingWidget: () => const Text("Loading ..."),
-                            )
+                      title: userType == "T"
+                          ? Text(userName ?? "")
                           : Text(
                               DateFormat('yyyy-MM-dd').format(DateTime.now()),
                               style: const TextStyle(fontSize: 18),
                             ),
-                      actions: userTypeState.value == "E"
+                      actions: userType == "E"
                           ? [
                               IconButton(
                                   onPressed: () {
@@ -131,7 +122,7 @@ class DashboardScreen extends ConsumerWidget {
                                   icon: const Icon(Icons.logout))
                             ],
                       bottom: TabBar(
-                          tabs: userTypeState.value == "T"
+                          tabs: userType == "T"
                               ? [
                                   Tab(
                                     child: FittedBox(
@@ -268,7 +259,7 @@ class DashboardScreen extends ConsumerWidget {
                       ),
                     ).then((value) => value ?? false),
                     child: TabBarView(
-                      children: userTypeState.value == "T"
+                      children: userType == "T"
                           ? [OnGoingSessionScreen(), CompletedSessionScreen()]
                           : [
                               ExecutiveOngoingSessionScreen(),
