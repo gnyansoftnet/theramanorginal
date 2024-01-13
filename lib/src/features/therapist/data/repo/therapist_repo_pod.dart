@@ -4,4 +4,4 @@ import 'package:theraman/src/features/therapist/data/repo/i_therapist_repo.dart'
 import 'package:theraman/src/features/therapist/data/repo/therapist_repo.dart';
 
 final therapistRepoProvider = Provider.autoDispose<ITherapistRepo>(
-    (ref) => TherapistRepo(iUserApi: ref.watch(therapistApiProvider)));
+    (ref) => TherapistRepo(iTherapistApi: ref.watch(therapistApiProvider)));
