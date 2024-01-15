@@ -1,75 +1,44 @@
 import 'package:dio/dio.dart';
 import 'package:multiple_result/multiple_result.dart';
-import 'package:theraman/src/global/exception/app_exception.dart';
+import 'package:theraman/src/global/exception/api_exception.dart';
 import 'package:theraman/src/features/therapist/model/session_summary_detail_model.dart';
 import 'package:theraman/src/features/therapist/model/session_summery_model.dart';
 import 'package:theraman/src/features/therapist/data/apis/i_therapist_api.dart';
 import 'package:theraman/src/features/therapist/data/repo/i_therapist_repo.dart';
 import 'package:theraman/src/features/therapist/model/leave_details_model.dart';
 import 'package:theraman/src/global/model/alloted_slot_response_model.dart';
+import 'package:theraman/src/utils/extensions/ext.dart';
 
 class TherapistRepo extends ITherapistRepo {
   final ITherapistApi iTherapistApi;
   TherapistRepo({required this.iTherapistApi});
 
   @override
-  Future<Result<AllotedSlotResponseModel, AppException>> getAllotedSlotDetails({
+  Future<Result<AllotedSlotResponseModel, APIException>> getAllotedSlotDetails({
     required String userId,
     required String date,
     CancelToken? cancelToken,
   }) async {
     final response = await iTherapistApi.getAllotedSlotDetails(
         userId: userId, date: date, cancelToken: cancelToken);
-
-    if (response.statusCode == 200) {
-      try {
-        return Success(AllotedSlotResponseModel.fromJson(response.data));
-      } catch (e) {
-        return Error(AppException(response.data.toString()));
-      }
-    } else if (response.statusCode == 405) {
-      return Error(MethodNotAllowedException(
-          "${response.statusCode} ${response.data["Message"]} !"));
-    } else if (response.statusCode == 404) {
-      return Error(NotFoundException("${response.statusCode} Not Found !"));
-    } else if (response.statusCode == 500) {
-      return Error(
-          ServerException("${response.statusCode} internal server error !"));
-    } else {
-      return Error(NotFoundException("Not Found !"));
-    }
+    return response.successErrorHandler(
+        successMapper: (result) => AllotedSlotResponseModel.fromJson(result));
   }
 
   @override
-  Future<Result<AllotedSlotResponseModel, AppException>> getCompletedSession({
+  Future<Result<AllotedSlotResponseModel, APIException>> getCompletedSession({
     required String userId,
     required String date,
     CancelToken? cancelToken,
   }) async {
     final response = await iTherapistApi.getCompletedSession(
         userId: userId, date: date, cancelToken: cancelToken);
-
-    if (response.statusCode == 200) {
-      try {
-        return Success(AllotedSlotResponseModel.fromJson(response.data));
-      } catch (e) {
-        return Error(AppException(response.data.toString()));
-      }
-    } else if (response.statusCode == 405) {
-      return Error(MethodNotAllowedException(
-          "${response.statusCode} ${response.data["Message"]} !"));
-    } else if (response.statusCode == 404) {
-      return Error(NotFoundException("${response.statusCode} Not Found !"));
-    } else if (response.statusCode == 500) {
-      return Error(
-          ServerException("${response.statusCode} internal server error !"));
-    } else {
-      return Error(NotFoundException("Not Found !"));
-    }
+    return response.successErrorHandler(
+        successMapper: (result) => AllotedSlotResponseModel.fromJson(result));
   }
 
   @override
-  Future<Result<String, AppException>> startSession(
+  Future<Result<String, APIException>> startSession(
       {required String userId,
       required int slotId,
       required String userType,
@@ -80,27 +49,11 @@ class TherapistRepo extends ITherapistRepo {
         userType: userType,
         cancelToken: cancelToken);
 
-    if (response.statusCode == 200) {
-      try {
-        return Success(response.data.toString());
-      } catch (e) {
-        return Error(AppException(response.data.toString()));
-      }
-    } else if (response.statusCode == 405) {
-      return Error(MethodNotAllowedException(
-          "${response.statusCode} ${response.data["Message"]} !"));
-    } else if (response.statusCode == 404) {
-      return Error(NotFoundException("${response.statusCode} Not Found !"));
-    } else if (response.statusCode == 500) {
-      return Error(
-          ServerException("${response.statusCode} internal server error !"));
-    } else {
-      return Error(NotFoundException("Not Found !"));
-    }
+    return response.successErrorHandler(successMapper: (result) => result);
   }
 
   @override
-  Future<Result<String, AppException>> completeSession(
+  Future<Result<String, APIException>> completeSession(
       {required String userId,
       required String userType,
       required int slotId,
@@ -110,28 +63,11 @@ class TherapistRepo extends ITherapistRepo {
         slotId: slotId,
         userType: userType,
         cancelToken: cancelToken);
-
-    if (response.statusCode == 200) {
-      try {
-        return Success(response.data.toString());
-      } catch (e) {
-        return Error(AppException(response.data.toString()));
-      }
-    } else if (response.statusCode == 405) {
-      return Error(MethodNotAllowedException(
-          "${response.statusCode} ${response.data["Message"]} !"));
-    } else if (response.statusCode == 404) {
-      return Error(NotFoundException("${response.statusCode} Not Found !"));
-    } else if (response.statusCode == 500) {
-      return Error(
-          ServerException("${response.statusCode} internal server error !"));
-    } else {
-      return Error(NotFoundException("Not Found !"));
-    }
+    return response.successErrorHandler(successMapper: (result) => result);
   }
 
   @override
-  Future<Result<String, AppException>> userApplyLeave(
+  Future<Result<String, APIException>> userApplyLeave(
       {required String userId,
       required double noOfDays,
       required String fromDate,
@@ -147,29 +83,11 @@ class TherapistRepo extends ITherapistRepo {
         leaveType: leaveType,
         reason: reason,
         cancelToken: cancelToken);
-
-    if (response.statusCode == 200) {
-      try {
-        return Success(response.data.toString());
-      } catch (e) {
-        return Error(AppException(response.data.toString()));
-      }
-    } else if (response.statusCode == 405) {
-      return Error(MethodNotAllowedException(
-          "${response.statusCode} ${response.data["Message"]} !"));
-    } else if (response.statusCode == 404) {
-      return Error(
-          NotFoundException("${response.statusCode} something is wrong !"));
-    } else if (response.statusCode == 500) {
-      return Error(
-          ServerException("${response.statusCode} internal server error !"));
-    } else {
-      return Error(NotFoundException("Something  is wrong !"));
-    }
+    return response.successErrorHandler(successMapper: (result) => result);
   }
 
   @override
-  Future<Result<LeaveDetailsModel, AppException>> getleaveStatus(
+  Future<Result<LeaveDetailsModel, APIException>> getleaveStatus(
       {required String userId,
       required String? fromDate,
       required String? toDate,
@@ -180,75 +98,30 @@ class TherapistRepo extends ITherapistRepo {
         toDate: toDate,
         cancelToken: cancelToken);
 
-    if (response.statusCode == 200) {
-      try {
-        return Success(LeaveDetailsModel.fromJson(response.data));
-      } catch (e) {
-        return Error(AppException(response.data.toString()));
-      }
-    } else if (response.statusCode == 405) {
-      return Error(MethodNotAllowedException(
-          "${response.statusCode} ${response.data["Message"]} !"));
-    } else if (response.statusCode == 404) {
-      return Error(NotFoundException("${response.statusCode} Not found !"));
-    } else if (response.statusCode == 500) {
-      return Error(
-          ServerException("${response.statusCode} internal server error !"));
-    } else {
-      return Error(NotFoundException("not found !"));
-    }
+    return response.successErrorHandler(
+        successMapper: (result) => LeaveDetailsModel.fromJson(result));
   }
 
   @override
-  Future<Result<SessionSummaryModel, AppException>> getSessionSummary(
+  Future<Result<SessionSummaryModel, APIException>> getSessionSummary(
       {required String userId,
       required String month,
       CancelToken? cancelToken}) async {
     final response =
         await iTherapistApi.getSessionSummary(userId: userId, month: month);
-    if (response.statusCode == 200) {
-      try {
-        return Success(SessionSummaryModel.fromJson(response.data));
-      } catch (e) {
-        return Error(ServerException(response.data.toString()));
-      }
-    } else if (response.statusCode == 405) {
-      return Error(MethodNotAllowedException(
-          "${response.statusCode} ${response.data["Message"]} !"));
-    } else if (response.statusCode == 404) {
-      return Error(NotFoundException("${response.statusCode} Not found !"));
-    } else if (response.statusCode == 500) {
-      return Error(
-          ServerException("${response.statusCode} internal server error !"));
-    } else {
-      return Error(NotFoundException("not found !"));
-    }
+    return response.successErrorHandler(
+        successMapper: (result) => SessionSummaryModel.fromJson(result));
   }
 
   @override
-  Future<Result<SessionSummaryDetailModel, AppException>>
+  Future<Result<SessionSummaryDetailModel, APIException>>
       getSessionSummaryDetails(
           {required String userId,
           required String month,
           CancelToken? cancelToken}) async {
     final response = await iTherapistApi.getSessionSummaryDetail(
         userId: userId, month: month);
-    if (response.statusCode == 200) {
-      try {
-        return Success(SessionSummaryDetailModel.fromJson(response.data));
-      } catch (e) {
-        return Error(ServerException(response.data.toString()));
-      }
-    } else if (response.statusCode == 405) {
-      return Error(MethodNotAllowedException(
-          "${response.statusCode} ${response.data["Message"]} !"));
-    } else if (response.statusCode == 404) {
-      return Error(NotFoundException("${response.statusCode} Not found !"));
-    } else if (response.statusCode == 500) {
-      return Error(
-          ServerException("${response.statusCode} internal server error !"));
-    } else {
-      return Error(NotFoundException("not found !"));
-    }
+    return response.successErrorHandler(
+        successMapper: (result) => SessionSummaryDetailModel.fromJson(result));
   }
 }

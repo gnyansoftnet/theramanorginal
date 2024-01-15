@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/authentication/application/providers/user_provider.dart';
 import 'package:theraman/src/features/therapist/presentation/controller/user_controller.dart';
-import 'package:theraman/src/features/therapist/presentation/widget/apply_leave_button.dart';
+import 'package:theraman/src/features/therapist/presentation/comp/apply_leave_button.dart';
 import 'package:theraman/src/global/widgets/drawer_widget.dart';
 import 'package:theraman/src/global/widgets/dropdown_button_formfield_widget.dart';
 import 'package:theraman/src/global/widgets/textfield_widget.dart';

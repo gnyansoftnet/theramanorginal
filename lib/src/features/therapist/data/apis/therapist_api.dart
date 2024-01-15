@@ -86,5 +86,4 @@ class TherapistApi extends ITherapistApi {
     return await dio.get(
         "${AppUrls.sessionSummaryDetailsUrl}/?Month=$month&User_Id=$userId");
   }
-  // http://cms.softnetcms.com/Api/MApp_ServicesApi/GetAppliedLeaveDetails/?User_Id=THST5&From_Date=10/10/2023&To_Date=10/10/2023
 }
