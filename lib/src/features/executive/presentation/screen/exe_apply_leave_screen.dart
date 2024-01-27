@@ -10,9 +10,9 @@ import 'package:theraman/src/features/executive/presentation/widget/exe_apply_le
 import 'package:theraman/src/global/widgets/drawer_widget.dart';
 import 'package:theraman/src/global/widgets/dropdown_button_formfield_widget.dart';
 import 'package:theraman/src/global/widgets/textfield_widget.dart';
-import 'package:theraman/src/global/helper/common_methods.dart';
-import 'package:theraman/src/utils/constants/app_colors.dart';
-import 'package:theraman/src/utils/constants/gaps.dart';
+
+import 'package:theraman/src/utils/constants/constant.dart';
+import 'package:theraman/src/utils/extensions/ext.dart';
 
 @RoutePage(deferredLoading: true, name: "ExeApplyLeaveRoute")
 class ExeApplyLeave extends StatelessWidget {
@@ -21,6 +21,9 @@ class ExeApplyLeave extends StatelessWidget {
   final _fromDateValue = ValueNotifier<String?>(null);
   final _toDateValue = ValueNotifier<String?>(null);
   final _isOneDay = ValueNotifier<bool>(false);
+
+  final _formDateController = TextEditingController();
+  final _toDateController = TextEditingController();
 
   final _leaveTypeValue = ValueNotifier<String?>(null);
   final leaveType = [
@@ -67,19 +70,14 @@ class ExeApplyLeave extends StatelessWidget {
                     style: _textStyle,
                   ),
                   gap8,
-                  DecoratedBox(
-                    decoration: BoxDecoration(
-                        border:
-                            Border.all(color: Theme.of(context).dividerColor),
-                        color: Theme.of(context).focusColor),
-                    child: Consumer(builder: (context, ref, _) {
-                      final userName = ref.watch(
-                          userProvider.select((value) => value?.Staff_Name));
-                      return Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Text(userName ?? ""));
-                    }),
-                  )
+                  Consumer(builder: (context, ref, _) {
+                    return TextFieldWidget(
+                      readOnly: true,
+                      controller: TextEditingController(
+                          text: ref.watch(userProvider
+                              .select((value) => value?.Staff_Name ?? ""))),
+                    );
+                  })
                 ],
               ),
               gap20,
@@ -100,15 +98,7 @@ class ExeApplyLeave extends StatelessWidget {
                     onChanged: (value) {
                       if (value == "1" || value == "0.5" || value == ".5") {
                         _isOneDay.value = true;
-                      }
-                      //  else if (fromDateValue.value != null &&
-                      //     toDateValue.value != null) {
-                      //   getDate(
-                      //       value: DateTime.parse(fromDateValue.value ?? ""));
-                      //   isOneDay.value = false;
-
-                      // }
-                      else {
+                      } else {
                         _isOneDay.value = false;
                       }
                     },
@@ -137,25 +127,31 @@ class ExeApplyLeave extends StatelessWidget {
                                     style: _textStyle,
                                   ),
                                   gap4,
-                                  dateFieldBox(
-                                    context: context,
-                                    dateValue: _fromDateValue,
-                                    onTap: () {
-                                      showDateTimeRangePicker(
-                                              context: context,
-                                              initialDate: DateTime.now(),
-                                              firstDate: DateTime(1600),
-                                              lastDate: DateTime(250000))
-                                          .then((value) {
-                                        _fromDateValue.value =
-                                            DateFormat('MM/dd/yyy')
-                                                .format(value);
-                                        _toDateValue.value =
-                                            DateFormat('MM/dd/yyy')
-                                                .format(value);
-                                      }).onError((error, stackTrace) => null);
-                                    },
-                                  ),
+                                  TextFieldWidget(
+                                      controller: _formDateController,
+                                      preFixIcon:
+                                          const Icon(Icons.calendar_month),
+                                      readOnly: true,
+                                      onFieldSubmitted: (value) {},
+                                      validator:
+                                          FormValidators.requiredWithFieldName(
+                                                  "Date is required")
+                                              .call,
+                                      onTap: () async {
+                                        await DateTimeExtension.showDate(
+                                          context: context,
+                                          initialDate: DateTime.now(),
+                                          firstDate:
+                                              DateTime(DateTime.now().year - 1),
+                                          lastDate:
+                                              DateTime(DateTime.now().year + 1),
+                                        ).then((value) {
+                                          _formDateController.text =
+                                              DateFormat('MM/dd/yyy')
+                                                  .format(value);
+                                        });
+                                      },
+                                      hint: "MM/DD/YYY"),
                                 ],
                               )
                             : Row(
@@ -170,25 +166,32 @@ class ExeApplyLeave extends StatelessWidget {
                                           style: _textStyle,
                                         ),
                                         gap4,
-                                        dateFieldBox(
-                                            context: context,
-                                            dateValue: _fromDateValue,
-                                            onTap: () {
-                                              showDateTimeRangePicker(
-                                                      context: context,
-                                                      initialDate:
-                                                          DateTime.now(),
-                                                      firstDate: DateTime(1600),
-                                                      lastDate:
-                                                          DateTime(250000))
-                                                  .then((value) {
-                                                _fromDateValue.value =
+                                        TextFieldWidget(
+                                            controller: _formDateController,
+                                            preFixIcon: const Icon(
+                                                Icons.calendar_month),
+                                            readOnly: true,
+                                            onFieldSubmitted: (value) {},
+                                            validator: FormValidators
+                                                    .requiredWithFieldName(
+                                                        "Date is required")
+                                                .call,
+                                            onTap: () async {
+                                              await DateTimeExtension.showDate(
+                                                context: context,
+                                                initialDate: DateTime.now(),
+                                                firstDate: DateTime(
+                                                    DateTime.now().year - 1),
+                                                lastDate: DateTime(
+                                                    DateTime.now().year + 1),
+                                              ).then((value) {
+                                                _formDateController.text =
                                                     DateFormat('MM/dd/yyy')
                                                         .format(value);
                                                 getDate(value: value);
-                                              }).onError((error, stackTrace) =>
-                                                      null);
-                                            })
+                                              });
+                                            },
+                                            hint: "MM/DD/YYY"),
                                       ],
                                     ),
                                   ),
@@ -203,10 +206,18 @@ class ExeApplyLeave extends StatelessWidget {
                                           style: _textStyle,
                                         ),
                                         gap4,
-                                        dateFieldBox(
-                                            context: context,
-                                            dateValue: _toDateValue,
-                                            onTap: () {}),
+                                        TextFieldWidget(
+                                            controller: _toDateController,
+                                            preFixIcon: const Icon(
+                                                Icons.calendar_month),
+                                            readOnly: true,
+                                            onFieldSubmitted: (value) {},
+                                            validator: FormValidators
+                                                    .requiredWithFieldName(
+                                                        "Date is required")
+                                                .call,
+                                            onTap: () async {},
+                                            hint: "MM/DD/YYY"),
                                       ],
                                     ),
                                   )
@@ -303,52 +314,52 @@ class ExeApplyLeave extends StatelessWidget {
     if (noOfDaysController.text.isNotEmpty &&
         noOfDaysController.text.contains('.')) {
       final valueDouble = (double.parse(noOfDaysController.text)).round();
-      _toDateValue.value = DateFormat('MM/dd/yyy')
+      _toDateController.text = DateFormat('MM/dd/yyy')
           .format(value.add(Duration(days: valueDouble - 1)));
     } else if (noOfDaysController.text.isNotEmpty) {
-      _toDateValue.value = DateFormat('MM/dd/yyy').format(
+      _toDateController.text = DateFormat('MM/dd/yyy').format(
           value.add(Duration(days: (int.parse(noOfDaysController.text)) - 1)));
     }
   }
 
-  Widget dateFieldBox(
-      {required BuildContext context,
-      required ValueNotifier dateValue,
-      required VoidCallback onTap}) {
-    return InkWell(
-      onTap: onTap,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-            color: Theme.of(context).focusColor,
-            border: Border.all(color: Theme.of(context).dividerColor)),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Icon(
-                Icons.calendar_month,
-                color: AppColors.black,
-              ),
-              gap8,
-              ValueListenableBuilder(
-                  valueListenable: dateValue,
-                  builder: (context, value, child) {
-                    return Expanded(
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                          value ?? "MM/dd/yyy",
-                          style: TextStyle(
-                            color: AppColors.black,
-                          ),
-                        ),
-                      ),
-                    );
-                  }),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget dateFieldBox(
+  //     {required BuildContext context,
+  //     required ValueNotifier dateValue,
+  //     required VoidCallback onTap}) {
+  //   return InkWell(
+  //     onTap: onTap,
+  //     child: DecoratedBox(
+  //       decoration: BoxDecoration(
+  //           color: Theme.of(context).focusColor,
+  //           border: Border.all(color: Theme.of(context).dividerColor)),
+  //       child: Padding(
+  //         padding: const EdgeInsets.all(8.0),
+  //         child: Row(
+  //           children: [
+  //             Icon(
+  //               Icons.calendar_month,
+  //               color: AppColors.black,
+  //             ),
+  //             gap8,
+  //             ValueListenableBuilder(
+  //                 valueListenable: dateValue,
+  //                 builder: (context, value, child) {
+  //                   return Expanded(
+  //                     child: FittedBox(
+  //                       fit: BoxFit.scaleDown,
+  //                       child: Text(
+  //                         value ?? "MM/dd/yyy",
+  //                         style: TextStyle(
+  //                           color: AppColors.black,
+  //                         ),
+  //                       ),
+  //                     ),
+  //                   );
+  //                 }),
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 }

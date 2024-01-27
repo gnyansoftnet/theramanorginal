@@ -21,7 +21,8 @@ class SendOtpNotifier extends AutoDisposeAsyncNotifier<SendOtpState> {
         state = const AsyncData(SendOtpLoaded());
       },
       (error) {
-        state = AsyncError(error, StackTrace.current);
+        state = AsyncError(
+            error.errorMessage ?? "User does not exist", StackTrace.current);
       },
     );
   }

@@ -2,13 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
-import 'package:theraman/src/features/authentication/application/providers/verify_otp_provider.dart';
-import 'package:theraman/src/features/authentication/application/states/verify_otp_states.dart';
+import 'package:theraman/src/features/authentication/application/providers/signin_provider.dart';
+import 'package:theraman/src/features/authentication/application/states/signin_state.dart';
 import 'package:theraman/src/global/widgets/widget.dart';
 import 'package:theraman/src/utils/extensions/ext.dart';
 
-class VerifyOtpButton extends ConsumerWidget {
-  const VerifyOtpButton({
+class SigninButton extends ConsumerWidget {
+  const SigninButton({
     super.key,
     required this.onSubmit,
   });
@@ -17,19 +17,24 @@ class VerifyOtpButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final verifyOtpButtonState = ref.watch(verifyOtpProvider);
+    final signinButtonState = ref.watch(signinProvider);
 
     ref.listen(
-      verifyOtpProvider,
+      signinProvider,
       (previous, next) {
         next.when(
           data: (data) => switch (data) {
-            VerifyOtpInitial() => null,
-            VerifyOtpLoading() => null,
-            VerifyOtpLoaded() => context.router.replaceAll([DashboardRoute()]),
+            SigninInitial() => null,
+            SigninLoading() => null,
+            SigninLoaded() => {
+                if (context.mounted)
+                  {
+                    context.router.replaceAll([DashboardRoute()])
+                  }
+              }
           },
           error: (e, _) {
-            /// show error snackbar
+            // show error
             context.showSnackBar(SnackContentWidget(
               content: "$e",
             ));
@@ -41,31 +46,31 @@ class VerifyOtpButton extends ConsumerWidget {
       },
     );
 
-    return verifyOtpButtonState.easyWhen(
+    return signinButtonState.easyWhen(
       data: (data) {
         return switch (data) {
-          VerifyOtpInitial() => ElevatedButtonWidget(
+          SigninInitial() => ElevatedButtonWidget(
               onPressed: onSubmit,
-              text: "VERIFY OTP",
+              text: "SIGN IN",
             ),
-          VerifyOtpLoading() => const ElevatedButtonWidget(
+          SigninLoading() => const ElevatedButtonWidget(
               onPressed: null,
-              text: "VERIFY OTP",
+              text: "SIGN IN",
             ),
-          VerifyOtpLoaded() => const ElevatedButtonWidget(
-              onPressed: null,
-              text: "VERIFY OTP",
+          SigninLoaded() => ElevatedButtonWidget(
+              onPressed: onSubmit,
+              text: "SIGN IN",
             ),
         };
       },
       errorWidget: (error, stackTrace) => ElevatedButtonWidget(
         onPressed: onSubmit,
-        text: "VERIFY OTP",
+        text: "SIGN IN",
       ),
-      loadingWidget: () => const ElevatedButtonWidget(
+      loadingWidget: () => ElevatedButtonWidget(
         onPressed: null,
         child: CircularProgressIndicator(
-          strokeWidth: 2.0,
+          color: Theme.of(context).cardColor,
         ),
       ),
     );

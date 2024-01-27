@@ -1,26 +1,26 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theraman/src/features/authentication/application/providers/user_provider.dart';
-import 'package:theraman/src/features/authentication/application/states/verify_otp_states.dart';
+import 'package:theraman/src/features/authentication/application/states/signin_state.dart';
 import 'package:theraman/src/features/authentication/data/repo/auth_repo_pod.dart';
 import 'package:theraman/src/utils/extensions/cancel_ext.dart';
 
-class VerifyOtpNotifier extends AutoDisposeAsyncNotifier<VerifyOtpState> {
+class SigninNotifier extends AutoDisposeAsyncNotifier<SigninState> {
   @override
-  FutureOr<VerifyOtpState> build() {
-    state = const AsyncData(VerifyOtpInitial());
+  FutureOr<SigninState> build() {
+    state = const AsyncData(SigninInitial());
     return future;
   }
 
-  Future<void> verifyOtp({
+  Future<void> signin({
     required String mobileNo,
-    required String otp,
+    required String password,
     required String userType,
   }) async {
     state = const AsyncLoading();
-    final result = await ref.watch(authRepoProvider).verifyOtp(
+    final result = await ref.watch(authRepoProvider).signin(
         mobileNo: mobileNo,
-        otp: otp,
+        password: password,
         userType: userType,
         cancelToken: ref.cancelToken());
 
@@ -28,11 +28,12 @@ class VerifyOtpNotifier extends AutoDisposeAsyncNotifier<VerifyOtpState> {
       (success) {
         ref.read(userProvider.notifier).saveUser(
             userModel: success.copyWith(userType: userType, isLogin: true));
-        state = const AsyncData(VerifyOtpLoaded());
+        state = const AsyncData(SigninLoaded());
       },
       (error) {
         state = AsyncError(
-            error.errorMessage ?? "Your OTP is wrong !", StackTrace.current);
+            error.errorMessage ?? "Invalid user name and password !",
+            StackTrace.current);
       },
     );
   }

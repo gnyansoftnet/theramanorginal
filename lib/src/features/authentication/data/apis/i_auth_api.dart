@@ -12,4 +12,11 @@ abstract class IAuthApi {
     required String userType,
     CancelToken? cancelToken,
   });
+
+  Future<Response> signin({
+    required String mobileNo,
+    required String password,
+    required String userType,
+    CancelToken? cancelToken,
+  });
 }

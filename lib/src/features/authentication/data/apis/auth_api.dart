@@ -23,4 +23,14 @@ class AuthApi extends IAuthApi {
     return await dio.post(
         "${AppUrls.verifyOtpUrl}/?Mobile_No=$mobileNo&Type=$userType&Otp=$otp");
   }
+
+  @override
+  Future<Response> signin(
+      {required String mobileNo,
+      required String password,
+      required String userType,
+      CancelToken? cancelToken}) async {
+    final formData = {"Type": userType, "Uid": mobileNo, "Pwd": password};
+    return await dio.post(AppUrls.signinUrl, data: formData);
+  }
 }

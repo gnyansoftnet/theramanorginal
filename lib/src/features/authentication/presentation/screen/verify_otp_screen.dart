@@ -6,10 +6,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
+import 'package:theraman/src/features/authentication/application/providers/verify_otp_provider.dart';
 import 'package:theraman/src/global/exception/app_exception.dart';
 import 'package:theraman/src/features/authentication/application/providers/timer_provider.dart';
 import 'package:theraman/src/features/authentication/application/providers/send_otp_provider.dart';
-import 'package:theraman/src/features/authentication/presentation/controller/auth_controller.dart';
 import 'package:theraman/src/features/authentication/presentation/comp/verify_otp_button.dart';
 import 'package:theraman/src/utils/constants/app_assets.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
@@ -29,7 +29,6 @@ class VerifyOtpScreen extends ConsumerStatefulWidget {
 
 class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
   TextEditingController pinController = TextEditingController();
-  final loginController = AuthController();
 
   final ValueNotifier<bool> isResend = ValueNotifier<bool>(false);
 
@@ -109,12 +108,11 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
             gap20,
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 60),
-              child: VerifyOtpButton(onSubmit: () {
+              child: VerifyOtpButton(onSubmit: () async {
                 if (isValidated()) {
-                  loginController.verifyOtp(
-                      ref: ref,
-                      mobileNumber: widget.mobileNoController.text,
-                      otp: pinController.text,
+                  await ref.read(verifyOtpProvider.notifier).verifyOtp(
+                      mobileNo: widget.mobileNoController.text.trim(),
+                      otp: pinController.text.trim(),
                       userType: widget.userType);
                 }
               }),

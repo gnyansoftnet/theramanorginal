@@ -36,4 +36,20 @@ class AuthRepo extends IAuthRepo {
     return response.successErrorHandler(
         successMapper: (result) => UserModel.fromMap(result));
   }
+
+  @override
+  Future<Result<UserModel, APIException>> signin(
+      {required String mobileNo,
+      required String password,
+      required String userType,
+      CancelToken? cancelToken}) async {
+    final response = await iLoginApi.signin(
+      mobileNo: mobileNo,
+      password: password,
+      userType: userType,
+      cancelToken: cancelToken,
+    );
+    return response.successErrorHandler(
+        successMapper: (result) => UserModel.fromMap(result));
+  }
 }

@@ -4,9 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/authentication/application/providers/send_otp_provider.dart';
 import 'package:theraman/src/features/authentication/application/states/send_otp_states.dart';
-import 'package:theraman/src/global/widgets/elevated_button_widget.dart';
-import 'package:theraman/src/utils/extensions/snackbar_ext.dart';
-import 'package:theraman/src/utils/extensions/asyncvalue_easy_when.dart';
+import 'package:theraman/src/global/widgets/widget.dart';
+import 'package:theraman/src/utils/extensions/ext.dart';
 
 class SendOtpButton extends ConsumerWidget {
   final TextEditingController mobileNoController;
@@ -37,9 +36,9 @@ class SendOtpButton extends ConsumerWidget {
               }
           },
           error: (e, _) {
-            /// show error snackbar
-            final snackBar = SnackBar(content: Text("$e"));
-            context.showSnackBar(snackBar);
+            context.showSnackBar(SnackContentWidget(
+              content: "$e",
+            ));
           },
           loading: () {
             // show loading dialog
@@ -71,7 +70,6 @@ class SendOtpButton extends ConsumerWidget {
       ),
       loadingWidget: () => const ElevatedButtonWidget(
         onPressed: null,
-        isChild: true,
         child: CircularProgressIndicator(
           strokeWidth: 2.0,
         ),

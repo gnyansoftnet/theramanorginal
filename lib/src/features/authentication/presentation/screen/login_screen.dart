@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
-import 'package:theraman/src/global/widgets/elevated_button_widget.dart';
+import 'package:theraman/src/features/authentication/application/providers/signin_provider.dart';
+import 'package:theraman/src/features/authentication/presentation/comp/signin_button.dart';
 import 'package:theraman/src/global/widgets/textfield_widget.dart';
 import 'package:theraman/src/utils/constants/app_assets.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
@@ -115,14 +117,20 @@ class LoginScreen extends StatelessWidget {
                           color: Theme.of(context).primaryColor,
                         ),
                       ),
-                      validator: FormValidators.password.call,
+                      validator:
+                          FormValidators.requiredWithFieldName("Password").call,
                     );
                   }),
               gap24,
-              ElevatedButtonWidget(
-                onPressed: () {},
-                text: "LOGIN",
-              ),
+              Consumer(builder: (context, ref, _) {
+                return SigninButton(onSubmit: () async {
+                  if (!_formKey.currentState!.validate()) return;
+                  await ref.read(signinProvider.notifier).signin(
+                      mobileNo: mobileController.text.trim(),
+                      password: passwordController.text.trim(),
+                      userType: userType);
+                });
+              }),
               gap28,
               Text(
                 "OR",

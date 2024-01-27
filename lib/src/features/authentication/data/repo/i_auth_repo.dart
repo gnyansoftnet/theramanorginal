@@ -15,4 +15,11 @@ abstract class IAuthRepo {
     required String userType,
     CancelToken? cancelToken,
   });
+
+  Future<Result<UserModel, APIException>> signin({
+    required String mobileNo,
+    required String password,
+    required String userType,
+    CancelToken? cancelToken,
+  });
 }

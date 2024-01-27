@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:theraman/src/features/authentication/presentation/controller/auth_controller.dart';
+import 'package:theraman/src/features/authentication/application/providers/send_otp_provider.dart';
 import 'package:theraman/src/features/authentication/presentation/comp/send_otp_button.dart';
 import 'package:theraman/src/utils/constants/app_assets.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
@@ -14,7 +14,6 @@ class MobileNumberScreen extends ConsumerWidget {
   final String userType;
   MobileNumberScreen({super.key, required this.userType});
   final mobileNoController = TextEditingController();
-  final loginController = AuthController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -98,11 +97,10 @@ class MobileNumberScreen extends ConsumerWidget {
               child: SendOtpButton(
                   mobileNoController: mobileNoController,
                   usertype: userType,
-                  onSubmit: () {
+                  onSubmit: () async {
                     if (isValidated()) {
-                      loginController.sendOtp(
-                          ref: ref,
-                          mobileNumber: mobileNoController.text,
+                      await ref.read(sendOtpProvider.notifier).sendOtp(
+                          mobileNo: mobileNoController.text.trim(),
                           userType: userType);
                     }
                   }),

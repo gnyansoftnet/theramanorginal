@@ -5,8 +5,15 @@ extension AppSnackBar on BuildContext {
 
   /// show snakbar
   ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSnackBar(
-          SnackBar snackBar) =>
-      _scafoldMessenger.showSnackBar(snackBar);
+          Widget content) =>
+      _scafoldMessenger.showSnackBar(SnackBar(
+        content: content,
+        duration: const Duration(seconds: 5),
+        dismissDirection: DismissDirection.horizontal,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ));
 
   /// hide current snakbar
   void hideSnackBar() => _scafoldMessenger.hideCurrentSnackBar();

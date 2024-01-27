@@ -10,6 +10,9 @@ class AppUrls {
 
   static const String sendOtpUrl = "/RegisterUser";
   static const String verifyOtpUrl = "/VerifyOTP";
+  static const String signinUrl = "/ValidateUser";
+
+
 
   // Therapist
   static const String getAllotedSlotDetailsUrl = "/GetAllotedSlotDetails";

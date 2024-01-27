@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
-import 'package:theraman/src/global/noti/internet_status.notifier.dart';
+import 'package:theraman/src/global/pod/internet_status.notifier.dart';
 
 /// A flag provider to disable or enable internet checker
 final enableInternetCheckerPod = Provider.autoDispose<bool>((ref) {

@@ -24,7 +24,7 @@ class DropDownButtonFormFieldWidget<T> extends StatelessWidget {
       items: items,
       onChanged: onChanged,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(vertical: 10),
+        contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
         border: OutlineInputBorder(
             borderSide: BorderSide(color: Theme.of(context).dividerColor),
             borderRadius: BorderRadius.circular(0)),
@@ -38,7 +38,7 @@ class DropDownButtonFormFieldWidget<T> extends StatelessWidget {
             borderSide: BorderSide(color: Theme.of(context).dividerColor),
             borderRadius: BorderRadius.circular(0)),
         errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Theme.of(context).colorScheme.error),
+            borderSide: BorderSide(color: Theme.of(context).dividerColor),
             borderRadius: BorderRadius.circular(0)),
         fillColor: Theme.of(context).focusColor,
       ),

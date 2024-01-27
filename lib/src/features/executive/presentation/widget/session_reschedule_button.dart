@@ -79,7 +79,6 @@ class SessionRescheduleButton extends ConsumerWidget {
       ),
       loadingWidget: () => const ElevatedButtonWidget(
         onPressed: null,
-        isChild: true,
         child: CircularProgressIndicator(
           strokeWidth: 2.0,
         ),
