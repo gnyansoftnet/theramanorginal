@@ -12,8 +12,6 @@ class AppUrls {
   static const String verifyOtpUrl = "/VerifyOTP";
   static const String signinUrl = "/ValidateUser";
 
-
-
   // Therapist
   static const String getAllotedSlotDetailsUrl = "/GetAllotedSlotDetails";
   static const String startSessionUrl = "/SessionStart?";
@@ -61,4 +59,6 @@ class AppUrls {
   static const String exeApplyLeavUrl = "/ApplyLeaveByExecutive";
 
   static const String exeLeaveStatusUrl = "/GetAppliedLeaveDetails";
+
+  static const changePassUrl = "/ChangePassword";
 }

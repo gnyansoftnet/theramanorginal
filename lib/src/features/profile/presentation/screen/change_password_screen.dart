@@ -66,7 +66,8 @@ class ChangePasswordScreen extends StatelessWidget {
                     onFieldSubmitted: (valule) {
                       context.changeFocus(_currPassFocus, _newPassFocus);
                     },
-                    validator: FormValidators.password.call,
+                    validator:
+                        FormValidators.requiredWithFieldName("Password").call,
                   );
                 }),
             gap16,
@@ -133,8 +134,8 @@ class ChangePasswordScreen extends StatelessWidget {
                 if (!_formKey.currentState!.validate()) return;
                 if (isValidated(context: context)) {
                   await ref.read(changePasswordPod.notifier).changePassword(
-                      currPass: _currPasswordController.text,
-                      newPass: _newPasswordController.text);
+                      currPass: _currPasswordController.text.trim(),
+                      newPass: _newPasswordController.text.trim());
                 }
               });
             })

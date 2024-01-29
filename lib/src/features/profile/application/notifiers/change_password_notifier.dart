@@ -12,17 +12,26 @@ class ChangePasswordNotifier
     return future;
   }
 
-  Future<void> changePassword(
-      {required String currPass, required String newPass}) async {
+  Future<void> changePassword({
+    required String currPass,
+    required String newPass,
+  }) async {
     state = const AsyncLoading();
-    final exeCode = ref.watch(userProvider.select((data) => data?.Staff_Code));
+    final staffCode =
+        ref.watch(userProvider.select((data) => data?.Staff_Code));
+    final userType = ref.watch(userProvider.select((value) => value?.userType));
+
     final result = await ref.watch(profielRepoPod).changePassword(
-        exeCode: exeCode ?? "", currPass: currPass, newPass: newPass);
+        userType: userType ?? "",
+        staffCode: staffCode ?? "",
+        currPass: currPass,
+        newPass: newPass);
 
     result.when((success) {
       state = AsyncData(ChangePasswordLoaded(msg: success));
     }, (error) {
-      state = AsyncError(error.errorMessage ?? "", StackTrace.current);
+      state = AsyncError(
+          error.errorMessage ?? "Can not changed password", StackTrace.current);
     });
   }
 }

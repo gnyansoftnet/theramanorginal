@@ -8,16 +8,18 @@ class ProfileApi extends IProfileApi {
 
   @override
   Future<Response> changePassword(
-      {required exeCode,
+      {required userType,
+      required staffCode,
       required currPass,
       required newPass,
       CancelToken? cancelToken}) async {
     final formData = {
-      "Exe_Code": exeCode,
+      "Type": userType,
+      "Staff_Code": staffCode,
       "Old_Password": currPass,
       "New_Password": newPass
     };
 
-    return await dio.post(AppUrls.changeTherapistUrl, data: formData);
+    return await dio.post(AppUrls.changePassUrl, data: formData);
   }
 }

@@ -76,21 +76,22 @@ class LoginScreen extends StatelessWidget {
               TextFieldWidget(
                 focusNode: emailNode,
                 controller: mobileController,
-                inputFormatters: <TextInputFormatter>[
-                  LengthLimitingTextInputFormatter(10),
-                  FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                inputFormatters: const <TextInputFormatter>[
+                  // LengthLimitingTextInputFormatter(10),
+                  // FilteringTextInputFormatter.allow(RegExp('[0-9]')),
                 ],
-                keyboardKey: TextInputType.number,
                 preFixIcon: Icon(
-                  Icons.phone,
+                  Icons.person,
                   color: Theme.of(context).primaryColor,
                 ),
                 onFieldSubmitted: (value) {
                   context.changeFocus(emailNode, passwordNode);
                 },
                 maxLines: 1,
-                hint: "Mobile Number",
-                validator: FormValidators.phone.call,
+                hint: "User Name",
+                validator: FormValidators.requiredWithFieldName(
+                        "User name is required")
+                    .call,
               ),
               gap16,
               ValueListenableBuilder(

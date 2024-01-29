@@ -5,22 +5,22 @@ import 'package:theraman/src/features/splash/splash_service.dart';
 import 'package:theraman/src/utils/constants/app_assets.dart';
 
 @RoutePage(deferredLoading: true, name: "SplashRoute")
-class SplashScreen extends ConsumerStatefulWidget {
+class SplashScreen extends ConsumerWidget {
   const SplashScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends ConsumerState<SplashScreen> {
-  @override
-  Widget build(BuildContext context) {
-    SplashServices().isLogin(context: context, ref: ref);
-    return const Scaffold(
-      body: SafeArea(
-        child: Center(
-            child: Image(fit: BoxFit.cover, image: AssetImage(AppAssets.logo))),
-      ),
-    );
+  Widget build(BuildContext context, WidgetRef ref) {
+    final height = MediaQuery.sizeOf(context).height;
+    return FutureBuilder(
+        future: SplashServices().isLogin(context: context, ref: ref),
+        builder: (context, snapshot) {
+          return Scaffold(
+            body: Center(
+                child: Image(
+                    height: height / 4,
+                    fit: BoxFit.cover,
+                    image: const AssetImage(AppAssets.logo))),
+          );
+        });
   }
 }

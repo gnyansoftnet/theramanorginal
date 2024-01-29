@@ -11,12 +11,14 @@ class ProfileRepo extends IProfileRepo {
 
   @override
   Future<Result<String, APIException>> changePassword(
-      {required String exeCode,
+      {required String userType,
+      required String staffCode,
       required String currPass,
       required String newPass,
       CancelToken? cancelToken}) async {
     final response = await iProfileApi.changePassword(
-        exeCode: exeCode,
+        userType: userType,
+        staffCode: staffCode,
         currPass: currPass,
         newPass: newPass,
         cancelToken: cancelToken);
