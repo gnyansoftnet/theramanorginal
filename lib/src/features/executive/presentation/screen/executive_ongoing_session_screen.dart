@@ -1,12 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/executive/application/provider/alloted_slot_all_therapist_provider.dart';
 import 'package:theraman/src/features/executive/application/provider/clock_provider.dart';
 import 'package:theraman/src/features/executive/presentation/controller/e_dashboard_controller.dart';
+import 'package:theraman/src/global/model/alloted_slot_response_model.dart';
+import 'package:theraman/src/global/widgets/empty_widget.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
 import 'package:theraman/src/utils/extensions/alert_dialog_ext.dart';
@@ -29,7 +30,6 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
       body: allotedSlotState.easyWhen(onRetry: () {
         ref.invalidate(allotedSlotAllTherapistProvider);
       }, data: (value) {
-        // debugPrint("Time===$time");
         return Padding(
           padding: const EdgeInsets.all(12.0),
           child: RefreshIndicator(
@@ -37,26 +37,9 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
               ref.invalidate(allotedSlotAllTherapistProvider);
             },
             child: value.allotSlots!.isEmpty
-                ? Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          "assets/images/svg/blank.svg",
-                          fit: BoxFit.cover,
-                          height: MediaQuery.sizeOf(context).height / 3,
-                        ),
-                        gap8,
-                        const Text("Ohh ! here is no slot available"),
-                        gap8,
-                        ElevatedButton(
-                            onPressed: () {
-                              ref.invalidate(allotedSlotAllTherapistProvider);
-                            },
-                            child: const Text("Refresh"))
-                      ],
-                    ),
-                  )
+                ? EmptyWidget(onPressed: () {
+                    ref.invalidate(allotedSlotAllTherapistProvider);
+                  })
                 : ListView.builder(
                     physics: const AlwaysScrollableScrollPhysics(),
                     itemCount: value.allotSlots!.length,
@@ -147,84 +130,15 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                                             ? () {
                                                 Navigator.pop(context);
 
-                                                final currTime =
-                                                    DateTime.parse(time);
-
-                                                final slotTime = DateFormat(
-                                                        'yyyy-dd-MM HH:mm')
-                                                    .parse(data.slotStartTime!);
-
-                                                final duration = slotTime
-                                                    .subtract(const Duration(
-                                                        minutes: 10))
-                                                    .compareTo(
-                                                        currTime.subtract(
-                                                            const Duration(
-                                                                minutes: 10)));
-                                                final difference = slotTime
-                                                    .difference(currTime);
-
-                                                if (duration == -1 ||
-                                                    duration == 0) {
+                                                if (isStart(
+                                                    data: data, time: time)) {
                                                   eDashboardControlller
                                                       .exeStartSession(
                                                           context: context,
                                                           ref: ref,
                                                           slotId:
                                                               data.rSSlotId ??
-                                                                  0)
-                                                      .then((value) {})
-                                                      .onError(
-                                                          (error, stackTrace) {
-                                                    context.showSnackBar(SnackBar(
-                                                        content: Text(
-                                                            "$error something went wrong !")));
-                                                  });
-                                                } else if (duration == 1 &&
-                                                        difference ==
-                                                            const Duration(
-                                                                minutes: 1) ||
-                                                    difference ==
-                                                        const Duration(
-                                                            minutes: 2) ||
-                                                    difference ==
-                                                        const Duration(
-                                                            minutes: 3) ||
-                                                    difference ==
-                                                        const Duration(
-                                                            minutes: 4) ||
-                                                    difference ==
-                                                        const Duration(
-                                                            minutes: 5) ||
-                                                    difference ==
-                                                        const Duration(
-                                                            minutes: 6) ||
-                                                    difference ==
-                                                        const Duration(
-                                                            minutes: 7) ||
-                                                    difference ==
-                                                        const Duration(
-                                                            minutes: 8) ||
-                                                    difference ==
-                                                        const Duration(
-                                                            minutes: 9) ||
-                                                    difference ==
-                                                        const Duration(
-                                                            minutes: 10)) {
-                                                  eDashboardControlller
-                                                      .exeStartSession(
-                                                          context: context,
-                                                          ref: ref,
-                                                          slotId:
-                                                              data.rSSlotId ??
-                                                                  0)
-                                                      .then((value) {})
-                                                      .onError(
-                                                          (error, stackTrace) {
-                                                    context.showSnackBar(SnackBar(
-                                                        content: Text(
-                                                            "$error something went wrong !")));
-                                                  });
+                                                                  0);
                                                 } else {
                                                   context.showCustomDialog(
                                                       builder: (ctx) {
@@ -342,5 +256,23 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
         );
       }),
     );
+  }
+
+  bool isStart({required AllotSlots data, required String time}) {
+    final currTime = DateTime.parse(time);
+    final slotTime = DateFormat('yyyy-dd-MM HH:mm').parse(data.slotStartTime!);
+    final duration = slotTime
+        .subtract(const Duration(minutes: 10))
+        .compareTo(currTime.subtract(const Duration(minutes: 10)));
+    final difference = slotTime.difference(currTime);
+
+    if (duration == -1 || duration == 0) {
+      return true;
+    } else if (duration == 1 &&
+        (const Duration(minutes: 1) < difference &&
+            difference <= const Duration(minutes: 10))) {
+      return true;
+    }
+    return false;
   }
 }

@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/authentication/application/providers/user_provider.dart';
@@ -284,15 +283,14 @@ class ExeApplyLeave extends StatelessWidget {
               Consumer(builder: (context, ref, _) {
                 return ExeApplyLeaveButton(onSubmit: () {
                   if (!_formKey.currentState!.validate()) return;
-                  if (isValidated()) {
-                    exeController.exeApplyLeave(
-                        ref: ref,
-                        fromDate: _fromDateValue.value.toString(),
-                        toDate: _toDateValue.value.toString(),
-                        leaveType: _leaveTypeValue.value.toString(),
-                        reason: reasonController.text,
-                        noOfDays: noOfDaysController.text);
-                  }
+
+                  exeController.exeApplyLeave(
+                      ref: ref,
+                      fromDate: _fromDateValue.value.toString(),
+                      toDate: _toDateValue.value.toString(),
+                      leaveType: _leaveTypeValue.value.toString(),
+                      reason: reasonController.text,
+                      noOfDays: noOfDaysController.text);
                 });
               }),
             ],
@@ -300,14 +298,6 @@ class ExeApplyLeave extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  bool isValidated() {
-    if (_fromDateValue.value == null || _toDateValue.value == null) {
-      Fluttertoast.showToast(msg: "Select your date");
-      return false;
-    }
-    return true;
   }
 
   void getDate({required DateTime value}) {
@@ -321,45 +311,4 @@ class ExeApplyLeave extends StatelessWidget {
           value.add(Duration(days: (int.parse(noOfDaysController.text)) - 1)));
     }
   }
-
-  // Widget dateFieldBox(
-  //     {required BuildContext context,
-  //     required ValueNotifier dateValue,
-  //     required VoidCallback onTap}) {
-  //   return InkWell(
-  //     onTap: onTap,
-  //     child: DecoratedBox(
-  //       decoration: BoxDecoration(
-  //           color: Theme.of(context).focusColor,
-  //           border: Border.all(color: Theme.of(context).dividerColor)),
-  //       child: Padding(
-  //         padding: const EdgeInsets.all(8.0),
-  //         child: Row(
-  //           children: [
-  //             Icon(
-  //               Icons.calendar_month,
-  //               color: AppColors.black,
-  //             ),
-  //             gap8,
-  //             ValueListenableBuilder(
-  //                 valueListenable: dateValue,
-  //                 builder: (context, value, child) {
-  //                   return Expanded(
-  //                     child: FittedBox(
-  //                       fit: BoxFit.scaleDown,
-  //                       child: Text(
-  //                         value ?? "MM/dd/yyy",
-  //                         style: TextStyle(
-  //                           color: AppColors.black,
-  //                         ),
-  //                       ),
-  //                     ),
-  //                   );
-  //                 }),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 }

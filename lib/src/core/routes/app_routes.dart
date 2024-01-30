@@ -127,17 +127,7 @@ class AppRouter extends $AppRouter {
             return slidAnimation(animation, child);
           },
         ),
-        CustomRoute(
-          page: LoadingDialogRoute.page,
-          path: '/loadingDialogRoute',
-          customRouteBuilder: <T>(context, child, AutoRoutePage<T> page) {
-            return DialogRoute(
-              context: context,
-              settings: page,
-              builder: (_) => child,
-            );
-          },
-        ),
+
         CustomRoute(
           page: ExeApplyLeaveRoute.page,
           path: "/ExeApplyLeaveRoute",

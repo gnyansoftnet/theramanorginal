@@ -1,21 +1,29 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/executive/application/provider/therapist_leave_status_provider.dart';
 import 'package:theraman/src/global/widgets/drawer_widget.dart';
 import 'package:theraman/src/global/helper/common_methods.dart';
-import 'package:theraman/src/utils/constants/app_colors.dart';
-import 'package:theraman/src/utils/constants/gaps.dart';
+import 'package:theraman/src/global/widgets/empty_widget.dart';
+import 'package:theraman/src/global/widgets/widget.dart';
+import 'package:theraman/src/utils/constants/constant.dart';
 import 'package:theraman/src/utils/extensions/asyncvalue_easy_when.dart';
+import 'package:theraman/src/utils/extensions/ext.dart';
 
 @RoutePage(deferredLoading: true, name: "ExeLeaveStatusRoute")
 class ExeLeaveStatusScreen extends ConsumerWidget {
   ExeLeaveStatusScreen({super.key});
   final fromDateValue =
       ValueNotifier<String>(DateFormat("MM/dd/yyy").format(DateTime.now()));
+
+  // final _fromDateController = TextEditingController(
+  //     text: DateFormat("MM/dd/yyy").format(DateTime.now(),));
+
+  // final _toDateController = TextEditingController(
+  //     text: DateFormat("MM/dd/yyy").format(DateTime.now()));
+
   final toDateValue =
       ValueNotifier<String>(DateFormat("MM/dd/yyy").format(DateTime.now()));
 
@@ -40,27 +48,12 @@ class ExeLeaveStatusScreen extends ConsumerWidget {
         child: Column(
           children: [
             Expanded(
-                flex: 0,
-                child: Row(
-                  children: [
-                    dateFieldBox(
-                        context: context,
-                        dateValue: fromDateValue,
-                        onTap: () {
-                          showDateTimeRangePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1600),
-                            lastDate: DateTime(2500000),
-                          ).then((value) {
-                            fromDateValue.value =
-                                DateFormat('MM/dd/yyy').format(value);
-                          }).onError((error, stackTrace) => null);
-                        }),
-                  gap4,
-                    dateFieldBox(
+              flex: 0,
+              child: Row(
+                children: [
+                  dateFieldBox(
                       context: context,
-                      dateValue: toDateValue,
+                      dateValue: fromDateValue,
                       onTap: () {
                         showDateTimeRangePicker(
                           context: context,
@@ -68,28 +61,90 @@ class ExeLeaveStatusScreen extends ConsumerWidget {
                           firstDate: DateTime(1600),
                           lastDate: DateTime(2500000),
                         ).then((value) {
-                          toDateValue.value =
+                          fromDateValue.value =
                               DateFormat('MM/dd/yyy').format(value);
                         }).onError((error, stackTrace) => null);
-                      },
-                    ),
-                    gap8,
-                    Expanded(
-                      child: ElevatedButton(
-                          onPressed: () {
-                            ref.watch(therapistLeaveStatusProvider(Date(
-                                from: fromDateValue.value,
-                                to: toDateValue.value)));
-                          },
-                          style: ElevatedButton.styleFrom(
-                              elevation: 1.0,
-                              shape: const RoundedRectangleBorder(
-                                  side: BorderSide(width: 0.5),
-                                  borderRadius: BorderRadius.all(Radius.zero))),
-                          child: const Text("Search")),
-                    )
-                  ],
-                )),
+                      }),
+
+                  // Expanded(
+                  //   child: TextFieldWidget(
+                  //       controller: _fromDateController,
+                  //       preFixIcon: const Icon(Icons.calendar_month),
+                  //       readOnly: true,
+                  //       onFieldSubmitted: (value) {},
+                  //       validator: FormValidators.requiredWithFieldName(
+                  //               "Date is required")
+                  //           .call,
+                  //       onTap: () async {
+                  //         await DateTimeExtension.showDate(
+                  //           context: context,
+                  //           initialDate: DateTime.now(),
+                  //           firstDate: DateTime(DateTime.now().year - 1),
+                  //           lastDate: DateTime(DateTime.now().year + 1),
+                  //         ).then((value) {
+                  //           _fromDateController.text =
+                  //               DateFormat('MM/dd/yyy').format(value);
+                  //         });
+                  //       },
+                  //       hint: "MM/DD/YYY"),
+                  // ),
+                  gap4,
+                  dateFieldBox(
+                    context: context,
+                    dateValue: toDateValue,
+                    onTap: () {
+                      showDateTimeRangePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1600),
+                        lastDate: DateTime(2500000),
+                      ).then((value) {
+                        toDateValue.value =
+                            DateFormat('MM/dd/yyy').format(value);
+                      }).onError((error, stackTrace) => null);
+                    },
+                  ),
+
+                  // Expanded(
+                  //   child: TextFieldWidget(
+                  //       controller: _toDateController,
+                  //       preFixIcon: const Icon(Icons.calendar_month),
+                  //       readOnly: true,
+                  //       onFieldSubmitted: (value) {},
+                  //       validator: FormValidators.requiredWithFieldName(
+                  //               "Date is required")
+                  //           .call,
+                  //       onTap: () async {
+                  //         await DateTimeExtension.showDate(
+                  //           context: context,
+                  //           initialDate: DateTime.now(),
+                  //           firstDate: DateTime(DateTime.now().year - 1),
+                  //           lastDate: DateTime(DateTime.now().year + 1),
+                  //         ).then((value) {
+                  //           _toDateController.text =
+                  //               DateFormat('MM/dd/yyy').format(value);
+                  //         });
+                  //       },
+                  //       hint: "MM/DD/YYY"),
+                  // ),
+                  gap8,
+                  Expanded(
+                    child: ElevatedButton(
+                        onPressed: () {
+                          ref.watch(therapistLeaveStatusProvider(Date(
+                              from: fromDateValue.value,
+                              to: toDateValue.value)));
+                        },
+                        style: ElevatedButton.styleFrom(
+                            elevation: 1.0,
+                            shape: const RoundedRectangleBorder(
+                                side: BorderSide(width: 0.5),
+                                borderRadius: BorderRadius.all(Radius.zero))),
+                        child: const Text("SEARCH")),
+                  )
+                ],
+              ),
+            ),
             Expanded(
               child: leaveStatusState.easyWhen(onRetry: () async {
                 ref.invalidate(therapistLeaveStatusProvider);
@@ -99,26 +154,10 @@ class ExeLeaveStatusScreen extends ConsumerWidget {
                     ref.invalidate(therapistLeaveStatusProvider);
                   },
                   child: value.leaveDtls!.isEmpty
-                      ? Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                "assets/images/svg/blank.svg",
-                                fit: BoxFit.cover,
-                                height: MediaQuery.sizeOf(context).height / 3,
-                              ),
-                              gap8,
-                              const Text("Ohh ! leave status is empty"),
-                              gap8,
-                              ElevatedButton(
-                                  onPressed: () {
-                                    ref.invalidate(
-                                        therapistLeaveStatusProvider);
-                                  },
-                                  child: const Text("Refresh"))
-                            ],
-                          ),
+                      ? EmptyWidget(
+                          onPressed: () {
+                            ref.invalidate(therapistLeaveStatusProvider);
+                          },
                         )
                       : ListView.builder(
                           itemCount: value.leaveDtls!.length,
@@ -176,7 +215,7 @@ class ExeLeaveStatusScreen extends ConsumerWidget {
                                               fontWeight: FontWeight.bold,
                                               fontSize: 10),
                                         ),
-                                      gap4,
+                                        gap4,
                                         Text(
                                           "to",
                                           style: TextStyle(

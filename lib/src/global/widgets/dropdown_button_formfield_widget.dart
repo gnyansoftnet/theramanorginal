@@ -40,6 +40,9 @@ class DropDownButtonFormFieldWidget<T> extends StatelessWidget {
         errorBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Theme.of(context).dividerColor),
             borderRadius: BorderRadius.circular(0)),
+        focusedErrorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Theme.of(context).dividerColor),
+            borderRadius: BorderRadius.circular(0)),
         fillColor: Theme.of(context).focusColor,
       ),
       validator: validator,

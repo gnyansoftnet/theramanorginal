@@ -1,11 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:theraman/src/features/therapist/application/providers/ongoing_provider.dart';
 import 'package:theraman/src/features/therapist/presentation/controller/dashboard_controller.dart';
+import 'package:theraman/src/global/widgets/empty_widget.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
-import 'package:theraman/src/utils/constants/gaps.dart';
 import 'package:theraman/src/utils/extensions/asyncvalue_easy_when.dart';
 
 @RoutePage(deferredLoading: true, name: "OnGoingSessionRoute")
@@ -26,26 +25,9 @@ class OnGoingSessionScreen extends ConsumerWidget {
               ref.invalidate(onGoingProvider);
             },
             child: value.allotSlots!.isEmpty
-                ? Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          "assets/images/svg/blank.svg",
-                          fit: BoxFit.cover,
-                          height: MediaQuery.sizeOf(context).height / 3,
-                        ),
-                        gap8,
-                        const Text("Ohh you did not have any session !"),
-                        gap8,
-                        ElevatedButton(
-                            onPressed: () {
-                              ref.invalidate(onGoingProvider);
-                            },
-                            child: const Text("Refresh"))
-                      ],
-                    ),
-                  )
+                ? EmptyWidget(onPressed: () {
+                    ref.invalidate(onGoingProvider);
+                  })
                 : ListView.builder(
                     physics: const AlwaysScrollableScrollPhysics(),
                     itemCount: value.allotSlots!.length,

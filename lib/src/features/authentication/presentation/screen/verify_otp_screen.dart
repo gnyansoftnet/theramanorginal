@@ -7,10 +7,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 import 'package:theraman/src/features/authentication/application/providers/verify_otp_provider.dart';
-import 'package:theraman/src/global/exception/app_exception.dart';
 import 'package:theraman/src/features/authentication/application/providers/timer_provider.dart';
 import 'package:theraman/src/features/authentication/application/providers/send_otp_provider.dart';
 import 'package:theraman/src/features/authentication/presentation/comp/verify_otp_button.dart';
+import 'package:theraman/src/global/exception/api_exception.dart';
 import 'package:theraman/src/utils/constants/app_assets.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
@@ -182,7 +182,7 @@ class _VerifyOtpScreenState extends ConsumerState<VerifyOtpScreen> {
         pinController.text = commingSms.toString().split(" ")[10];
         otpText = commingSms.toString().split(" ")[2];
       } on PlatformException {
-        AppException("Can not fetch otp");
+        APIException(errorMessage: "can not read message");
       }
     }
   }

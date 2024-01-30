@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/authentication/application/providers/user_provider.dart';
@@ -10,16 +9,16 @@ import 'package:theraman/src/features/therapist/presentation/comp/apply_leave_bu
 import 'package:theraman/src/global/widgets/drawer_widget.dart';
 import 'package:theraman/src/global/widgets/dropdown_button_formfield_widget.dart';
 import 'package:theraman/src/global/widgets/textfield_widget.dart';
-import 'package:theraman/src/global/helper/common_methods.dart';
-import 'package:theraman/src/utils/constants/app_colors.dart';
-import 'package:theraman/src/utils/constants/gaps.dart';
+import 'package:theraman/src/utils/constants/constant.dart';
+import 'package:theraman/src/utils/extensions/ext.dart';
 
 @RoutePage(deferredLoading: true, name: "ApplyLeaveRoute")
 class ApplyLeaveScreen extends StatelessWidget {
   ApplyLeaveScreen({super.key});
 
-  final fromDateValue = ValueNotifier<String?>(null);
-  final toDateValue = ValueNotifier<String?>(null);
+  final _formDateController = TextEditingController();
+  final _toDateController = TextEditingController();
+
   final isOneDay = ValueNotifier<bool>(false);
   final reasonController = TextEditingController();
   final noOfDaysController = TextEditingController();
@@ -99,15 +98,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                     onChanged: (value) {
                       if (value == "1" || value == "0.5" || value == ".5") {
                         isOneDay.value = true;
-                      }
-                      //  else if (fromDateValue.value != null &&
-                      //     toDateValue.value != null) {
-                      //   getDate(
-                      //       value: DateTime.parse(fromDateValue.value ?? ""));
-                      //   isOneDay.value = false;
-
-                      // }
-                      else {
+                      } else {
                         isOneDay.value = false;
                       }
                     },
@@ -136,25 +127,31 @@ class ApplyLeaveScreen extends StatelessWidget {
                                     style: _textStyle,
                                   ),
                                   gap4,
-                                  dateFieldBox(
-                                    context: context,
-                                    dateValue: fromDateValue,
-                                    onTap: () {
-                                      showDateTimeRangePicker(
-                                              context: context,
-                                              initialDate: DateTime.now(),
-                                              firstDate: DateTime(1600),
-                                              lastDate: DateTime(250000))
-                                          .then((value) {
-                                        fromDateValue.value =
-                                            DateFormat('MM/dd/yyy')
-                                                .format(value);
-                                        toDateValue.value =
-                                            DateFormat('MM/dd/yyy')
-                                                .format(value);
-                                      }).onError((error, stackTrace) => null);
-                                    },
-                                  ),
+                                  TextFieldWidget(
+                                      controller: _formDateController,
+                                      preFixIcon:
+                                          const Icon(Icons.calendar_month),
+                                      readOnly: true,
+                                      onFieldSubmitted: (value) {},
+                                      validator:
+                                          FormValidators.requiredWithFieldName(
+                                                  "Date is required")
+                                              .call,
+                                      onTap: () async {
+                                        await DateTimeExtension.showDate(
+                                          context: context,
+                                          initialDate: DateTime.now(),
+                                          firstDate:
+                                              DateTime(DateTime.now().year - 1),
+                                          lastDate:
+                                              DateTime(DateTime.now().year + 1),
+                                        ).then((value) {
+                                          _formDateController.text =
+                                              DateFormat('MM/dd/yyy')
+                                                  .format(value);
+                                        });
+                                      },
+                                      hint: "MM/DD/YYY"),
                                 ],
                               )
                             : Row(
@@ -169,25 +166,32 @@ class ApplyLeaveScreen extends StatelessWidget {
                                           style: _textStyle,
                                         ),
                                         gap4,
-                                        dateFieldBox(
-                                            context: context,
-                                            dateValue: fromDateValue,
-                                            onTap: () {
-                                              showDateTimeRangePicker(
-                                                      context: context,
-                                                      initialDate:
-                                                          DateTime.now(),
-                                                      firstDate: DateTime(1600),
-                                                      lastDate:
-                                                          DateTime(250000))
-                                                  .then((value) {
-                                                fromDateValue.value =
+                                        TextFieldWidget(
+                                            controller: _formDateController,
+                                            preFixIcon: const Icon(
+                                                Icons.calendar_month),
+                                            readOnly: true,
+                                            onFieldSubmitted: (value) {},
+                                            validator: FormValidators
+                                                    .requiredWithFieldName(
+                                                        "Date is required")
+                                                .call,
+                                            onTap: () async {
+                                              await DateTimeExtension.showDate(
+                                                context: context,
+                                                initialDate: DateTime.now(),
+                                                firstDate: DateTime(
+                                                    DateTime.now().year - 1),
+                                                lastDate: DateTime(
+                                                    DateTime.now().year + 1),
+                                              ).then((value) {
+                                                _formDateController.text =
                                                     DateFormat('MM/dd/yyy')
                                                         .format(value);
                                                 getDate(value: value);
-                                              }).onError((error, stackTrace) =>
-                                                      null);
-                                            })
+                                              });
+                                            },
+                                            hint: "MM/DD/YYY"),
                                       ],
                                     ),
                                   ),
@@ -202,10 +206,18 @@ class ApplyLeaveScreen extends StatelessWidget {
                                           style: _textStyle,
                                         ),
                                         gap4,
-                                        dateFieldBox(
-                                            context: context,
-                                            dateValue: toDateValue,
-                                            onTap: () {}),
+                                        TextFieldWidget(
+                                            controller: _toDateController,
+                                            preFixIcon: const Icon(
+                                                Icons.calendar_month),
+                                            readOnly: true,
+                                            onFieldSubmitted: (value) {},
+                                            validator: FormValidators
+                                                    .requiredWithFieldName(
+                                                        "Date is required")
+                                                .call,
+                                            onTap: () async {},
+                                            hint: "MM/DD/YYY"),
                                       ],
                                     ),
                                   )
@@ -272,15 +284,13 @@ class ApplyLeaveScreen extends StatelessWidget {
               Consumer(builder: (context, ref, _) {
                 return ApplyLeaveButton(onSubmit: () {
                   if (!_formKey.currentState!.validate()) return;
-                  if (isValidated()) {
-                    userController.applyLeave(
-                        ref: ref,
-                        fromDate: fromDateValue.value.toString(),
-                        toDate: toDateValue.value.toString(),
-                        leaveType: leaveTypeValue.value.toString(),
-                        reason: reasonController.text,
-                        noOfDays: noOfDaysController.text);
-                  }
+                  userController.applyLeave(
+                      ref: ref,
+                      fromDate: _formDateController.text.trim().toString(),
+                      toDate: _toDateController.text.trim().toString(),
+                      leaveType: leaveTypeValue.value.toString(),
+                      reason: reasonController.text,
+                      noOfDays: noOfDaysController.text);
                 });
               }),
             ],
@@ -290,22 +300,14 @@ class ApplyLeaveScreen extends StatelessWidget {
     );
   }
 
-  bool isValidated() {
-    if (fromDateValue.value == null || toDateValue.value == null) {
-      Fluttertoast.showToast(msg: "Select your date");
-      return false;
-    }
-    return true;
-  }
-
   void getDate({required DateTime value}) {
     if (noOfDaysController.text.isNotEmpty &&
         noOfDaysController.text.contains('.')) {
       final valueDouble = (double.parse(noOfDaysController.text)).round();
-      toDateValue.value = DateFormat('MM/dd/yyy')
+      _toDateController.text = DateFormat('MM/dd/yyy')
           .format(value.add(Duration(days: valueDouble - 1)));
     } else if (noOfDaysController.text.isNotEmpty) {
-      toDateValue.value = DateFormat('MM/dd/yyy').format(
+      _toDateController.text = DateFormat('MM/dd/yyy').format(
           value.add(Duration(days: (int.parse(noOfDaysController.text)) - 1)));
     }
   }

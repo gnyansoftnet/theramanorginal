@@ -1,10 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:theraman/src/features/executive/application/provider/completed_slot_all_therapist.provider.dart';
 import 'package:theraman/src/features/executive/presentation/widget/completed_listview.dart';
-import 'package:theraman/src/utils/constants/gaps.dart';
+import 'package:theraman/src/global/widgets/empty_widget.dart';
 import 'package:theraman/src/utils/extensions/asyncvalue_easy_when.dart';
 
 @RoutePage(deferredLoading: true, name: "ExecutiveCompletedSessionRoute")
@@ -25,29 +24,9 @@ class ExecutiveCompletedSessionScreen extends ConsumerWidget {
               ref.invalidate(completedSlotAllTherapistProvider);
             },
             child: value.allotSlots!.isEmpty
-                ? Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      // crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Center(
-                          child: SvgPicture.asset(
-                            "assets/images/svg/blank.svg",
-                            fit: BoxFit.cover,
-                            height: MediaQuery.sizeOf(context).height / 3,
-                          ),
-                        ),
-                        gap8,
-                        const Text("Ohh ! you did not completed any session"),
-                        gap8,
-                        ElevatedButton(
-                            onPressed: () {
-                              ref.invalidate(completedSlotAllTherapistProvider);
-                            },
-                            child: const Text("Refresh"))
-                      ],
-                    ),
-                  )
+                ? EmptyWidget(onPressed: () {
+                    ref.invalidate(completedSlotAllTherapistProvider);
+                  })
                 : ListView.builder(
                     physics: const AlwaysScrollableScrollPhysics(),
                     itemCount: value.allotSlots!.length,

@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/therapist/application/providers/leave_status_provider.dart';
 import 'package:theraman/src/global/widgets/drawer_widget.dart';
 import 'package:theraman/src/global/helper/common_methods.dart';
+import 'package:theraman/src/global/widgets/empty_widget.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/constants/gaps.dart';
 import 'package:theraman/src/utils/extensions/asyncvalue_easy_when.dart';
@@ -97,26 +97,9 @@ class LeaveStatusScreen extends ConsumerWidget {
                   ref.invalidate(leaveStatusProvider);
                 }, data: (value) {
                   return value.leaveDtls!.isEmpty
-                      ? Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                "assets/images/svg/blank.svg",
-                                fit: BoxFit.cover,
-                                height: MediaQuery.sizeOf(context).height / 3,
-                              ),
-                              gap8,
-                              const Text("Ohh you did not apply any leave !"),
-                              gap8,
-                              ElevatedButton(
-                                  onPressed: () {
-                                    ref.invalidate(leaveStatusProvider);
-                                  },
-                                  child: const Text("Refresh"))
-                            ],
-                          ),
-                        )
+                      ? EmptyWidget(onPressed: () {
+                          ref.invalidate(leaveStatusProvider);
+                        })
                       : ListView.builder(
                           itemCount: value.leaveDtls!.length,
                           itemBuilder: (context, index) {

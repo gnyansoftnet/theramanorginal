@@ -6,7 +6,8 @@ import 'package:theraman/src/core/routes/auto_route_observer.dart';
 import 'package:theraman/src/core/routes/router_pod.dart';
 import 'package:theraman/src/core/theme/app_themes.dart';
 import 'package:theraman/src/global/widgets/monitoring_connection_view.dart';
-import 'package:theraman/src/global/helper/responsive_break_point.dart';
+
+import 'src/global/helper/helper.dart';
 
 class App extends ConsumerStatefulWidget {
   const App({super.key});

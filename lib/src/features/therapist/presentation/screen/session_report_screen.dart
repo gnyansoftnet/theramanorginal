@@ -49,7 +49,6 @@ class SessionReport extends ConsumerWidget {
                   child: ValueListenableBuilder(
                       valueListenable: _dropDowndateValue,
                       builder: (context, value, child) {
-                        // ref.watch(sessionSummaryProvider(value));
                         return GestureDetector(
                           child: DropDownButtonFormFieldWidget(
                               value: _dropDowndateValue.value,
@@ -155,7 +154,7 @@ class SessionReport extends ConsumerWidget {
                             builder: (context, value, child) {
                               debugPrint("value=====$value");
                               return Text(
-                                "Session Details of ${value == "Current Month" ? DateFormat.yMMMM().format(DateTime.now()) : DateFormat.yMMMM().format(DateTime(DateTime.now().year, DateTime.now().month - 1))}",
+                                "SESSION DETAILS OF ${value == "Current Month" ? DateFormat.yMMMM().format(DateTime.now()).toUpperCase() : DateFormat.yMMMM().format(DateTime(DateTime.now().year, DateTime.now().month - 1)).toUpperCase()}",
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 16),
                               );
@@ -169,126 +168,158 @@ class SessionReport extends ConsumerWidget {
                         sessionSummaryDetailState.easyWhen(onRetry: () async {
                       ref.invalidate(sessionSummaryDetailProvider);
                     }, data: (value) {
+                      final data = value.sessionDtl;
                       return RefreshIndicator(
-                        onRefresh: () async {
-                          ref.invalidate(sessionSummaryDetailProvider);
-                        },
-                        child: SingleChildScrollView(
-                          child: DataTable(
+                          onRefresh: () async {
+                            ref.invalidate(sessionSummaryDetailProvider);
+                          },
+                          child: SingleChildScrollView(
+                            child: Table(
                               border: const TableBorder(
-                                  left: BorderSide(),
-                                  right: BorderSide(),
-                                  bottom: BorderSide(),
-                                  top: BorderSide()),
-                              headingTextStyle: TextStyle(
-                                  color: AppColors.white,
-                                  fontWeight: FontWeight.bold),
-                              headingRowColor:
-                                  MaterialStateProperty.resolveWith((states) =>
-                                      Theme.of(context).primaryColor),
-                              columnSpacing: 10,
-                              // horizontalMargin: 12,
-                              // minWidth: 250,
-                              // dividerThickness: 1,
-                              columns: const [
-                                DataColumn(
-                                  label: Text(
-                                    'Date',
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: Text(
-                                    'Alloted',
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: Text(
-                                    'Taken',
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: Text(
-                                    'Cancelled',
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: Text(
-                                    'Assesment',
-                                  ),
-                                ),
+                                  horizontalInside: BorderSide(width: 1),
+                                  bottom: BorderSide(width: 1),
+                                  left: BorderSide(width: 1),
+                                  right: BorderSide(width: 1),
+                                  top: BorderSide(width: 1),
+                                  verticalInside: BorderSide(width: 1)),
+                              children: [
+                                TableRow(
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                    children: [
+                                      Center(
+                                        child: Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: FittedBox(
+                                              child: Text(
+                                                "DATE",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Theme.of(context)
+                                                        .cardColor),
+                                              ),
+                                            )),
+                                      ),
+                                      Center(
+                                        child: Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: FittedBox(
+                                              child: Text(
+                                                "ALLOTED",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Theme.of(context)
+                                                        .cardColor),
+                                              ),
+                                            )),
+                                      ),
+                                      Center(
+                                        child: Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: FittedBox(
+                                              child: Text(
+                                                "TAKEN",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Theme.of(context)
+                                                        .cardColor),
+                                              ),
+                                            )),
+                                      ),
+                                      Center(
+                                        child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 10, horizontal: 3),
+                                            child: FittedBox(
+                                              child: Text(
+                                                "CANCELLED",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Theme.of(context)
+                                                        .cardColor),
+                                              ),
+                                            )),
+                                      ),
+                                      Center(
+                                        child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 10, horizontal: 3),
+                                            child: FittedBox(
+                                              child: Text(
+                                                "ASSESMENT",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Theme.of(context)
+                                                        .cardColor),
+                                              ),
+                                            )),
+                                      ),
+                                    ]),
+                                ...data!.asMap().entries.map(
+                                  (d) {
+                                    return TableRow(
+                                        decoration: BoxDecoration(
+                                            color: d.value.isSunday == 'Y'
+                                                ? AppColors.red
+                                                : Theme.of(context).cardColor),
+                                        children: [
+                                          Center(
+                                            child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                child: FittedBox(
+                                                  child: Text(
+                                                    "${d.value.allotDay}",
+                                                  ),
+                                                )),
+                                          ),
+                                          Center(
+                                            child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                child: FittedBox(
+                                                  child: Text(
+                                                    "${d.value.allotted}",
+                                                  ),
+                                                )),
+                                          ),
+                                          Center(
+                                            child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                child: FittedBox(
+                                                  child: Text(
+                                                    "${d.value.taken}",
+                                                  ),
+                                                )),
+                                          ),
+                                          Center(
+                                            child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                child: FittedBox(
+                                                  child: Text(
+                                                    "${d.value.cancelled}",
+                                                  ),
+                                                )),
+                                          ),
+                                          Center(
+                                            child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                child: FittedBox(
+                                                  child: Text(
+                                                    "${d.value.assessment}",
+                                                  ),
+                                                )),
+                                          ),
+                                        ]);
+                                  },
+                                )
                               ],
-                              rows: List<DataRow>.generate(
-                                  value.sessionDtl!.length,
-                                  (index) => DataRow(
-                                          color: MaterialStateProperty
-                                              .resolveWith((states) => value
-                                                          .sessionDtl![index]
-                                                          .isSunday ==
-                                                      "Y"
-                                                  ? Theme.of(context)
-                                                      .focusColor
-                                                      .withOpacity(0.5)
-                                                  : Theme.of(context)
-                                                      .scaffoldBackgroundColor),
-                                          cells: [
-                                            DataCell(Text(
-                                              "${value.sessionDtl![index].allotDay}",
-                                              style: TextStyle(
-                                                  color:
-                                                      value.sessionDtl![index]
-                                                                  .isSunday ==
-                                                              "Y"
-                                                          ? AppColors.white
-                                                          : AppColors.black,
-                                                  fontWeight: FontWeight.bold),
-                                            )),
-                                            DataCell(Text(
-                                              "${value.sessionDtl![index].allotted}",
-                                              style: TextStyle(
-                                                  color:
-                                                      value.sessionDtl![index]
-                                                                  .isSunday ==
-                                                              "Y"
-                                                          ? AppColors.white
-                                                          : AppColors.black,
-                                                  fontWeight: FontWeight.bold),
-                                            )),
-                                            DataCell(Text(
-                                              "${value.sessionDtl![index].taken}",
-                                              style: TextStyle(
-                                                  color:
-                                                      value.sessionDtl![index]
-                                                                  .isSunday ==
-                                                              "Y"
-                                                          ? AppColors.white
-                                                          : AppColors.black,
-                                                  fontWeight: FontWeight.bold),
-                                            )),
-                                            DataCell(Text(
-                                              "${value.sessionDtl![index].cancelled}",
-                                              style: TextStyle(
-                                                  color:
-                                                      value.sessionDtl![index]
-                                                                  .isSunday ==
-                                                              "Y"
-                                                          ? AppColors.white
-                                                          : AppColors.black,
-                                                  fontWeight: FontWeight.bold),
-                                            )),
-                                            DataCell(Text(
-                                              "${value.sessionDtl![index].assessment}",
-                                              style: TextStyle(
-                                                  color:
-                                                      value.sessionDtl![index]
-                                                                  .isSunday ==
-                                                              "Y"
-                                                          ? AppColors.white
-                                                          : AppColors.black,
-                                                  fontWeight: FontWeight.bold),
-                                            )),
-                                          ]))),
-                        ),
-                      );
+                            ),
+                          ));
                     }))
               ],
             )));
