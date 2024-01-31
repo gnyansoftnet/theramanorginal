@@ -21,7 +21,7 @@ class ExecutiveCancelledSessionScreen extends ConsumerWidget {
         ref.invalidate(cancelledSlotProvider);
       }, data: (value) {
         return Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(5.0),
           child: RefreshIndicator(
             onRefresh: () async {
               ref.invalidate(cancelledSlotProvider);
@@ -36,11 +36,11 @@ class ExecutiveCancelledSessionScreen extends ConsumerWidget {
                     itemBuilder: (context, index) {
                       final data = value.allotSlots![index];
                       return Card(
-                        elevation: 5.0,
+                        elevation: 1.0,
+                        margin: EdgeInsets.zero,
                         color: AppColors.red,
                         child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 0, bottom: 5, left: 10, right: 10),
+                          padding: const EdgeInsets.all(8),
                           child: Column(
                             children: [
                               Row(
@@ -50,14 +50,18 @@ class ExecutiveCancelledSessionScreen extends ConsumerWidget {
                                   Expanded(
                                     child: Text(
                                       "${data.rSPName}",
-                                      style: TextStyle(
-                                          color: AppColors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 17),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge
+                                          ?.copyWith(
+                                              color:
+                                                  Theme.of(context).cardColor,
+                                              fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                   PopupMenuButton(
-                                    color: AppColors.white,
+                                    color: Theme.of(context).cardColor,
+                                    iconColor: Theme.of(context).cardColor,
                                     itemBuilder: (context) =>
                                         <PopupMenuEntry<String>>[
                                       PopupMenuItem(
@@ -89,18 +93,24 @@ class ExecutiveCancelledSessionScreen extends ConsumerWidget {
                                     Expanded(
                                       child: Text(
                                         "${data.rSSlotType}",
-                                        style: TextStyle(
-                                            color: AppColors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 13),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium
+                                            ?.copyWith(
+                                                color:
+                                                    Theme.of(context).cardColor,
+                                                fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                     Text(
                                       "${data.rSSessionType}",
-                                      style: TextStyle(
-                                          color: AppColors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                              color:
+                                                  Theme.of(context).cardColor,
+                                              fontWeight: FontWeight.bold),
                                     ),
                                   ]),
                               gap8,
@@ -110,17 +120,23 @@ class ExecutiveCancelledSessionScreen extends ConsumerWidget {
                                   children: [
                                     Text(
                                       "${data.rSStartTime}",
-                                      style: TextStyle(
-                                          color: AppColors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 12),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                              color:
+                                                  Theme.of(context).cardColor,
+                                              fontWeight: FontWeight.bold),
                                     ),
                                     Text(
                                       "${data.rSDoctorName}",
-                                      style: TextStyle(
-                                          color: AppColors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 12),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                              color:
+                                                  Theme.of(context).cardColor,
+                                              fontWeight: FontWeight.bold),
                                     ),
                                   ]),
                               gap8,
@@ -129,10 +145,13 @@ class ExecutiveCancelledSessionScreen extends ConsumerWidget {
                                   children: [
                                     Text(
                                       "${data.rSReason}",
-                                      style: TextStyle(
-                                          color: AppColors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 12),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                              color:
+                                                  Theme.of(context).cardColor,
+                                              fontWeight: FontWeight.bold),
                                     ),
                                   ])
                             ],

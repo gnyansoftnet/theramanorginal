@@ -89,7 +89,8 @@ class CustomOngoingSearch extends SearchDelegate {
                               ),
                             ),
                             PopupMenuButton(
-                              color: AppColors.white,
+                              color: Theme.of(context).cardColor,
+                              iconColor: Theme.of(context).cardColor,
                               itemBuilder: (context) =>
                                   <PopupMenuEntry<String>>[
                                 PopupMenuItem(
@@ -360,7 +361,8 @@ class CustomOngoingSearch extends SearchDelegate {
                             ),
                           ),
                           PopupMenuButton(
-                            color: AppColors.white,
+                            color: Theme.of(context).cardColor,
+                            iconColor: Theme.of(context).cardColor,
                             itemBuilder: (context) => <PopupMenuEntry<String>>[
                               PopupMenuItem(
                                   child: ListTile(

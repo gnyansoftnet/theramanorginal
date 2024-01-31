@@ -12,9 +12,6 @@ import 'package:theraman/src/utils/extensions/ext.dart';
 @RoutePage(deferredLoading: true, name: "TomorrowSessionRoute")
 class TomorrowSessionScreen extends ConsumerWidget {
   TomorrowSessionScreen({super.key});
-
-  // final dateValue = ValueNotifier<String>(DateFormat('MM/dd/yyyy')
-  //     .format(DateTime.now().add(const Duration(days: 1))));
   final _dateController = TextEditingController(
       text: DateFormat('MM/dd/yyyy')
           .format(DateTime.now().add(const Duration(days: 1))));

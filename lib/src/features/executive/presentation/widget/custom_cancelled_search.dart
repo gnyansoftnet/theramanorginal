@@ -69,7 +69,8 @@ class CustomCancelledSearch extends SearchDelegate {
                         ),
                         Consumer(builder: (context, ref, child) {
                           return PopupMenuButton(
-                            color: AppColors.white,
+                            color: Theme.of(context).cardColor,
+                            iconColor: Theme.of(context).cardColor,
                             itemBuilder: (context) => <PopupMenuEntry<String>>[
                               PopupMenuItem(
                                   child: ListTile(
@@ -188,7 +189,8 @@ class CustomCancelledSearch extends SearchDelegate {
                         ),
                         Consumer(builder: (context, ref, _) {
                           return PopupMenuButton(
-                            color: AppColors.white,
+                            color: Theme.of(context).cardColor,
+                            iconColor: Theme.of(context).cardColor,
                             itemBuilder: (context) => <PopupMenuEntry<String>>[
                               PopupMenuItem(
                                   child: ListTile(

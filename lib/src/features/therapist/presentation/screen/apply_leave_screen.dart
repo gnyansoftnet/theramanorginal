@@ -311,45 +311,4 @@ class ApplyLeaveScreen extends StatelessWidget {
           value.add(Duration(days: (int.parse(noOfDaysController.text)) - 1)));
     }
   }
-
-  Widget dateFieldBox(
-      {required BuildContext context,
-      required ValueNotifier dateValue,
-      required VoidCallback onTap}) {
-    return InkWell(
-      onTap: onTap,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-            border: Border.all(color: Theme.of(context).dividerColor),
-            color: Theme.of(context).focusColor),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Icon(
-                Icons.calendar_month,
-                color: AppColors.black,
-              ),
-              gap8,
-              ValueListenableBuilder(
-                  valueListenable: dateValue,
-                  builder: (context, value, child) {
-                    return Expanded(
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                          value ?? "MM/dd/yyy",
-                          style: TextStyle(
-                            color: AppColors.black,
-                          ),
-                        ),
-                      ),
-                    );
-                  }),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }

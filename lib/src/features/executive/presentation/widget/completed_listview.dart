@@ -10,10 +10,11 @@ class CompletedListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 5.0,
+      elevation: 1.0,
       color: AppColors.green,
+      margin: EdgeInsets.zero,
       child: Padding(
-        padding: const EdgeInsets.only(top: 8, bottom: 8, left: 10, right: 10),
+        padding: const EdgeInsets.all(8),
         child: Column(
           children: [
             Row(
@@ -25,10 +26,12 @@ class CompletedListView extends StatelessWidget {
                       Expanded(
                         child: Text(
                           "${data.rSPName}",
-                          style: TextStyle(
-                              color: AppColors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge
+                              ?.copyWith(
+                                  color: Theme.of(context).cardColor,
+                                  fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],
@@ -43,18 +46,16 @@ class CompletedListView extends StatelessWidget {
                 Expanded(
                   child: Text(
                     "${data.rSSlotType}",
-                    style: TextStyle(
-                        color: AppColors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Theme.of(context).cardColor,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
                 Text(
                   "${data.rSSessionType}",
-                  style: TextStyle(
-                      color: AppColors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13),
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: Theme.of(context).cardColor,
+                      fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -64,83 +65,18 @@ class CompletedListView extends StatelessWidget {
               children: [
                 Text(
                   "${data.rSStartTime}",
-                  style: TextStyle(
-                      color: AppColors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12),
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: Theme.of(context).cardColor,
+                      fontWeight: FontWeight.bold),
                 ),
                 Text(
                   "${data.rSDoctorName}",
-                  style: TextStyle(
-                      color: AppColors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12),
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: Theme.of(context).cardColor,
+                      fontWeight: FontWeight.bold),
                 ),
               ],
             ),
-            // ListTile(
-            //   dense: true,
-            //   visualDensity: const VisualDensity(vertical: -3),
-            //   leading: Text(
-            //     "${data.rSPName}",
-            //     style: TextStyle(
-            //         color: AppColors.white,
-            //         fontWeight: FontWeight.bold,
-            //         fontSize: 17),
-            //   ),
-            // ),
-            // ListTile(
-            //   dense: true,
-            //   visualDensity: const VisualDensity(vertical: -3),
-            //   leading: SizedBox(
-            //     height: 100,
-            //     width: 100,
-            //     child: Text(
-            //       "${data.rSSlotType}",
-            //       style: TextStyle(
-            //           color: AppColors.white,
-            //           fontWeight: FontWeight.bold,
-            //           fontSize: 13),
-            //     ),
-            //   ),
-            //   trailing: SizedBox(
-            //     height: 100,
-            //     width: 100,
-            //     child: Text(
-            //       "${data.rSSessionType}",
-            //       style: TextStyle(
-            //           color: AppColors.white,
-            //           fontWeight: FontWeight.bold,
-            //           fontSize: 13),
-            //     ),
-            //   ),
-            // ),
-            // ListTile(
-            //   dense: true,
-            //   visualDensity: const VisualDensity(vertical: -3),
-            //   leading: SizedBox(
-            //     height: 100,
-            //     width: 100,
-            //     child: Text(
-            //       "${data.rSStartTime}",
-            //       style: TextStyle(
-            //           color: AppColors.white,
-            //           fontWeight: FontWeight.bold,
-            //           fontSize: 12),
-            //     ),
-            //   ),
-            //   trailing: SizedBox(
-            //     height: 100,
-            //     width: 100,
-            //     child: Text(
-            //       "${data.rSDoctorName}",
-            //       style: TextStyle(
-            //           color: AppColors.white,
-            //           fontWeight: FontWeight.bold,
-            //           fontSize: 12),
-            //     ),
-            //   ),
-            // )
           ],
         ),
       ),

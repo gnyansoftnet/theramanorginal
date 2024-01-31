@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theraman/src/features/executive/application/provider/completed_slot_all_therapist.provider.dart';
 import 'package:theraman/src/features/executive/presentation/widget/completed_listview.dart';
 import 'package:theraman/src/global/widgets/empty_widget.dart';
+import 'package:theraman/src/utils/constants/constant.dart';
 import 'package:theraman/src/utils/extensions/asyncvalue_easy_when.dart';
 
 @RoutePage(deferredLoading: true, name: "ExecutiveCompletedSessionRoute")
@@ -18,7 +19,7 @@ class ExecutiveCompletedSessionScreen extends ConsumerWidget {
         ref.invalidate(completedSlotAllTherapistProvider);
       }, data: (value) {
         return Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(5.0),
           child: RefreshIndicator(
             onRefresh: () async {
               ref.invalidate(completedSlotAllTherapistProvider);
@@ -27,7 +28,8 @@ class ExecutiveCompletedSessionScreen extends ConsumerWidget {
                 ? EmptyWidget(onPressed: () {
                     ref.invalidate(completedSlotAllTherapistProvider);
                   })
-                : ListView.builder(
+                : ListView.separated(
+                    separatorBuilder: (_, __) => gap8,
                     physics: const AlwaysScrollableScrollPhysics(),
                     itemCount: value.allotSlots!.length,
                     itemBuilder: (context, index) {

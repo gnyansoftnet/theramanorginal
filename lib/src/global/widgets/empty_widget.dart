@@ -10,18 +10,28 @@ class EmptyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
     return Center(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Image(image: AssetImage(AppAssets.emptyImg)),
-          ElevatedButton(
-              onPressed: onPressed,
-              style: ElevatedButton.styleFrom(
-                  elevation: 4.0, fixedSize: const Size(100, 40)),
-              child: const Text("REFRESH"))
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image(
+              image: const AssetImage(AppAssets.emptyImg),
+              height: size.height / 2,
+            ),
+            ElevatedButton(
+                onPressed: onPressed,
+                style: ElevatedButton.styleFrom(
+                    elevation: 4.0, padding: const EdgeInsets.all(15)),
+                child: Text(
+                  "REFRESH",
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: Theme.of(context).cardColor, letterSpacing: 1.5),
+                ))
+          ],
+        ),
       ),
     );
   }

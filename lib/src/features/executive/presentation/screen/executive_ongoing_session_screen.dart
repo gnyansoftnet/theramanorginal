@@ -31,7 +31,7 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
         ref.invalidate(allotedSlotAllTherapistProvider);
       }, data: (value) {
         return Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(5),
           child: RefreshIndicator(
             onRefresh: () async {
               ref.invalidate(allotedSlotAllTherapistProvider);
@@ -40,13 +40,17 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                 ? EmptyWidget(onPressed: () {
                     ref.invalidate(allotedSlotAllTherapistProvider);
                   })
-                : ListView.builder(
+                : ListView.separated(
+                    separatorBuilder: (_, __) => gap8,
                     physics: const AlwaysScrollableScrollPhysics(),
                     itemCount: value.allotSlots!.length,
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
                     itemBuilder: (context, index) {
                       final data = value.allotSlots![index];
                       return Card(
-                        elevation: 5.0,
+                        elevation: 1.0,
+                        margin: EdgeInsets.zero,
                         color: data.rSSlotStatus == "Started"
                             ? AppColors.blue
                             : data.rSSessionType == "Adjustment"
@@ -57,8 +61,7 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                                         ? Colors.orange
                                         : AppColors.cyan,
                         child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 0, bottom: 5, left: 10, right: 10),
+                          padding: const EdgeInsets.all(8),
                           child: Column(
                             children: [
                               Row(
@@ -68,14 +71,18 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                                   Expanded(
                                     child: Text(
                                       "${data.rSPName}",
-                                      style: TextStyle(
-                                          color: AppColors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 17),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge
+                                          ?.copyWith(
+                                              color:
+                                                  Theme.of(context).cardColor,
+                                              fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                   PopupMenuButton(
-                                    color: AppColors.white,
+                                    color: Theme.of(context).cardColor,
+                                    iconColor: Theme.of(context).cardColor,
                                     itemBuilder: (context) =>
                                         <PopupMenuEntry<String>>[
                                       PopupMenuItem(
@@ -190,7 +197,7 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                                   ),
                                 ],
                               ),
-                              gap4,
+                              gap8,
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -198,18 +205,23 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                                   Expanded(
                                     child: Text(
                                       "${data.rSSlotType}",
-                                      style: TextStyle(
-                                          color: AppColors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                              color:
+                                                  Theme.of(context).cardColor,
+                                              fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                   Text(
                                     "${data.rSSessionType}",
-                                    style: TextStyle(
-                                        color: AppColors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 13),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.copyWith(
+                                            color: Theme.of(context).cardColor,
+                                            fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
@@ -220,17 +232,21 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                                 children: [
                                   Text(
                                     "${data.rSStartTime}",
-                                    style: TextStyle(
-                                        color: AppColors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.copyWith(
+                                            color: Theme.of(context).cardColor,
+                                            fontWeight: FontWeight.bold),
                                   ),
                                   Text(
                                     "${data.rSSlotStatus}",
-                                    style: TextStyle(
-                                        color: AppColors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.copyWith(
+                                            color: Theme.of(context).cardColor,
+                                            fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
@@ -240,10 +256,12 @@ class ExecutiveOngoingSessionScreen extends ConsumerWidget {
                                 children: [
                                   Text(
                                     "${data.rSDoctorName}",
-                                    style: TextStyle(
-                                        color: AppColors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.copyWith(
+                                            color: Theme.of(context).cardColor,
+                                            fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
