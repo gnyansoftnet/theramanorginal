@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theraman/src/features/therapist/application/providers/dashboard_provider.dart';
-import 'package:theraman/src/features/therapist/presentation/controller/dashboard_controller.dart';
+import 'package:theraman/src/features/therapist/presentation/controller/therapist_controller.dart';
 import 'package:theraman/src/global/widgets/empty_widget.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
 import 'package:theraman/src/utils/extensions/asyncvalue_easy_when.dart';
@@ -10,7 +10,7 @@ import 'package:theraman/src/utils/extensions/asyncvalue_easy_when.dart';
 @RoutePage(deferredLoading: true, name: "CompletedSessionRoute")
 class CompletedSessionScreen extends ConsumerWidget {
   CompletedSessionScreen({super.key});
-  final dashoardController = DashboardController();
+  final dashoardController = TherapistController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

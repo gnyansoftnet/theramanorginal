@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/authentication/application/providers/user_provider.dart';
-import 'package:theraman/src/features/therapist/presentation/controller/user_controller.dart';
 import 'package:theraman/src/features/therapist/presentation/comp/apply_leave_button.dart';
+import 'package:theraman/src/features/therapist/presentation/controller/therapist_controller.dart';
 import 'package:theraman/src/global/widgets/drawer_widget.dart';
 import 'package:theraman/src/global/widgets/dropdown_button_formfield_widget.dart';
 import 'package:theraman/src/global/widgets/textfield_widget.dart';
@@ -22,7 +22,7 @@ class ApplyLeaveScreen extends StatelessWidget {
   final isOneDay = ValueNotifier<bool>(false);
   final reasonController = TextEditingController();
   final noOfDaysController = TextEditingController();
-  final userController = UserController();
+  final therapistController = TherapistController();
   final _formKey = GlobalKey<FormState>();
 
   final leaveTypeValue = ValueNotifier<String?>(null);
@@ -284,7 +284,7 @@ class ApplyLeaveScreen extends StatelessWidget {
               Consumer(builder: (context, ref, _) {
                 return ApplyLeaveButton(onSubmit: () {
                   if (!_formKey.currentState!.validate()) return;
-                  userController.applyLeave(
+                  therapistController.applyLeave(
                       ref: ref,
                       fromDate: _formDateController.text.trim().toString(),
                       toDate: _toDateController.text.trim().toString(),

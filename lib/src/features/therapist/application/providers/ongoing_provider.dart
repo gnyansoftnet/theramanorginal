@@ -9,7 +9,7 @@ import 'package:theraman/src/utils/extensions/cancel_ext.dart';
 final onGoingProvider = FutureProvider.autoDispose<AllotedSlotResponseModel>(
   (ref) async {
     final token = ref.cancelToken();
-    ref.autoRefresh(duration: const Duration(seconds: 5));
+    // ref.autoRefresh(duration: const Duration(seconds: 5));
     final userId = ref.watch(userProvider.select((value) => value?.Staff_Code));
     final date = DateFormat("MM/dd/yyy").format(DateTime.now());
     final result = await ref.watch(therapistRepoProvider).getAllotedSlotDetails(

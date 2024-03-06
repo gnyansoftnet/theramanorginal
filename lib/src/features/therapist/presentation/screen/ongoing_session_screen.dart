@@ -2,15 +2,17 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theraman/src/features/therapist/application/providers/ongoing_provider.dart';
-import 'package:theraman/src/features/therapist/presentation/controller/dashboard_controller.dart';
+import 'package:theraman/src/features/therapist/presentation/controller/therapist_controller.dart';
+import 'package:theraman/src/global/pod/curr_loc_status.dart';
 import 'package:theraman/src/global/widgets/empty_widget.dart';
+import 'package:theraman/src/global/widgets/snack_content_widget.dart';
 import 'package:theraman/src/utils/constants/app_colors.dart';
-import 'package:theraman/src/utils/extensions/asyncvalue_easy_when.dart';
+import 'package:theraman/src/utils/extensions/ext.dart';
 
 @RoutePage(deferredLoading: true, name: "OnGoingSessionRoute")
 class OnGoingSessionScreen extends ConsumerWidget {
   OnGoingSessionScreen({super.key});
-  final dashboardController = DashboardController();
+  final therapistController = TherapistController();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final allotedSlotState = ref.watch(onGoingProvider);
@@ -83,13 +85,24 @@ class OnGoingSessionScreen extends ConsumerWidget {
                                         minimumSize: const Size(120, 40)),
                                     onPressed: index != 0
                                         ? null
-                                        : () {
-                                            dashboardController.session(
-                                                context: context,
-                                                ref: ref,
-                                                rsSlotId: data.rSSlotId ?? 0,
-                                                status: data.rSSlotStatus
-                                                    .toString());
+                                        : () async {
+                                            if (await ref.watch(
+                                                    currLocStatus.selectAsync(
+                                                        (data) => data)) &&
+                                                context.mounted) {
+                                              therapistController.session(
+                                                  context: context,
+                                                  ref: ref,
+                                                  rsSlotId: data.rSSlotId ?? 0,
+                                                  status: data.rSSlotStatus
+                                                      .toString());
+                                            } else {
+                                              context.showSnackBar(
+                                                  const SnackContentWidget(
+                                                content:
+                                                    "You are not in office location",
+                                              ));
+                                            }
                                           },
                                     child: Text(
                                       data.rSSlotStatus == "Started"

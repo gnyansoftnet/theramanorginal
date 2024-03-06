@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:theraman/src/features/therapist/application/providers/apply_leave_provider.dart';
 import 'package:theraman/src/features/therapist/application/providers/dashboard_provider.dart';
 import 'package:theraman/src/features/therapist/application/providers/ongoing_provider.dart';
 
-class DashboardController {
+class TherapistController {
   Future<void> session({
     required BuildContext context,
     required WidgetRef ref,
@@ -61,5 +62,22 @@ class DashboardController {
             );
           });
     }
+  }
+
+  void applyLeave({
+    required WidgetRef ref,
+    required String fromDate,
+    required String toDate,
+    required String leaveType,
+    required String reason,
+    required String noOfDays,
+  }) {
+    ref.read(applyLeaveProvider.notifier).userApplyLeave(
+          noOfdays: double.parse(noOfDays),
+          fromDate: fromDate,
+          toDate: toDate,
+          leaveType: leaveType,
+          reason: reason,
+        );
   }
 }

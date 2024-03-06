@@ -7,7 +7,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:theraman/app.dart';
 import 'package:theraman/init.dart';
 import 'package:theraman/src/features/authentication/application/providers/user_provider.dart';
-
 import 'src/global/helper/helper.dart';
 
 Future<void> main() async {
