@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 
 final currLocStatus = FutureProvider.autoDispose<bool>((ref) async {
-  double latitude = 20.287658309744206;
-  double longitude = 85.84986192781479;
-// 20.287658309744206, 85.84986192781479
+  double latitude = 20.254927296612223;
+  double longitude = 85.84696826275193;
+// 20.254927296612223, 85.84696826275193
   LocationPermission permission = await Geolocator.requestPermission();
   if (permission == LocationPermission.denied ||
       permission == LocationPermission.deniedForever) {

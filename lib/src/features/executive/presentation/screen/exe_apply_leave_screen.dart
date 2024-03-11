@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -6,9 +7,7 @@ import 'package:theraman/src/core/routes/app_routes.gr.dart';
 import 'package:theraman/src/features/authentication/application/providers/user_provider.dart';
 import 'package:theraman/src/features/executive/presentation/controller/exe_controller.dart';
 import 'package:theraman/src/features/executive/presentation/widget/exe_apply_leave_button.dart';
-import 'package:theraman/src/global/widgets/drawer_widget.dart';
-import 'package:theraman/src/global/widgets/dropdown_button_formfield_widget.dart';
-import 'package:theraman/src/global/widgets/textfield_widget.dart';
+import 'package:theraman/src/global/widgets/widget.dart';
 
 import 'package:theraman/src/utils/constants/constant.dart';
 import 'package:theraman/src/utils/extensions/ext.dart';
@@ -97,6 +96,10 @@ class ExeApplyLeave extends StatelessWidget {
                     onChanged: (value) {
                       if (value == "1" || value == "0.5" || value == ".5") {
                         _isOneDay.value = true;
+                      } else if (value == null ||
+                          noOfDaysController.text.isEmpty) {
+                        _formDateController.clear();
+                        _toDateController.clear();
                       } else {
                         _isOneDay.value = false;
                       }
@@ -176,19 +179,34 @@ class ExeApplyLeave extends StatelessWidget {
                                                         "Date is required")
                                                 .call,
                                             onTap: () async {
-                                              await DateTimeExtension.showDate(
-                                                context: context,
-                                                initialDate: DateTime.now(),
-                                                firstDate: DateTime(
-                                                    DateTime.now().year - 1),
-                                                lastDate: DateTime(
-                                                    DateTime.now().year + 1),
-                                              ).then((value) {
-                                                _formDateController.text =
-                                                    DateFormat('MM/dd/yyy')
-                                                        .format(value);
-                                                getDate(value: value);
-                                              });
+                                              if (noOfDaysController
+                                                  .text.isNotEmpty) {
+                                                await DateTimeExtension
+                                                    .showDate(
+                                                  context: context,
+                                                  initialDate: DateTime.now(),
+                                                  firstDate: DateTime(
+                                                      DateTime.now().year - 1),
+                                                  lastDate: DateTime(
+                                                      DateTime.now().year + 1),
+                                                ).then((value) {
+                                                  _formDateController.text =
+                                                      DateFormat('MM/dd/yyy')
+                                                          .format(value);
+                                                  getDate(value: value);
+                                                });
+                                              } else {
+                                                context.showFlash<bool>(
+                                                    barrierBlur: 1,
+                                                    barrierDismissible: true,
+                                                    builder: (context,
+                                                            controller) =>
+                                                        FlashBarWidget(
+                                                            controller:
+                                                                controller,
+                                                            content:
+                                                                "You did not add number of days"));
+                                              }
                                             },
                                             hint: "MM/DD/YYY"),
                                       ],

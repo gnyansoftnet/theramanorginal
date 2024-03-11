@@ -76,7 +76,8 @@ class MobileNumberScreen extends ConsumerWidget {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       inputFormatters: <TextInputFormatter>[
                         LengthLimitingTextInputFormatter(10),
-                        FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                        FilteringTextInputFormatter.allow(RegExp('[0-9]')
+                        ),
                       ],
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
